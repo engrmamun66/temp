@@ -1,11 +1,8 @@
 export interface RouteConfig {
-  page_key: string;
-  page_slug: string;
-  title?: string;
-  description?: string;
-  template?: string;
-  file?: string;
-  robots?: string;
+  page_key:       string;
+  page_slug:      string;
+  content_path?:  string;
+  content_source?: string;
   [otherMeta: string]: unknown;
 }
 
@@ -14,13 +11,9 @@ export interface StoreConfig {
   routes: RouteConfig[];
 }
 
-export interface PageData {
-  page_key: string;
-  title: string;
-  description: string;
-  metaTags?: Record<string, string>;
-  robots?: string;
-  content?: string;
-  htmlFile?: string;
-  [key: string]: unknown;
+export interface PageContent {
+  html:             string;
+  meta_title:       string;
+  meta_description: string;
+  meta_keyword:     string;
 }

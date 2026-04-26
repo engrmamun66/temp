@@ -1,10 +1,10 @@
 import { ApiClient } from './ApiClient';
 import { CacheService } from './CacheService';
-import { RouteConfig, StoreConfig, PageData } from '../interfaces/StoreConfig';
+import { RouteConfig, StoreConfig, PageContent } from '../interfaces/StoreConfig';
 
-const STORE_CACHE_KEY = '__store_config__';
-const PAGE_CACHE_TTL = 300;   // 5 minutes
-const STORE_CACHE_TTL = 600;  // 10 minutes
+const STORE_CACHE_KEY  = '__store_config__';
+const STORE_CACHE_TTL  = 600;  // 10 minutes
+const CONTENT_CACHE_TTL = 300; // 5 minutes
 
 export class StoreConfigService {
   private static instance: StoreConfigService;
@@ -12,7 +12,7 @@ export class StoreConfigService {
   private cache: CacheService;
 
   private constructor() {
-    this.api = ApiClient.getInstance();
+    this.api   = ApiClient.getInstance();
     this.cache = CacheService.getInstance();
   }
 
@@ -21,22 +21,23 @@ export class StoreConfigService {
     return StoreConfigService.instance;
   }
 
-  async getRskConfigs(subdomain: string): Promise<StoreConfig> {
+  getRskConfigs(subdomain: string): StoreConfig {
     const cached = this.cache.get<StoreConfig>(subdomain, STORE_CACHE_KEY);
     if (cached) return cached;
 
-    const routes = await this.api.getRskConfigs(subdomain);
+    const routes = this.api.getRskConfigs();
     const config: StoreConfig = { subdomain, routes };
     this.cache.set(subdomain, STORE_CACHE_KEY, config, STORE_CACHE_TTL);
     return config;
   }
 
-  async getPageData(subdomain: string, page_key: string): Promise<PageData> {
-    const cached = this.cache.get<PageData>(subdomain, page_key);
+  async getPageContent(subdomain: string, contentPath: string): Promise<PageContent> {
+    const cacheKey = `content__${contentPath}`;
+    const cached = this.cache.get<PageContent>(subdomain, cacheKey);
     if (cached) return cached;
 
-    const data = await this.api.getPageData(subdomain, page_key);
-    this.cache.set(subdomain, page_key, data, PAGE_CACHE_TTL);
+    const data = await this.api.getPageContent(subdomain, contentPath);
+    this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
     return data;
   }
 

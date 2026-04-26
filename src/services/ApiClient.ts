@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
-import { RouteConfig, PageData } from '../interfaces/StoreConfig';
+import { RouteConfig, PageContent } from '../interfaces/StoreConfig';
 
 // ── /get-settings response shape ────────────────────────────────────────────
 
@@ -192,19 +192,36 @@ export class ApiClient {
 
   // ── Public API methods ────────────────────────────────────────────────────
 
-  async getRskConfigs(subdomain: string): Promise<RouteConfig[]> {
-    const resp = await this.authorizedGet<{
-      status: string;
-      result: { data: { routes: Array<{ route_path: string; page_key: string; page_path: string }> } };
-    }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { store_name: subdomain });
-    return (resp?.result?.data?.routes ?? []).map((r) => ({
-      page_key:  r.page_key,
-      page_slug: r.route_path,
-      file:      r.page_path,
+  getRskConfigs(): RouteConfig[] {
+    const settings = JSON.parse(
+      fs.readFileSync(path.resolve(process.cwd(), 'src/i-server/settings.json'), 'utf-8')
+    ) as { routes: Array<{ route_path: string; page_key: string; content_path?: string; content_source?: string }> };
+    return settings.routes.map((r) => ({
+      page_key:       r.page_key,
+      page_slug:      r.route_path,
+      content_path:   r.content_path,
+      content_source: r.content_source,
     }));
   }
 
-  async getPageData(subdomain: string, page_key: string): Promise<PageData> {
-    return this.authorizedGet<PageData>(subdomain, '/page-data', { subdomain, page_key });
+  async getPageContent(subdomain: string, contentPath: string): Promise<PageContent> {
+    const resp = await this.authorizedGet<{
+      status: string;
+      result: {
+        data: {
+          contents: { content: string };
+          meta_title: string;
+          meta_description: string;
+          meta_keyword: string;
+        };
+      };
+    }>(subdomain, contentPath, { subdomain });
+    const { data } = resp.result;
+    return {
+      html:             data.contents?.content ?? '',
+      meta_title:       data.meta_title ?? '',
+      meta_description: data.meta_description ?? '',
+      meta_keyword:     data.meta_keyword ?? '',
+    };
   }
 }

@@ -1,82 +1,67 @@
 import path from 'path';
 import fs from 'fs';
 import { Request, Response } from 'express';
+import { JSDOM } from 'jsdom';
 import { StoreConfigService } from '../services/StoreConfigService';
-import { ApiClient } from '../services/ApiClient';
-import { RentMyGlobalBuilder } from '../builders/RentMyGlobalBuilder';
 
-const builder = new RentMyGlobalBuilder();
+const INDEX_HTML  = path.resolve(process.cwd(), 'public', 'index.html');
+const indexSource = () => fs.readFileSync(INDEX_HTML, 'utf-8');
 
 export class PageController {
   private storeService: StoreConfigService;
-  private apiClient: ApiClient;
 
   constructor() {
     this.storeService = StoreConfigService.getInstance();
-    this.apiClient    = ApiClient.getInstance();
   }
 
   handle = async (req: Request, res: Response): Promise<void> => {
     const { subdomain, pageKey } = req.context;
 
     try {
-      // Fetch store result (token + store_id + locationId) and page data in parallel
-      const [storeResult, pageData, storeConfig] = await Promise.all([
-        this.apiClient.getOrFetchStoreResult(subdomain),
-        this.storeService.getPageData(subdomain, pageKey),
-        this.storeService.getRskConfigs(subdomain),
-      ]);
+      const storeConfig = this.storeService.getRskConfigs(subdomain);
+      const route = storeConfig.routes.find((r) => r.page_key === pageKey);
 
-      // Resolve HTML file: prefer pageData.htmlFile, then route's file field
-      const currentRoute = storeConfig.routes.find((r) => r.page_key === pageKey);
-      const htmlFile = (pageData.htmlFile as string | undefined) ?? currentRoute?.file;
+      const dom = new JSDOM(indexSource());
+      const { document } = dom.window;
 
-      if (htmlFile) {
-        const filePath = path.resolve(process.cwd(), 'public', htmlFile);
-        if (fs.existsSync(filePath)) {
-          const html = fs.readFileSync(filePath, 'utf-8');
-          const injected = this.injectGlobal(html, subdomain, storeResult, storeConfig.routes);
-          res.set('Content-Type', 'text/html');
-          res.send(injected);
-          return;
+      // Fetch and inject page content if route has a content_path
+      if (route?.content_path) {
+        const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
+
+        // Set <title>
+        if (pageContent.meta_title) {
+          document.title = pageContent.meta_title;
+        }
+
+        // Set meta description
+        this.setMeta(document, 'description', pageContent.meta_description);
+
+        // Set meta keywords
+        this.setMeta(document, 'keywords', pageContent.meta_keyword);
+
+        // Inject HTML content into the div
+        const contentDiv = document.getElementById('dynamic_page_contents');
+        if (contentDiv) {
+          contentDiv.innerHTML = pageContent.html;
         }
       }
 
-      // No HTML file → return JSON (API / headless mode)
-      const rentMyGlobal = builder.build(storeResult, storeConfig.routes);
-      res.json({
-        subdomain,
-        page_key:    pageKey,
-        title:       pageData.title,
-        description: pageData.description,
-        metaTags:    pageData.metaTags ?? {},
-        robots:      pageData.robots   ?? 'index,follow',
-        content:     pageData.content  ?? '',
-        rentMyGlobal,
-      });
+      res.set('Content-Type', 'text/html');
+      res.send(dom.serialize());
     } catch (err) {
       console.error(`[PageController] page_key=${pageKey} subdomain=${subdomain}`, err);
-      res.status(500).json({ error: 'Failed to load page data' });
+      res.status(500).json({ error: 'Failed to load page' });
     }
   };
 
-  private injectGlobal(
-    html: string,
-    subdomain: string,
-    storeResult: Awaited<ReturnType<ApiClient['getOrFetchStoreResult']>>,
-    routes: import('../interfaces/StoreConfig').RouteConfig[]
-  ): string {
-    const global  = builder.build(storeResult, routes);
-    const script  = builder.scriptTag(subdomain, global);
-
-    // Prefer injecting right before </head>; fall back to top of <body>
-    if (html.includes('</head>')) {
-      return html.replace('</head>', `${script}\n</head>`);
+  private setMeta(document: Document, name: string, content: string): void {
+    if (!content) return;
+    let tag = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
+    if (!tag) {
+      tag = document.createElement('meta') as HTMLMetaElement;
+      tag.name = name;
+      document.head.appendChild(tag);
     }
-    if (html.includes('<body')) {
-      return html.replace(/(<body[^>]*>)/, `$1\n${script}`);
-    }
-    // Last resort: prepend
-    return script + '\n' + html;
+    tag.content = content;
   }
 }
