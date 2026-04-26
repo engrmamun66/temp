@@ -1,4 +1,4 @@
-import { ApiClient } from './ApiClient';
+import { ApiClient, StoreResult } from './ApiClient';
 import { CacheService } from './CacheService';
 import { RouteConfig, StoreConfig, PageContent } from '../interfaces/StoreConfig';
 
@@ -39,6 +39,10 @@ export class StoreConfigService {
     const data = await this.api.getPageContent(subdomain, contentPath);
     this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
     return data;
+  }
+
+  async getStoreResult(subdomain: string): Promise<StoreResult> {
+    return this.api.getOrFetchStoreResult(subdomain);
   }
 
   findRouteBySlug(routes: RouteConfig[], slug: string): RouteConfig | undefined {

@@ -19,22 +19,35 @@ export class PageController {
   handle = async (req: Request, res: Response): Promise<void> => {
     const { subdomain, pageKey } = req.context;
 
-    const storeConfig = await this.storeService.getRskConfigs(subdomain);
+    const [storeConfig, storeResult] = await Promise.all([
+      this.storeService.getRskConfigs(subdomain),
+      this.storeService.getStoreResult(subdomain),
+    ]);
     const route = storeConfig.routes.find((r) => r.page_key === pageKey);
 
     const dom = new JSDOM(indexSource());
     const { document } = dom.window;
 
+    const logoEl = document.getElementById('RENTMY_STORE_LOGO') as HTMLImageElement | null;
+    if (logoEl && storeResult.store.logo) logoEl.src = storeResult.store.logo;
+
     if (route?.content_path) {
       try {
-        const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
-
-        if (pageContent.meta_title) document.title = pageContent.meta_title;
-        this.setMeta(document, 'description', pageContent.meta_description);
-        this.setMeta(document, 'keywords', pageContent.meta_keyword);
-
         const contentDiv = document.getElementById('dynamic_page_contents');
-        if (contentDiv) contentDiv.innerHTML = pageContent.html;
+
+        if (route.content_source === 'file') {
+          const filePath = path.resolve(process.cwd(), 'public', 'pages', route.content_path);
+          const html = fs.readFileSync(filePath, 'utf-8');
+          if (contentDiv) contentDiv.innerHTML = html;
+        } else {
+          const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
+
+          if (pageContent.meta_title) document.title = pageContent.meta_title;
+          this.setMeta(document, 'description', pageContent.meta_description);
+          this.setMeta(document, 'keywords', pageContent.meta_keyword);
+
+          if (contentDiv) contentDiv.innerHTML = pageContent.html;
+        }
       } catch (err) {
         const status = (err as AxiosError).response?.status;
         logToFile(`[PageController] content fetch failed page_key=${pageKey} subdomain=${subdomain} status=${status ?? 'network'}`);
