@@ -219,7 +219,7 @@ export class ApiClient {
           meta_keyword: string;
         };
       };
-    }>(subdomain, contentPath, { subdomain });
+    }>(subdomain, contentPath);
     const { data } = resp.result;
     return {
       html:             data.contents?.content ?? '',

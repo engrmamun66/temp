@@ -2,7 +2,9 @@ import path from 'path';
 import fs from 'fs';
 import { Request, Response } from 'express';
 import { JSDOM } from 'jsdom';
+import { AxiosError } from 'axios';
 import { StoreConfigService } from '../services/StoreConfigService';
+import { logToFile } from '../utils/fileLogger';
 
 const INDEX_HTML  = path.resolve(process.cwd(), 'public', 'index.html');
 const indexSource = () => fs.readFileSync(INDEX_HTML, 'utf-8');
@@ -15,44 +17,32 @@ export class PageController {
   }
   
   handle = async (req: Request, res: Response): Promise<void> => {
-    console.log('=Hello world');
     const { subdomain, pageKey } = req.context;
 
-    try {
-      const storeConfig = await this.storeService.getRskConfigs(subdomain);
-      const route = storeConfig.routes.find((r) => r.page_key === pageKey);
+    const storeConfig = await this.storeService.getRskConfigs(subdomain);
+    const route = storeConfig.routes.find((r) => r.page_key === pageKey);
 
-      const dom = new JSDOM(indexSource());
-      const { document } = dom.window;
+    const dom = new JSDOM(indexSource());
+    const { document } = dom.window;
 
-      // Fetch and inject page content if route has a content_path
-      if (route?.content_path) {
+    if (route?.content_path) {
+      try {
         const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
 
-        // Set <title>
-        if (pageContent.meta_title) {
-          document.title = pageContent.meta_title;
-        }
-
-        // Set meta description
+        if (pageContent.meta_title) document.title = pageContent.meta_title;
         this.setMeta(document, 'description', pageContent.meta_description);
-
-        // Set meta keywords
         this.setMeta(document, 'keywords', pageContent.meta_keyword);
 
-        // Inject HTML content into the div
         const contentDiv = document.getElementById('dynamic_page_contents');
-        if (contentDiv) {
-          contentDiv.innerHTML = pageContent.html;
-        }
+        if (contentDiv) contentDiv.innerHTML = pageContent.html;
+      } catch (err) {
+        const status = (err as AxiosError).response?.status;
+        logToFile(`[PageController] content fetch failed page_key=${pageKey} subdomain=${subdomain} status=${status ?? 'network'}`);
       }
-
-      res.set('Content-Type', 'text/html');
-      res.send(dom.serialize());
-    } catch (err) {
-      console.error(`[PageController] page_key=${pageKey} subdomain=${subdomain}`, err);
-      res.status(500).json({ error: 'Failed to load page' });
     }
+
+    res.set('Content-Type', 'text/html');
+    res.send(dom.serialize());
   };
 
   private setMeta(document: Document, name: string, content: string): void {

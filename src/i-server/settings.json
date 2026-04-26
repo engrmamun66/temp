@@ -3,7 +3,7 @@
       {
         "route_path": "/",
         "page_key": "home",
-        "content_path": "/page/home",
+        "content_path": "/pages/home",
         "content_source": "api"
       }
   ],
