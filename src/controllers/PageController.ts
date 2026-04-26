@@ -7,6 +7,7 @@ import { StoreConfigService } from '../services/StoreConfigService';
 import { logToFile } from '../utils/fileLogger';
 
 const INDEX_HTML  = path.resolve(process.cwd(), 'public', 'index.html');
+const PUBLIC_DIR  = path.resolve(process.cwd(), 'public');
 const indexSource = () => fs.readFileSync(INDEX_HTML, 'utf-8');
 
 export class PageController {
@@ -41,7 +42,7 @@ export class PageController {
         const contentDiv = document.getElementById('dynamic_page_contents');
 
         if (route.content_source === 'file') {
-          const filePath = path.resolve(process.cwd(), 'public', 'pages', route.content_path);
+          const filePath = this.resolvePublicFilePath(route.content_path);
           const html = fs.readFileSync(filePath, 'utf-8');
           if (contentDiv) contentDiv.innerHTML = html;
         } else {
@@ -72,5 +73,16 @@ export class PageController {
       document.head.appendChild(tag);
     }
     tag.content = content;
+  }
+
+  private resolvePublicFilePath(contentPath: string): string {
+    const normalizedPath = contentPath.replace(/^\/+/, '');
+    const filePath = path.resolve(PUBLIC_DIR, normalizedPath);
+
+    if (!filePath.startsWith(`${PUBLIC_DIR}${path.sep}`) && filePath !== PUBLIC_DIR) {
+      throw new Error(`Invalid public file path: ${contentPath}`);
+    }
+
+    return filePath;
   }
 }
