@@ -18,7 +18,7 @@ function requireEnv(key: string): string {
 
 function parseEnv(): EnvConfig {
   const missing: string[] = [];
-  const required = ['API_BASE_URL', 'CURRENT_DOMAIN', 'SUBDOMAIN_for_dev'];
+  const required = ['API_BASE_URL', 'CURRENT_DOMAIN', 'SUBDOMAIN_FOR_DEV'];
 
   for (const key of required) {
     if (!process.env[key]) missing.push(key);
@@ -32,7 +32,7 @@ function parseEnv(): EnvConfig {
     PORT: parseInt(process.env.PORT ?? '3000', 10),
     API_BASE_URL: requireEnv('API_BASE_URL').replace(/\/$/, ''),
     CURRENT_DOMAIN: requireEnv('CURRENT_DOMAIN'),
-    SUBDOMAIN_FOR_DEV: requireEnv('SUBDOMAIN_for_dev'),
+    SUBDOMAIN_FOR_DEV: requireEnv('SUBDOMAIN_FOR_DEV'),
     NODE_ENV: process.env.NODE_ENV ?? 'development',
   };
 }

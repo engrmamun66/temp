@@ -33,7 +33,7 @@ Copy `.env.example` to `.env` and fill in all values. The app throws at startup 
 | `PORT` | No (default `3000`) | HTTP server port |
 | `API_BASE_URL` | Yes | Base URL for your external API (no trailing slash) |
 | `CURRENT_DOMAIN` | Yes | Main domain, e.g. `example.com` |
-| `SUBDOMAIN_for_dev` | Yes | Fallback subdomain for local dev, e.g. `dev` |
+| `SUBDOMAIN_FOR_DEV` | Yes | Fallback subdomain for local dev, e.g. `dev` |
 
 ---
 
@@ -51,7 +51,7 @@ RSK_NEW/
 │   │   ├── CacheEntry.ts           # CacheEntry, CacheListItem
 │   │   └── RequestContext.ts       # req.context type augmentation
 │   ├── middleware/
-│   │   └── subdomainMiddleware.ts  # Extracts subdomain; falls back to SUBDOMAIN_for_dev
+│   │   └── subdomainMiddleware.ts  # Extracts subdomain; falls back to SUBDOMAIN_FOR_DEV
 │   ├── services/
 │   │   ├── ApiClient.ts            # Axios wrapper — token fetch + auto-refresh on 401
 │   │   ├── CacheService.ts         # node-cache scoped by subdomain + page_key
@@ -84,7 +84,7 @@ All routes are driven by two keys returned from your API's `/store-settings` end
 
 At runtime, the catch-all middleware:
 
-1. Extracts the **subdomain** from `req.hostname` (or uses `SUBDOMAIN_for_dev` in dev).
+1. Extracts the **subdomain** from `req.hostname` (or uses `SUBDOMAIN_FOR_DEV` in dev).
 2. Fetches **store config** for that subdomain (cached for 10 minutes).
 3. Matches `req.path` against `page_slug` in the config.
 4. Attaches `page_key` and `page_slug` to `req.context`.
