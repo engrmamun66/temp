@@ -29,7 +29,12 @@ export class PageController {
     const { document } = dom.window;
 
     const logoEl = document.getElementById('RENTMY_STORE_LOGO') as HTMLImageElement | null;
-    if (logoEl && storeResult.store.logo) logoEl.src = storeResult.store.logo;
+    try {
+      if (logoEl && storeResult.store.logo) logoEl.src = storeResult.store.logo;
+    } catch (err) {
+      const status = (err as AxiosError).response?.status;
+        logToFile(`[PageController] [logoEl_&&_storeResult_dot_store_dot_logo] content fetch failed page_key=${pageKey} subdomain=${subdomain} status=${status ?? 'network'}`);
+    }
 
     if (route?.content_path) {
       try {

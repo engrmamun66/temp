@@ -1,6 +1,7 @@
 import { StoreResult } from '../services/ApiClient';
 import { RouteConfig } from '../interfaces/StoreConfig';
 import { env } from '../config/env';
+import { logToFile } from '../utils/fileLogger';
 
 export interface RentMyGlobal {
   store_id: string;
@@ -22,6 +23,10 @@ export class RentMyGlobalBuilder {
     const page: Record<string, string> = {};
     for (const route of routes) {
       page[route.page_key] = route.page_slug.replace(/:([a-zA-Z_]+)/g, '{$1}');
+    }
+    if (!storeResult.store?.id) {
+      logToFile('[RentMyGlobalBuilder] missing store.id', { storeResult });
+      return {} as any
     }
 
     return {
