@@ -1,6 +1,7 @@
 import { ApiClient, StoreResult } from './ApiClient';
 import { CacheService } from './CacheService';
-import { RouteConfig, StoreConfig, PageContent } from '../interfaces/StoreConfig';
+import { HomeLayoutOrder } from '../types';
+import { RouteConfig, StoreConfig, PageContent, HomeContent } from '../interfaces/StoreConfig';
 import { logToFile } from '../utils/fileLogger';
 
 const STORE_CACHE_KEY  = '__store_config';
@@ -31,6 +32,43 @@ export class StoreConfigService {
     this.cache.set(subdomain, STORE_CACHE_KEY, config, STORE_CACHE_TTL);
     return config;
   }
+
+  async loadHomePageContents(subdomain: string, contentPath: string): Promise<HomeContent[]> {
+
+    const cacheKey1 = `homeLayoutOrders__/layouts/reorder-section`;
+    const cacheddata = this.cache.get<HomeLayoutOrder>(subdomain, cacheKey1);
+    let order_list: HomeLayoutOrder = []
+    if (cacheddata) {
+      order_list = cacheddata
+    } else {
+      order_list = await this.api.getHomeLayoutOrders(subdomain, '/layouts/reorder-section');
+      this.cache.set(subdomain, cacheKey1, order_list, CONTENT_CACHE_TTL);
+    }
+
+    let sort_by = order_list.filter(item => typeof item === 'number')
+
+
+    contentPath = '/pages/contents?source=online'
+    const cacheKey = `home_contents__${contentPath}`;
+    let cached = this.cache.get<HomeContent[]>(subdomain, cacheKey);
+    if (!cached){
+      const data = await this.api.getHomePageContents(subdomain, contentPath);
+      this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL); 
+      cached = data
+    }
+
+    const sections = cached
+
+    let sorted_sections = sections.sort((a, b) => {
+      let ai = sort_by.indexOf(a.id)
+      let bi = sort_by.indexOf(b.id)
+      return (ai === -1 ? Infinity : ai) - (bi === -1 ? Infinity : bi)
+    })
+    return sorted_sections
+  }
+
+
+
 
   async getPageContent(subdomain: string, contentPath: string): Promise<PageContent> {
     const cacheKey = `content__${contentPath}`;

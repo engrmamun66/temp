@@ -60,6 +60,7 @@ export class PageController {
         } else {
           // let pageContent
           if(route.page_key.toLocaleLowerCase() === 'home'){
+            const pageContent = await this.storeService.loadHomePageContents(subdomain, route.content_path);
           } 
           else {
             const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);

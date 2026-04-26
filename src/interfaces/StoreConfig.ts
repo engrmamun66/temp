@@ -46,4 +46,17 @@ export interface PageContent {
   canonical_url: string;
   children: unknown[];
 }
+ 
+export interface HomeContent {
+  id: number;
+  store_id: number;
+  name: string;
+  page_id: number;
+  page_slug: string;
+  contents: string;
+  status: number;
+  created: string;
+  modified: string;
+}
+ 
 

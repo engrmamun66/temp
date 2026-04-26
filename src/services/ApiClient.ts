@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
-import { RouteConfig, RskConfigRoute, PageContent } from '../interfaces/StoreConfig';
+import { HomeLayoutOrder } from '../types';
+import { RouteConfig, RskConfigRoute, PageContent, HomeContent } from '../interfaces/StoreConfig';
 import { logToFile } from '../utils/fileLogger';
 
 // ── /get-settings response shape ────────────────────────────────────────────
@@ -247,5 +248,42 @@ export class ApiClient {
       canonical_url:    data.canonical_url ?? '',
       children:         data.children ?? [],
     };
+  }
+
+  async getHomePageContents(subdomain: string, contentPath: string): Promise<HomeContent[]> {
+    const resp = await this.authorizedGet<{
+      status: string;
+      result: { data: HomeContent[] };
+    }>(subdomain, contentPath);
+    const { data } = resp.result;
+
+    let result = (data || []).map(item => ({
+      id:         item?.id || null,
+      store_id:   item?.store_id || null,
+      name:       item?.name || null,
+      page_id:    item?.page_id || null,
+      page_slug:  item?.page_slug || null,
+      contents:   item?.contents || null,
+      status:     item?.status || null,
+      created:    item?.created || null,
+      modified:   item?.modified || null,
+    })) 
+    return result as HomeContent[]
+  }
+
+
+  async getHomeLayoutOrders(subdomain: string, contentPath: string): Promise<HomeLayoutOrder> {
+    try {
+      const resp = await this.authorizedGet<{
+        status: string;
+        result: { data: string | number[] };
+      }>(subdomain, contentPath);
+      const { data } = resp.result;
+      return data as HomeLayoutOrder
+    } catch (err) {
+      const axiosErr = err as AxiosError;
+      logToFile(`[getHomeLayoutOrders() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+      return [] as HomeLayoutOrder
+    }
   }
 }
