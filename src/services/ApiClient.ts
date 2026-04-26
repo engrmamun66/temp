@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { RouteConfig, PageData } from '../interfaces/StoreConfig';
@@ -27,10 +29,44 @@ interface GetSettingsResponse {
   result: StoreResult;
 }
 
+// ── File-based token persistence ─────────────────────────────────────────────
+
+interface TokenFileEntry {
+  token: string;
+  storeResult: StoreResult;
+  savedAt: number;
+}
+
+interface TokenFile {
+  [subdomain: string]: TokenFileEntry;
+}
+
+const TOKEN_FILE = path.resolve(process.cwd(), '.cache', 'tokens.json');
+
+function readTokenFile(): TokenFile {
+  try {
+    if (fs.existsSync(TOKEN_FILE)) {
+      return JSON.parse(fs.readFileSync(TOKEN_FILE, 'utf-8')) as TokenFile;
+    }
+  } catch {
+    // corrupted file – start fresh
+  }
+  return {};
+}
+
+function writeTokenFile(data: TokenFile): void {
+  try {
+    fs.mkdirSync(path.dirname(TOKEN_FILE), { recursive: true });
+    fs.writeFileSync(TOKEN_FILE, JSON.stringify(data, null, 2), 'utf-8');
+  } catch (err) {
+    console.warn('[ApiClient] Could not write token file:', (err as Error).message);
+  }
+}
+
 // ── Internal caches ──────────────────────────────────────────────────────────
 
-interface TokenCache      { [subdomain: string]: string }
-interface StoreDataCache  { [subdomain: string]: StoreResult }
+interface TokenCache     { [subdomain: string]: string }
+interface StoreDataCache { [subdomain: string]: StoreResult }
 
 // ── ApiClient ────────────────────────────────────────────────────────────────
 
@@ -56,11 +92,40 @@ export class ApiClient {
         return Promise.reject(err);
       }
     );
+
+    this.loadFromFile();
   }
 
   static getInstance(): ApiClient {
     if (!ApiClient.instance) ApiClient.instance = new ApiClient();
     return ApiClient.instance;
+  }
+
+  // ── File persistence ──────────────────────────────────────────────────────
+
+  private loadFromFile(): void {
+    const file = readTokenFile();
+    for (const [subdomain, entry] of Object.entries(file)) {
+      this.tokens[subdomain]    = entry.token;
+      this.storeData[subdomain] = entry.storeResult;
+    }
+    const count = Object.keys(file).length;
+    if (count > 0) console.log(`[ApiClient] Loaded ${count} token(s) from file cache`);
+  }
+
+  private persistToFile(subdomain: string, result: StoreResult): void {
+    const file = readTokenFile();
+    file[subdomain] = { token: result.store.token, storeResult: result, savedAt: Date.now() };
+    writeTokenFile(file);
+    console.log(`[ApiClient] Token for "${subdomain}" written to file cache`);
+  }
+
+  private removeFromFile(subdomain: string): void {
+    const file = readTokenFile();
+    if (file[subdomain]) {
+      delete file[subdomain];
+      writeTokenFile(file);
+    }
   }
 
   // ── Token / store-data fetch ──────────────────────────────────────────────
@@ -71,9 +136,9 @@ export class ApiClient {
       params: { store_name: subdomain },
     });
     const result = res.data.result;
-    // Cache both token and full store data together in one round-trip
     this.tokens[subdomain]    = result.store.token;
     this.storeData[subdomain] = result;
+    this.persistToFile(subdomain, result);
     return result;
   }
 
@@ -92,10 +157,11 @@ export class ApiClient {
     return this.storeData[subdomain];
   }
 
-  /** Invalidate all caches for a subdomain (e.g. on 401). */
+  /** Invalidate memory + file caches for a subdomain (e.g. on 401). */
   private invalidate(subdomain: string): void {
     delete this.tokens[subdomain];
     delete this.storeData[subdomain];
+    this.removeFromFile(subdomain);
   }
 
   // ── Authorized request helper ─────────────────────────────────────────────
@@ -126,7 +192,7 @@ export class ApiClient {
   // ── Public API methods ────────────────────────────────────────────────────
 
   async getStoreConfig(subdomain: string): Promise<RouteConfig[]> {
-    return this.authorizedGet<RouteConfig[]>(subdomain, '/store-settings', { subdomain });
+    return this.authorizedGet<RouteConfig[]>(subdomain, '/get-settings', { store_name: subdomain });
   }
 
   async getPageData(subdomain: string, page_key: string): Promise<PageData> {
