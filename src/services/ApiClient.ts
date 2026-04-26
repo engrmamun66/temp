@@ -138,6 +138,7 @@ export class ApiClient {
     const result = res.data.result;
     this.tokens[subdomain]    = result.store.token;
     this.storeData[subdomain] = result;
+    console.log({subdomain, result});
     this.persistToFile(subdomain, result);
     return result;
   }
@@ -191,7 +192,7 @@ export class ApiClient {
 
   // ── Public API methods ────────────────────────────────────────────────────
 
-  async getStoreConfig(subdomain: string): Promise<RouteConfig[]> {
+  async getFullConfigs(subdomain: string): Promise<RouteConfig[]> {
     return this.authorizedGet<RouteConfig[]>(subdomain, '/get-settings', { store_name: subdomain });
   }
 

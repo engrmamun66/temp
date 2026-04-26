@@ -12,7 +12,7 @@ export class SitemapController {
   generate = async (req: Request, res: Response): Promise<void> => {
     try {
       const { subdomain } = req.context;
-      const config = await this.storeService.getStoreConfig(subdomain);
+      const config = await this.storeService.getFullConfigs(subdomain);
       const baseUrl = `https://${subdomain}.${env.CURRENT_DOMAIN}`;
 
       const urls = config.routes

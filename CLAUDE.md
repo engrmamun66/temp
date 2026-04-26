@@ -29,7 +29,7 @@ This is a **multi-tenant, database-free** Express server. All data comes from an
 
 1. **Subdomain extraction** (`subdomainMiddleware`) — strips `CURRENT_DOMAIN` suffix from `req.hostname`; if `SUBDOMAIN_FOR_DEV` is set it takes absolute priority. Result is stored in `req.context.subdomain`.
 
-2. **Route resolution** (`DynamicRouter` catch-all) — fetches store config for the subdomain via `StoreConfigService.getStoreConfig()`, matches `req.path` against `page_slug` in the returned config, then writes `page_key` + `page_slug` into `req.context`.
+2. **Route resolution** (`DynamicRouter` catch-all) — fetches store config for the subdomain via `StoreConfigService.getFullConfigs()`, matches `req.path` against `page_slug` in the returned config, then writes `page_key` + `page_slug` into `req.context`.
 
 3. **Page rendering** (`PageController`) — fetches store result and page data in parallel, builds `RENTMY_GLOBAL` via `RentMyGlobalBuilder`, injects it as a `<script>` tag into the HTML file before `</head>`, and sends the response.
 
