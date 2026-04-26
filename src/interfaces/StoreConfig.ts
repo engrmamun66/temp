@@ -1,3 +1,10 @@
+export interface RskConfigRoute {
+  route_path:      string;
+  page_key:        string;
+  content_path?:   string;
+  content_source?: string;
+}
+
 export interface RouteConfig {
   page_key:       string;
   page_slug:      string;

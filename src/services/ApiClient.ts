@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
-import { RouteConfig, PageContent } from '../interfaces/StoreConfig';
+import { RouteConfig, RskConfigRoute, PageContent } from '../interfaces/StoreConfig';
 
 // ── /get-settings response shape ────────────────────────────────────────────
 
@@ -88,7 +88,7 @@ export class ApiClient {
       (err: AxiosError) => {
         const status = err.response?.status;
         const url = err.config?.url;
-        console.error(`[ApiClient] ${status ?? 'network'} error on ${url}`);
+        console.error(`[ApiClient] ${status ?? 'network'} error on ${url}`, err.response?.data ?? err.message);
         return Promise.reject(err);
       }
     );
@@ -194,9 +194,10 @@ export class ApiClient {
 
   async getRskConfigs(subdomain: string): Promise<RouteConfig[]> {
     const resp = await this.authorizedGet<{
-      routes: Array<{ route_path: string; page_key: string; content_path?: string; content_source?: string }>;
-    }>(subdomain, '/rsk-configs', { subdomain });
-    return resp.routes.map((r) => ({
+      status: string;
+      result: { data: { routes: RskConfigRoute[]; redirections: unknown[] } };
+    }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
+    return resp.result.data.routes.map((r) => ({
       page_key:       r.page_key,
       page_slug:      r.route_path,
       content_path:   r.content_path,

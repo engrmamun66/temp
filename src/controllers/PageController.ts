@@ -26,7 +26,6 @@ export class PageController {
       const { document } = dom.window;
 
       // Fetch and inject page content if route has a content_path
-      console.log('==homeRoute==');
       if (route?.content_path) {
         const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
 
