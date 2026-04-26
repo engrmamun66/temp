@@ -196,16 +196,22 @@ export class ApiClient {
   // ── Public API methods ────────────────────────────────────────────────────
 
   async getRskConfigs(subdomain: string): Promise<RouteConfig[]> {
-    const resp = await this.authorizedGet<{
-      status: string;
-      result: { data: { routes: RskConfigRoute[]; redirections: unknown[] } };
-    }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
-    return resp.result.data.routes.map((r) => ({
-      page_key:       r.page_key,
-      page_slug:      r.route_path,
-      content_path:   r.content_path,
-      content_source: r.content_source,
-    }));
+    try {
+      const resp = await this.authorizedGet<{
+        status: string;
+        result: { data: { routes: RskConfigRoute[]; redirections: unknown[] } };
+      }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
+      return resp.result.data.routes.map((r) => ({
+        page_key:       r.page_key,
+        page_slug:      r.route_path,
+        content_path:   r.content_path,
+        content_source: r.content_source,
+      }));
+    } catch (err) {
+      const status = (err as AxiosError).response?.status;
+      logToFile(`[ApiClient] [getRskConfigs()] failed subdomain=${subdomain} status=${status ?? 'network'}`);
+      return [];
+    }
   }
 
   async getPageContent(subdomain: string, contentPath: string): Promise<PageContent> {

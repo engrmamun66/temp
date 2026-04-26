@@ -28,7 +28,8 @@ export class DynamicRouter {
   }
 
   private registerStaticRoutes(): void {
-    this.router.get('/_clist', this.cacheCtrl.list);
+    this.router.get('/_/clist', this.cacheCtrl.list);
+    this.router.get('/_/debug.log', this.cacheCtrl.debugLog);
     this.router.get('/api/_clear-cache', this.cacheCtrl.clearOne);
     this.router.get('/config.js', this.configJsCtrl.handle);
   }

@@ -1,5 +1,9 @@
+import fs from 'fs';
+import path from 'path';
 import { Request, Response } from 'express';
 import { CacheService } from '../services/CacheService';
+
+const DEBUG_LOG = path.resolve(process.cwd(), '.cache', 'debug.log');
 
 export class CacheController {
   private cache: CacheService;
@@ -23,5 +27,14 @@ export class CacheController {
     }
     this.cache.delete(key);
     res.json({ deleted: key });
+  };
+
+  debugLog = (_req: Request, res: Response): void => {
+    if (!fs.existsSync(DEBUG_LOG)) {
+      res.type('text/plain').send('(empty)');
+      return;
+    }
+    const content = fs.readFileSync(DEBUG_LOG, 'utf-8');
+    res.type('text/plain').send(content || '(empty)');
   };
 }
