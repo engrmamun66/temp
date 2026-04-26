@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
-import { HomeLayoutOrder } from '../types';
+import { HomeLayoutOrder, Redirections } from '../types';
 import { RouteConfig, RskConfigRoute, PageContent, HomeContent } from '../interfaces/StoreConfig';
 import { logToFile } from '../utils/fileLogger';
 
@@ -200,18 +200,18 @@ export class ApiClient {
     try {
       const resp = await this.authorizedGet<{
         status: string;
-        result: { data: { routes: RskConfigRoute[]; redirections: unknown[] } };
+        result: { data: { routes: RskConfigRoute[]; redirections: Redirections } };
       }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
-      return resp.result.data.routes.map((r) => ({
+      return resp.result.data.routes.map((r: RskConfigRoute) => ({
         page_key:       r.page_key,
         page_slug:      r.route_path,
         content_path:   r.content_path,
-        content_source: r.content_source,
+        content_source: r.content_source, 
       }));
     } catch (err) {
       const status = (err as AxiosError).response?.status;
       logToFile(`[ApiClient] [getRskConfigs()] failed subdomain=${subdomain} status=${status ?? 'network'}`);
-      return [];
+      return [] as RouteConfig[];
     }
   }
 
@@ -228,7 +228,7 @@ export class ApiClient {
       logToFile(`[getPageContent() error] ${axiosErr.response?.data ?? axiosErr.message}`);
     }
     
-    return {
+    let result = {
       id:               data?.id ?? 0,
       store_id:         data?.store_id ?? 0,
       location:         data?.location ?? 0,
@@ -254,6 +254,8 @@ export class ApiClient {
       canonical_url:    data?.canonical_url ?? '',
       children:         data?.children ?? [],
     };
+    console.log(result);
+    return result
   }
 
   async getHomePageContents(subdomain: string, contentPath: string): Promise<HomeContent[]> {
