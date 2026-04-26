@@ -1,3 +1,4 @@
+import path from 'path';
 import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import { env } from './config/env';
@@ -42,7 +43,7 @@ export class App {
 
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
-    this.express.use(express.static('public'));
+    this.express.use(express.static(path.resolve(process.cwd(), 'public')));
 
     // Must run before DynamicRouter so req.context is populated
     this.express.use(subdomainMiddleware);
