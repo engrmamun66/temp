@@ -29,7 +29,12 @@ export class CacheController {
     res.json({ deleted: key });
   };
 
-  debugLog = (_req: Request, res: Response): void => {
+  debugLog = (req: Request, res: Response): void => {
+    if (req.query.clear === 'true') {
+      fs.mkdirSync(path.dirname(DEBUG_LOG), { recursive: true });
+      fs.writeFileSync(DEBUG_LOG, '');
+    }
+
     if (!fs.existsSync(DEBUG_LOG)) {
       res.type('text/plain').send('(empty)');
       return;
