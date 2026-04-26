@@ -3,6 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { RouteConfig, RskConfigRoute, PageContent } from '../interfaces/StoreConfig';
+import { logToFile } from '../utils/fileLogger';
 
 // ── /get-settings response shape ────────────────────────────────────────────
 
@@ -87,8 +88,10 @@ export class ApiClient {
       (res) => res,
       (err: AxiosError) => {
         const status = err.response?.status;
-        const url = err.config?.url;
-        console.error(`[ApiClient] ${status ?? 'network'} error on ${url}`, err.response?.data ?? err.message);
+        const baseURL = err.config?.baseURL ?? '';
+        const url = err.config?.url ?? '';
+        const params = err.config?.params ? '?' + new URLSearchParams(err.config.params as Record<string, string>).toString() : '';
+        logToFile(`[ApiClient] ${status ?? 'network'} error on ${baseURL}${url}${params}`, err.response?.data ?? err.message);
         return Promise.reject(err);
       }
     );

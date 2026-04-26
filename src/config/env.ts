@@ -9,6 +9,8 @@ interface EnvConfig {
   SUBDOMAIN_FOR_DEV: string | null;
   RSK_CONFIG_SERVER_FOR_DEV: string | null;
   NODE_ENV: string;
+  CACHE: boolean;
+  CACHE_TIME: number;
 }
 
 function requireEnv(key: string): string {
@@ -39,6 +41,8 @@ function parseEnv(): EnvConfig {
     SUBDOMAIN_FOR_DEV: subdomainForDev,
     RSK_CONFIG_SERVER_FOR_DEV: rskConfigServer.replace(/\/$/, ''),
     NODE_ENV: process.env.NODE_ENV ?? 'development',
+    CACHE: (process.env.CACHE ?? 'true') !== 'false',
+    CACHE_TIME: parseInt(process.env.CACHE_TIME ?? '300', 10),
   };
 }
 

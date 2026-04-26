@@ -21,11 +21,13 @@ export class CacheService {
   }
 
   set<T>(subdomain: string, page_key: string, value: T, ttlSeconds: number): void {
+    if (!env.CACHE) return;
     const key = this.buildKey(subdomain, page_key);
-    this.cache.set(key, value, ttlSeconds);
+    this.cache.set(key, value, env.CACHE_TIME || ttlSeconds);
   }
 
   get<T>(subdomain: string, page_key: string): T | undefined {
+    if (!env.CACHE) return undefined;
     const key = this.buildKey(subdomain, page_key);
     return this.cache.get<T>(key);
   }
