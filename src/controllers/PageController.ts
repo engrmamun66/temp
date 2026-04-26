@@ -58,13 +58,17 @@ export class PageController {
 
           if (contentDiv) contentDiv.innerHTML = html;
         } else {
-          const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
+          // let pageContent
+          if(route.page_key.toLocaleLowerCase() === 'home'){
+          } 
+          else {
+            const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
+            if (pageContent.meta_title) document.title = pageContent.meta_title;
+            this.setMeta(document, 'description', pageContent.meta_description);
+            this.setMeta(document, 'keywords', pageContent.meta_keyword);
+            if (contentDiv) contentDiv.innerHTML = pageContent.contents.content;
+          }
 
-          if (pageContent.meta_title) document.title = pageContent.meta_title;
-          this.setMeta(document, 'description', pageContent.meta_description);
-          this.setMeta(document, 'keywords', pageContent.meta_keyword);
-
-          if (contentDiv) contentDiv.innerHTML = pageContent.contents.content;
         }
       } catch (err) {
         const status = (err as AxiosError).response?.status;
