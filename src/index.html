@@ -185,7 +185,7 @@
             </div>
         </header>
 
-        <div id="dynamic_page_contents"></div>
+        <div id="dynamic_page_contents"></div> 
 
         <footer class="footer d-none">
             <div class="container">
@@ -301,123 +301,13 @@
                 </div>
             </div>
         </footer>
+
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://elfsightcdn.com/platform.js" async></script>
     <script src="/js/owl.carousel.js"></script>
-    <script src="/js/custom.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-
-            const menuParents = document.querySelectorAll(".has-submenu");
-
-            menuParents.forEach(parent => {
-                const anchor = parent.querySelector("[rentmy-menu-anchor-sample]");
-
-                if (anchor) {
-                    anchor.addEventListener("click", (e) => {
-                        e.preventDefault(); // prevent page redirect if submenu exists
-
-                        // toggle open class
-                        parent.classList.toggle("open");
-                    });
-                }
-            });
-
-            // Mobile bottom nav: toggle user menu
-            const userNavToggle = document.getElementById('userNavToggle');
-            const userNavMenu = document.getElementById('userNavMenu');
-            if (userNavToggle && userNavMenu) {
-                userNavToggle.addEventListener('click', () => {
-                    const isShowing = userNavMenu.style.display !== 'none';
-                    userNavMenu.style.display = isShowing ? 'none' : 'block';
-                });
-                // Close menu when clicking outside
-                document.addEventListener('click', (ev) => {
-                    if (!userNavToggle.contains(ev.target) && !userNavMenu.contains(ev.target)) {
-                        userNavMenu.style.display = 'none';
-                    }
-                });
-            }
-        });
-
-    </script>
-    <script id="mountain_script1">
-        var $wc_load = function (a) { return JSON.parse(JSON.stringify(a)) }, $wc_leads = $wc_leads || { doc: { url: $wc_load(document.URL), ref: $wc_load(document.referrer), search: $wc_load(location.search), hash: $wc_load(location.hash) } };
-    </script>
-    <script d="mountain_script2" src="//s.ksrndkehqnwntyxlhgto.com/150899.js"></script>
-    <script>
-        // RentMyEvent.add_filter('product_list::product_price_text', (price_text) => price_text.replace('Starting at ', ''))
-        RentMyEvent.add_filter('product_list::product_price_text', (price_text) => price_text.replace('per ', '/').replace(/\s+\//g, '/'));
-
-
-        RentMyEvent.add_filter('cdn:cart_total_show_delete_icon', (bool) => true)
-        RentMyEvent.add_filter('after_add_to_cart_open_mini_cart', (bool) => true)
-        RentMyEvent.add_filter('CartItem:IncludedPackagesExpandCollapseMode', (bool) => true)
-        RentMyEvent.add_filter('cart_icon_html', (bool) => `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="footer-carticon"><path  d="M8.81 2L5.19 5.63" stroke="#636363" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path  d="M15.19 2L18.81 5.63" stroke="#636363" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path  d="M2 7.84998C2 5.99998 2.99 5.84998 4.22 5.84998H19.78C21.01 5.84998 22 5.99998 22 7.84998C22 9.99998 21.01 9.84998 19.78 9.84998H4.22C2.99 9.84998 2 9.99998 2 7.84998Z" stroke="#636363" stroke-width="1.5"></path><path  d="M9.76001 14V17.55" stroke="#636363" stroke-width="1.5" stroke-linecap="round"></path><path  d="M14.36 14V17.55" stroke="#636363" stroke-width="1.5" stroke-linecap="round"></path><path  d="M3.5 10L4.91 18.64C5.23 20.58 6 22 8.86 22H14.89C18 22 18.46 20.64 18.82 18.76L20.5 10" stroke="#636363" stroke-width="1.5" stroke-linecap="round"></path></svg>`)
-
-        RentMyEvent.add_action('config_loaed', ({ customer_portal_activated }) => {
-
-            // Desktop navigation
-            const desktopUserBar = document.getElementById('desktopUserBar');
-            // Mobile navigation
-            const mobileUserNavItem = document.getElementById('mobileUserNavItem');
-            const mobileContactNavItem = document.getElementById('mobileContactNavItem');
-
-            if (customer_portal_activated) {
-                // Show User/Account items, hide Contact items
-                if (desktopUserBar) desktopUserBar.style.display = '';
-                if (mobileUserNavItem) mobileUserNavItem.style.display = '';
-                if (mobileContactNavItem) mobileContactNavItem.style.display = 'none';
-            } else {
-                // Show Contact items, hide User/Account items
-                if (desktopUserBar) desktopUserBar.style.display = 'none';
-                if (mobileUserNavItem) mobileUserNavItem.style.display = 'none';
-                if (mobileContactNavItem) mobileContactNavItem.style.display = '';
-            }
-        })
-
-    </script>
-    <script>
-            // ====================================================== //
-            // ======== Show/Hide Section with Tab Structure ======== //
-            // ====================================================== //
-            (function (tabs_selector, wrappers_selector, { componentMainClass = 'RentMyWrapperProductList' } = {}) {
-                document.addEventListener("DOMContentLoaded", () => {
-
-                    const tabs = [...document.querySelectorAll(tabs_selector)];
-                    const wrappers = [...document.querySelectorAll(wrappers_selector)];
-
-                    if (tabs.length !== wrappers.length)
-                        throw new Error(`Tabs & Wrappers count mismatch (${tabs.length} vs ${wrappers.length})`);
-
-                    tabs.forEach((tabEl, i) => {
-                        tabEl.addEventListener("click", () => {
-                            console.log('Clicked on tab');
-
-                            tabs.forEach(t => t.classList.remove("active"));
-                            tabEl.classList.add("active");
-
-                            wrappers.forEach((wrapper, wIndex) => {
-                                if (wIndex === i) {
-                                    wrapper.classList.remove("d-none");
-                                    wrapper.classList.add(componentMainClass);
-                                } else {
-                                    wrapper.classList.add("d-none");
-                                    wrapper.classList.remove(componentMainClass);
-                                }
-                            });
-
-                        });
-                    });
-
-                });
-            })(".package-tabs .package-tab", "[features-categories]");
-
-
-    </script>
 
 </body>
 
