@@ -13,18 +13,20 @@ export class PageController {
   constructor() {
     this.storeService = StoreConfigService.getInstance();
   }
-
+  
   handle = async (req: Request, res: Response): Promise<void> => {
+    console.log('=Hello world');
     const { subdomain, pageKey } = req.context;
 
     try {
-      const storeConfig = this.storeService.getRskConfigs(subdomain);
+      const storeConfig = await this.storeService.getRskConfigs(subdomain);
       const route = storeConfig.routes.find((r) => r.page_key === pageKey);
 
       const dom = new JSDOM(indexSource());
       const { document } = dom.window;
 
       // Fetch and inject page content if route has a content_path
+      console.log('==homeRoute==');
       if (route?.content_path) {
         const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
 

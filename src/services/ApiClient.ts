@@ -192,11 +192,11 @@ export class ApiClient {
 
   // ── Public API methods ────────────────────────────────────────────────────
 
-  getRskConfigs(): RouteConfig[] {
-    const settings = JSON.parse(
-      fs.readFileSync(path.resolve(process.cwd(), 'src/i-server/settings.json'), 'utf-8')
-    ) as { routes: Array<{ route_path: string; page_key: string; content_path?: string; content_source?: string }> };
-    return settings.routes.map((r) => ({
+  async getRskConfigs(subdomain: string): Promise<RouteConfig[]> {
+    const resp = await this.authorizedGet<{
+      routes: Array<{ route_path: string; page_key: string; content_path?: string; content_source?: string }>;
+    }>(subdomain, '/rsk-configs', { subdomain });
+    return resp.routes.map((r) => ({
       page_key:       r.page_key,
       page_slug:      r.route_path,
       content_path:   r.content_path,

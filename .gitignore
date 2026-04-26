@@ -32,4 +32,4 @@ Thumbs.db
 *.tsbuildinfo
 
 
-src/_internal-server/settings.*.json
+src/i-server/settings.*.json

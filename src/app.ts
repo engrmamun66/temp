@@ -43,7 +43,7 @@ export class App {
 
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
-    this.express.use(express.static(path.resolve(process.cwd(), 'public')));
+    this.express.use(express.static(path.resolve(process.cwd(), 'public'), { index: false }));
 
     // Must run before DynamicRouter so req.context is populated
     this.express.use(subdomainMiddleware);

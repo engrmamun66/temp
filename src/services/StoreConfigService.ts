@@ -21,11 +21,11 @@ export class StoreConfigService {
     return StoreConfigService.instance;
   }
 
-  getRskConfigs(subdomain: string): StoreConfig {
+  async getRskConfigs(subdomain: string): Promise<StoreConfig> {
     const cached = this.cache.get<StoreConfig>(subdomain, STORE_CACHE_KEY);
     if (cached) return cached;
 
-    const routes = this.api.getRskConfigs();
+    const routes = await this.api.getRskConfigs(subdomain);
     const config: StoreConfig = { subdomain, routes };
     this.cache.set(subdomain, STORE_CACHE_KEY, config, STORE_CACHE_TTL);
     return config;

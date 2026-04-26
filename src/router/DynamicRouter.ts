@@ -38,7 +38,7 @@ export class DynamicRouter {
       const { subdomain } = req.context;
       const slug = req.path === '' ? '/' : req.path;
 
-      const config = this.storeService.getRskConfigs(subdomain);
+      const config = await this.storeService.getRskConfigs(subdomain);
 
       const route: RouteConfig | undefined = this.storeService.findRouteBySlug(config.routes, slug);
 
