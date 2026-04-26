@@ -64,7 +64,7 @@ export class PageController {
           this.setMeta(document, 'description', pageContent.meta_description);
           this.setMeta(document, 'keywords', pageContent.meta_keyword);
 
-          if (contentDiv) contentDiv.innerHTML = pageContent.html;
+          if (contentDiv) contentDiv.innerHTML = pageContent.contents.content;
         }
       } catch (err) {
         const status = (err as AxiosError).response?.status;

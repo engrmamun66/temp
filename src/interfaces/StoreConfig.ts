@@ -18,9 +18,32 @@ export interface StoreConfig {
   routes: RouteConfig[];
 }
 
+export interface PageContentBody {
+  heading: string;
+  content: string;
+  checkbox_count: number;
+  signature_count: number;
+}
+
 export interface PageContent {
-  html:             string;
+  id: number;
+  store_id: number;
+  location: number;
+  name: string;
+  slug: string;
+  contents: PageContentBody;
   meta_title:       string;
   meta_description: string;
   meta_keyword:     string;
+  status: number;
+  type: string;
+  tags: unknown[] | null;
+  parent_id: number | null;
+  featured_image: string | null;
+  thumbnail_image: string | null;
+  created: string;
+  modified: string;
+  canonical_url: string;
+  children: unknown[];
 }
+

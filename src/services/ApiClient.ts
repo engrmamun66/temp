@@ -217,21 +217,35 @@ export class ApiClient {
   async getPageContent(subdomain: string, contentPath: string): Promise<PageContent> {
     const resp = await this.authorizedGet<{
       status: string;
-      result: {
-        data: {
-          contents: { content: string };
-          meta_title: string;
-          meta_description: string;
-          meta_keyword: string;
-        };
-      };
+      result: { data: PageContent };
     }>(subdomain, contentPath);
     const { data } = resp.result;
+    
     return {
-      html:             data.contents?.content ?? '',
+      id:               data.id ?? 0,
+      store_id:         data.store_id ?? 0,
+      location:         data.location ?? 0,
+      name:             data.name ?? '',
+      slug:             data.slug ?? '',
+      contents: {
+        heading:          data.contents?.heading ?? '',
+        content:          data.contents?.content ?? '',
+        checkbox_count:   data.contents?.checkbox_count ?? 0,
+        signature_count:  data.contents?.signature_count ?? 0,
+      },
       meta_title:       data.meta_title ?? '',
       meta_description: data.meta_description ?? '',
       meta_keyword:     data.meta_keyword ?? '',
+      status:           data.status ?? 0,
+      type:             data.type ?? '',
+      tags:             data.tags ?? null,
+      parent_id:        data.parent_id ?? null,
+      featured_image:   data.featured_image ?? null,
+      thumbnail_image:  data.thumbnail_image ?? null,
+      created:          data.created ?? '',
+      modified:         data.modified ?? '',
+      canonical_url:    data.canonical_url ?? '',
+      children:         data.children ?? [],
     };
   }
 }
