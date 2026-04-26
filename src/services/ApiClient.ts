@@ -91,7 +91,7 @@ export class ApiClient {
         const baseURL = err.config?.baseURL ?? '';
         const url = err.config?.url ?? '';
         const params = err.config?.params ? '?' + new URLSearchParams(err.config.params as Record<string, string>).toString() : '';
-        logToFile(`[ApiClient] ${status ?? 'network'} error on ${baseURL}${url}${params}`, err.response?.data ?? err.message);
+        logToFile(`[Axios_interceptor_error] ${status ?? 'network'} error on ${baseURL}${url}${params}`, err.response?.data ?? err.message);
         return Promise.reject(err);
       }
     );
@@ -118,7 +118,7 @@ export class ApiClient {
 
   private saveToFile(subdomain: string, result: StoreResult): void {
     const file = readTokenFile();
-    file[subdomain] = { token: result.store.token, storeResult: result, savedAt: Date.now() };
+    file[subdomain] = { token: result.store?.token, storeResult: result, savedAt: Date.now() };
     writeTokenFile(file);
     console.log(`[ApiClient] Token for "${subdomain}" written to file cache`);
   }
@@ -141,7 +141,7 @@ export class ApiClient {
     const result = res.data.result;
     this.tokens[subdomain]    = result?.store?.token || 'token-fetched-failed';
     this.storeData[subdomain] = result;
-    console.log({subdomain, result});
+    this.saveToFile('result', result)
     this.saveToFile(subdomain, result);
     return result;
   }
