@@ -54,8 +54,8 @@ export class PageController {
       }
     }
 
-    res.set('Content-Type', 'text/html');
-    res.send(dom.serialize());
+    const statusCode = pageKey === 'not_found' ? 404 : 200;
+    res.status(statusCode).set('Content-Type', 'text/html').send(dom.serialize());
   };
 
   private setMeta(document: Document, name: string, content: string): void {

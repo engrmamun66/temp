@@ -21,7 +21,7 @@ export class RentMyGlobalBuilder {
   build(storeResult: StoreResult, routes: RouteConfig[]): RentMyGlobal {
     const page: Record<string, string> = {};
     for (const route of routes) {
-      page[route.page_key] = route.page_slug;
+      page[route.page_key] = route.page_slug.replace(/:([a-zA-Z_]+)/g, '{$1}');
     }
 
     return {

@@ -5,6 +5,12 @@
         "page_key": "home",
         "content_path": "/pages/home",
         "content_source": "api"
+      },
+      {
+        "route_path": "/not-found",
+        "page_key": "not_found",
+        "content_path": "not-found.html",
+        "content_source": "file"
       }
   ],
   "redirections": [

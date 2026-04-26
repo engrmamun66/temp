@@ -43,14 +43,8 @@ export class DynamicRouter {
       const route: RouteConfig | undefined = this.storeService.findRouteBySlug(config.routes, slug);
 
       // Attach page_key and page_slug to request context (may be undefined for unknown slugs)
-      req.context.pageKey  = route?.page_key ?? '';
+      req.context.pageKey  = route?.page_key ?? 'not_found';
       req.context.pageSlug = route?.page_slug ?? slug;
-
-      if (route) {
-        console.log(`[DynamicRouter] ${subdomain}${slug} → page_key="${route.page_key}"`);
-      } else {
-        console.log(`[DynamicRouter] ${subdomain}${slug} → no route matched, serving index.html`);
-      }
 
       await this.pageCtrl.handle(req, res);
     });
