@@ -266,15 +266,32 @@
             color: #8f1f1f;
         }
 
-        .data-panel {
-            margin-top: 16px;
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 100dvh;
+            overflow-y: auto;
+            padding: max(20px, env(safe-area-inset-top)) 20px 20px;
+            background: rgba(36, 24, 15, 0.38);
+            backdrop-filter: blur(6px);
+        }
+
+        .data-modal {
+            width: min(860px, 100%);
+            max-height: calc(100dvh - 40px);
+            margin: 0 auto;
             border: 1px solid var(--line);
             border-radius: 18px;
-            background: rgba(255, 255, 255, 0.76);
+            background: rgba(255, 252, 247, 0.98);
+            box-shadow: 0 28px 60px rgba(36, 24, 15, 0.22);
             overflow: hidden;
         }
 
-        .data-panel-header {
+        .data-modal-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -283,12 +300,12 @@
             border-bottom: 1px solid var(--line);
         }
 
-        .data-panel-header h2 {
+        .data-modal-header h2 {
             margin: 0;
             font-size: 14px;
         }
 
-        .data-panel-header code {
+        .data-modal-header code {
             display: inline-block;
             margin-top: 4px;
             font-size: 11px;
@@ -296,16 +313,17 @@
             word-break: break-all;
         }
 
-        .data-panel-close {
+        .data-modal-close {
             border: 0;
             background: transparent;
             color: var(--muted);
             cursor: pointer;
         }
 
-        .data-panel pre {
+        .data-modal pre {
             margin: 0;
             padding: 14px;
+            max-height: calc(100dvh - 130px);
             overflow: auto;
             font-size: 12px;
             line-height: 1.5;
@@ -338,6 +356,19 @@
 
             .clear-all-btn {
                 width: 100%;
+            }
+
+            .modal-backdrop {
+                padding: max(12px, env(safe-area-inset-top)) 12px 12px;
+            }
+
+            .data-modal {
+                width: 100%;
+                max-height: calc(100dvh - 24px);
+            }
+
+            .data-modal pre {
+                max-height: calc(100dvh - 114px);
             }
 
             .actions-cell,
@@ -459,16 +490,20 @@
         {{ items.length ? 'No cache entries match the current filter.' : 'No cache entries found for this subdomain.' }}
         </div>
 
-        <section v-if="selectedDataKey" class="data-panel">
-            <div class="data-panel-header">
-                <div>
-                    <h2>Cache Data</h2>
-                    <code>{{ selectedDataKey }}</code>
+        <teleport to="body">
+            <section v-if="selectedDataKey" class="modal-backdrop" @click.self="hideData">
+                <div class="data-modal" role="dialog" aria-modal="true" aria-labelledby="cache-data-title">
+                <div class="data-modal-header">
+                    <div>
+                        <h2 id="cache-data-title">Cache Data</h2>
+                        <code>{{ selectedDataKey }}</code>
+                    </div>
+                    <button class="data-modal-close" type="button" @click="hideData">Close</button>
                 </div>
-                <button class="data-panel-close" type="button" @click="hideData">Close</button>
-            </div>
-            <pre>{{ selectedDataText }}</pre>
-        </section>
+                <pre>{{ selectedDataText }}</pre>
+                </div>
+            </section>
+        </teleport>
     </div>
     </script>
 
@@ -491,7 +526,22 @@
                     searchTerm: '',
                     selectedDataKey: '',
                     selectedDataText: '',
+                    windowKeydownHandler: null,
                 };
+            },
+            mounted() {
+                this.windowKeydownHandler = (event) => {
+                    if (event.key === 'Escape' && this.selectedDataKey) {
+                        this.hideData();
+                    }
+                };
+
+                window.addEventListener('keydown', this.windowKeydownHandler);
+            },
+            beforeUnmount() {
+                if (this.windowKeydownHandler) {
+                    window.removeEventListener('keydown', this.windowKeydownHandler);
+                }
             },
             computed: {
                 filteredItems() {
