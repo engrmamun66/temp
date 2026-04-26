@@ -157,7 +157,7 @@ Returns page metadata and content:
 | `GET /sitemap.xml` | Dynamically generated from store config `page_slug` list |
 | `GET /robots.txt` | Dynamic robots with sitemap URL for the current subdomain |
 | `GET /_clist` | Lists all cache entries for the current subdomain with TTL and delete URLs |
-| `GET /api/_clear-cache?key=<key>` | Deletes a specific cache entry by key |
+| `GET /api/_/clear-cache?key=<key>` | Deletes a specific cache entry by key |
 
 ---
 

@@ -55,7 +55,7 @@ Wraps `node-cache`. All keys are scoped as `{subdomain}___{API_BASE_URL}___{page
 
 Inspect/purge at runtime:
 - `GET /_clist` — list cache entries for the current subdomain
-- `GET /api/_clear-cache?key=<key>` — delete a specific entry
+- `GET /api/_/clear-cache?key=<key>` — delete a specific entry
 
 ### `RENTMY_GLOBAL` injection
 

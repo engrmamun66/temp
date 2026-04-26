@@ -46,7 +46,7 @@ export class CacheService {
       return {
         key,
         expiresAt,
-        deleteUrl: `${baseUrl}/api/_clear-cache?key=${encodeURIComponent(key)}`,
+        deleteUrl: `${baseUrl}/api/_/clear-cache?key=${encodeURIComponent(key)}`,
       };
     });
   }
