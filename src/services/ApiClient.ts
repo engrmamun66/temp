@@ -193,7 +193,15 @@ export class ApiClient {
   // ── Public API methods ────────────────────────────────────────────────────
 
   async getRskConfigs(subdomain: string): Promise<RouteConfig[]> {
-    return this.authorizedGet<RouteConfig[]>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { store_name: subdomain });
+    const resp = await this.authorizedGet<{
+      status: string;
+      result: { data: { routes: Array<{ route_path: string; page_key: string; page_path: string }> } };
+    }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { store_name: subdomain });
+    return (resp?.result?.data?.routes ?? []).map((r) => ({
+      page_key:  r.page_key,
+      page_slug: r.route_path,
+      file:      r.page_path,
+    }));
   }
 
   async getPageData(subdomain: string, page_key: string): Promise<PageData> {

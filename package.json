@@ -8,6 +8,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "lint": "eslint src --ext .ts",
+    "rsk-dev-config": "cd src/i-server && php -S localhost:5000",
     "only__for__macOS__herd": "______________________________________",
     "proxy": "herd proxy teststore09.rentmy http://localhost:3000 && herd proxy teststore17.rentmy http://localhost:3000",
     "unproxy": "herd proxy teststore09.rentmy && herd unproxy teststore17.rentmy"
