@@ -19,7 +19,8 @@ export class CacheController {
     const { subdomain } = req.context;
     const baseUrl = `${req.protocol}://${req.get('host')}`;
     const items = this.cache.listForSubdomain(subdomain, baseUrl);
-    res.status(200).type('text/html').send(this.renderCacheListPage(subdomain, items));
+    const clearAllUrl = `${baseUrl}/api/_/clear-cache-all`;
+    res.status(200).type('text/html').send(this.renderCacheListPage(subdomain, items, clearAllUrl));
   };
 
   index = (_req: Request, res: Response): void => {
@@ -53,6 +54,12 @@ export class CacheController {
     res.json({ deleted: key });
   };
 
+  clearAll = (req: Request, res: Response): void => {
+    const { subdomain } = req.context;
+    const deletedCount = this.cache.deleteForSubdomain(subdomain);
+    res.json({ subdomain, deletedCount });
+  };
+
   debugLog = (req: Request, res: Response): void => {
     if (req.query.clear === 'true') {
       fs.mkdirSync(path.dirname(DEBUG_LOG), { recursive: true });
@@ -67,9 +74,9 @@ export class CacheController {
     res.type('text/plain').send(content || '(empty)');
   };
 
-  private renderCacheListPage(subdomain: string, items: CacheListItem[]): string {
+  private renderCacheListPage(subdomain: string, items: CacheListItem[], clearAllUrl: string): string {
     const escapedSubdomain = this.escapeHtml(subdomain);
-    const initialState = this.serializeState({ subdomain, items });
+    const initialState = this.serializeState({ subdomain, items, clearAllUrl });
     const serverTable = items.length > 0
       ? `
         <div class="table-card">

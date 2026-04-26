@@ -92,6 +92,12 @@
             flex-wrap: wrap;
         }
 
+        .toolbar-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
         .search-field {
             display: grid;
             gap: 8px;
@@ -121,6 +127,7 @@
         }
 
         .refresh-link,
+        .clear-all-btn,
         .delete-btn {
             display: inline-flex;
             align-items: center;
@@ -137,6 +144,13 @@
             background: linear-gradient(135deg, var(--accent) 0%, #d78962 100%);
             color: #fffaf6;
             box-shadow: 0 12px 24px rgba(200, 100, 59, 0.24);
+        }
+
+        .clear-all-btn {
+            padding: 13px 18px;
+            background: #24180f;
+            color: #fffaf6;
+            box-shadow: 0 12px 24px rgba(36, 24, 15, 0.16);
         }
 
         .delete-btn {
@@ -241,6 +255,14 @@
                 align-items: stretch;
             }
 
+            .toolbar-actions {
+                width: 100%;
+            }
+
+            .clear-all-btn {
+                width: 100%;
+            }
+
             .refresh-link {
                 width: 100%;
             }
@@ -270,6 +292,9 @@
                     <span>Filter cache key</span>
                     <input type="search" placeholder="Search by key" value="" />
                 </label>
+                <div class="toolbar-actions">
+                    <button class="clear-all-btn" type="button">Clear All</button>
+                </div>
             </section>
 
             ${serverTable}
@@ -294,6 +319,16 @@
             <span>Filter cache key</span>
             <input v-model="searchTerm" type="search" placeholder="Search by key" />
         </label>
+        <div class="toolbar-actions">
+            <button
+                class="clear-all-btn"
+                type="button"
+                :disabled="pendingClearAll || pendingKey !== '' || !items.length"
+                @click="clearAll"
+            >
+                {{ pendingClearAll ? 'Clearing...' : 'Clear All' }}
+            </button>
+        </div>
         </section>
 
         <div v-if="filteredItems.length" class="table-card">
@@ -313,7 +348,7 @@
                 <button
                     class="delete-btn"
                     type="button"
-                    :disabled="pendingKey === item.key"
+                    :disabled="pendingKey === item.key || pendingClearAll"
                     @click="deleteItem(item)"
                 >
                     {{ pendingKey === item.key ? 'Clearing...' : 'Clear' }}
@@ -344,6 +379,7 @@
                     ...initialStateData,
                     errorMessage: '',
                     pendingKey: '',
+                    pendingClearAll: false,
                     searchTerm: '',
                 };
             },
@@ -375,6 +411,28 @@
                     const formattedMinute = String(minute).padStart(2, '0');
 
                     return `${year}-${month}-${day}, ${formattedHour}:${formattedMinute} ${suffix}`;
+                },
+                async clearAll() {
+                    if (!this.clearAllUrl) return;
+
+                    this.errorMessage = '';
+                    this.pendingClearAll = true;
+
+                    try {
+                        const response = await fetch(this.clearAllUrl, {
+                            headers: { Accept: 'application/json' },
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Clear all failed with status ' + response.status);
+                        }
+
+                        this.items = [];
+                    } catch (error) {
+                        this.errorMessage = error instanceof Error ? error.message : 'Failed to clear cache entries.';
+                    } finally {
+                        this.pendingClearAll = false;
+                    }
                 },
                 async deleteItem(item) {
                     this.errorMessage = '';

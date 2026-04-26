@@ -36,9 +36,14 @@ export class CacheService {
     this.cache.del(cacheKey);
   }
 
+  deleteForSubdomain(subdomain: string): number {
+    const keys = this.getKeysForSubdomain(subdomain);
+    if (!keys.length) return 0;
+    return this.cache.del(keys);
+  }
+
   listForSubdomain(subdomain: string, baseUrl: string): CacheListItem[] {
-    const prefix = `${subdomain}___`;
-    const keys = this.cache.keys().filter((k) => k.startsWith(prefix));
+    const keys = this.getKeysForSubdomain(subdomain);
 
     return keys.map((key) => {
       const ttl = this.cache.getTtl(key);
@@ -56,5 +61,10 @@ export class CacheService {
     if (value === undefined) return null;
     const ttl = this.cache.getTtl(cacheKey) ?? 0;
     return { key: cacheKey, value, expiresAt: ttl };
+  }
+
+  private getKeysForSubdomain(subdomain: string): string[] {
+    const prefix = `${subdomain}___`;
+    return this.cache.keys().filter((k) => k.startsWith(prefix));
   }
 }
