@@ -53,7 +53,7 @@ export interface HomeContent {
   name: string;
   page_id: number;
   page_slug: string;
-  contents: string;
+  content: string;
   status: number;
   created: string;
   modified: string;

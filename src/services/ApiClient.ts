@@ -263,7 +263,7 @@ export class ApiClient {
       name:       item?.name || null,
       page_id:    item?.page_id || null,
       page_slug:  item?.page_slug || null,
-      contents:   item?.contents || null,
+      content:   item?.content || null,
       status:     item?.status || null,
       created:    item?.created || null,
       modified:   item?.modified || null,
