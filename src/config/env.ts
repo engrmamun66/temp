@@ -7,6 +7,7 @@ interface EnvConfig {
   API_BASE_URL: string;
   CURRENT_DOMAIN: string;
   SUBDOMAIN_FOR_DEV: string | null;
+  RSK_CONFIG_SERVER_FOR_DEV: string | null;
   NODE_ENV: string;
 }
 
@@ -29,12 +30,14 @@ function parseEnv(): EnvConfig {
   }
 
   const subdomainForDev = process.env.SUBDOMAIN_FOR_DEV?.trim() || null;
+  const rskConfigServer = process.env.RSK_CONFIG_SERVER_FOR_DEV?.trim() || '';
 
   return {
     PORT: parseInt(process.env.PORT ?? '3000', 10),
     API_BASE_URL: requireEnv('API_BASE_URL').replace(/\/$/, ''),
     CURRENT_DOMAIN: requireEnv('CURRENT_DOMAIN'),
     SUBDOMAIN_FOR_DEV: subdomainForDev,
+    RSK_CONFIG_SERVER_FOR_DEV: rskConfigServer.replace(/\/$/, ''),
     NODE_ENV: process.env.NODE_ENV ?? 'development',
   };
 }
