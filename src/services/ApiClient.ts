@@ -116,7 +116,7 @@ export class ApiClient {
     if (count > 0) console.log(`[ApiClient] Loaded ${count} token(s) from file cache`);
   }
 
-  private persistToFile(subdomain: string, result: StoreResult): void {
+  private saveToFile(subdomain: string, result: StoreResult): void {
     const file = readTokenFile();
     file[subdomain] = { token: result.store.token, storeResult: result, savedAt: Date.now() };
     writeTokenFile(file);
@@ -142,7 +142,7 @@ export class ApiClient {
     this.tokens[subdomain]    = result.store.token;
     this.storeData[subdomain] = result;
     console.log({subdomain, result});
-    this.persistToFile(subdomain, result);
+    this.saveToFile(subdomain, result);
     return result;
   }
 
