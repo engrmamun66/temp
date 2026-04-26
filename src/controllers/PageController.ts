@@ -8,6 +8,7 @@ import { logToFile } from '../utils/fileLogger';
 
 const INDEX_HTML  = path.resolve(process.cwd(), 'public', 'index.html');
 const PUBLIC_DIR  = path.resolve(process.cwd(), 'public');
+const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'pages', '404.html');
 const indexSource = () => fs.readFileSync(INDEX_HTML, 'utf-8');
 
 export class PageController {
@@ -19,6 +20,7 @@ export class PageController {
   
   handle = async (req: Request, res: Response): Promise<void> => {
     const { subdomain, pageKey } = req.context;
+    let isMissingLocalFile = false;
 
     const [storeConfig, storeResult] = await Promise.all([
       this.storeService.getRskConfigs(subdomain),
@@ -43,7 +45,17 @@ export class PageController {
 
         if (route.content_source === 'file') {
           const filePath = this.resolvePublicFilePath(route.content_path);
-          const html = fs.readFileSync(filePath, 'utf-8');
+          const fileExists = fs.existsSync(filePath);
+          const html = fileExists
+            ? fs.readFileSync(filePath, 'utf-8')
+            : this.defaultFileNotFoundHtml();
+
+          if (!fileExists) {
+            isMissingLocalFile = true;
+            document.title = '404 | File Not Found';
+            logToFile(`[PageController] local file not found page_key=${pageKey} subdomain=${subdomain} file=${filePath}`);
+          }
+
           if (contentDiv) contentDiv.innerHTML = html;
         } else {
           const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
@@ -60,7 +72,7 @@ export class PageController {
       }
     }
 
-    const statusCode = pageKey === 'not_found' ? 404 : 200;
+    const statusCode = pageKey === 'not_found' || isMissingLocalFile ? 404 : 200;
     res.status(statusCode).set('Content-Type', 'text/html').send(dom.serialize());
   };
 
@@ -84,5 +96,20 @@ export class PageController {
     }
 
     return filePath;
+  }
+
+  private defaultFileNotFoundHtml(): string {
+    if (fs.existsSync(DEFAULT_404_HTML)) {
+      return fs.readFileSync(DEFAULT_404_HTML, 'utf-8');
+    }
+
+    return `
+      <div style="text-align:center;padding:80px 20px;">
+        <h1 style="font-size:72px;margin:0;">404</h1>
+        <h2>File Not Found</h2>
+        <p>The requested local file does not exist.</p>
+        <a href="/">Go Home</a>
+      </div>
+    `;
   }
 }

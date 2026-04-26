@@ -36,8 +36,7 @@ export class CacheController {
           <h1>Internal Tools</h1>
           <ul>
             <li><a href="/_/clist">Cache List</a></li>
-            <li><a href="/_/log">Debug Log</a></li>
-            <li><a href="/_/log?clear=false">Clear Debug Log</a></li>
+            <li><a href="/_/log?clear=false">Debug Log</a></li>
           </ul>
         </body>
       </html>
