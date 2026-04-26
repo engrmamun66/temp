@@ -1,0 +1,47 @@
+import { ApiClient } from './ApiClient';
+import { CacheService } from './CacheService';
+import { RouteConfig, StoreConfig, PageData } from '../interfaces/StoreConfig';
+
+const STORE_CACHE_KEY = '__store_config__';
+const PAGE_CACHE_TTL = 300;   // 5 minutes
+const STORE_CACHE_TTL = 600;  // 10 minutes
+
+export class StoreConfigService {
+  private static instance: StoreConfigService;
+  private api: ApiClient;
+  private cache: CacheService;
+
+  private constructor() {
+    this.api = ApiClient.getInstance();
+    this.cache = CacheService.getInstance();
+  }
+
+  static getInstance(): StoreConfigService {
+    if (!StoreConfigService.instance) StoreConfigService.instance = new StoreConfigService();
+    return StoreConfigService.instance;
+  }
+
+  async getStoreConfig(subdomain: string): Promise<StoreConfig> {
+    const cached = this.cache.get<StoreConfig>(subdomain, STORE_CACHE_KEY);
+    if (cached) return cached;
+
+    const routes = await this.api.getStoreConfig(subdomain);
+    const config: StoreConfig = { subdomain, routes };
+    this.cache.set(subdomain, STORE_CACHE_KEY, config, STORE_CACHE_TTL);
+    return config;
+  }
+
+  async getPageData(subdomain: string, page_key: string): Promise<PageData> {
+    const cached = this.cache.get<PageData>(subdomain, page_key);
+    if (cached) return cached;
+
+    const data = await this.api.getPageData(subdomain, page_key);
+    this.cache.set(subdomain, page_key, data, PAGE_CACHE_TTL);
+    return data;
+  }
+
+  findRouteBySlug(routes: RouteConfig[], slug: string): RouteConfig | undefined {
+    const normalized = slug === '' ? '/' : slug;
+    return routes.find((r) => r.page_slug === normalized);
+  }
+}
