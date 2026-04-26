@@ -2,7 +2,7 @@
   "routes": [
     { 
       "route_path": "/home", 
-      "page_key": "home_new", 
+      "page_key": "home", 
       "content_source": "api"
     },
     { 
@@ -25,7 +25,11 @@
       "page_key": "package_details",
       "content_source": "api"
     },
-    { "route_path": "/cart", "page_key": "cart", "content_source": "api" },
+    { 
+      "route_path": "/cart", 
+      "page_key": "cart", 
+      "content_source": "api"
+    },
     {
       "route_path": "/checkout",
       "page_key": "checkout",
