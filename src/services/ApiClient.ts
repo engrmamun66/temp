@@ -6,23 +6,6 @@ interface TokenCache {
   [subdomain: string]: string;
 }
 
-interface GetSettingsResponse {
-  status: string;
-  result: {
-    location: { id: number; name: string; country: string };
-    locations: { id: number; name: string; country: string }[];
-    store: {
-      id: number;
-      uid: string;
-      name: string;
-      slug: string;
-      logo: string;
-      token: string;
-      [key: string]: unknown;
-    };
-  };
-}
-
 export class ApiClient {
   private static instance: ApiClient;
   private readonly http: AxiosInstance;
@@ -52,10 +35,12 @@ export class ApiClient {
   }
 
   private async fetchToken(subdomain: string): Promise<string> {
-    const res = await this.http.get<GetSettingsResponse>('/get-settings', {
-      params: { store_name: subdomain },
+    const res = await this.http.get<{ token: string }>('/apps/access-token', {
+      params: {
+        store_name: subdomain
+      }
     });
-    return res.data.result.store.token;
+    return res.data.token;
   }
 
   private async getToken(subdomain: string): Promise<string> {
@@ -90,7 +75,7 @@ export class ApiClient {
   }
 
   async getStoreConfig(subdomain: string): Promise<RouteConfig[]> {
-    return this.authorizedGet<RouteConfig[]>(subdomain, '/store-settings', { subdomain });
+    return this.authorizedGet<RouteConfig[]>(subdomain, '/apps/access-token', { subdomain });
   }
 
   async getPageData(subdomain: string, page_key: string): Promise<PageData> {
