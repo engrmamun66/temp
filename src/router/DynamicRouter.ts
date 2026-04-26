@@ -31,6 +31,7 @@ export class DynamicRouter {
     this.router.get('/_', this.cacheCtrl.index);
     this.router.get('/_/clist', this.cacheCtrl.list);
     this.router.get('/_/log', this.cacheCtrl.debugLog);
+    this.router.get('/_/logs', this.cacheCtrl.debugLog);
     this.router.get('/api/_/cache-data', this.cacheCtrl.showData);
     this.router.get('/api/_/clear-cache-all', this.cacheCtrl.clearAll);
     this.router.get('/api/_/clear-cache', this.cacheCtrl.clearOne);
