@@ -6,7 +6,7 @@ interface EnvConfig {
   PORT: number;
   API_BASE_URL: string;
   CURRENT_DOMAIN: string;
-  SUBDOMAIN_FOR_DEV: string;
+  SUBDOMAIN_FOR_DEV: string | null;
   NODE_ENV: string;
 }
 
@@ -18,7 +18,7 @@ function requireEnv(key: string): string {
 
 function parseEnv(): EnvConfig {
   const missing: string[] = [];
-  const required = ['API_BASE_URL', 'CURRENT_DOMAIN', 'SUBDOMAIN_FOR_DEV'];
+  const required = ['API_BASE_URL', 'CURRENT_DOMAIN'];
 
   for (const key of required) {
     if (!process.env[key]) missing.push(key);
@@ -28,11 +28,13 @@ function parseEnv(): EnvConfig {
     throw new Error(`Missing required environment variables: ${missing.join(', ')}\nCopy .env.example to .env and fill in values.`);
   }
 
+  const subdomainForDev = process.env.SUBDOMAIN_FOR_DEV?.trim() || null;
+
   return {
     PORT: parseInt(process.env.PORT ?? '3000', 10),
     API_BASE_URL: requireEnv('API_BASE_URL').replace(/\/$/, ''),
     CURRENT_DOMAIN: requireEnv('CURRENT_DOMAIN'),
-    SUBDOMAIN_FOR_DEV: requireEnv('SUBDOMAIN_FOR_DEV'),
+    SUBDOMAIN_FOR_DEV: subdomainForDev,
     NODE_ENV: process.env.NODE_ENV ?? 'development',
   };
 }
