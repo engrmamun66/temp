@@ -19,7 +19,7 @@ function withRskSettings() {
         exit;
     }
 
-    $settingsFile = __DIR__ . '/settings.json';
+    $settingsFile = __DIR__ . '/settings.example.json';
 
     if ($subdomain !== '') {
         $specificSettingsFile = __DIR__ . '/settings.' . strtolower($subdomain) . '.json';
