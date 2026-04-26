@@ -139,7 +139,7 @@ export class ApiClient {
       params: { store_name: subdomain },
     });
     const result = res.data.result;
-    this.tokens[subdomain]    = result.store.token;
+    this.tokens[subdomain]    = result?.store?.token || 'token-fetched-failed';
     this.storeData[subdomain] = result;
     console.log({subdomain, result});
     this.saveToFile(subdomain, result);
