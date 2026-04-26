@@ -27,6 +27,7 @@
             margin: 0;
             min-height: 100vh;
             font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+            font-size: 14px;
             color: var(--text);
             background:
                 radial-gradient(circle at top left, rgba(239, 176, 121, 0.34), transparent 28rem),
@@ -42,13 +43,13 @@
 
         #app {
             width: min(1120px, calc(100% - 32px));
-            margin: 40px auto;
+            margin: 28px auto;
         }
 
         .page-shell {
-            padding: 28px;
+            padding: 22px;
             border: 1px solid rgba(255, 255, 255, 0.65);
-            border-radius: 28px;
+            border-radius: 24px;
             background: var(--panel);
             backdrop-filter: blur(14px);
             box-shadow: var(--shadow);
@@ -56,68 +57,70 @@
 
         .hero {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             align-items: flex-start;
             justify-content: space-between;
-            margin-bottom: 22px;
+            margin-bottom: 18px;
         }
 
         .eyebrow {
-            margin: 0 0 10px;
-            font-size: 12px;
+            margin: 0 0 8px;
+            font-size: 11px;
             font-weight: 700;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--accent-deep);
         }
 
         h1 {
             margin: 0;
-            font-size: clamp(2rem, 4vw, 3.3rem);
-            line-height: 0.95;
+            font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+            line-height: 0.98;
             letter-spacing: -0.04em;
         }
 
         .meta {
-            margin: 12px 0 0;
+            margin: 10px 0 0;
+            font-size: 13px;
             color: var(--muted);
         }
 
         .toolbar {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             align-items: end;
             justify-content: space-between;
-            margin-bottom: 22px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
         }
 
         .toolbar-actions {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
         }
 
         .search-field {
             display: grid;
-            gap: 8px;
+            gap: 6px;
             min-width: min(420px, 100%);
             color: var(--muted);
         }
 
         .search-field span {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             letter-spacing: 0.03em;
         }
 
         .search-field input {
             width: 100%;
-            padding: 14px 16px;
+            padding: 10px 12px;
             border: 1px solid var(--line);
-            border-radius: 16px;
+            border-radius: 12px;
             background: rgba(255, 255, 255, 0.8);
             color: var(--text);
+            font-size: 13px;
             outline: none;
         }
 
@@ -141,29 +144,33 @@
         }
 
         .refresh-link {
-            padding: 13px 18px;
+            padding: 10px 14px;
+            font-size: 13px;
             background: linear-gradient(135deg, var(--accent) 0%, #d78962 100%);
             color: #fffaf6;
             box-shadow: 0 12px 24px rgba(200, 100, 59, 0.24);
         }
 
         .clear-all-btn {
-            padding: 13px 18px;
+            padding: 10px 14px;
+            font-size: 13px;
             background: #24180f;
             color: #fffaf6;
             box-shadow: 0 12px 24px rgba(36, 24, 15, 0.16);
         }
 
         .delete-btn {
-            min-width: 88px;
-            padding: 10px 14px;
+            min-width: 76px;
+            padding: 8px 12px;
+            font-size: 12px;
             background: rgba(200, 100, 59, 0.11);
             color: var(--accent-deep);
         }
 
         .show-btn {
-            min-width: 108px;
-            padding: 10px 14px;
+            min-width: 92px;
+            padding: 8px 12px;
+            font-size: 12px;
             background: rgba(36, 24, 15, 0.08);
             color: var(--text);
         }
@@ -186,26 +193,27 @@
         .table-card {
             overflow: hidden;
             border: 1px solid var(--line);
-            border-radius: 22px;
+            border-radius: 18px;
             background: var(--panel-strong);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            font-size: 13px;
         }
 
         th,
         td {
-            padding: 16px 18px;
+            padding: 12px 14px;
             text-align: left;
             border-bottom: 1px solid var(--line);
             vertical-align: top;
         }
 
         th {
-            font-size: 12px;
-            letter-spacing: 0.12em;
+            font-size: 11px;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--muted);
         }
@@ -216,11 +224,11 @@
 
         .key-cell code {
             display: inline-block;
-            padding: 6px 10px;
-            border-radius: 10px;
+            padding: 5px 8px;
+            border-radius: 8px;
             background: rgba(36, 24, 15, 0.06);
             font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
-            font-size: 13px;
+            font-size: 12px;
             word-break: break-all;
         }
 
@@ -234,14 +242,15 @@
 
         .row-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: flex-end; 
         }
 
         .empty-state,
         .error-banner {
-            padding: 18px 20px;
-            border-radius: 18px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            font-size: 13px;
         }
 
         .empty-state {
@@ -258,9 +267,9 @@
         }
 
         .data-panel {
-            margin-top: 20px;
+            margin-top: 16px;
             border: 1px solid var(--line);
-            border-radius: 22px;
+            border-radius: 18px;
             background: rgba(255, 255, 255, 0.76);
             overflow: hidden;
         }
@@ -270,19 +279,19 @@
             align-items: center;
             justify-content: space-between;
             gap: 16px;
-            padding: 16px 18px;
+            padding: 12px 14px;
             border-bottom: 1px solid var(--line);
         }
 
         .data-panel-header h2 {
             margin: 0;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .data-panel-header code {
             display: inline-block;
-            margin-top: 6px;
-            font-size: 12px;
+            margin-top: 4px;
+            font-size: 11px;
             color: var(--muted);
             word-break: break-all;
         }
@@ -296,22 +305,22 @@
 
         .data-panel pre {
             margin: 0;
-            padding: 18px;
+            padding: 14px;
             overflow: auto;
-            font-size: 13px;
-            line-height: 1.55;
+            font-size: 12px;
+            line-height: 1.5;
             background: rgba(36, 24, 15, 0.03);
         }
 
         @media (max-width: 760px) {
             #app {
                 width: min(100% - 20px, 100%);
-                margin: 18px auto;
+                margin: 14px auto;
             }
 
             .page-shell {
-                padding: 18px;
-                border-radius: 22px;
+                padding: 16px;
+                border-radius: 18px;
             }
 
             .hero {
@@ -346,7 +355,7 @@
 
             th,
             td {
-                padding: 14px 12px;
+                padding: 10px 10px;
             }
         }
     </style>
