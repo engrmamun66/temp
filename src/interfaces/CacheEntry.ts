@@ -6,6 +6,8 @@ export interface CacheEntry {
 
 export interface CacheListItem {
   key: string;
+  displayKey: string;
   expiresAt: string; // human-readable via moment
   deleteUrl: string;
+  dataUrl: string;
 }

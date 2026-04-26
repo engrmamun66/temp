@@ -50,8 +50,10 @@ export class CacheService {
       const expiresAt = ttl ? moment(ttl).format('YYYY-MM-DD HH:mm:ss') : 'no-expire';
       return {
         key,
+        displayKey: this.buildDisplayKey(key),
         expiresAt,
         deleteUrl: `${baseUrl}/api/_/clear-cache?key=${encodeURIComponent(key)}`,
+        dataUrl: `${baseUrl}/api/_/cache-data?key=${encodeURIComponent(key)}`,
       };
     });
   }
@@ -66,5 +68,11 @@ export class CacheService {
   private getKeysForSubdomain(subdomain: string): string[] {
     const prefix = `${subdomain}___`;
     return this.cache.keys().filter((k) => k.startsWith(prefix));
+  }
+
+  private buildDisplayKey(cacheKey: string): string {
+    const parts = cacheKey.split('___');
+    if (parts.length < 3) return cacheKey;
+    return [parts[0], ...parts.slice(2)].join('___');
   }
 }

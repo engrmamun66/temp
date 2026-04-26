@@ -127,6 +127,7 @@
         }
 
         .refresh-link,
+        .show-btn,
         .clear-all-btn,
         .delete-btn {
             display: inline-flex;
@@ -160,11 +161,22 @@
             color: var(--accent-deep);
         }
 
+        .show-btn {
+            min-width: 108px;
+            padding: 10px 14px;
+            background: rgba(36, 24, 15, 0.08);
+            color: var(--text);
+        }
+
         .refresh-link:hover,
+        .show-btn:hover,
+        .clear-all-btn:hover,
         .delete-btn:hover {
             transform: translateY(-1px);
         }
 
+        .show-btn:disabled,
+        .clear-all-btn:disabled,
         .delete-btn:disabled {
             cursor: wait;
             opacity: 0.6;
@@ -213,7 +225,17 @@
         }
 
         .action-column {
-            width: 120px;
+            width: 240px;
+        }
+
+        .actions-cell {
+            width: 240px;
+        }
+
+        .row-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end; 
         }
 
         .empty-state,
@@ -233,6 +255,52 @@
             border: 1px solid rgba(181, 52, 52, 0.18);
             background: rgba(181, 52, 52, 0.08);
             color: #8f1f1f;
+        }
+
+        .data-panel {
+            margin-top: 20px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.76);
+            overflow: hidden;
+        }
+
+        .data-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 16px 18px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .data-panel-header h2 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .data-panel-header code {
+            display: inline-block;
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--muted);
+            word-break: break-all;
+        }
+
+        .data-panel-close {
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .data-panel pre {
+            margin: 0;
+            padding: 18px;
+            overflow: auto;
+            font-size: 13px;
+            line-height: 1.55;
+            background: rgba(36, 24, 15, 0.03);
         }
 
         @media (max-width: 760px) {
@@ -261,6 +329,15 @@
 
             .clear-all-btn {
                 width: 100%;
+            }
+
+            .actions-cell,
+            .action-column {
+                width: auto;
+            }
+
+            .row-actions {
+                justify-content: flex-start;
             }
 
             .refresh-link {
@@ -342,17 +419,27 @@
             </thead>
             <tbody>
             <tr v-for="item in filteredItems" :key="item.key">
-                <td class="key-cell"><code>{{ item.key }}</code></td>
+                <td class="key-cell"><code>{{ item.displayKey }}</code></td>
                 <td>{{ formatExpiresAt(item.expiresAt) }}</td>
-                <td>
-                <button
-                    class="delete-btn"
-                    type="button"
-                    :disabled="pendingKey === item.key || pendingClearAll"
-                    @click="deleteItem(item)"
-                >
-                    {{ pendingKey === item.key ? 'Clearing...' : 'Clear' }}
-                </button>
+                <td class="actions-cell">
+                <div class="row-actions">
+                    <button
+                        class="show-btn"
+                        type="button"
+                        :disabled="pendingShowKey === item.key || pendingClearAll"
+                        @click="showData(item)"
+                    >
+                        {{ pendingShowKey === item.key ? 'Loading...' : 'Show Data' }}
+                    </button>
+                    <button
+                        class="delete-btn"
+                        type="button"
+                        :disabled="pendingKey === item.key || pendingClearAll"
+                        @click="deleteItem(item)"
+                    >
+                        {{ pendingKey === item.key ? 'Clearing...' : 'Clear' }}
+                    </button>
+                </div>
                 </td>
             </tr>
             </tbody>
@@ -362,6 +449,17 @@
         <div v-else class="empty-state">
         {{ items.length ? 'No cache entries match the current filter.' : 'No cache entries found for this subdomain.' }}
         </div>
+
+        <section v-if="selectedDataKey" class="data-panel">
+            <div class="data-panel-header">
+                <div>
+                    <h2>Cache Data</h2>
+                    <code>{{ selectedDataKey }}</code>
+                </div>
+                <button class="data-panel-close" type="button" @click="hideData">Close</button>
+            </div>
+            <pre>{{ selectedDataText }}</pre>
+        </section>
     </div>
     </script>
 
@@ -380,14 +478,17 @@
                     errorMessage: '',
                     pendingKey: '',
                     pendingClearAll: false,
+                    pendingShowKey: '',
                     searchTerm: '',
+                    selectedDataKey: '',
+                    selectedDataText: '',
                 };
             },
             computed: {
                 filteredItems() {
                     const term = this.searchTerm.trim().toLowerCase();
                     if (!term) return this.items;
-                    return this.items.filter((item) => item.key.toLowerCase().includes(term));
+                    return this.items.filter((item) => (item.displayKey || item.key).toLowerCase().includes(term));
                 },
             },
             methods: {
@@ -414,6 +515,7 @@
                 },
                 async clearAll() {
                     if (!this.clearAllUrl) return;
+                    if (!window.confirm('Are you sure?')) return;
 
                     this.errorMessage = '';
                     this.pendingClearAll = true;
@@ -428,10 +530,49 @@
                         }
 
                         this.items = [];
+                        this.hideData();
                     } catch (error) {
                         this.errorMessage = error instanceof Error ? error.message : 'Failed to clear cache entries.';
                     } finally {
                         this.pendingClearAll = false;
+                    }
+                },
+                async showData(item) {
+                    if (!item.dataUrl) return;
+
+                    this.errorMessage = '';
+                    this.pendingShowKey = item.key;
+
+                    try {
+                        const response = await fetch(item.dataUrl, {
+                            headers: { Accept: 'application/json' },
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Show data failed with status ' + response.status);
+                        }
+
+                        const payload = await response.json();
+                        this.selectedDataKey = item.displayKey || item.key;
+                        this.selectedDataText = this.stringifyData(payload.data);
+                    } catch (error) {
+                        this.errorMessage = error instanceof Error ? error.message : 'Failed to load cache data.';
+                    } finally {
+                        this.pendingShowKey = '';
+                    }
+                },
+                hideData() {
+                    this.selectedDataKey = '';
+                    this.selectedDataText = '';
+                },
+                stringifyData(value) {
+                    if (typeof value === 'string') return value;
+                    if (value === null || value === undefined) return String(value);
+
+                    try {
+                        return JSON.stringify(value, null, 2);
+                    } catch (_error) {
+                        return String(value);
                     }
                 },
                 async deleteItem(item) {
@@ -448,6 +589,9 @@
                         }
 
                         this.items = this.items.filter((entry) => entry.key !== item.key);
+                        if (this.selectedDataKey === (item.displayKey || item.key)) {
+                            this.hideData();
+                        }
                     } catch (error) {
                         this.errorMessage = error instanceof Error ? error.message : 'Failed to clear cache entry.';
                     } finally {

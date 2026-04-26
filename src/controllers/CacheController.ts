@@ -60,6 +60,26 @@ export class CacheController {
     res.json({ subdomain, deletedCount });
   };
 
+  showData = (req: Request, res: Response): void => {
+    const key = req.query.key as string | undefined;
+    if (!key) {
+      res.status(400).json({ error: 'Missing ?key= query param' });
+      return;
+    }
+
+    const entry = this.cache.getRawEntry(key);
+    if (!entry) {
+      res.status(404).json({ error: 'Cache entry not found' });
+      return;
+    }
+
+    res.json({
+      key: entry.key,
+      expiresAt: entry.expiresAt,
+      data: entry.value,
+    });
+  };
+
   debugLog = (req: Request, res: Response): void => {
     if (req.query.clear === 'true') {
       fs.mkdirSync(path.dirname(DEBUG_LOG), { recursive: true });
@@ -110,10 +130,13 @@ export class CacheController {
   private renderCacheRows(items: CacheListItem[]): string {
     return items.map((item) => `
       <tr>
-        <td class="key-cell"><code>${this.escapeHtml(item.key)}</code></td>
+        <td class="key-cell"><code>${this.escapeHtml(item.displayKey)}</code></td>
         <td>${this.escapeHtml(this.formatExpiresAt(item.expiresAt))}</td>
-        <td>
-          <button class="delete-btn" type="button">Clear</button>
+        <td class="actions-cell">
+          <div class="row-actions">
+            <button class="show-btn" type="button">Show Data</button>
+            <button class="delete-btn" type="button">Clear</button>
+          </div>
         </td>
       </tr>
     `).join('');
