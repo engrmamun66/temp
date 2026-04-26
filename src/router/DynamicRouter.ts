@@ -4,6 +4,7 @@ import { CacheController } from '../controllers/CacheController';
 import { SitemapController } from '../controllers/SitemapController';
 import { RobotsController } from '../controllers/RobotsController';
 import { PageController } from '../controllers/PageController';
+import { ConfigJsController } from '../controllers/ConfigJsController';
 import { RouteConfig } from '../interfaces/StoreConfig';
 
 export class DynamicRouter {
@@ -13,6 +14,7 @@ export class DynamicRouter {
   private sitemapCtrl: SitemapController;
   private robotsCtrl: RobotsController;
   private pageCtrl: PageController;
+  private configJsCtrl: ConfigJsController;
 
   constructor() {
     this.router = Router();
@@ -21,6 +23,7 @@ export class DynamicRouter {
     this.sitemapCtrl = new SitemapController();
     this.robotsCtrl = new RobotsController();
     this.pageCtrl = new PageController();
+    this.configJsCtrl = new ConfigJsController();
 
     this.registerStaticRoutes();
     this.registerDynamicCatchAll();
@@ -38,6 +41,7 @@ export class DynamicRouter {
     this.router.get('/robots.txt', this.robotsCtrl.generate);
     this.router.get('/_clist', this.cacheCtrl.list);
     this.router.get('/api/_clear-cache', this.cacheCtrl.clearOne);
+    this.router.get('/config.js', this.configJsCtrl.handle);
   }
 
   // -------------------------------------------------------------------------

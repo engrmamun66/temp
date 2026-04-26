@@ -3,7 +3,8 @@
       {
         "route_path": "/",
         "page_key": "home",
-        "page_path": "/page/home"
+        "content_path": "/page/home",
+        "content_source": "api"
       }
   ],
   "redirections": [
