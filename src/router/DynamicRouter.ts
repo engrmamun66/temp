@@ -28,6 +28,7 @@ export class DynamicRouter {
   }
 
   private registerStaticRoutes(): void {
+    this.router.get('/_', this.cacheCtrl.index);
     this.router.get('/_/clist', this.cacheCtrl.list);
     this.router.get('/_/log', this.cacheCtrl.debugLog);
     this.router.get('/api/_/clear-cache', this.cacheCtrl.clearOne);

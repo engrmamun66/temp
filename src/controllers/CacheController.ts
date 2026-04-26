@@ -22,6 +22,27 @@ export class CacheController {
     res.status(200).type('text/html').send(this.renderCacheListPage(subdomain, items));
   };
 
+  index = (_req: Request, res: Response): void => {
+    res.status(200).type('text/html').send(`
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Internal Tools</title>
+        </head>
+        <body>
+          <h1>Internal Tools</h1>
+          <ul>
+            <li><a href="/_/clist">Cache List</a></li>
+            <li><a href="/_/log">Debug Log</a></li>
+            <li><a href="/_/log?clear=false">Clear Debug Log</a></li>
+          </ul>
+        </body>
+      </html>
+    `);
+  };
+
   clearOne = (req: Request, res: Response): void => {
     const key = req.query.key as string | undefined;
     if (!key) {

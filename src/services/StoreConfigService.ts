@@ -2,7 +2,7 @@ import { ApiClient, StoreResult } from './ApiClient';
 import { CacheService } from './CacheService';
 import { RouteConfig, StoreConfig, PageContent } from '../interfaces/StoreConfig';
 
-const STORE_CACHE_KEY  = '__store_config__';
+const STORE_CACHE_KEY  = '__store_config';
 const STORE_CACHE_TTL  = 600;  // 10 minutes
 const CONTENT_CACHE_TTL = 300; // 5 minutes
 
