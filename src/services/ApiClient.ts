@@ -192,7 +192,7 @@ export class ApiClient {
 
   // ── Public API methods ────────────────────────────────────────────────────
 
-  async getFullConfigs(subdomain: string): Promise<RouteConfig[]> {
+  async getRskConfigs(subdomain: string): Promise<RouteConfig[]> {
     return this.authorizedGet<RouteConfig[]>(subdomain, '/get-settings', { store_name: subdomain });
   }
 

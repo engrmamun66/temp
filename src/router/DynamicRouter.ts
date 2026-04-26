@@ -51,7 +51,7 @@ export class DynamicRouter {
 
       let config;
       try {
-        config = await this.storeService.getFullConfigs(subdomain);
+        config = await this.storeService.getRskConfigs(subdomain);
       } catch (err) {
         console.error(`[DynamicRouter] failed to load store config for ${subdomain}`, err);
         next(err);

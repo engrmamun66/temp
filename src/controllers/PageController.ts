@@ -24,7 +24,7 @@ export class PageController {
       const [storeResult, pageData, storeConfig] = await Promise.all([
         this.apiClient.getOrFetchStoreResult(subdomain),
         this.storeService.getPageData(subdomain, pageKey),
-        this.storeService.getFullConfigs(subdomain),
+        this.storeService.getRskConfigs(subdomain),
       ]);
 
       // Resolve HTML file: prefer pageData.htmlFile, then route's file field
