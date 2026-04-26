@@ -308,7 +308,7 @@
             <tbody>
             <tr v-for="item in filteredItems" :key="item.key">
                 <td class="key-cell"><code>{{ item.key }}</code></td>
-                <td>{{ item.expiresAt }}</td>
+                <td>{{ formatExpiresAt(item.expiresAt) }}</td>
                 <td>
                 <button
                     class="delete-btn"
@@ -355,6 +355,27 @@
                 },
             },
             methods: {
+                formatExpiresAt(value) {
+                    if (!value || value === 'no-expire') return value || '';
+
+                    const [datePart, timePart] = value.split(' ');
+                    if (!datePart || !timePart) return value;
+
+                    const [year, month, day] = datePart.split('-');
+                    const [hourText, minuteText] = timePart.split(':');
+                    const hour = Number(hourText);
+                    const minute = Number(minuteText);
+
+                    if (!year || !month || !day || Number.isNaN(hour) || Number.isNaN(minute)) {
+                        return value;
+                    }
+
+                    const suffix = hour >= 12 ? 'PM' : 'AM';
+                    const formattedHour = String(hour % 12 || 12).padStart(2, '0');
+                    const formattedMinute = String(minute).padStart(2, '0');
+
+                    return `${year}-${month}-${day}, ${formattedHour}:${formattedMinute} ${suffix}`;
+                },
                 async deleteItem(item) {
                     this.errorMessage = '';
                     this.pendingKey = item.key;

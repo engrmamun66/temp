@@ -83,12 +83,34 @@ export class CacheController {
     return items.map((item) => `
       <tr>
         <td class="key-cell"><code>${this.escapeHtml(item.key)}</code></td>
-        <td>${this.escapeHtml(item.expiresAt)}</td>
+        <td>${this.escapeHtml(this.formatExpiresAt(item.expiresAt))}</td>
         <td>
           <button class="delete-btn" type="button">Clear</button>
         </td>
       </tr>
     `).join('');
+  }
+
+  private formatExpiresAt(value: string): string {
+    if (!value || value === 'no-expire') return value || '';
+
+    const [datePart, timePart] = value.split(' ');
+    if (!datePart || !timePart) return value;
+
+    const [year, month, day] = datePart.split('-');
+    const [hourText, minuteText] = timePart.split(':');
+    const hour = Number(hourText);
+    const minute = Number(minuteText);
+
+    if (!year || !month || !day || Number.isNaN(hour) || Number.isNaN(minute)) {
+      return value;
+    }
+
+    const suffix = hour >= 12 ? 'PM' : 'AM';
+    const formattedHour = String(hour % 12 || 12).padStart(2, '0');
+    const formattedMinute = String(minute).padStart(2, '0');
+
+    return `${year}-${month}-${day}, ${formattedHour}:${formattedMinute} ${suffix}`;
   }
 
   private escapeHtml(value: string): string {
