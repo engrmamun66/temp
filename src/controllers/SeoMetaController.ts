@@ -10,6 +10,7 @@ interface ApplyPageMetaOptions {
 }
 
 export class SeoMetaController {
+  private readonly headIndent = '\n    ';
 
   applyPageMeta(document: Document, {
     route,
@@ -82,7 +83,7 @@ export class SeoMetaController {
     if (!tag) {
       tag = document.createElement('meta');
       tag.name = name;
-      document.head.appendChild(tag);
+      this._appendHeadNode(document, tag);
     }
     tag.content = content;
   }
@@ -97,7 +98,7 @@ export class SeoMetaController {
     if (!tag) {
       tag = document.createElement('meta');
       tag.setAttribute('property', property);
-      document.head.appendChild(tag);
+      this._appendHeadNode(document, tag);
     }
     tag.setAttribute('content', content);
   }
@@ -112,7 +113,7 @@ export class SeoMetaController {
     if (!tag) {
       tag = document.createElement('link');
       tag.rel = 'canonical';
-      document.head.appendChild(tag);
+      this._appendHeadNode(document, tag);
     }
     tag.href = href;
   }
@@ -127,7 +128,7 @@ export class SeoMetaController {
     if (!tag) {
       tag = document.createElement('link');
       tag.rel = rel;
-      document.head.appendChild(tag);
+      this._appendHeadNode(document, tag);
     }
     tag.href = href;
   }
@@ -174,10 +175,10 @@ export class SeoMetaController {
       tag = document.createElement('script');
       tag.type = 'application/ld+json';
       tag.setAttribute('data-rsk-schema', 'page');
-      document.head.appendChild(tag);
+      this._appendHeadNode(document, tag);
     }
 
-    tag.textContent = JSON.stringify(schema);
+    tag.textContent = this._formatStructuredData(schema);
   }
 
   private _resolveTitle(route: RouteConfig, meta: PageContent | HomeMeta): string {
@@ -247,5 +248,37 @@ export class SeoMetaController {
     }
 
     return '';
+  }
+
+  private _appendHeadNode(document: Document, node: Element): void {
+    const trailingWhitespace = this._getTrailingHeadWhitespace(document);
+
+    if (trailingWhitespace) {
+      trailingWhitespace.textContent = '\n';
+      document.head.insertBefore(document.createTextNode(this.headIndent), trailingWhitespace);
+      document.head.insertBefore(node, trailingWhitespace);
+      return;
+    }
+
+    document.head.appendChild(document.createTextNode(this.headIndent));
+    document.head.appendChild(node);
+    document.head.appendChild(document.createTextNode('\n'));
+  }
+
+  private _getTrailingHeadWhitespace(document: Document): Text | null {
+    const { lastChild } = document.head;
+    if (lastChild?.nodeType !== document.TEXT_NODE) return null;
+
+    const textNode = lastChild as Text;
+    return /\S/.test(textNode.textContent ?? '') ? null : textNode;
+  }
+
+  private _formatStructuredData(schema: Record<string, unknown>): string {
+    const prettyJson = JSON.stringify(schema, null, 2)
+      .split('\n')
+      .map((line) => `      ${line}`)
+      .join('\n');
+
+    return `\n${prettyJson}\n    `;
   }
 }
