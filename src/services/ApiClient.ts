@@ -203,10 +203,10 @@ export class ApiClient {
         result: { data: { routes: RskConfigRoute[]; redirections: Redirections } };
       }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
       return resp.result.data.routes.map((r: RskConfigRoute) => ({
-        page_key:       r.page_key,
-        page_slug:      r.route_path,
-        content_path:   r.content_path,
-        content_source: r.content_source, 
+        page_key:       r?.page_key,
+        page_slug:      '/' + (r?.route_path || '').replace(/^\\+/, ''),
+        content_path:   r?.content_path,
+        content_source: r?.content_source, 
       }));
     } catch (err) {
       const status = (err as AxiosError).response?.status;
