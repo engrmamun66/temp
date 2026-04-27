@@ -1,5 +1,5 @@
 import { StoreResult } from '../services/ApiClient';
-import { RouteConfig } from '../interfaces/StoreConfig';
+import { RouteConfig } from '../interfaces';
 import { env } from '../config/env';
 import { logToFile } from '../utils/fileLogger';
 

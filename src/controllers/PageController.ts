@@ -33,6 +33,10 @@ export class PageController {
 
     const dom = new JSDOM(indexSource());
     const { document } = dom.window;
+    const requestUrl = this.buildRequestUrl(req);
+    const siteName = storeResult.store.name || storeResult.store.slug;
+    const defaultImageUrl = storeResult.store.logo || '';
+    const defaultIconUrl = this.getStoreString(storeResult.store, 'favicon') || defaultImageUrl;
 
     const logoEl = document.getElementById('RENTMY_STORE_LOGO') as HTMLImageElement | null;
     try {
@@ -64,11 +68,25 @@ export class PageController {
           // let pageContent
           if(route.page_key.toLocaleLowerCase() === 'home'){
             const { contents, meta } = await this.storeService.loadHomePageContents(subdomain, route.content_path);
-            this.seoAndMetaCtrl.applyPageMeta(document, {route, meta});
+            this.seoAndMetaCtrl.applyPageMeta(document, {
+              route,
+              meta,
+              requestUrl,
+              siteName,
+              defaultImageUrl,
+              defaultIconUrl,
+            });
           } 
           else {
             const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
-            this.seoAndMetaCtrl.applyPageMeta(document, {route, meta: pageContent});
+            this.seoAndMetaCtrl.applyPageMeta(document, {
+              route,
+              meta: pageContent,
+              requestUrl,
+              siteName,
+              defaultImageUrl,
+              defaultIconUrl,
+            });
             if (contentDiv) contentDiv.innerHTML = pageContent.contents.content;
           }
 
@@ -107,5 +125,23 @@ export class PageController {
         <a href="/">Go Home</a>
       </div>
     `;
+  }
+
+  private buildRequestUrl(req: Request): string {
+    const forwardedProto = req.headers['x-forwarded-proto'];
+    let protocol = Array.isArray(forwardedProto) ? forwardedProto[0] : forwardedProto || req.protocol;
+    const host = req.get('host') || '';
+    const urlPath = `${host}${req.originalUrl}`;
+
+    if (host && !host.includes('localhost')) {
+      protocol = 'https';
+    }
+
+    return protocol ? `${protocol}://${urlPath}` : urlPath;
+  }
+
+  private getStoreString(store: Record<string, unknown>, key: string): string {
+    const value = store[key];
+    return typeof value === 'string' ? value : '';
   }
 }

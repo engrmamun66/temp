@@ -1,4 +1,4 @@
-import { HomeContent, HomeMeta } from './../interfaces/StoreConfig';
+import { HomeContent, HomeMeta } from '../interfaces';
 
 export type HomeLayoutOrder = (string | number)[]
 

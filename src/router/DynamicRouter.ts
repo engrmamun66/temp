@@ -3,7 +3,7 @@ import { StoreConfigService } from '../services/StoreConfigService';
 import { CacheController } from '../controllers/CacheController';
 import { PageController } from '../controllers/PageController';
 import { ConfigJsController } from '../controllers/ConfigJsController';
-import { RouteConfig } from '../interfaces/StoreConfig';
+import { RouteConfig } from '../interfaces';
 
 export class DynamicRouter {
   private router: Router;

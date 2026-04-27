@@ -1,7 +1,7 @@
 import { ApiClient, StoreResult } from './ApiClient';
 import { CacheService } from './CacheService';
 import { HomeLayoutOrder } from '../types';
-import { RouteConfig, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta } from '../interfaces/StoreConfig';
+import { RouteConfig, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
 
 const STORE_CACHE_KEY  = '__store_config';

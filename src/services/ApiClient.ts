@@ -3,7 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RouteConfig, RskConfigRoute, PageContent, HomeContent, HomeMeta } from '../interfaces/StoreConfig';
+import { RouteConfig, RskConfigRoute, PageContent, HomeContent, HomeMeta } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
 
 // ── /get-settings response shape ────────────────────────────────────────────
