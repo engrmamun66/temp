@@ -3,6 +3,7 @@ import { StoreConfigService } from '../services/StoreConfigService';
 import { CacheController } from '../controllers/CacheController';
 import { PageController } from '../controllers/PageController';
 import { ConfigJsController } from '../controllers/ConfigJsController';
+import { SitemapController } from '../controllers/SitemapController';
 import { RouteConfig } from '../interfaces';
 
 export class DynamicRouter {
@@ -11,6 +12,7 @@ export class DynamicRouter {
   private cacheCtrl: CacheController;
   private pageCtrl: PageController;
   private configJsCtrl: ConfigJsController;
+  private sitemapCtrl: SitemapController;
 
   constructor() {
     this.router = Router();
@@ -18,6 +20,7 @@ export class DynamicRouter {
     this.cacheCtrl    = new CacheController();
     this.pageCtrl     = new PageController();
     this.configJsCtrl = new ConfigJsController();
+    this.sitemapCtrl  = new SitemapController();
 
     this.registerStaticRoutes();
     this.registerDynamicCatchAll();
@@ -36,6 +39,7 @@ export class DynamicRouter {
     this.router.get('/api/_/clear-cache-all', this.cacheCtrl.clearAll);
     this.router.get('/api/_/clear-cache', this.cacheCtrl.clearOne);
     this.router.get('/config.js', this.configJsCtrl.handle);
+    this.router.get('/sitemap.xml', this.sitemapCtrl.generate);
   }
 
   private registerDynamicCatchAll(): void {

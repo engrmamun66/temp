@@ -98,6 +98,10 @@ export class StoreConfigService {
     return this.api.getOrFetchStoreResult(subdomain);
   }
 
+  async getSitemapUrls(subdomain: string): Promise<string[]> {
+    return this.api.getSitemapUrls(subdomain);
+  }
+
   findRouteByPath(routes: RouteConfig[], routePath: string): RouteConfig | undefined {
     const normalized = routePath === '' ? '/' : routePath;
     return routes.find((r) => r.route_path === normalized);

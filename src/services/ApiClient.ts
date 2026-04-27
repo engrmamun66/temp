@@ -171,12 +171,17 @@ export class ApiClient {
 
   // ── Authorized request helper ─────────────────────────────────────────────
 
-  private async authorizedGet<T>(subdomain: string, path: string, params?: Record<string, unknown>): Promise<T> {
+  private async authorizedGet<T>(
+    subdomain: string,
+    path: string,
+    params?: Record<string, unknown>,
+    extraHeaders?: Record<string, string>
+  ): Promise<T> {
     const token = await this.getToken(subdomain);
     try {
       const res = await this.http.get<T>(path, {
         params,
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}`, ...(extraHeaders ?? {}) },
       });
       return res.data;
     } catch (err) {
@@ -186,7 +191,7 @@ export class ApiClient {
         const freshToken = await this.getToken(subdomain);
         const retry = await this.http.get<T>(path, {
           params,
-          headers: { Authorization: `Bearer ${freshToken}` },
+          headers: { Authorization: `Bearer ${freshToken}`, ...(extraHeaders ?? {}) },
         });
         return retry.data;
       }
@@ -256,6 +261,30 @@ export class ApiClient {
     };
     console.log(result);
     return result
+  }
+
+  async getSitemapUrls(subdomain: string): Promise<string[]> {
+    try {
+      const storeResult = await this.getOrFetchStoreResult(subdomain);
+      const locationId = storeResult.location?.id;
+      const resp = await this.authorizedGet<{
+        status: string;
+        result?: { data?: { urls?: unknown[] } };
+      }>(
+        subdomain,
+        '/stores/sitemap',
+        { store_name: subdomain },
+        locationId ? { Location: String(locationId) } : undefined
+      );
+
+      const urls = resp.result?.data?.urls;
+      if (!Array.isArray(urls)) return [];
+      return urls.filter((url): url is string => typeof url === 'string' && url.trim() !== '');
+    } catch (err) {
+      const axiosErr = err as AxiosError;
+      logToFile(`[getSitemapUrls() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+      return [];
+    }
   }
 
   async getHomePageContents(subdomain: string, contentPath: string): Promise<HomeContent[]> {

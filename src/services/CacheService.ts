@@ -23,7 +23,8 @@ export class CacheService {
   set<T>(subdomain: string, page_key: string, value: T, ttlSeconds: number): void {
     if (!env.CACHE) return;
     const key = this.buildKey(subdomain, page_key);
-    this.cache.set(key, value, env.CACHE_TIME || ttlSeconds);
+    const ttl = Number.isFinite(ttlSeconds) && ttlSeconds > 0 ? ttlSeconds : env.CACHE_TIME;
+    this.cache.set(key, value, ttl);
   }
 
   get<T>(subdomain: string, page_key: string): T | undefined {
