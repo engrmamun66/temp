@@ -1,0 +1,314 @@
+<main class="position-relative">
+    <section class="rentmy-innerpage-banner">
+        <div class="hero-overlay"></div>
+        <div class="rentmy-innerpage-overlay">
+            <div class="container">
+                <div class="container-inner">
+                    <div class="container-inner-overlay">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="rentmy-innerpage-body">
+                                    <div class="rentmy-innerpage-body-inner">
+                                        <h1> Customer Order Details</h1>
+                                        <div class="rentmy-breadcrumbs">
+                                            <ul>
+                                                <li><a href="/">Home</a></li>
+                                                <li> Customer Order Details</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <div class="container">
+
+    <div id="RentMyNoticeArea"></div>
+    <div id="RentMyCustomerOrderDetails" class="RentMyWrapper RentMyCustomerPortalWrapper">
+        <div class="RentMyCustomPortalRow">
+            <div class="RentMyLeftSidebarmenu">
+                <div class="RentMyLeftSidebarmenuInner" data-rentmyattr="SideBar">
+                    <div class="RentMyProfileImge">
+                        <img data-rentmyattr="rentmy_customer_profile_image" src="" alt="">
+                    </div>
+                    <h5 class="RentMyProfileName" data-rentmyattr="customer_name">{{ customer_name }}</h5>
+                    <div class="RentMySideMenu">
+                        <ul>
+                            <li><a data-rentmyattr="RentMyPageLink=customer_profile">Profile</a></li>
+                            <li><a data-rentmyattr="RentMyPageLink=customer_change_password">Change Password</a></li>
+                            <li><a data-rentmyattr="RentMyPageLink=customer_change_avatar">Change Avatar</a></li>
+                            <li><a data-rentmyattr="RentMyPageLink=customer_order_history" class="active">Order History</a></li>
+                            <li id="DashboardNav"><a RentMyPageLink="customer_order_dashboard">Dashboard</a></li>
+                            <li id="BillingNav"><a RentMyPageLink="customer_billing">Billing</a></li>
+                            <li><a class="rentmy_logout_btn">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="RentMyRightContent">
+                <div class="RentMyPageHeader">
+                    <h3>Order Details: #<span data-rentmyattr="order_id">{{order_id}}</span></h3>
+                    <div class="RentMyPageHeaderRightSide">
+                        <span><a href="#" class="RentMyBtn RentMyStatusBtn rounded" data-rentmyattr="order_status">{{order_status}}</a></span>
+                    </div>
+                </div>
+                <div class="RentMyContentBody">
+                    <div class="RentMyContentBodyInner">
+
+                        <!-- Summery and Billing Details css  -->
+                        <div class="RentMyRow SummeryBillingDetails">
+                            <div class="RentMyHalfwidth">
+                                <div class="RentMyCard">
+                                    <div class="RentMyCardHeader">
+                                        <h3>Summary</h3>
+                                        <div class="RentMyCardRightSide cp"></div>
+                                    </div>
+                                    <div class="RentMyCardBody">
+                                        <div class="RentMyRow">
+                                            <div class="RentMyHalfwidth">
+                                                <p class="RentMyDestitle"><strong>Order ID:</strong> <span data-rentmyattr="order_id">{{order_id}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Quantity:</strong> <span data-rentmyattr="order_quantity">{{order_quantity}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Payment Status:</strong> <span data-rentmyattr="order_payment_status">{{order_payment_status}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Status:</strong> <span data-rentmyattr="order_status">{{order_status}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Order Date & Time:</strong> <span data-rentmyattr="order_date_time">{{order_date_time}}</span></p>
+                                            </div>
+                                            <div class="RentMyHalfwidth">
+                                                <p class="RentMyDestitle"><strong>Subtotal:</strong> <span data-rentmyattr="order_subtotal">{{order_subtotal}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Delivery Charge Total:</strong> <span data-rentmyattr="order_delivery_charge_total">{{order_delivery_charge_total}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Total Discount:</strong> <span data-rentmyattr="order_total_discount">{{order_total_discount}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Sales Tax:</strong> <span data-rentmyattr="order_sales_tax">{{order_sales_tax}}</span></p>
+                                                <p class="RentMyDestitle"><strong>DE (8%):</strong> <span data-rentmyattr="order_de">{{order_de}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Grand Total:</strong>  <span data-rentmyattr="order_grand_total">{{order_grand_total}}</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="RentMyHalfwidth">
+                                <div class="RentMyCard">
+                                    <div class="RentMyCardHeader">
+                                        <h3>Billing & Shipping Details</h3>
+                                        <div class="RentMyCardRightSide cp"><i class="fa fa-edit" data-rentmyattr="EditAddress"></i></div>
+                                    </div>
+                                    <div class="RentMyCardBody">
+                                        <div class="RentMyRow">
+                                            <div class="RentMyHalfwidth">
+                                                <p class="RentMyDestitle"><strong>Name:</strong> <span data-rentmyattr="billing_name" >{{billing_name}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Mobile:</strong> <span data-rentmyattr="billing_mobile" >{{billing_mobile}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Address Line 1:</strong data-rentmyattr="billing_address_line_1" > <span>{{billing_address_line_1}}</span></p>
+                                                <p class="RentMyDestitle"><strong>City:</strong> <span data-rentmyattr="billing_city" >{{billing_city}}</span></p>
+                                                <p class="RentMyDestitle"><strong>State:</strong> <span data-rentmyattr="billing_state" >{{billing_state}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Company:</strong> <span data-rentmyattr="billing_company" >{{billing_company}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Address Info:</strong> <span data-rentmyattr="billing_address_info" >{{billing_address_info}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Signature:</strong> <span data-rentmyattr="signature" >{{signature}}</span></p>
+                                            </div>
+                                            <div class="RentMyHalfwidth">
+                                                <p class="RentMyDestitle"><strong>Email:</strong> <span data-rentmyattr="billing_email" >{{billing_email}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Country:</strong> <span data-rentmyattr="billing_country" >{{billing_country}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Address Line 2:</strong> <span data-rentmyattr="billing_address_line_2" >{{billing_address_line_2}}</span></p>
+                                                <p class="RentMyDestitle"><strong>Zipcode:</strong> <span data-rentmyattr="billing_zip" >{{billing_zip}}</span></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="RentMyRow mt-2" data-rentmyattr="AdditionalInfoSection">
+                                            <h5>Additional Info:</h5> 
+                                            <div data-rentmyattr="AdditionalFields">
+                                                <!-- <p class="RentMyDestitle"><strong>Name will be dynamicly here:</strong> <span data-rentmyattr="ttttttt" >{{billing_name}}</span></p>  -->
+                                            </div>
+                                        </div>
+                                        <div class="RentMyRow mt-2" data-rentmyattr="ShippingInfoSection">
+                                            <h5 id="ShippingInfoSectionLabel">Shipping Info:</h5> 
+                                            <div data-rentmyattr="ShippingInfoSectionContent">
+                                                <!-- <p class="RentMyDestitle"><strong>Name will be dynamicly here:</strong> <span data-rentmyattr="ttttttt" >{{billing_name}}</span></p>  -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inventory Items area  -->
+                        <div class="RentMyCard InventoryRentMyCard">
+                            <div class="RentMyCardHeader">
+                                <h3>Inventory Items</h3>
+                                <div class="RentMyCardRightSide">
+                                    <button id="RentMyAddInventoryItemBtn" class="RentMyBtn RentMyAddItem">Add Item</a>
+                                </div>
+                            </div>
+                            <div class="RentMyCardBody">
+                                <div data-rentmyattr="rentmy-add-inventory-search"></div>   
+                                <div data-rentmyattr="rentmy-order-product-details"></div>
+                                <div data-rentmyattr="rentmy-order-date-time" class="mb-2">
+                                    <strong>Rental Dates:</strong> <span>22 Mar 2024 - 24 Mar 2024</span>
+                                </div>
+                                <div id="RentMyOrderInventory" class="RentMyTableResponsive">
+                                    <table class="RentMyTable RentMyTableStriped">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%">Image</th>
+                                                <th width="25%">Description</th>
+                                                <th width="15%">Price</th>
+                                                <th width="20%">Quantity</th>
+                                                <th width="10%">Subtotal</th>
+                                                <th width="10%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td data-rentmyattr="product_images" data-rentmyattr="product_images">{{product_images}}</td>
+                                                <td data-rentmyattr="product_discription" data-rentmyattr="product_discription">{{product_discription}}</td>
+                                                <td data-rentmyattr="subtotal" data-rentmyattr="subtotal">{{subtotal}} </td>
+                                                <td data-rentmyattr="quantity_functions" data-rentmyattr="quantity_functions">{{quantity_functions}} </td>
+                                                <td data-rentmyattr="price" data-rentmyattr="price">{{price}}</td>
+                                                <td class="TextCenter">
+                                                    <a href="#" class="TextDanger"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Work Order Items Area  -->
+                        <div class="RentMyCard InventoryRentMyCard" id="work_order_table">
+                            <div class="RentMyCardHeader">
+                                <h3>Additional Items & Pick up Request</h3>
+                                <div class="RentMyCardRightSide">
+                                    <span class="RentMyBadge" id="work_order_badge">Pending</span>
+                                </div>
+                            </div>
+                            <div class="RentMyCardBody">
+                                <div data-rentmyattr="rentmy-add-inventory-search"></div>   
+                                <div data-rentmyattr="rentmy-order-product-details"></div>
+                                <div id="RentMyWorkOrder" class="RentMyTableResponsive">
+                                    <table class="RentMyTable RentMyTableStriped">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%">Image</th>
+                                                <th width="10%">Type</th>
+                                                <th width="25%">Description</th>
+                                                <th width="15%">Price</th>
+                                                <th width="20%">Quantity</th>
+                                                <th width="10%">Subtotal</th>
+                                                <th width="10%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td data-rentmyattr="product_images" data-rentmyattr="product_images">{{product_images}}</td>
+                                                <td data-rentmyattr="product_type" data-rentmyattr="product_type">{{product_type}}</td>
+                                                <td data-rentmyattr="product_discription" data-rentmyattr="product_discription">{{product_discription}}</td>
+                                                <td data-rentmyattr="subtotal" data-rentmyattr="subtotal">{{subtotal}} </td>
+                                                <td data-rentmyattr="quantity_functions" data-rentmyattr="quantity_functions">{{quantity_functions}} </td>
+                                                <td data-rentmyattr="price" data-rentmyattr="price">{{price}}</td>
+                                                <td class="TextCenter">
+                                                    <a href="#" class="TextDanger"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payments area  -->
+                        <div class="RentMyCard PaymentsRentMyCard">
+                            <div class="RentMyCardHeader">
+                                <h3>Payments</h3>
+                                <div class="RentMyCardRightSide">
+                                    <button id="RentMyAddPaymentBtn" class="RentMyBtn RentMyAddPaymentBtn">Add Payment</a>
+                                </div>
+                            </div>
+                            <div class="RentMyCardBody">
+                                <div class="RentMyPaymentOption">
+                                    <h5><strong>Total Amount:</strong> <span data-rentmyattr="total_payment_amount">{{total_payment_amount}}</span> </h5>
+                                    <h5><strong>Total Paid:</strong> <span data-rentmyattr="total_paid_amount">{{total_paid_amount}}</span> </h5>
+                                    <h5><strong>Due Amount:</strong> <span data-rentmyattr="total_due_amount">{{total_due_amount}}</span> </h5>
+                                </div>
+                                <div id="RentMyOrderPayment" class="RentMyTableResponsive">
+                                    <table class="RentMyTable RentMyTableStriped">
+                                        <thead>
+                                            <tr>
+                                                <th width="30%">Payment Type</th>
+                                                <th width="15%">Payment Status</th>
+                                                <th width="15%">Paid Amount</th>
+                                                <th width="40%">Note</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td data-rentmyattr="content_method" data-rentmyattr="content_method">{{content_method}}</td>
+                                                <td data-rentmyattr="status" data-rentmyattr="status">{{status}}</td>
+                                                <td data-rentmyattr="payment_amount" data-rentmyattr="payment_amount">{{payment_amount}}</td>
+                                                <td data-rentmyattr="note">{{note}} </td>
+                                            </tr>
+                                        </tbody>
+                
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notes area -->
+                        <div class="RentMyCard NotesRentMyCard">
+                            <div class="RentMyCardHeader">
+                                <h3>Notes</h3>
+                                <div class="RentMyCardRightSide">
+                                    <button id="RentMyNoteAddBtn" class="RentMyBtn RentMyAddNoteBtn">Add Note</button>
+                                </div>
+                            </div>
+                            <div class="RentMyCardBody">
+                                <form id="RentMyNoteAddForm">
+                                    <div class="RentMyInputGroup">
+                                        <label for="note">Note</label>
+                                        <textarea row="10" id="RentMyNote" name="note" placeholder="Enter note" autocomplete="off" class="RentMyInputField"></textarea>
+                                    </div>
+                                    <div class="RentMyInputGroup">
+                                        <div class="RentMyCustomFile">
+                                            <input type="file" id="RentMyFile" name="file" class="RentMyCustomFileInput">
+                                            <label for="file" class="RentMyCustomFileLabel"> Choose file </label>
+                                        </div>
+                                    </div>
+                                    <div class="RentMyButtonGroup RentMyNotBetween">
+                                        <button id="RentMyNoteSubmitBtn" type="button" class="RentMyBtn RentMyNoteBtn">
+                                            Submit
+                                        </button>
+                                        <button id="RentMyNoteCancelBtn" type="button" class="RentMyBtn RentMyNoteCancelBtn">Cancel</button>
+                                    </div>
+                                </form>
+                                <div id="RentMyOrderNotes" class="RentMyTableResponsive">
+                                    <table class="RentMyTable RentMyTableStriped">
+                                        <thead>
+                                            <tr>
+                                                <th width="90%">Note</th>
+                                                <th width="10%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td data-rentmyattr="note" data-rentmyattr="note">{{note}}</td>
+                                                <td class="TextCenter">
+                                                    <a href="#" class="TextDanger"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                </div>
+
+
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</main>

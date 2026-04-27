@@ -1,0 +1,90 @@
+<main class="my-5 container"> 
+
+    <div id="RentMyCustomerBillingContainer" class="RentMyWrapper RentMyCustomerPortalWrapper">
+        <div class="RentMyCustomPortalRow">
+            <div class="RentMyLeftSidebarmenu">
+                <div class="RentMyLeftSidebarmenuInner" SideBar>
+                    <div class="RentMyProfileImge">
+                        <img ProfileImage src="" alt="">
+                    </div>
+                    <h5 class="RentMyProfileName">{{ customer_name }}</h5>
+                    <div class="RentMySideMenu">
+                        <ul>
+                            <li><a RentMyPageLink="customer_profile" class="active">Profile</a></li>
+                            <li><a RentMyPageLink="customer_change_password">Change Password</a></li>
+                            <li><a RentMyPageLink="customer_change_avatar">Change Avatar</a></li>
+                            <li><a RentMyPageLink="customer_order_history">Order History</a></li>
+                            <li data-rentmyattr="DashboardNav"><a RentMyPageLink="customer_order_dashboard">Dashboard</a></li>
+                            <li data-rentmyattr="BillingNav"><a RentMyPageLink="customer_billing" class="active">Billing</a></li>
+                            <li><a class="rentmy_logout_btn">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+            <div class="RentMyRightContent">
+                <div class="rentMyPaymentMethods">
+                    <div class="rentMyHeader">
+                      <h2 class="rentMyTitle">Payment Methods</h2>
+                      <button class="rentMyAddButton" data-rentmyattr="AddCardBtn">Add Card</button>
+                    </div>
+
+
+                    <div class="rentMyCardContainer">
+
+                        <div class="RentMyCardForm" data-rentmyattr="CardFormInfo">
+                            <div class="RentMyRow">
+                                <div class="RentMyInputGroup RentMyFullwidth" data-rentmyattr="NameOnCardDiv">
+                                    <label for="exampleInputText1"> Name on Card</label>
+                                    <input type="text" class="RentMyInputField" placeholder="Name on Card" data-rentmyattr="NameOnCard" />
+                                </div>
+                                <div class="RentMyInputGroup RentMyFullwidth RentMyCardNumber" data-rentmyattr="CardNumberDiv">
+                                    <label for="exampleInputText1"> Card Number</label>
+                                    <input type="text" class="RentMyInputField" placeholder="Card Number" data-rentmyattr="CardNumber" />
+                                    <img class="RentMyCardImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8SXej1Bug97wHfEFrPIvMj4RG5ov0OKeb2g&s">
+                                </div>
+                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="ExpirationDateMonthDiv">
+                                    <label for="exampleInputText1"></label>
+                                    <select class="RentMyInputField" data-rentmyattr="ExpirationDateMonth">
+                                        <option value=""> Month </option>
+                                    </select>
+                                </div>
+                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="ExpirationDateYearDiv">
+                                    <label for="exampleInputText1"></label>
+                                    <select class="RentMyInputField" data-rentmyattr="ExpirationDateYear">
+                                        <option value=""> Year </option>
+                                    </select>
+                                </div>
+                                <div class="RentMyInputGroup RentMyFullwidth" data-rentmyattr="CVVNumberDiv">
+                                    <label for="exampleInputText1"> CVV Number</label>
+                                    <input type="number" class="RentMyInputField" placeholder="CVV Number" data-rentmyattr="CVVNumber" />
+                                </div>
+                                <div class="RentMyButtonGroup RentMyNotBetween" data-rentmyattr="ButtonDiv">
+                                    <button type="button" class="RentMyBtn RentMySubmitBtn" data-rentmyattr="CardFormSubmitBtn">Submit</button>
+                                    <button type="button" class="RentMyBtn RentMyNoteCancelBtn" data-rentmyattr="CardFormCancelBtn">Cancel</button>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="card-description-area" data-rentmyattr="CardDescriptionArea">
+                            <p class="rentMyDescription">
+                                Please enter your preferred payment method below. You can use a credit / debit card.
+                                Cards will be charged either at the end of the month or end of the billing period.
+                                All major credit / debit cards accepted.
+                            </p>
+                        
+                            <div class="rentMyCardNumber" data-rentmyattr="CardList">
+                                <span data-rentmyattr="CardNumber">xxx–9340</span>
+                                <div class="card-actions">
+                                    <span class="default-badge" data-rentmyattr="CardBadge">Default</span>
+                                    <button class="btn btn-sm btn-outline-primary set-default-btn" data-rentmyattr="CardSetDefaultBtn">Set Default</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+ 

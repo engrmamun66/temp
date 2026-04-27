@@ -1,0 +1,208 @@
+<section class="rentmy-innerpage-banner">
+    <div class="hero-overlay"></div>
+    <div class="rentmy-innerpage-overlay">
+        <div class="container">
+            <div class="container-inner">
+                <div class="container-inner-overlay">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="rentmy-innerpage-body">
+                                <div class="rentmy-innerpage-body-inner">
+                                    <h1>Your Cart</h1>
+                                    <div class="rentmy-breadcrumbs">
+                                        <ul>
+                                            <li><a href="/">Home</a></li>
+                                            <li><a href="/products-list">Store</a></li>                                    
+                                            <li>Your Cart</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="my-5 container">
+
+
+
+    <div class="RentMyCartWrapper RentMyWrapper">
+        <div class="container-fullwidth" data-rentmyattr="InsideContainer">
+            
+
+            <div class="RentMyRow justify-content-between align-items-center mb-2 px-2" data-rentmyattr="RenatalDateArea">
+                <div class="RentMyHalfwidth">
+                    <span class="RentMyCartDateRange" data-rentmyattr="DateRange">
+                        <b>Rental Dates</b> <span data-rentmyattr="DateText">11/22/2023</span> <i
+                            class="fa fa-edit date-editicon" data-rentmyattr="EditDate"></i>
+                    </span>
+                    <div class="RentMyDatePicker" id="RentMyDatePicker" data-rentmyattr="DatePicker">
+                        <button class="RentMyBtn RentMyBtnBlack" data-rentmyattr="BtnCancel">Cancel</button>
+                        <!-- Date picker will show here -->
+                    </div>
+                </div>
+                <button class="clear-cart" data-rentmyattr="ClearFullCart">
+                    clear cart
+                </button>
+            </div>
+            <div class="RentMyTableResponsive">
+                <table class="RentMyTable RentMyTableStriped RentMyCartTable" data-rentmyattr="RentMyCartTable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Product</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-rentmyattr="CartItem">
+                            <td data-rentmyattr="DeleteIconArea">
+                                <a class="CartRemoveProduct"><i class="fa fa-trash"></i></a>
+                            </td>
+                            <td data-rentmyattr="ImageArea">
+                                <div class="ImageAreaWrapper">
+                                    <img test="ImageArea" src="" class="cart product img" alt="" />
+                                </div>
+                            </td>
+                            <td data-rentmyattr="ItemNameArea">
+                                Product1
+                            </td>
+                            <td data-rentmyattr="ItemPrice">
+                                $50.00
+                            </td>
+                            <td data-rentmyattr="IncrDecrArea">
+                                <div class="QuantityContainer">
+                                    <div class="QuantityBtn">
+                                        <button class="RentMyBtn" data-rentmyattr="DecrementBtn">-</button>
+
+                                        <input type="text" autocomplete="off" name="qty" class="InputQuantity"
+                                            data-rentmyattr="QuantityInput" />
+                                        <!-- or -->
+                                        <!-- <span class="InputQuantity" QuantityText> 1 </span> -->
+
+                                        <button class="RentMyBtn" data-rentmyattr="IncrementBtn">+</button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-rentmyattr="ItemPriceArea">
+                                $255.00
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="RentMyRow RentMyCartSummery">
+                <div class="RentMyHalfwidth">
+                    <div class="RentMyCouponCode RentMyFlex">
+                        <input type="text" class="RentMyInputField" placeholder="Enter Coupon Code"
+                            data-rentmyattr="CouponInput" />
+                        <button type="submit" class="RentMyBtn RentMyBtnBlack" data-rentmyattr="ApplyCouponBtn">Apply
+                            Coupon</button>
+                    </div>
+                    <div class="RentMyButtonGroup CheckoutMakeContinueBtn">
+                        <button class="RentMyBtn RentMyBtnBlack" data-rentmyattr="ContinueShoppingBtn">Continue
+                            Shopping</button>
+                        <div class="MakeContinue">
+                            <button type="submit" class="RentMyBtn RentMyBtnBlack" data-rentmyattr="MakeQuotoBtn">Make
+                                Quote</button>
+                            <button class="RentMyBtn RentMyBtnBlack" data-rentmyattr="ProceedCheckoutBtn">Proceed
+                                Checkout</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="RentMyHalfwidth">
+                    <h4 class="RentMyCartTotal">Cart Totals</h4>
+                    <table class="RentMyTable RentMySummeryTable" data-rentmyattr="RentMySummeryTable">
+                        <tbody>
+                            <tr>
+                                <td data-rentmyattr="SubtotalLabel">Subtotal</td>
+                                <td>
+                                    <span>
+                                        <b data-rentmyattr="SubtotalAmount">€0.00</b>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr data-rentmyattr="TaxesFeesLabel">
+                                <td>Taxes & Fees</td>
+                                <td><span data-rentmyattr="TaxesFees"> €0.00</span></td>
+                            </tr>
+                            <tr data-rentmyattr="DepositeAmountRow">
+                                <td>Deposit Amount</td>
+                                <td><span data-rentmyattr="DepositeAmount"> €0.00</span></td>
+                            </tr>
+                            <!-- <tr data-rentmyattr="AdditionalChargeAmountRow">
+                                 <td>Order Fees & Options</td>
+                                 <td><span data-rentmyattr="AdditionalChargeAmount"> €0.00</span></td>
+                            </tr> -->
+                            <tr>
+                                <td data-rentmyattr="lbl_shipping">Shipping Charge</td>
+                                <td data-rentmyattr="shipping_value"><small> Calculated in the next step</small></td>
+                            </tr>
+                            <tr data-rentmyattr="TaxAmountLabel">
+                                <td>Tax</td>
+                                <td><span data-rentmyattr="TaxAmount"> €0.00</span></td>
+                            </tr>
+                            <!-- <tr>
+                                <td data-rentmyattr="LblDeliveryTax">Delivery Tax</td>
+                                <td><small> Calculated in the next step</small></td>
+                            </tr> -->
+                            <tr>
+                                <td>
+                                    <h5 data-rentmyattr="LblTotal">Total</h5>
+                                </td>
+                                <td>
+                                    <h5><span data-rentmyattr="TotalAmount">€0.00</span></h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="RentMyAddonProducts RentMyRelatedProduct border-top-0 pt-0" data-rentmyattr="RentMyRelatedProducts">
+                <h3 class="RentMyRelatedProductTitle">Related Product</h3>
+                <div class="RentMyRelatedProductBody">
+                    <div class="RentMyRow">
+                        <div class="RentMyProductItem" data-rentmyattr="RentMyProductItem">
+                            <div class="RentMyProductItemInner">
+                                <div class="RentMyProductImg">
+                                    <a href="#" data-rentmyattr="RentMyProductImageUrl">
+                                        <img data-rentmyattr="RentMyProductImage"
+                                            src=""
+                                            class="ProductImg" alt="product img" />
+                                    </a> 
+
+                                    <div class="RentMyProductOverlay">
+                                        <a class="ProductCartIcon" href="#" data-rentmyattr="DetailsPageUrl" ><i class="fa fa-shopping-bag"></i></a>
+    
+                                        <div class="WishlistSingleItemOption" data-rentmyattr="WishListBtnArea">
+                                            <button class="WishlistAddButton" data-rentmyattr="RentMyAddToWishListBtn"> <i class="la la-heart-o" ></i> </button>              
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <div class="RentMyProductBody">
+                                    <h4 class="ProductName" data-rentmyattr="RentMyProductName"> Product_name </h4>
+                                    <h5 class="ProductPrice" data-rentmyattr="RentMyProductPrice"> product_price </h5>
+                                    <div class="ProductButton" data-rentmyattr="ProductButtons">
+                                        <a class="ProductDetailsBtn" href="#" data-rentmyattr="RentMyViewDetailsBtn">View Details</a>
+                                        <button class="ProductCartBtn" href="#" data-rentmyattr="RentMyAddToCartBtn">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

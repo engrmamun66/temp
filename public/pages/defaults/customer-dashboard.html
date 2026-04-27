@@ -1,0 +1,277 @@
+<main class="my-5 container"> 
+
+    <div id="RentMyCustomerDashboardContainer" class="RentMyWrapper RentMyCustomerPortalWrapper">
+       
+        <div class="RentMyCustomPortalRow">
+            <div class="RentMyLeftSidebarmenu">
+                <div class="RentMyLeftSidebarmenuInner" data-rentmyattr="SideBar">
+                    <div class="RentMyProfileImge">
+                        <img ProfileImage src="" alt="">
+                    </div>
+                    <h5 class="RentMyProfileName">{{ customer_name }}</h5>
+                    <div class="RentMySideMenu">
+                        <ul>
+                            <li><a RentMyPageLink="customer_profile">Profile</a></li>
+                            <li><a RentMyPageLink="customer_change_password">Change Password</a></li>
+                            <li><a RentMyPageLink="customer_change_avatar">Change Avatar</a></li>
+                            <li><a RentMyPageLink="customer_order_history">Order History</a></li>
+                            <li data-rentmyattr="DashboardNav"><a RentMyPageLink="customer_order_dashboard" class="active">Dashboard</a></li>
+                            <li data-rentmyattr="BillingNav"><a RentMyPageLink="customer_billing">Billing</a></li>
+                            <li><a class="rentmy_logout_btn">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="RentMyRightContent">
+                <div class="RentMyDashboardContainer">
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="RentMyCardBox position-relative" data-rentmyattr="ReturnItemBox">
+                                <div class="d-flex align-items-center ">
+                                    <div class="RentMyCardIcon">
+                                        <svg width="33" height="33" viewBox="0 0 33 33" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <rect x="0.166992" y="0.355103" width="32.5055" height="32.5055"
+                                                fill="url(#pattern0_76_181)" />
+                                            <defs>
+                                                <pattern id="pattern0_76_181"
+                                                    patternContentUnits="objectBoundingBox" width="1" height="1">
+                                                    <use xlink:href="#image0_76_181" transform="scale(0.0078125)" />
+                                                </pattern>
+                                                <image id="image0_76_181" width="128" height="128"
+                                                    preserveAspectRatio="none"
+                                                    xlink:href="data:image/png;base64,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" />
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="RentMyCardTitle ml-3">Return Items</div>
+                                </div>
+                                <div class="RentMyCardValue" data-rentmyattr="ReturnItemNumber">3</div>
+                                <!-- <button class="RentMyViewAllBtn mt-2">View all</button> -->
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="RentMyCardBox position-relative" data-rentmyattr="CurrentInvoiceBox">
+                                <div class="d-flex align-items-center ">
+                                    <div class="RentMyCardIcon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33"
+                                            viewBox="0 0 33 33" fill="none">
+                                            <path
+                                                d="M7.82422 28.8911H21.9804C25.8586 28.8911 29.0021 25.747 29.0021 21.8694V4.42224H14.8506C14.3895 4.42207 13.9328 4.51277 13.5067 4.68916C13.0806 4.86555 12.6935 5.12418 12.3674 5.45025C12.0413 5.77633 11.7827 6.16347 11.6063 6.58955C11.4299 7.01563 11.3392 7.47229 11.3394 7.93343L11.3347 11.3365"
+                                                stroke="#565656" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path
+                                                d="M4.3125 17.5848H11.3342M15.6141 17.5848H24.5295M15.6141 22.113H24.5295M7.82369 11.3365H11.3342V25.3799C11.3339 26.3109 10.9639 27.2037 10.3057 27.8621C9.6474 28.5205 8.75469 28.8906 7.82369 28.8911C6.89257 28.8908 5.99969 28.5207 5.34129 27.8623C4.6829 27.2039 4.31285 26.311 4.3125 25.3799V14.847C4.31303 13.916 4.68315 13.0233 5.34153 12.3651C5.99991 11.7068 6.89269 11.3369 7.82369 11.3365ZM15.6141 9.52686H19.5096V13.4224H15.6141V9.52686Z"
+                                                stroke="#565656" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+                                    <div class="RentMyCardTitle ml-3">Current Invoice</div>
+                                </div>
+                                <div class="RentMyCardValue" data-rentmyattr="CurrentInvoiceTotal">$557</div>
+                                <!-- <button class="RentMyViewAllBtn mt-2">View all</button> -->
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="RentMyCardBox position-relative" data-rentmyattr="NewItemBox">
+                                <div class="d-flex align-items-center ">
+                                    <div class="RentMyCardIcon">
+                                        <svg width="33" height="33" viewBox="0 0 33 33" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <rect width="33" height="33" fill="#F5F5F5" />
+                                            <g clip-path="url(#clip0_0_1)">
+                                                <rect width="1440" height="1024" transform="translate(-818 -254)"
+                                                    fill="#FBFBFB" />
+                                                <rect x="-737.5" y="-141.5" width="1279" height="638" rx="4.5"
+                                                    fill="#FBFBFB" stroke="#EAEAEA" />
+                                                <rect x="-630.5" y="-68.5" width="1172" height="538" rx="4.5"
+                                                    fill="white" stroke="#EAEAEA" />
+                                                <rect x="-26.5" y="-29.5" width="250" height="169.328" rx="13.5"
+                                                    fill="white" stroke="#EAEAEA" />
+                                                <ellipse cx="16.4" cy="15.6567" rx="31.4" ry="31.6567"
+                                                    fill="#FFF8F8" />
+                                                <rect x="0.642578" y="0.386963" width="32.0291" height="32.0291"
+                                                    fill="url(#pattern0_0_1)" />
+                                            </g>
+                                            <defs>
+                                                <pattern id="pattern0_0_1" patternContentUnits="objectBoundingBox"
+                                                    width="1" height="1">
+                                                    <use xlink:href="#image0_0_1" transform="scale(0.0078125)" />
+                                                </pattern>
+                                                <clipPath id="clip0_0_1">
+                                                    <rect width="1440" height="1024" fill="white"
+                                                        transform="translate(-818 -254)" />
+                                                </clipPath>
+                                                <image id="image0_0_1" width="128" height="128"
+                                                    preserveAspectRatio="none"
+                                                    xlink:href="data:image/png;base64,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" />
+                                            </defs>
+                                        </svg>
+
+                                    </div>
+                                    <div class="RentMyCardTitle ml-3">New Items</div>
+                                </div>
+                                <div class="RentMyCardValue" data-rentmyattr="NewItemsNumber">1</div>
+                                <!-- <button class="RentMyViewAllBtn mt-2">View all</button> -->
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="RentMyCardBox position-relative" data-rentmyattr="NextInvoiceBox">
+                                <div class="d-flex align-items-center ">
+                                    <div class="RentMyCardIcon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33"
+                                            viewBox="0 0 33 33" fill="none">
+                                            <path
+                                                d="M6.64844 3.38965V29.4133H26.6666V9.99565L26.3664 9.69538L20.3609 3.68992L20.0606 3.38965H6.64844ZM8.65026 5.39147H18.6594V11.3969H24.6648V27.4115H8.65026V5.39147ZM20.6612 6.79274L23.2635 9.39511H20.6612V6.79274ZM10.6521 13.3987V15.4006H22.663V13.3987H10.6521ZM10.6521 18.4033V20.4051H17.6584V18.4033H10.6521ZM19.6603 18.4033V20.4051H22.663V18.4033H19.6603ZM10.6521 22.4069V24.4087H17.6584V22.4069H10.6521ZM19.6603 22.4069V24.4087H22.663V22.4069H19.6603Z"
+                                                fill="#565656" />
+                                        </svg>
+                                    </div>
+                                    <div class="RentMyCardTitle ml-3">Next Invoice</div>
+                                </div>
+                                <div class="RentMyCardValue" data-rentmyattr="NextInvoiceTotal">$828</div>
+                                <!-- <button class="RentMyViewAllBtn mt-2">View all</button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div data-rentmyattr="ReturnItemTable">
+                        <h6 class="mb-3 RentSubTitle">Return Items</h6>
+                        <table class="table RentMyTable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Request Date</th>
+                                    <th>Request Type</th>
+                                    <th>Item Name</th>
+                                    <th>Quantity</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-rentmyattr="ReturnItemTableRow">
+                                    <td data-rentmyattr="ReturnItemTableOrderId"></td>
+                                    <td data-rentmyattr="ReturnItemTableRequestDate"></td>
+                                    <td data-rentmyattr="ReturnItemTableRequestType"></td>
+                                    <td data-rentmyattr="ReturnItemTableItemName"><span data-rentmyattr="name"></span></td>
+                                    <td data-rentmyattr="ReturnItemTableQuantity"></td>
+                                    <td>
+                                        <button>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none">
+                                                <path
+                                                    d="M9.99967 7.5C9.33663 7.5 8.70075 7.76339 8.23191 8.23223C7.76307 8.70107 7.49967 9.33696 7.49967 10C7.49967 10.663 7.76307 11.2989 8.23191 11.7678C8.70075 12.2366 9.33663 12.5 9.99967 12.5C10.6627 12.5 11.2986 12.2366 11.7674 11.7678C12.2363 11.2989 12.4997 10.663 12.4997 10C12.4997 9.33696 12.2363 8.70107 11.7674 8.23223C11.2986 7.76339 10.6627 7.5 9.99967 7.5ZM9.99967 14.1667C8.89461 14.1667 7.8348 13.7277 7.0534 12.9463C6.272 12.1649 5.83301 11.1051 5.83301 10C5.83301 8.89493 6.272 7.83512 7.0534 7.05372C7.8348 6.27232 8.89461 5.83333 9.99967 5.83333C11.1047 5.83333 12.1646 6.27232 12.946 7.05372C13.7274 7.83512 14.1663 8.89493 14.1663 10C14.1663 11.1051 13.7274 12.1649 12.946 12.9463C12.1646 13.7277 11.1047 14.1667 9.99967 14.1667ZM9.99967 3.75C5.83301 3.75 2.27467 6.34167 0.833008 10C2.27467 13.6583 5.83301 16.25 9.99967 16.25C14.1663 16.25 17.7247 13.6583 19.1663 10C17.7247 6.34167 14.1663 3.75 9.99967 3.75Z"
+                                                    fill="#777777" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div data-rentmyattr="CurrentInvoiceTable">
+                        <h6 class="mb-3 RentSubTitle">Current Invoice</h6>
+                        <table class="table RentMyTable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Order Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-rentmyattr="CurrentInvoiceTableRow">
+                                    <td data-rentmyattr="CurrentInvoiceTableOrderId"></td>
+                                    <td data-rentmyattr="CurrentInvoiceTableOrderDate"></td>
+                                    <td data-rentmyattr="CurrentInvoiceTableAmount"></td>
+                                    <td data-rentmyattr="CurrentInvoiceTableStatus"></td>
+                                    <td>
+                                        <button>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none">
+                                                <path
+                                                    d="M9.99967 7.5C9.33663 7.5 8.70075 7.76339 8.23191 8.23223C7.76307 8.70107 7.49967 9.33696 7.49967 10C7.49967 10.663 7.76307 11.2989 8.23191 11.7678C8.70075 12.2366 9.33663 12.5 9.99967 12.5C10.6627 12.5 11.2986 12.2366 11.7674 11.7678C12.2363 11.2989 12.4997 10.663 12.4997 10C12.4997 9.33696 12.2363 8.70107 11.7674 8.23223C11.2986 7.76339 10.6627 7.5 9.99967 7.5ZM9.99967 14.1667C8.89461 14.1667 7.8348 13.7277 7.0534 12.9463C6.272 12.1649 5.83301 11.1051 5.83301 10C5.83301 8.89493 6.272 7.83512 7.0534 7.05372C7.8348 6.27232 8.89461 5.83333 9.99967 5.83333C11.1047 5.83333 12.1646 6.27232 12.946 7.05372C13.7274 7.83512 14.1663 8.89493 14.1663 10C14.1663 11.1051 13.7274 12.1649 12.946 12.9463C12.1646 13.7277 11.1047 14.1667 9.99967 14.1667ZM9.99967 3.75C5.83301 3.75 2.27467 6.34167 0.833008 10C2.27467 13.6583 5.83301 16.25 9.99967 16.25C14.1663 16.25 17.7247 13.6583 19.1663 10C17.7247 6.34167 14.1663 3.75 9.99967 3.75Z"
+                                                    fill="#777777" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div data-rentmyattr="NewItemsTable">
+                        <h6 class="mb-3 RentSubTitle">New Items</h6>
+                        <table class="table RentMyTable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Request Date</th>
+                                    <th>Request Type</th>
+                                    <th>Item Name</th>
+                                    <th>Quantity</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-rentmyattr="NewItemTableRow">
+                                    <td data-rentmyattr="ReturnItemTableOrderId"></td>
+                                    <td data-rentmyattr="ReturnItemTableRequestDate"></td>
+                                    <td data-rentmyattr="ReturnItemTableRequestType"></td>
+                                    <td data-rentmyattr="ReturnItemTableItemName"><span data-rentmyattr="name"></span></td>
+                                    <td data-rentmyattr="ReturnItemTableQuantity"></td>
+                                    <td>
+                                        <button>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none">
+                                                <path
+                                                    d="M9.99967 7.5C9.33663 7.5 8.70075 7.76339 8.23191 8.23223C7.76307 8.70107 7.49967 9.33696 7.49967 10C7.49967 10.663 7.76307 11.2989 8.23191 11.7678C8.70075 12.2366 9.33663 12.5 9.99967 12.5C10.6627 12.5 11.2986 12.2366 11.7674 11.7678C12.2363 11.2989 12.4997 10.663 12.4997 10C12.4997 9.33696 12.2363 8.70107 11.7674 8.23223C11.2986 7.76339 10.6627 7.5 9.99967 7.5ZM9.99967 14.1667C8.89461 14.1667 7.8348 13.7277 7.0534 12.9463C6.272 12.1649 5.83301 11.1051 5.83301 10C5.83301 8.89493 6.272 7.83512 7.0534 7.05372C7.8348 6.27232 8.89461 5.83333 9.99967 5.83333C11.1047 5.83333 12.1646 6.27232 12.946 7.05372C13.7274 7.83512 14.1663 8.89493 14.1663 10C14.1663 11.1051 13.7274 12.1649 12.946 12.9463C12.1646 13.7277 11.1047 14.1667 9.99967 14.1667ZM9.99967 3.75C5.83301 3.75 2.27467 6.34167 0.833008 10C2.27467 13.6583 5.83301 16.25 9.99967 16.25C14.1663 16.25 17.7247 13.6583 19.1663 10C17.7247 6.34167 14.1663 3.75 9.99967 3.75Z"
+                                                    fill="#777777" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div data-rentmyattr="NextInvoiceTable">
+                        <h6 class="mb-3 RentSubTitle">Next Invoice</h6>
+                        <table class="table RentMyTable">
+                            <thead>
+                                <tr>
+                                    <!-- <th>Card Info</th> -->
+                                    <th>Order ID</th>
+                                    <th>Order Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-rentmyattr="NextInvoiceTableRow">
+                                    <!-- <td data-rentmyattr="NextInvoiceTableCardInfo"></td> -->
+                                    <td data-rentmyattr="NextInvoiceTableOrderId"></td>
+                                    <td data-rentmyattr="NextInvoiceTableOrderDate"></td>
+                                    <td data-rentmyattr="NextInvoiceTableAmount"></td>
+                                    <td data-rentmyattr="NextInvoiceTableStatus"></td>
+                                    <td>
+                                        <button>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none">
+                                                <path
+                                                    d="M9.99967 7.5C9.33663 7.5 8.70075 7.76339 8.23191 8.23223C7.76307 8.70107 7.49967 9.33696 7.49967 10C7.49967 10.663 7.76307 11.2989 8.23191 11.7678C8.70075 12.2366 9.33663 12.5 9.99967 12.5C10.6627 12.5 11.2986 12.2366 11.7674 11.7678C12.2363 11.2989 12.4997 10.663 12.4997 10C12.4997 9.33696 12.2363 8.70107 11.7674 8.23223C11.2986 7.76339 10.6627 7.5 9.99967 7.5ZM9.99967 14.1667C8.89461 14.1667 7.8348 13.7277 7.0534 12.9463C6.272 12.1649 5.83301 11.1051 5.83301 10C5.83301 8.89493 6.272 7.83512 7.0534 7.05372C7.8348 6.27232 8.89461 5.83333 9.99967 5.83333C11.1047 5.83333 12.1646 6.27232 12.946 7.05372C13.7274 7.83512 14.1663 8.89493 14.1663 10C14.1663 11.1051 13.7274 12.1649 12.946 12.9463C12.1646 13.7277 11.1047 14.1667 9.99967 14.1667ZM9.99967 3.75C5.83301 3.75 2.27467 6.34167 0.833008 10C2.27467 13.6583 5.83301 16.25 9.99967 16.25C14.1663 16.25 17.7247 13.6583 19.1663 10C17.7247 6.34167 14.1663 3.75 9.99967 3.75Z"
+                                                    fill="#777777" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
