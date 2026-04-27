@@ -101,6 +101,19 @@ export class PageController {
     res.status(statusCode).set('Content-Type', 'text/html').send(dom.serialize());
   };
 
+
+
+
+
+
+
+
+
+
+
+
+  
+
   private resolvePublicFilePath(contentPath: string): string {
     const normalizedPath = contentPath.replace(/^\/+/, '');
     const filePath = path.resolve(PUBLIC_DIR, normalizedPath);
