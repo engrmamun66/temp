@@ -1,150 +1,266 @@
 /**
-  Example usage:
-  ==============================================
-    const RentMyEvent = new RentMyEventEmitter();
-    RentMyEvent.on('message', (data) => {
-        console.log('Received message:', data);
-    });
-    RentMyEvent.emit('message', 'Hello, World!'); // Output: Received message: Hello, World!
-
-    RentMyEvent.add_action('message', (data) => {
-        console.log('Received message:', data);
-    });
-    RentMyEvent.do_action('message', 'Hello World!');
-
-    RentMyEvent.addFilter('uppercase', (data) => data.toUpperCase());
-    const modifiedData = RentMyEvent.apply_filters('uppercase', 'Some text',);
-    console.log(modifiedData); // Output: SOME TEXT
+ * Event and filter hook helper.
+ * Use `emit()` / `do_action()` for predictable synchronous dispatch.
+ * Use `emitAsync()` / `do_action_async()` only when you want to await async handlers.
  */
-    class RentMyEventEmitter {
-        constructor() {
-            this.events = {};
-            this.filters = {};
-            this.applyable_filters = {};
-            this.applyable_events = {};
-        }
-    
-        /* ---------------------------------- */
-        /*            Start Emitting          */
-        /* ---------------------------------- */
-    
-        // on is as like document.addEventListener(eventName, callback)
-        // same as this.add_action
-        on(eventName, callback) {
-            if (!this.events[eventName]) {
-                this.events[eventName] = [];
-            }
-            this.off(eventName, callback); // stopping repeatedly call
-            this.applyable_events[eventName] = callback;
-            this.events[eventName].push(callback);
-        }
-    
-        // same as this.do_action
-        emit(eventName, data, useFilter=false) {
-            return this.emitAsync(eventName, data, useFilter);
-        }
+class RentMyEventEmitter {
+    constructor() {
+        this.events = {};
+        this.filters = {};
+        this.applyable_filters = {};
+        this.applyable_events = {};
+    }
 
-        async emitAsync(eventName, data, useFilter=false) {
-            const eventHandlers = this.events[eventName] || [];
-            const allEventHandlers = this.events['*'] || [];
+    getEventHandlers(eventName) {
+        const eventHandlers = this.events[eventName] || [];
+        const wildcardHandlers = this.events["*"] || [];
 
-            let lastResult;
-            for (const handler of [...eventHandlers, ...allEventHandlers]) {
-                if (useFilter) {
-                    lastResult = await handler(this.apply_filters(eventName, data));
-                } else {
-                    lastResult = await handler(data);
-                }
-            }
+        return [...eventHandlers, ...wildcardHandlers];
+    }
 
-            return lastResult;
-        }
-    
-        off(eventName, callback) {
-            const eventHandlers = this.events[eventName];
-            if (eventHandlers) {
-                this.events[eventName] = eventHandlers.filter(handler => handler !== callback);
-            }
-        }
-    
-        off_all(eventName) {
+    getEventPayload(eventName, data, useFilter = false) {
+        return useFilter ? this.apply_filters(eventName, data) : data;
+    }
+
+    isPromiseLike(value) {
+        return value && typeof value.then === "function";
+    }
+
+    logEventError(event_error, eventName, data, handler) {
+        console.error({ event_error, eventName, data, handler });
+    }
+
+    logFilterError(apply_filters_error, filterName, data, callback) {
+        console.error({ apply_filters_error, filterName, data, callback });
+    }
+
+    /* ---------------------------------- */
+    /*            Start Emitting          */
+    /* ---------------------------------- */
+
+    // on is as like document.addEventListener(eventName, callback)
+    // same as this.add_action
+    on(eventName, callback) {
+        if (typeof callback !== "function") return null;
+
+        if (this.events[eventName]) {
+            this.off(eventName, callback); // stop duplicate registrations
+        } else {
             this.events[eventName] = [];
         }
-        /* ----------- End Emitting ----------- */
-    
-        /* ---------------------------------- */
-        /*          Start Action Hook         */
-        /*          (same as Emitting)        */
-        /* ---------------------------------- */
 
+        this.events[eventName].push(callback);
+        this.applyable_events[eventName] = callback;
 
-        // same as this.on
-        add_action(eventName, callback) {
-            this.on(eventName, callback);
-        }
-        
-        // same as this.emit
-        do_action(eventName, data, useFilter=true) {
-            return this.emitAsync(eventName, data, useFilter);
-        }
-        
-        remove_action(eventName, callback) {
-            this.off(eventName, callback);
-        }
-    
-        remove_actions(eventName) {
-            this.off_all(eventName);
-        }
-        /* --------- End Action Hook -------- */
-    
-    
-        /* ---------------------------------- */
-        /*          Start Filter Hook         */
-        /* ---------------------------------- */
-        add_filter(filterName, callback) {
-            if (!this.filters[filterName]) {
-                this.filters[filterName] = [];
-            }
-            this.filters[filterName].push(callback);
-        }
-    
-        apply_filters(filterName, data, extraData = undefined) {
-            const filterCallbacks = this.filters[filterName] || [];
-            this.applyable_filters[filterName] = data;
+        return callback;
+    }
 
-            if (data === undefined || data === null) return data;
+    // same as this.do_action
+    emit(eventName, data, useFilter = false) {
+        const handlers = this.getEventHandlers(eventName);
+        const payload = this.getEventPayload(eventName, data, useFilter);
+        let lastResult;
 
-            let filteredData = data;
-            for (const callback of filterCallbacks) {
-                try {
-                    filteredData = callback(filteredData, extraData);
-                } catch (apply_filterserror) {
-                    console.error({ apply_filterserror, filterName, data });
+        for (const handler of handlers) {
+            try {
+                lastResult = handler(payload);
+
+                if (this.isPromiseLike(lastResult)) {
+                    lastResult.catch((event_error) => {
+                        this.logEventError(event_error, eventName, payload, handler);
+                    });
                 }
+            } catch (event_error) {
+                this.logEventError(event_error, eventName, payload, handler);
             }
+        }
 
-            return filteredData;
-        }
-    
-        remove_filter(filterName, callback) {
-            const filterCallbacks = this.filters[filterName];
-            if (filterCallbacks) {
-                this.filters[filterName] = filterCallbacks.filter(handler => handler !== callback);
-                if(!this.filters[filterName]) delete this.applyable_filters[filterName];
+        return lastResult;
+    }
+
+    async emitAsync(eventName, data, useFilter = false) {
+        const handlers = this.getEventHandlers(eventName);
+        const payload = this.getEventPayload(eventName, data, useFilter);
+        let lastResult;
+
+        for (const handler of handlers) {
+            try {
+                lastResult = await handler(payload);
+            } catch (event_error) {
+                this.logEventError(event_error, eventName, payload, handler);
             }
         }
-    
-        remove_filters(filterName) {
+
+        return lastResult;
+    }
+
+    off(eventName, callback) {
+        const eventHandlers = this.events[eventName];
+        if (!eventHandlers) return;
+
+        if (typeof callback !== "function") {
+            delete this.events[eventName];
+            delete this.applyable_events[eventName];
+            return;
+        }
+
+        this.events[eventName] = eventHandlers.filter((handler) => handler !== callback);
+
+        if (this.events[eventName].length === 0) {
+            delete this.events[eventName];
+            delete this.applyable_events[eventName];
+            return;
+        }
+
+        if (this.applyable_events[eventName] === callback) {
+            this.applyable_events[eventName] = this.events[eventName][this.events[eventName].length - 1];
+        }
+    }
+
+    off_all(eventName) {
+        delete this.events[eventName];
+        delete this.applyable_events[eventName];
+    }
+    /* ----------- End Emitting ----------- */
+
+    /* ---------------------------------- */
+    /*          Start Action Hook         */
+    /*          (same as Emitting)        */
+    /* ---------------------------------- */
+
+    // same as this.on
+    add_action(eventName, callback) {
+        return this.on(eventName, callback);
+    }
+
+    // same as this.emit
+    do_action(eventName, data, useFilter = false) {
+        return this.emit(eventName, data, useFilter);
+    }
+
+    async do_action_async(eventName, data, useFilter = false) {
+        return this.emitAsync(eventName, data, useFilter);
+    }
+
+    remove_action(eventName, callback) {
+        this.off(eventName, callback);
+    }
+
+    remove_actions(eventName) {
+        this.off_all(eventName);
+    }
+    /* --------- End Action Hook -------- */
+
+    /* ---------------------------------- */
+    /*          Start Filter Hook         */
+    /* ---------------------------------- */
+    add_filter(filterName, callback) {
+        if (typeof callback !== "function") return null;
+
+        if (this.filters[filterName]) {
+            this.remove_filter(filterName, callback); // stop duplicate registrations
+        } else {
             this.filters[filterName] = [];
+        }
+
+        this.filters[filterName].push(callback);
+
+        return callback;
+    }
+
+    apply_filters(filterName, data, extraData = undefined) {
+        const filterCallbacks = this.filters[filterName] || [];
+        this.applyable_filters[filterName] = data;
+
+        if (data === undefined || data === null) return data;
+
+        let filteredData = data;
+        for (const callback of filterCallbacks) {
+            try {
+                filteredData = callback(filteredData, extraData);
+            } catch (apply_filters_error) {
+                this.logFilterError(apply_filters_error, filterName, filteredData, callback);
+            }
+        }
+
+        this.applyable_filters[filterName] = filteredData;
+        return filteredData;
+    }
+
+    remove_filter(filterName, callback) {
+        const filterCallbacks = this.filters[filterName];
+        if (!filterCallbacks) return;
+
+        if (typeof callback !== "function") {
+            delete this.filters[filterName];
+            delete this.applyable_filters[filterName];
+            return;
+        }
+
+        this.filters[filterName] = filterCallbacks.filter((handler) => handler !== callback);
+
+        if (this.filters[filterName].length === 0) {
+            delete this.filters[filterName];
             delete this.applyable_filters[filterName];
         }
-        /* --------- End Filter Hook -------- */
-    
-        clearAll(){
-            this.events = {};
-            this.filters = {};
-        }
-        
     }
-    
-globalThis.RentMyEvent = new RentMyEventEmitter(); 
+
+    remove_filters(filterName) {
+        delete this.filters[filterName];
+        delete this.applyable_filters[filterName];
+    }
+    /* --------- End Filter Hook -------- */
+
+    clearAll() {
+        this.events = {};
+        this.filters = {};
+        this.applyable_filters = {};
+        this.applyable_events = {};
+    }
+}
+
+globalThis.RentMyEvent = new RentMyEventEmitter();
+
+/**
+ * Examples
+ * ==============================================
+ * const customEmitter = new RentMyEventEmitter();
+ *
+ * ===== on / emit / off / off_all
+ * const messageHandler = (data) => {
+ *     console.log("Received message:", data);
+ * };
+ * RentMyEvent.on("message", messageHandler);
+ * RentMyEvent.emit("message", "Hello, World!");
+ * RentMyEvent.off("message", messageHandler);
+ * RentMyEvent.off_all("message");
+ *
+ * ===== emitAsync
+ * RentMyEvent.on("message_async", async (data) => {
+ *     console.log("Async message:", data);
+ * });
+ * await RentMyEvent.emitAsync("message_async", "Hello from async emit");
+ *
+ * ===== add_action / do_action / do_action_async / remove_action / remove_actions
+ * const actionHandler = (data) => {
+ *     console.log("Action payload:", data);
+ * };
+ * RentMyEvent.add_action("cart:updated", actionHandler);
+ * RentMyEvent.do_action("cart:updated", { total: 3 });
+ * await RentMyEvent.do_action_async("cart:updated", { total: 4 });
+ * RentMyEvent.remove_action("cart:updated", actionHandler);
+ * RentMyEvent.remove_actions("cart:updated");
+ *
+ * ===== add_filter / apply_filters / remove_filter / remove_filters
+ * const trimFilter = (value) => String(value).trim();
+ * const upperFilter = (value, suffix = "") => `${value.toUpperCase()}${suffix}`;
+ * RentMyEvent.add_filter("message:text", trimFilter);
+ * RentMyEvent.add_filter("message:text", upperFilter);
+ * const modifiedData = RentMyEvent.apply_filters("message:text", " some text ", "!");
+ * console.log(modifiedData); // SOME TEXT!
+ * RentMyEvent.remove_filter("message:text", upperFilter);
+ * RentMyEvent.remove_filters("message:text");
+ *
+ * ===== clearAll
+ * RentMyEvent.clearAll();
+ */
