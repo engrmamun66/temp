@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { StoreConfigService } from '../services/StoreConfigService';
-import { CacheService } from '../services/CacheService';
+import { StoreConfigService } from '../../services/StoreConfigService';
+import { CacheService } from '../../services/CacheService';
 
 const SITEMAP_CACHE_KEY = 'sitemap_xml_data';
 const SITEMAP_CACHE_TTL = 86_400;

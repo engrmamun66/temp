@@ -1,10 +1,10 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { StoreConfigService } from '../services/StoreConfigService';
-import { CacheController } from '../controllers/CacheController';
-import { PageController } from '../controllers/PageController';
-import { ConfigJsController } from '../controllers/ConfigJsController';
-import { SitemapController } from '../controllers/SitemapController';
-import { RobotsController } from '../controllers/RobotsController';
+import { CacheController } from '../controllers/CacheController/CacheController';
+import { PageController } from '../controllers/PageController/PageController';
+import { ConfigJsController } from '../controllers/ConfigJsController/ConfigJsController';
+import { SitemapController } from '../controllers/SitemapController/SitemapController';
+import { RobotsController } from '../controllers/RobotsController/RobotsController';
 import { RouteConfig } from '../interfaces';
 
 export class DynamicRouter {

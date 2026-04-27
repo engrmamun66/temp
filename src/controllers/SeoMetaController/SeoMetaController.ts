@@ -1,4 +1,4 @@
-import { RouteConfig, PageContent, HomeMeta } from '../interfaces';
+import { RouteConfig, PageContent, HomeMeta } from '../../interfaces';
 
 interface ApplyPageMetaOptions {
   route: RouteConfig;

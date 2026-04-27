@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { ApiClient } from '../services/ApiClient';
-import { StoreConfigService } from '../services/StoreConfigService';
-import { RentMyGlobalBuilder } from '../builders/RentMyGlobalBuilder';
+import { ApiClient } from '../../services/ApiClient';
+import { StoreConfigService } from '../../services/StoreConfigService';
+import { RentMyGlobalBuilder } from '../../builders/RentMyGlobalBuilder';
 
 const builder = new RentMyGlobalBuilder();
 

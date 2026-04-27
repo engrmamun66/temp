@@ -3,9 +3,9 @@ import fs from 'fs';
 import { Request, Response } from 'express';
 import { JSDOM } from 'jsdom';
 import { AxiosError } from 'axios';
-import { StoreConfigService } from '../services/StoreConfigService';
-import { SeoMetaController } from './SeoMetaController';
-import { logToFile } from '../utils/fileLogger';
+import { StoreConfigService } from '../../services/StoreConfigService';
+import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
+import { logToFile } from '../../utils/fileLogger';
 
 const INDEX_HTML  = path.resolve(process.cwd(), 'public', 'index.html');
 const PUBLIC_DIR  = path.resolve(process.cwd(), 'public');

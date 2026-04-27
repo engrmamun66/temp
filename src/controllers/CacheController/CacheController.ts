@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { Request, Response } from 'express';
-import { CacheService } from '../services/CacheService';
-import { CacheListItem } from '../interfaces/CacheEntry';
+import { CacheService } from '../../services/CacheService';
+import { CacheListItem } from '../../interfaces/CacheEntry';
 
 const DEBUG_LOG = path.resolve(process.cwd(), '.cache', 'debug.log');
 const CACHE_LIST_HTML = path.resolve(process.cwd(), 'public', 'api-contents', 'cache-list.app.html');
