@@ -12,7 +12,7 @@ import { env } from '../config/env';
  */
 export function subdomainMiddleware(req: Request, _res: Response, next: NextFunction): void {
   const subdomain = resolveSubdomain(req.hostname);
-  req.context = { subdomain, pageKey: '', pageSlug: '' };
+  req.context = { subdomain, pageKey: '', routePath: '' };
   next();
 }
 

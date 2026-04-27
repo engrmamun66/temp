@@ -204,7 +204,7 @@ export class ApiClient {
       }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
       return resp.result.data.routes.map((r: RskConfigRoute) => ({
         page_key:       r?.page_key,
-        page_slug:      '/' + (r?.route_path || '').replace(/^\\+/, ''),
+        route_path:     '/' + (r?.route_path || '').replace(/^\/+/, ''),
         content_path:   r?.content_path,
         content_source: r?.content_source, 
       }));
@@ -261,7 +261,19 @@ export class ApiClient {
   async getHomePageContents(subdomain: string, contentPath: string): Promise<HomeContent[]> {
     const resp = await this.authorizedGet<{
       status: string;
-      result: { data: HomeContent[] };
+      result: {
+        data: Array<{
+          id: number;
+          store_id: number;
+          name: string;
+          page_id: number;
+          page_slug: string;
+          content: string;
+          status: number;
+          created: string;
+          modified: string;
+        }>;
+      };
     }>(subdomain, contentPath);
     const { data } = resp.result;
 
@@ -270,7 +282,7 @@ export class ApiClient {
       store_id:   item?.store_id || null,
       name:       item?.name || null,
       page_id:    item?.page_id || null,
-      page_slug:  item?.page_slug || null,
+      route_path: item?.page_slug || null,
       content:   item?.content || null,
       status:     item?.status || null,
       created:    item?.created || null,

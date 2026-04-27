@@ -84,8 +84,8 @@ export class StoreConfigService {
     return this.api.getOrFetchStoreResult(subdomain);
   }
 
-  findRouteBySlug(routes: RouteConfig[], slug: string): RouteConfig | undefined {
-    const normalized = slug === '' ? '/' : slug;
-    return routes.find((r) => r.page_slug === normalized);
+  findRouteByPath(routes: RouteConfig[], routePath: string): RouteConfig | undefined {
+    const normalized = routePath === '' ? '/' : routePath;
+    return routes.find((r) => r.route_path === normalized);
   }
 }

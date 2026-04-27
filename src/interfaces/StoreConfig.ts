@@ -7,7 +7,7 @@ export interface RskConfigRoute {
 
 export interface RouteConfig {
   page_key:       string;
-  page_slug:      string;
+  route_path:     string;
   content_path?:  string;
   content_source?: string;
   [otherMeta: string]: unknown;
@@ -52,11 +52,10 @@ export interface HomeContent {
   store_id: number;
   name: string;
   page_id: number;
-  page_slug: string;
+  route_path: string;
   content: string;
   status: number;
   created: string;
   modified: string;
 }
  
-

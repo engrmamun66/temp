@@ -45,11 +45,11 @@ export class DynamicRouter {
 
       const config = await this.storeService.getRskConfigs(subdomain);
 
-      const route: RouteConfig | undefined = this.storeService.findRouteBySlug(config.routes, slug);
+      const route: RouteConfig | undefined = this.storeService.findRouteByPath(config.routes, slug);
 
-      // Attach page_key and page_slug to request context (may be undefined for unknown slugs)
-      req.context.pageKey  = route?.page_key ?? 'not_found';
-      req.context.pageSlug = route?.page_slug ?? slug;
+      // Attach page_key and route_path to request context (may be undefined for unknown slugs)
+      req.context.pageKey   = route?.page_key ?? 'not_found';
+      req.context.routePath = route?.route_path ?? slug;
 
       await this.pageCtrl.handle(req, res);
     });

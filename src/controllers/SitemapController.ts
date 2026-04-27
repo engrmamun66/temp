@@ -17,7 +17,7 @@ export class SitemapController {
 
       const urls = config.routes
         .map((route) => {
-          const loc = route.page_slug === '/' ? baseUrl : `${baseUrl}${route.page_slug}`;
+          const loc = route.route_path === '/' ? baseUrl : `${baseUrl}${route.route_path}`;
           return `  <url><loc>${loc}</loc></url>`;
         })
         .join('\n');
