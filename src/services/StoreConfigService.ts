@@ -1,7 +1,7 @@
 import { ApiClient, StoreResult } from './ApiClient';
 import { CacheService } from './CacheService';
 import { HomeLayoutOrder } from '../types';
-import { RouteConfig, StoreConfig, PageContent, HomeContent } from '../interfaces/StoreConfig';
+import { RouteConfig, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta } from '../interfaces/StoreConfig';
 import { logToFile } from '../utils/fileLogger';
 
 const STORE_CACHE_KEY  = '__store_config';
@@ -33,7 +33,7 @@ export class StoreConfigService {
     return config;
   }
 
-  async loadHomePageContents(subdomain: string, contentPath: string): Promise<HomeContent[]> {
+  async loadHomePageContents(subdomain: string, contentPath: string): Promise<HomeContentAndMeta> {
 
     const cacheKey1 = `homeLayoutOrders__/layouts/reorder-section`;
     const cacheddata = this.cache.get<HomeLayoutOrder>(subdomain, cacheKey1);
@@ -64,10 +64,24 @@ export class StoreConfigService {
       let bi = sort_by.indexOf(b.id)
       return (ai === -1 ? Infinity : ai) - (bi === -1 ? Infinity : bi)
     })
-    return sorted_sections
+
+
+    const homeMetaCacheKey = `home_meta__/stores/${subdomain}/meta/home`;
+    let home_meta = this.cache.get<HomeMeta>(subdomain, homeMetaCacheKey);
+    if(!home_meta){
+      const data = await this.api.getHomeMeta(subdomain, contentPath);
+      this.cache.set(subdomain, homeMetaCacheKey, data, CONTENT_CACHE_TTL)
+      home_meta = data
+    }
+
+    
+    const result: HomeContentAndMeta = {
+      contents: sorted_sections,
+      meta: home_meta,
+    }
+
+    return result
   }
-
-
 
 
   async getPageContent(subdomain: string, contentPath: string): Promise<PageContent> {

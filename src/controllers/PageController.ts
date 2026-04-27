@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { JSDOM } from 'jsdom';
 import { AxiosError } from 'axios';
 import { StoreConfigService } from '../services/StoreConfigService';
+import { SeoMetaController } from './SeoMetaController';
 import { logToFile } from '../utils/fileLogger';
 
 const INDEX_HTML  = path.resolve(process.cwd(), 'public', 'index.html');
@@ -13,9 +14,11 @@ const indexSource = () => fs.readFileSync(INDEX_HTML, 'utf-8');
 
 export class PageController {
   private storeService: StoreConfigService;
+  private seoAndMetaCtrl: SeoMetaController;
 
   constructor() {
     this.storeService = StoreConfigService.getInstance();
+    this.seoAndMetaCtrl = new SeoMetaController();
   }
   
   handle = async (req: Request, res: Response): Promise<void> => {
@@ -60,14 +63,12 @@ export class PageController {
         } else {
           // let pageContent
           if(route.page_key.toLocaleLowerCase() === 'home'){
-            const pageContents = await this.storeService.loadHomePageContents(subdomain, route.content_path);
-            logToFile('pageContents::::', pageContents)
+            const { contents, meta } = await this.storeService.loadHomePageContents(subdomain, route.content_path);
+            this.seoAndMetaCtrl.applyPageMeta(document, {route, meta});
           } 
           else {
             const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
-            if (pageContent.meta_title) document.title = pageContent.meta_title;
-            this.setMeta(document, 'description', pageContent.meta_description);
-            this.setMeta(document, 'keywords', pageContent.meta_keyword);
+            this.seoAndMetaCtrl.applyPageMeta(document, {route, meta: pageContent});
             if (contentDiv) contentDiv.innerHTML = pageContent.contents.content;
           }
 
@@ -81,17 +82,6 @@ export class PageController {
     const statusCode = pageKey === 'not_found' || isMissingLocalFile ? 404 : 200;
     res.status(statusCode).set('Content-Type', 'text/html').send(dom.serialize());
   };
-
-  private setMeta(document: Document, name: string, content: string): void {
-    if (!content) return;
-    let tag = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
-    if (!tag) {
-      tag = document.createElement('meta') as HTMLMetaElement;
-      tag.name = name;
-      document.head.appendChild(tag);
-    }
-    tag.content = content;
-  }
 
   private resolvePublicFilePath(contentPath: string): string {
     const normalizedPath = contentPath.replace(/^\/+/, '');

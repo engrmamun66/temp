@@ -58,4 +58,19 @@ export interface HomeContent {
   created: string;
   modified: string;
 }
+
+export interface HomeMeta {
+  title: string;
+  description: string;
+  keywords: string;
+  imageUrl: string;
+  image_description: string;
+  favIcon: string;
+  twitter: string;
+}
+
+export interface HomeContentAndMeta {
+    contents: HomeContent[]
+    meta: HomeMeta
+}
  

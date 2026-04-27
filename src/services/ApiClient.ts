@@ -3,7 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RouteConfig, RskConfigRoute, PageContent, HomeContent } from '../interfaces/StoreConfig';
+import { RouteConfig, RskConfigRoute, PageContent, HomeContent, HomeMeta } from '../interfaces/StoreConfig';
 import { logToFile } from '../utils/fileLogger';
 
 // ── /get-settings response shape ────────────────────────────────────────────
@@ -305,5 +305,59 @@ export class ApiClient {
       logToFile(`[getHomeLayoutOrders() error] ${axiosErr.response?.data ?? axiosErr.message}`);
       return [] as HomeLayoutOrder
     }
+  }
+
+
+  async getHomeMeta(subdomain: string, contentPath: string): Promise<HomeMeta> {
+    try {
+      const response = await this.authorizedGet<unknown>(subdomain, contentPath);
+      const seo = this.extractHomeMetaPayload(response);
+
+      return {
+        title: this.asString(seo.title),
+        description: this.asString(seo.description),
+        keywords: this.asString(seo.keyword ?? seo.keywords),
+        imageUrl: this.asString(seo.image ?? seo.imageUrl),
+        image_description: this.asString(seo.description ?? seo.image_description),
+        favIcon: this.asString(seo.favicon ?? seo.favIcon),
+        twitter: this.asString(seo.twitter),
+      } as HomeMeta;
+    } catch (error) {
+      const axiosErr = error as AxiosError;
+      logToFile(`[home___meta() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+      return this.emptyHomeMeta();
+    }
+  }
+
+  private emptyHomeMeta(): HomeMeta {
+    return {
+      title: '',
+      description: '',
+      keywords: '',
+      imageUrl: '',
+      image_description: '',
+      favIcon: '',
+      twitter: '',
+    };
+  }
+
+  private extractHomeMetaPayload(response: unknown): Record<string, unknown> {
+    const root = this.asRecord(response);
+    if (!root) return {};
+
+    const result = this.asRecord(root.result);
+    const resultData = this.asRecord(result?.data);
+    const rootData = this.asRecord(root.data);
+
+    return resultData ?? rootData ?? root;
+  }
+
+  private asRecord(value: unknown): Record<string, unknown> | null {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+    return value as Record<string, unknown>;
+  }
+
+  private asString(value: unknown): string {
+    return typeof value === 'string' ? value : '';
   }
 }
