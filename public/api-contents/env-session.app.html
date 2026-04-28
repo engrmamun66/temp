@@ -421,8 +421,8 @@
                     :key="p.key"
                     :class="['preset-btn', selectedPreset === p.key ? 'selected' : '']"
                     type="button"
-                    :disabled="applying || !p.url"
-                    :title="p.url || `${p.label} URL not configured in .env`"
+                    :disabled="applying || !p.API_BASE_URL"
+                    :title="p.API_BASE_URL"
                     @click="select(p.key)"
                 >{{ p.label }}</button>
             </div>

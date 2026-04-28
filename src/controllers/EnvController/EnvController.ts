@@ -9,7 +9,7 @@ const ENV_SESSION_HTML = path.resolve(process.cwd(), 'public', 'api-contents', '
 const envSessionSource = () => fs.readFileSync(ENV_SESSION_HTML, 'utf-8');
 
 const presets = env.API_URL_PRESETS;
-const presetsMap = Object.fromEntries(presets.map((p) => [p.key, p.url])) as Record<string, string | null>;
+const presetsMap = Object.fromEntries(presets.map((p) => [p.key, p])) as Record<string, typeof presets[number]>;
 
 export class EnvController {
   private session: SessionOverrideService;
@@ -53,9 +53,9 @@ export class EnvController {
       return;
     }
 
-    const apiBaseUrl = presetsMap[preset];
-    if (!apiBaseUrl) {
-      res.status(400).json({ error: `Preset "${preset}" is not configured. Set the corresponding API_BASE_URL env var in .env` });
+    const presetEntry = presetsMap[preset];
+    if (!presetEntry) {
+      res.status(400).json({ error: `Preset "${preset}" is not configured.` });
       return;
     }
 
@@ -65,7 +65,7 @@ export class EnvController {
       return;
     }
 
-    this.session.set(preset, apiBaseUrl, ttl);
+    this.session.set(preset, presetEntry.API_BASE_URL, ttl);
     logToFile(`[EnvController] session applied preset=${preset} ttlMs=${ttl}`);
     res.json({ success: true, activeSession: this.session.getStatus() });
   };
