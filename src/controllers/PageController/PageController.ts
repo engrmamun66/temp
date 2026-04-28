@@ -7,6 +7,7 @@ import { StoreConfigService } from '../../services/StoreConfigService';
 import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
 import { RskRoute } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
+import { renderLayoutComponents } from '../../utils/layoutRenderer';
 import { env } from '../../config/env';
 
 const LAYOUTS_DIR      = path.resolve(process.cwd(), 'public', 'layouts');
@@ -49,7 +50,7 @@ export class PageController {
     const pathParams   = route ? this.extractPathParams(route.route_path, req.path) : {};
     const effectiveRoute: RskRoute = route ?? { page_key: pageKey, route_path: req.path };
 
-    const dom = new JSDOM(indexSource(route?.layout));
+    const dom = new JSDOM(renderLayoutComponents(indexSource(route?.layout)));
     const { document } = dom.window;
     const requestUrl      = this.buildRequestUrl(req);
     const siteName        = storeResult.store.name || this.getStoreString(storeResult.store, 'slug');
