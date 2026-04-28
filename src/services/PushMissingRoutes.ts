@@ -6,11 +6,11 @@ import { logToFile } from '../utils/fileLogger';
 
 export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 {
-    
+    pushRoute(EnumPageKes.home, routes)
     return routes
 }
 
 
-function pushRoute(key: string){
+function pushRoute(key: EnumPageKes | string, routes: RskRoute[]){
     
 }
