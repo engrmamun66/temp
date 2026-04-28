@@ -47,7 +47,7 @@ RSK_NEW/
 │   ├── config/
 │   │   └── env.ts                  # Safe env parsing (throws on missing vars)
 │   ├── interfaces/
-│   │   ├── StoreConfig.ts          # RouteConfig, StoreConfig, PageData
+│   │   ├── StoreConfig.ts          # RskRoute, StoreConfig, PageData
 │   │   ├── CacheEntry.ts           # CacheEntry, CacheListItem
 │   │   └── RequestContext.ts       # req.context type augmentation
 │   ├── middleware/

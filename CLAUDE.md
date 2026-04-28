@@ -38,7 +38,7 @@ This is a **multi-tenant, database-free** Express server. All data comes from an
 | Call | Endpoint | Notes |
 |---|---|---|
 | Token + store data | `GET /get-settings?store_name=<subdomain>` | Returns `{ result: { store: { token, id, name }, location: { id } } }` |
-| Store config / routes | `GET /get-settings?store_name=<subdomain>` | Same endpoint; result determines `RouteConfig[]` |
+| Store config / routes | `GET /get-settings?store_name=<subdomain>` | Same endpoint; result determines `RskRoute[]` |
 | Page data | `GET /page-data?subdomain=&page_key=` | Requires `Authorization: Bearer <token>` |
 
 ### Token persistence

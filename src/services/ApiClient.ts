@@ -3,8 +3,9 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RouteConfig, RskConfigRoute, PageContent, HomeContent, HomeMeta } from '../interfaces';
+import { RskRoute, PageContent, HomeContent, HomeMeta } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
+import { pushMissingRoutes } from './PushMissingRoutes';
 
 // ── /get-settings response shape ────────────────────────────────────────────
 
@@ -210,22 +211,23 @@ export class ApiClient {
 
   // ── Public API methods ────────────────────────────────────────────────────
 
-  async getRskConfigs(subdomain: string): Promise<RouteConfig[]> {
+  async getRskConfigs(subdomain: string): Promise<RskRoute[]> {
     try {
       const resp = await this.authorizedGet<{
         status: string;
-        result: { data: { routes: RskConfigRoute[]; redirections: Redirections } };
+        result: { data: { routes: RskRoute[]; redirections: Redirections } };
       }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
-      return resp.result.data.routes.map((r: RskConfigRoute) => ({
+      let routes = resp.result.data.routes.map((r: RskRoute) => ({
         page_key:       r?.page_key,
         route_path:     '/' + (r?.route_path || '').replace(/^\/+/, ''),
         content_path:   r?.content_path,
         content_source: r?.content_source, 
       }));
+      return pushMissingRoutes(routes)
     } catch (err) {
       const status = (err as AxiosError).response?.status;
       logToFile(`[ApiClient] [getRskConfigs()] failed subdomain=${subdomain} status=${status ?? 'network'}`);
-      return [] as RouteConfig[];
+      return [] as RskRoute[];
     }
   }
 

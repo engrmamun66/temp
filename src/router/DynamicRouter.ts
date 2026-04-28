@@ -5,7 +5,7 @@ import { PageController } from '../controllers/PageController/PageController';
 import { ConfigJsController } from '../controllers/ConfigJsController/ConfigJsController';
 import { SitemapController } from '../controllers/SitemapController/SitemapController';
 import { RobotsController } from '../controllers/RobotsController/RobotsController';
-import { RouteConfig } from '../interfaces';
+import { RskRoute } from '../interfaces';
 
 export class DynamicRouter {
   private router: Router;
@@ -53,7 +53,7 @@ export class DynamicRouter {
 
       const config = await this.storeService.getRskConfigs(subdomain);
 
-      const route: RouteConfig | undefined = this.storeService.findRouteByPath(config.routes, slug);
+      const route: RskRoute | undefined = this.storeService.findRouteByPath(config.routes, slug);
 
       // Attach page_key and route_path to request context (may be undefined for unknown slugs)
       req.context.pageKey   = route?.page_key ?? 'not_found';

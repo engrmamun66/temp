@@ -1,7 +1,7 @@
 import { ApiClient, StoreResult } from './ApiClient';
 import { CacheService } from './CacheService';
 import { HomeLayoutOrder } from '../types';
-import { RouteConfig, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta } from '../interfaces';
+import { RskRoute, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
 
 const STORE_CACHE_KEY  = '__store_config';
@@ -102,7 +102,7 @@ export class StoreConfigService {
     return this.api.getSitemapUrls(subdomain);
   }
 
-  findRouteByPath(routes: RouteConfig[], routePath: string): RouteConfig | undefined {
+  findRouteByPath(routes: RskRoute[], routePath: string): RskRoute | undefined {
     const normalized = routePath === '' ? '/' : routePath;
     return routes.find((r) => r.route_path === normalized);
   }

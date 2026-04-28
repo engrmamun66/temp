@@ -1,7 +1,7 @@
-import { RouteConfig, PageContent, HomeMeta } from '../../interfaces';
+import { RskRoute, PageContent, HomeMeta } from '../../interfaces';
 
 interface ApplyPageMetaOptions {
-  route: RouteConfig;
+  route: RskRoute;
   meta: PageContent | HomeMeta;
   requestUrl?: string;
   siteName?: string;
@@ -181,22 +181,22 @@ export class SeoMetaController {
     tag.textContent = this._formatStructuredData(schema);
   }
 
-  private _resolveTitle(route: RouteConfig, meta: PageContent | HomeMeta): string {
+  private _resolveTitle(route: RskRoute, meta: PageContent | HomeMeta): string {
     if ('meta_title' in meta) return meta.meta_title ?? '';
     return meta.title || this._getRouteString(route, ['title', 'meta_title']);
   }
 
-  private _resolveDescription(route: RouteConfig, meta: PageContent | HomeMeta): string {
+  private _resolveDescription(route: RskRoute, meta: PageContent | HomeMeta): string {
     if ('meta_description' in meta) return meta.meta_description ?? '';
     return meta.description || this._getRouteString(route, ['description', 'meta_description']);
   }
 
-  private _resolveKeywords(route: RouteConfig, meta: PageContent | HomeMeta): string {
+  private _resolveKeywords(route: RskRoute, meta: PageContent | HomeMeta): string {
     if ('meta_keyword' in meta) return meta.meta_keyword ?? '';
     return meta.keywords || this._getRouteString(route, ['keywords', 'meta_keyword']);
   }
 
-  private _resolveCanonicalUrl(route: RouteConfig, meta: PageContent | HomeMeta, requestUrl: string): string {
+  private _resolveCanonicalUrl(route: RskRoute, meta: PageContent | HomeMeta, requestUrl: string): string {
     if ('canonical_url' in meta) {
       return meta.canonical_url || this._getRouteString(route, ['canonical_url', 'canonicalUrl']) || requestUrl;
     }
@@ -204,7 +204,7 @@ export class SeoMetaController {
     return this._getRouteString(route, ['canonical_url', 'canonicalUrl']) || requestUrl;
   }
 
-  private _resolveImageUrl(route: RouteConfig, meta: PageContent | HomeMeta, fallback: string): string {
+  private _resolveImageUrl(route: RskRoute, meta: PageContent | HomeMeta, fallback: string): string {
     if ('featured_image' in meta) {
       return meta.featured_image || meta.thumbnail_image || this._getRouteString(route, ['imageUrl', 'image', 'og_image']) || fallback;
     }
@@ -212,7 +212,7 @@ export class SeoMetaController {
     return meta.imageUrl || this._getRouteString(route, ['imageUrl', 'image', 'og_image']) || fallback;
   }
 
-  private _resolveIconUrl(route: RouteConfig, meta: PageContent | HomeMeta, fallback: string): string {
+  private _resolveIconUrl(route: RskRoute, meta: PageContent | HomeMeta, fallback: string): string {
     if ('favIcon' in meta) {
       return meta.favIcon || this._getRouteString(route, ['favIcon', 'favicon']) || fallback;
     }
@@ -220,7 +220,7 @@ export class SeoMetaController {
     return this._getRouteString(route, ['favIcon', 'favicon']) || fallback;
   }
 
-  private _resolveTwitter(route: RouteConfig, meta: PageContent | HomeMeta): string {
+  private _resolveTwitter(route: RskRoute, meta: PageContent | HomeMeta): string {
     if ('twitter' in meta) return meta.twitter || this._getRouteString(route, ['twitter']);
     return this._getRouteString(route, ['twitter']);
   }
@@ -239,7 +239,7 @@ export class SeoMetaController {
     return pageKey === 'home' ? 'WebSite' : 'WebPage';
   }
 
-  private _getRouteString(route: RouteConfig, keys: string[]): string {
+  private _getRouteString(route: RskRoute, keys: string[]): string {
     for (const key of keys) {
       const value = route[key];
       if (typeof value === 'string' && value) {

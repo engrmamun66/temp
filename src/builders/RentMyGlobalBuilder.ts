@@ -1,5 +1,5 @@
 import { StoreResult } from '../services/ApiClient';
-import { RouteConfig } from '../interfaces';
+import { RskRoute } from '../interfaces';
 import { env } from '../config/env';
 import { logToFile } from '../utils/fileLogger';
 
@@ -19,7 +19,7 @@ export interface RentMyGlobal {
 }
 
 export class RentMyGlobalBuilder {
-  build(storeResult: StoreResult, routes: RouteConfig[]): RentMyGlobal {
+  build(storeResult: StoreResult, routes: RskRoute[]): RentMyGlobal {
     const page: Record<string, string> = {};
     for (const route of routes) {
       page[route.page_key] = route.route_path.replace(/:([a-zA-Z_]+)/g, '{$1}');

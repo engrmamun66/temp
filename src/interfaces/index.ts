@@ -1,11 +1,4 @@
-export interface RskConfigRoute {
-  route_path:      string;
-  page_key:        string;
-  content_path?:   string;
-  content_source?: string;
-}
-
-export interface RouteConfig {
+export interface RskRoute {
   page_key:       string;
   route_path:     string;
   content_path?:  string;
@@ -15,7 +8,7 @@ export interface RouteConfig {
 
 export interface StoreConfig {
   subdomain: string;
-  routes: RouteConfig[];
+  routes: RskRoute[];
 }
 
 export interface PageContentBody {
@@ -74,3 +67,7 @@ export interface HomeContentAndMeta {
     meta: HomeMeta
 }
  
+export enum EnumPageKes {
+  home = 'home',
+  products_list = 'products_list',
+}
