@@ -11,6 +11,9 @@ interface EnvConfig {
   NODE_ENV: string;
   CACHE: boolean;
   CACHE_TIME: number;
+  API_BASE_URL_PROD:    string | null;
+  API_BASE_URL_STAGING: string | null;
+  API_BASE_URL_QA1:     string | null;
 }
 
 function requireEnv(key: string): string {
@@ -43,6 +46,9 @@ function parseEnv(): EnvConfig {
     NODE_ENV: process.env.NODE_ENV ?? 'development',
     CACHE: (process.env.CACHE ?? 'true') !== 'false',
     CACHE_TIME: parseInt(process.env.CACHE_TIME ?? '300', 10),
+    API_BASE_URL_PROD:    process.env.API_BASE_URL_PROD?.trim().replace(/\/$/, '')    || null,
+    API_BASE_URL_STAGING: process.env.API_BASE_URL_STAGING?.trim().replace(/\/$/, '') || null,
+    API_BASE_URL_QA1:     process.env.API_BASE_URL_QA1?.trim().replace(/\/$/, '')     || null,
   };
 }
 

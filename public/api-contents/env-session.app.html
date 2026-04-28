@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Env Session | RSK</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f4efe8;
+            --panel: rgba(255, 252, 247, 0.92);
+            --panel-strong: #fffdf9;
+            --line: rgba(93, 71, 52, 0.18);
+            --text: #24180f;
+            --muted: #716150;
+            --accent: #c8643b;
+            --accent-deep: #8e3f20;
+            --shadow: 0 20px 45px rgba(59, 34, 18, 0.12);
+            --green: #2d6a4f;
+            --green-bg: rgba(45, 106, 79, 0.08);
+            --green-border: rgba(45, 106, 79, 0.22);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(239, 176, 121, 0.34), transparent 28rem),
+                radial-gradient(circle at bottom right, rgba(149, 188, 201, 0.34), transparent 24rem),
+                linear-gradient(180deg, #fbf6ef 0%, var(--bg) 100%);
+        }
+
+        a, button, input, select { font: inherit; }
+
+        #app {
+            width: min(1120px, calc(100% - 32px));
+            margin: 28px auto;
+        }
+
+        .page-shell {
+            padding: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 24px;
+            background: var(--panel);
+            backdrop-filter: blur(14px);
+            box-shadow: var(--shadow);
+        }
+
+        /* ── Header ────────────────────────────────────────────────── */
+        .hero {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+
+        .eyebrow {
+            margin: 0 0 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent-deep);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+        }
+
+        .meta {
+            margin: 10px 0 0;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            background: rgba(36, 24, 15, 0.07);
+            color: var(--text);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: transform 140ms ease;
+        }
+
+        .back-link:hover { transform: translateY(-1px); }
+
+        /* ── Session banner ─────────────────────────────────────────── */
+        .session-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 13px 16px;
+            border-radius: 14px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .session-banner.active {
+            border: 1px solid var(--green-border);
+            background: var(--green-bg);
+            color: var(--green);
+        }
+
+        .session-banner.inactive {
+            border: 1px dashed var(--line);
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--muted);
+        }
+
+        .session-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .session-banner.active  .session-dot { background: var(--green); }
+        .session-banner.inactive .session-dot { background: var(--muted); }
+
+        .session-banner strong { font-weight: 700; }
+
+        /* ── Messages ───────────────────────────────────────────────── */
+        .message {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .message.error {
+            border: 1px solid rgba(181, 52, 52, 0.18);
+            background: rgba(181, 52, 52, 0.08);
+            color: #8f1f1f;
+        }
+
+        .message.success {
+            border: 1px solid var(--green-border);
+            background: var(--green-bg);
+            color: var(--green);
+        }
+
+        /* ── Control card ───────────────────────────────────────────── */
+        .control-card {
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--panel-strong);
+        }
+
+        .control-card-title {
+            margin: 0 0 14px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .preset-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .preset-btn {
+            padding: 9px 18px;
+            border: 1.5px solid var(--line);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 140ms ease;
+        }
+
+        .preset-btn:not(:disabled):hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(59, 34, 18, 0.1);
+        }
+
+        .preset-btn:disabled {
+            opacity: 0.38;
+            cursor: not-allowed;
+        }
+
+        .preset-btn.selected {
+            border-color: var(--accent);
+            background: rgba(200, 100, 59, 0.1);
+            color: var(--accent-deep);
+            font-weight: 600;
+        }
+
+        .preset-btn.default-btn.selected {
+            border-color: var(--text);
+            background: rgba(36, 24, 15, 0.09);
+            color: var(--text);
+        }
+
+        .divider {
+            width: 1px;
+            height: 32px;
+            background: var(--line);
+            align-self: center;
+        }
+
+        .apply-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .ttl-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .ttl-select {
+            padding: 9px 12px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text);
+            font-size: 13px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .ttl-select:focus {
+            border-color: rgba(200, 100, 59, 0.55);
+            box-shadow: 0 0 0 4px rgba(200, 100, 59, 0.12);
+        }
+
+        .ttl-select:disabled { opacity: 0.38; cursor: not-allowed; }
+
+        .apply-btn {
+            padding: 9px 22px;
+            border: 0;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent) 0%, #d78962 100%);
+            color: #fffaf6;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(200, 100, 59, 0.24);
+            transition: all 140ms ease;
+        }
+
+        .apply-btn:not(:disabled):hover { transform: translateY(-1px); }
+
+        .apply-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ── Env table ──────────────────────────────────────────────── */
+        .section-title {
+            margin: 0 0 12px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .table-card {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--panel-strong);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th, td {
+            padding: 11px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--line);
+            vertical-align: middle;
+        }
+
+        th {
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        tbody tr:last-child td { border-bottom: 0; }
+
+        .var-key {
+            font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .var-value {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 8px;
+            background: rgba(36, 24, 15, 0.06);
+            font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+            font-size: 12px;
+            word-break: break-all;
+        }
+
+        .var-value.overridden {
+            background: var(--green-bg);
+            color: var(--green);
+        }
+
+        .var-value.null-val {
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .override-badge {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: rgba(45, 106, 79, 0.15);
+            color: var(--green);
+            vertical-align: middle;
+        }
+
+        /* ── Responsive ─────────────────────────────────────────────── */
+        @media (max-width: 760px) {
+            #app { width: min(100% - 20px, 100%); margin: 14px auto; }
+            .page-shell { padding: 16px; border-radius: 18px; }
+            .hero { flex-direction: column; align-items: stretch; }
+            .preset-row { gap: 8px; }
+            .divider { display: none; }
+            th, td { padding: 10px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script id="env-session-template" type="text/x-template">
+    <div class="page-shell">
+
+        <!-- Header -->
+        <header class="hero">
+            <div>
+                <p class="eyebrow">Internal Tools</p>
+                <h1>Env Session</h1>
+                <p class="meta">Temporarily override the API server. All outbound calls use the session URL until it expires.</p>
+            </div>
+            <a class="back-link" href="/_">← Back</a>
+        </header>
+
+        <!-- Feedback messages -->
+        <p v-if="errorMessage"   class="message error">{{ errorMessage }}</p>
+        <p v-if="successMessage" class="message success">{{ successMessage }}</p>
+
+        <!-- Active session banner -->
+        <div :class="['session-banner', activeSession ? 'active' : 'inactive']">
+            <span class="session-dot"></span>
+            <span v-if="activeSession">
+                <strong>Active:</strong> {{ labelFor(activeSession.preset) }}
+                &nbsp;&mdash;&nbsp;
+                <code>{{ activeSession.apiBaseUrl }}</code>
+                &nbsp;&mdash;&nbsp;
+                expires {{ formatTime(activeSession.expiresAt) }}
+            </span>
+            <span v-else>
+                No active override &mdash; using default
+                <strong>{{ env.API_BASE_URL }}</strong>
+            </span>
+        </div>
+
+        <!-- Server presets + controls -->
+        <div class="control-card">
+            <p class="control-card-title">Select Server Preset</p>
+
+            <div class="preset-row">
+                <button
+                    :class="['preset-btn', 'default-btn', selectedPreset === 'default' ? 'selected' : '']"
+                    type="button"
+                    :disabled="applying"
+                    @click="select('default')"
+                >Default</button>
+
+                <span class="divider"></span>
+
+                <button
+                    v-for="(url, key) in presets"
+                    :key="key"
+                    :class="['preset-btn', selectedPreset === key ? 'selected' : '']"
+                    type="button"
+                    :disabled="applying || !url"
+                    :title="url || `${key.toUpperCase()} URL not configured — set API_BASE_URL_${key.toUpperCase()} in .env`"
+                    @click="select(key)"
+                >{{ labelFor(key) }}</button>
+            </div>
+
+            <div class="apply-row">
+                <span class="ttl-label">Expiration:</span>
+                <select
+                    class="ttl-select"
+                    v-model="selectedTtl"
+                    :disabled="applying || selectedPreset === 'default' || !selectedPreset"
+                >
+                    <option :value="300000">5 minutes</option>
+                    <option :value="600000">10 minutes</option>
+                    <option :value="1800000">30 minutes</option>
+                    <option :value="3600000">1 hour</option>
+                </select>
+
+                <button
+                    class="apply-btn"
+                    type="button"
+                    :disabled="applying || !selectedPreset"
+                    @click="apply"
+                >{{ applying ? 'Applying…' : 'Apply' }}</button>
+            </div>
+        </div>
+
+        <!-- Env variables table -->
+        <p class="section-title">Environment Variables</p>
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="row in envRows" :key="row.key">
+                        <td><span class="var-key">{{ row.key }}</span></td>
+                        <td>
+                            <span :class="['var-value', row.overridden ? 'overridden' : '', row.value === null ? 'null-val' : '']">
+                                {{ row.value !== null ? row.value : '(not set)' }}
+                            </span>
+                            <span v-if="row.overridden" class="override-badge">overridden</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    </script>
+
+    <script id="env-session-state" type="application/json">${initialState}</script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script>
+        const stateEl = document.getElementById('env-session-state');
+        const initialStateData = JSON.parse(stateEl.textContent || '{}');
+        const { createApp } = Vue;
+
+        createApp({
+            template: '#env-session-template',
+            data() {
+                return {
+                    ...initialStateData,
+                    selectedPreset:  null,
+                    selectedTtl:     300000,
+                    applying:        false,
+                    errorMessage:    '',
+                    successMessage:  '',
+                };
+            },
+            computed: {
+                envRows() {
+                    const session = this.activeSession;
+                    return Object.entries(this.env).map(([key, value]) => ({
+                        key,
+                        value:      value === null || value === undefined ? null : String(value),
+                        overridden: session !== null && key === 'API_BASE_URL',
+                    }));
+                },
+            },
+            methods: {
+                labelFor(key) {
+                    return this.presetLabels?.[key] ?? (key.charAt(0).toUpperCase() + key.slice(1));
+                },
+                formatTime(ts) {
+                    if (!ts) return '';
+                    const d = new Date(ts);
+                    const pad = (n) => String(n).padStart(2, '0');
+                    return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+                },
+                select(key) {
+                    this.selectedPreset  = key;
+                    this.errorMessage   = '';
+                    this.successMessage = '';
+                },
+                async apply() {
+                    if (!this.selectedPreset) return;
+                    this.errorMessage   = '';
+                    this.successMessage = '';
+                    this.applying       = true;
+                    try {
+                        const res = await fetch(this.applyUrl, {
+                            method:  'POST',
+                            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                            body:    JSON.stringify({ preset: this.selectedPreset, ttlMs: this.selectedTtl }),
+                        });
+                        const payload = await res.json();
+                        if (!res.ok) throw new Error(payload.error || `HTTP ${res.status}`);
+
+                        this.activeSession = payload.activeSession;
+
+                        if (this.selectedPreset === 'default') {
+                            this.successMessage = 'Session cleared. Using default .env values.';
+                        } else {
+                            this.successMessage = `Session applied: ${this.labelFor(this.selectedPreset)} — expires at ${this.formatTime(payload.activeSession?.expiresAt)}`;
+                        }
+                        this.selectedPreset = null;
+                    } catch (err) {
+                        this.errorMessage = err instanceof Error ? err.message : 'Failed to apply session.';
+                    } finally {
+                        this.applying = false;
+                    }
+                },
+            },
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

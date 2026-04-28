@@ -43,6 +43,7 @@ export class CacheController {
             <li><a href="/_/clist">Cache List</a></li>
             <li><a href="/_/log">Debug Log</a></li>
             <li><a href="/_/log?clear=true">Clear Debug Log</a></li>
+            <li><a href="/_/env">Env Session Manager</a></li>
           </ul>
         </body>
       </html>

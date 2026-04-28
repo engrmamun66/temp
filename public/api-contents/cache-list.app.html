@@ -329,6 +329,18 @@
             line-height: 1.5;
             background: rgba(36, 24, 15, 0.03);
         }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            background: rgba(36, 24, 15, 0.07);
+            color: var(--text);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: transform 140ms ease;
+        }
 
         @media (max-width: 760px) {
             #app {
@@ -401,7 +413,10 @@
                     <h1>${escapedSubdomain}</h1>
                     <p class="meta">${items.length} of ${items.length} entries shown</p>
                 </div>
-                <a class="refresh-link" href="/_/clist">Refresh</a>
+                <div style="display:flex;gap:10px;align-items:center;">
+                    <a class="back-link" href="/_">← Back</a>
+                    <a class="refresh-link" href="/_/clist">Refresh</a>
+                </div>
             </header>
 
             <section class="toolbar">
@@ -426,7 +441,10 @@
             <h1>{{ subdomain }}</h1>
             <p class="meta">{{ filteredItems.length }} of {{ items.length }} entries shown</p>
         </div>
-        <a class="refresh-link" href="/_/clist">Refresh</a>
+        <div style="display:flex;gap:10px;align-items:center;">
+            <a class="back-link" href="/_">← Back</a>
+            <a class="refresh-link" href="/_/clist">Refresh</a>
+        </div>
         </header>
 
         <p v-if="errorMessage" class="error-banner">{{ errorMessage }}</p>

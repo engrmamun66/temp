@@ -150,6 +150,18 @@ export class StoreConfigService {
 
   findRouteByPath(routes: RskRoute[], routePath: string): RskRoute | undefined {
     const normalized = routePath === '' ? '/' : routePath;
-    return routes.find((r) => r.route_path === normalized);
+
+    // Exact match first
+    const exact = routes.find((r) => r.route_path === normalized);
+    if (exact) return exact;
+
+    // Pattern match: convert :param segments to regex
+    return routes.find((r) => {
+      if (!r.route_path?.includes(':')) return false;
+      const pattern = r.route_path
+        .replace(/[.+?^${}()|[\]\\]/g, '\\$&')  // escape regex specials (not *)
+        .replace(/:([^/]+)/g, '[^/]+');           // :param → one segment
+      return new RegExp(`^${pattern}$`).test(normalized);
+    });
   }
 }

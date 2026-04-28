@@ -6,6 +6,7 @@ import { HomeLayoutOrder, Redirections } from '../types';
 import { RskRoute, PageContent, HomeContent, HomeMeta } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
 import { pushMissingRoutes } from './PushMissingRoutes';
+import { SessionOverrideService } from './SessionOverrideService';
 
 // ── /get-settings response shape ────────────────────────────────────────────
 
@@ -137,7 +138,9 @@ export class ApiClient {
 
   private async fetchStoreResult(subdomain: string): Promise<StoreResult> {
     console.log('[ApiClient] fetchStoreResult subdomain:', subdomain);
+    const baseURL = SessionOverrideService.getInstance().getApiBaseUrl(env.API_BASE_URL);
     const res = await this.http.get<GetSettingsResponse>('/get-settings', {
+      baseURL,
       params: { store_name: subdomain },
     });
     const result = res.data.result;
@@ -178,9 +181,11 @@ export class ApiClient {
     params?: Record<string, unknown>,
     extraHeaders?: Record<string, string>
   ): Promise<T> {
-    const token = await this.getToken(subdomain);
+    const token   = await this.getToken(subdomain);
+    const baseURL = SessionOverrideService.getInstance().getApiBaseUrl(env.API_BASE_URL);
     try {
       const res = await this.http.get<T>(path, {
+        baseURL,
         params,
         headers: { Authorization: `Bearer ${token}`, ...(extraHeaders ?? {}) },
       });
@@ -191,6 +196,7 @@ export class ApiClient {
         this.invalidate(subdomain);
         const freshToken = await this.getToken(subdomain);
         const retry = await this.http.get<T>(path, {
+          baseURL,
           params,
           headers: { Authorization: `Bearer ${freshToken}`, ...(extraHeaders ?? {}) },
         });
