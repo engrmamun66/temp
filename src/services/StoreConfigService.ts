@@ -84,6 +84,52 @@ export class StoreConfigService {
   }
 
 
+  async getProductsListMeta(subdomain: string): Promise<HomeMeta> {
+    const cacheKey = 'products_list_meta__home';
+    const cached = this.cache.get<HomeMeta>(subdomain, cacheKey);
+    if (cached) return cached;
+    try {
+      const data = await this.api.getHomeMeta(subdomain, `/stores/${subdomain}/meta/home`);
+      this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
+      return data;
+    } catch (err) {
+      logToFile(`[StoreConfigService] getProductsListMeta failed subdomain=${subdomain}`, err);
+      return this.emptyHomeMeta();
+    }
+  }
+
+  async getProductDetailsMeta(subdomain: string, productUrl: string): Promise<HomeMeta> {
+    const cacheKey = `product_details_meta__${productUrl}`;
+    const cached = this.cache.get<HomeMeta>(subdomain, cacheKey);
+    if (cached) return cached;
+    try {
+      const data = await this.api.getProductDetailsMeta(subdomain, productUrl);
+      this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
+      return data;
+    } catch (err) {
+      logToFile(`[StoreConfigService] getProductDetailsMeta failed subdomain=${subdomain} url=${productUrl}`, err);
+      return this.emptyHomeMeta();
+    }
+  }
+
+  async getCategoryMeta(subdomain: string, uid: string): Promise<HomeMeta> {
+    const cacheKey = `category_meta__${uid}`;
+    const cached = this.cache.get<HomeMeta>(subdomain, cacheKey);
+    if (cached) return cached;
+    try {
+      const data = await this.api.getCategoryMeta(subdomain, uid);
+      this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
+      return data;
+    } catch (err) {
+      logToFile(`[StoreConfigService] getCategoryMeta failed subdomain=${subdomain} uid=${uid}`, err);
+      return this.emptyHomeMeta();
+    }
+  }
+
+  private emptyHomeMeta(): HomeMeta {
+    return { title: '', description: '', keywords: '', imageUrl: '', image_description: '', favIcon: '', twitter: '' };
+  }
+
   async getPageContent(subdomain: string, contentPath: string): Promise<PageContent> {
     const cacheKey = `content__${contentPath}`;
     const cached = this.cache.get<PageContent>(subdomain, cacheKey);

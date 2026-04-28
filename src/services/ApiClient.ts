@@ -348,6 +348,54 @@ export class ApiClient {
   }
 
 
+  async getProductDetailsMeta(subdomain: string, productUrl: string): Promise<HomeMeta> {
+    try {
+      const resp = await this.authorizedGet<unknown>(
+        subdomain,
+        `/stores/${subdomain}/meta/product-details`,
+        { url: productUrl },
+      );
+      const seo = this.extractHomeMetaPayload(resp);
+      return {
+        title:             this.asString(seo.product_name ?? seo.title),
+        description:       this.asString(seo.description),
+        keywords:          this.asString(seo.keyword ?? seo.keywords),
+        imageUrl:          this.asString(seo.image ?? seo.imageUrl),
+        image_description: this.asString(seo.description ?? seo.image_description),
+        twitter:           this.asString(seo.twitter),
+        favIcon:           this.asString(seo.favicon ?? seo.favIcon),
+      };
+    } catch (err) {
+      const axiosErr = err as AxiosError;
+      logToFile(`[getProductDetailsMeta() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+      return this.emptyHomeMeta();
+    }
+  }
+
+  async getCategoryMeta(subdomain: string, uid: string): Promise<HomeMeta> {
+    try {
+      const resp = await this.authorizedGet<unknown>(
+        subdomain,
+        `/stores/${subdomain}/meta/category`,
+        { uid },
+      );
+      const seo = this.extractHomeMetaPayload(resp);
+      return {
+        title:             this.asString(seo.title ?? seo.category_name),
+        description:       this.asString(seo.description),
+        keywords:          this.asString(seo.keyword ?? seo.keywords),
+        imageUrl:          this.asString(seo.image ?? seo.imageUrl),
+        image_description: this.asString(seo.description ?? seo.image_description),
+        twitter:           this.asString(seo.twitter),
+        favIcon:           this.asString(seo.favicon ?? seo.favIcon),
+      };
+    } catch (err) {
+      const axiosErr = err as AxiosError;
+      logToFile(`[getCategoryMeta() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+      return this.emptyHomeMeta();
+    }
+  }
+
   async getHomeMeta(subdomain: string, contentPath: string): Promise<HomeMeta> {
     try {
       const response = await this.authorizedGet<unknown>(subdomain, contentPath);

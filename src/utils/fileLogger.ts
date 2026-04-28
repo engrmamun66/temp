@@ -13,3 +13,11 @@ export function logToFile(...args: unknown[]): void {
     // silently ignore write failures
   }
 }
+
+export function clearFileLogs(): void {
+  try {
+    fs.writeFileSync(LOG_FILE, '', 'utf-8');
+  } catch {
+    // silently ignore
+  }
+}
