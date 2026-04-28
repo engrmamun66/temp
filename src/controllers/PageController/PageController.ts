@@ -9,7 +9,7 @@ import { RskRoute } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
 import { env } from '../../config/env';
 
-const INDEX_HTML       = path.resolve(process.cwd(), 'public', 'index.html');
+const INDEX_HTML       = path.resolve(process.cwd(), 'public', 'layouts', 'default.html');
 const PUBLIC_DIR       = path.resolve(process.cwd(), 'public');
 const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'pages', '404.html');
 const indexSource = () => fs.readFileSync(INDEX_HTML, 'utf-8');
