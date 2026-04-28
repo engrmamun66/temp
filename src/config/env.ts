@@ -56,13 +56,13 @@ function parseEnv(): EnvConfig {
     CACHE: (process.env.CACHE ?? 'true') !== 'false',
     CACHE_TIME: parseInt(process.env.CACHE_TIME ?? '300', 10),
     API_URL_PRESETS: [
-      { key: 'production', label: 'Production Server', API_BASE_URL: 'https://clientapi.rentmy.co/api',                    ASSET_URL: 'https://s3.us-east-2.amazonaws.com/images.rentmy.co', PAYMENT_DOMAIN: 'https://payment.rentmy.co' },
-      { key: 'dev1',       label: 'Dev Team 1',        API_BASE_URL: 'https://rentmyapidevteam1.leaperdev.rocks/api',      ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co',  PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks' },
-      { key: 'dev2',       label: 'Dev Team 2',        API_BASE_URL: 'https://rentmyapidevteam2.leaperdev.rocks/api',      ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co',  PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks' },
-      { key: 'qa1',        label: 'QA1 Server',        API_BASE_URL: 'https://rentmyapidevteam1.leaperdev.rocks/api',      ASSET_URL: 'https://s3.us-east-2.amazonaws.com/images.rentmy.co', PAYMENT_DOMAIN: 'https://payment.rentmy.co' },
+      { key: 'production', label: 'Production Server', API_BASE_URL: 'https://clientapi.rentmy.co/api/',                    ASSET_URL: 'https://s3.us-east-2.amazonaws.com/images.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmy.co/' },
+      { key: 'dev1',       label: 'Dev Team 1',        API_BASE_URL: 'https://rentmyapidevteam1.leaperdev.rocks/api/',      ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/',  PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks/' },
+      { key: 'dev2',       label: 'Dev Team 2',        API_BASE_URL: 'https://rentmyapidevteam2.leaperdev.rocks/api/',      ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/',  PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks/' },
+      { key: 'qa1',        label: 'QA1 Server',        API_BASE_URL: 'https://rentmyapidevteam1.leaperdev.rocks/api/',      ASSET_URL: 'https://s3.us-east-2.amazonaws.com/images.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmy.co/' },
     ],
-    ASSET_URL:         process.env.ASSET_URL?.trim().replace(/\/$/, '')         || null,
-    PAYMENT_DOMAIN:    process.env.PAYMENT_DOMAIN?.trim().replace(/\/$/, '')    || null,
+    ASSET_URL:         process.env.ASSET_URL?.trim()         || null,
+    PAYMENT_DOMAIN:    process.env.PAYMENT_DOMAIN?.trim()    || null,
     AFFILIATE_SDK_URL: process.env.AFFILIATE_SDK_URL?.trim()                    || null,
   };
 }

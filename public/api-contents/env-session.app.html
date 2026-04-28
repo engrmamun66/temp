@@ -436,6 +436,7 @@
                 >
                     <option :value="300000">5 minutes</option>
                     <option :value="600000">10 minutes</option>
+                    <option :value="900000">15 minutes</option>
                     <option :value="1800000">30 minutes</option>
                     <option :value="3600000">1 hour</option>
                 </select>
@@ -489,7 +490,7 @@
                 return {
                     ...initialStateData,
                     selectedPreset:  null,
-                    selectedTtl:     300000,
+                    selectedTtl:     900000,
                     applying:        false,
                     errorMessage:    '',
                     successMessage:  '',
@@ -541,7 +542,6 @@
                         } else {
                             this.successMessage = `Session applied: ${this.labelFor(this.selectedPreset)} — expires at ${this.formatTime(payload.activeSession?.expiresAt)}`;
                         }
-                        this.selectedPreset = null;
                     } catch (err) {
                         this.errorMessage = err instanceof Error ? err.message : 'Failed to apply session.';
                     } finally {
