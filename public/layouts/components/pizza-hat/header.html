@@ -1,0 +1,84 @@
+<header class="bg-red-700 text-white sticky top-0 z-50 shadow-lg">
+  <!-- Delivery status bar -->
+  <div class="bg-red-900 text-red-200 text-xs text-center py-1.5 font-medium">
+    🔥 Hot deal: Free delivery on orders over $30 — today only!
+  </div>
+
+  <!-- Main nav -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2.5">
+        <div class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center shadow-md">
+          <span class="text-xl leading-none">🍕</span>
+        </div>
+        <img id="RENTMY_STORE_LOGO" src="" alt="Logo" class="h-8 object-contain hidden brightness-0 invert" onerror="this.classList.add('hidden')">
+        <div>
+          <span class="block text-lg font-black leading-none tracking-tight">Pizza Hat</span>
+          <span class="block text-[9px] text-yellow-300 tracking-widest uppercase leading-none mt-0.5">Fresh · Fast · Delicious</span>
+        </div>
+      </a>
+
+      <!-- Location selector -->
+      <button class="hidden md:flex items-center gap-2 bg-red-800 hover:bg-red-600 px-4 py-2 rounded-xl transition-colors text-sm">
+        <svg class="w-4 h-4 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <div class="text-left">
+          <div class="text-[9px] text-red-300 leading-none">Deliver to</div>
+          <div class="font-semibold leading-tight">123 Main St</div>
+        </div>
+        <svg class="w-3.5 h-3.5 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="/menu" class="px-4 py-2 text-sm font-medium hover:bg-red-800 rounded-lg transition-all">Menu</a>
+        <a href="/deals" class="px-4 py-2 text-sm font-medium hover:bg-red-800 rounded-lg transition-all flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-pulse"></span>
+          Deals
+        </a>
+        <a href="/track" class="px-4 py-2 text-sm font-medium hover:bg-red-800 rounded-lg transition-all">Track Order</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-2">
+        <a href="/account" class="p-2 hover:bg-red-800 rounded-lg transition-all" aria-label="Account">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        </a>
+        <a href="/cart" class="relative flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-red-900 font-bold text-sm px-4 py-2 rounded-xl transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          Cart
+          <span class="bg-red-700 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
+        </a>
+        <button onclick="document.getElementById('pizza-mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 hover:bg-red-800 rounded-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category quick nav -->
+  <div class="border-t border-red-800 hidden md:block">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-1 py-2 overflow-x-auto scrollbar-hide">
+        <a href="#" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-yellow-400 text-red-900 text-xs font-bold rounded-full">🍕 Pizzas</a>
+        <a href="#" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 hover:bg-red-800 text-xs font-medium rounded-full transition-colors">🍔 Burgers</a>
+        <a href="#" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 hover:bg-red-800 text-xs font-medium rounded-full transition-colors">🥗 Salads</a>
+        <a href="#" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 hover:bg-red-800 text-xs font-medium rounded-full transition-colors">🍝 Pasta</a>
+        <a href="#" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 hover:bg-red-800 text-xs font-medium rounded-full transition-colors">🥤 Drinks</a>
+        <a href="#" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 hover:bg-red-800 text-xs font-medium rounded-full transition-colors">🍰 Desserts</a>
+        <a href="#" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 hover:bg-red-800 text-xs font-medium rounded-full transition-colors">🍗 Wings</a>
+        <a href="#" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 hover:bg-red-800 text-xs font-medium rounded-full transition-colors">🥖 Sides</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="pizza-mobile-menu" class="hidden md:hidden border-t border-red-800">
+    <div class="px-4 py-4 space-y-1">
+      <a href="/menu" class="block px-3 py-2 text-sm font-medium hover:bg-red-800 rounded-lg">Menu</a>
+      <a href="/deals" class="block px-3 py-2 text-sm font-medium hover:bg-red-800 rounded-lg">Deals 🔥</a>
+      <a href="/track" class="block px-3 py-2 text-sm font-medium hover:bg-red-800 rounded-lg">Track Order</a>
+    </div>
+  </div>
+</header>
