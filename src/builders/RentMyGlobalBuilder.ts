@@ -1,6 +1,7 @@
 import { StoreResult } from '../services/ApiClient';
 import { RskRoute } from '../interfaces';
 import { env } from '../config/env';
+import { SessionOverrideService } from '../services/SessionOverrideService';
 import { logToFile } from '../utils/fileLogger';
 
 export interface RentMyGlobal {
@@ -35,8 +36,8 @@ export class RentMyGlobalBuilder {
       store_name:   String(storeResult.store.name),
       access_token: storeResult.store.token,
       env: {
-        ASSET_URL:         env.ASSET_URL,
-        PAYMENT_DOMAIN:    env.PAYMENT_DOMAIN,
+        ASSET_URL:         this.resolveFromPreset('ASSET_URL'),
+        PAYMENT_DOMAIN:    this.resolveFromPreset('PAYMENT_DOMAIN'),
         AFFILIATE_SDK_URL: env.AFFILIATE_SDK_URL,
       },
       emDateTimePicker: {
@@ -55,6 +56,15 @@ export class RentMyGlobalBuilder {
       },
       page,
     };
+  }
+
+  private resolveFromPreset(field: 'ASSET_URL' | 'PAYMENT_DOMAIN'): string | null {
+    const session = SessionOverrideService.getInstance().getStatus();
+    if (session) {
+      const preset = env.API_URL_PRESETS.find((p) => p.key === session.preset);
+      if (preset) return preset[field];
+    }
+    return env[field];
   }
 
   scriptTag(subdomain: string, global: RentMyGlobal): string {
