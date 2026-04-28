@@ -9,10 +9,19 @@ import { RskRoute } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
 import { env } from '../../config/env';
 
-const INDEX_HTML       = path.resolve(process.cwd(), 'public', 'layouts', 'default.html');
+const LAYOUTS_DIR      = path.resolve(process.cwd(), 'public', 'layouts');
+const DEFAULT_LAYOUT   = path.resolve(LAYOUTS_DIR, 'default.html');
 const PUBLIC_DIR       = path.resolve(process.cwd(), 'public');
 const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'pages', '404.html');
-const indexSource = () => fs.readFileSync(INDEX_HTML, 'utf-8');
+
+function resolveLayoutFile(layout: string | null | undefined): string {
+  if (!layout || layout === 'default') return DEFAULT_LAYOUT;
+  const candidate = path.resolve(LAYOUTS_DIR, `${layout}.html`);
+  return fs.existsSync(candidate) ? candidate : DEFAULT_LAYOUT;
+}
+
+const indexSource = (layout: string | null | undefined) =>
+  fs.readFileSync(resolveLayoutFile(layout), 'utf-8');
 
 export class PageController {
   private storeService: StoreConfigService;
@@ -40,7 +49,7 @@ export class PageController {
     const pathParams   = route ? this.extractPathParams(route.route_path, req.path) : {};
     const effectiveRoute: RskRoute = route ?? { page_key: pageKey, route_path: req.path };
 
-    const dom = new JSDOM(indexSource());
+    const dom = new JSDOM(indexSource(route?.layout));
     const { document } = dom.window;
     const requestUrl      = this.buildRequestUrl(req);
     const siteName        = storeResult.store.name || this.getStoreString(storeResult.store, 'slug');
