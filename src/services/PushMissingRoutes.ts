@@ -16,7 +16,6 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
         _source: 'force_pushed',
     }, 0)
 
-
     return routes
 }
  
