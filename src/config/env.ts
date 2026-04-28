@@ -2,6 +2,12 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
+export interface EnvPreset {
+  key:   string;
+  label: string;
+  url:   string | null;
+}
+
 interface EnvConfig {
   PORT: number;
   API_BASE_URL: string;
@@ -11,9 +17,10 @@ interface EnvConfig {
   NODE_ENV: string;
   CACHE: boolean;
   CACHE_TIME: number;
-  API_BASE_URL_PROD:    string | null;
-  API_BASE_URL_STAGING: string | null;
-  API_BASE_URL_QA1:     string | null;
+  API_URL_PRESETS: EnvPreset[];
+  ASSET_URL: string | null;
+  PAYMENT_DOMAIN: string | null;
+  AFFILIATE_SDK_URL: string | null;
 }
 
 function requireEnv(key: string): string {
@@ -46,9 +53,14 @@ function parseEnv(): EnvConfig {
     NODE_ENV: process.env.NODE_ENV ?? 'development',
     CACHE: (process.env.CACHE ?? 'true') !== 'false',
     CACHE_TIME: parseInt(process.env.CACHE_TIME ?? '300', 10),
-    API_BASE_URL_PROD:    process.env.API_BASE_URL_PROD?.trim().replace(/\/$/, '')    || null,
-    API_BASE_URL_STAGING: process.env.API_BASE_URL_STAGING?.trim().replace(/\/$/, '') || null,
-    API_BASE_URL_QA1:     process.env.API_BASE_URL_QA1?.trim().replace(/\/$/, '')     || null,
+    API_URL_PRESETS: [
+      { key: 'production', label: 'Production Server', url: process.env.API_BASE_URL_PROD?.trim().replace(/\/$/, '')    || null },
+      { key: 'staging',    label: 'Staging Server',    url: process.env.API_BASE_URL_STAGING?.trim().replace(/\/$/, '') || null },
+      { key: 'qa1',        label: 'QA1 Server',        url: process.env.API_BASE_URL_QA1?.trim().replace(/\/$/, '')     || null },
+    ],
+    ASSET_URL:         process.env.ASSET_URL?.trim().replace(/\/$/, '')         || null,
+    PAYMENT_DOMAIN:    process.env.PAYMENT_DOMAIN?.trim().replace(/\/$/, '')    || null,
+    AFFILIATE_SDK_URL: process.env.AFFILIATE_SDK_URL?.trim()                    || null,
   };
 }
 

@@ -34,7 +34,11 @@ export class RentMyGlobalBuilder {
       locationId:   String(storeResult.location.id),
       store_name:   String(storeResult.store.name),
       access_token: storeResult.store.token,
-      env: {},
+      env: {
+        ASSET_URL:         env.ASSET_URL,
+        PAYMENT_DOMAIN:    env.PAYMENT_DOMAIN,
+        AFFILIATE_SDK_URL: env.AFFILIATE_SDK_URL,
+      },
       emDateTimePicker: {
         detailsPage_endDatePicker_displayIn:          'modal',
         detailsPage_useRangePicker_for_endDate:       true,

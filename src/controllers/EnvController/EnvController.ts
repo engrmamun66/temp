@@ -8,17 +8,8 @@ import { logToFile } from '../../utils/fileLogger';
 const ENV_SESSION_HTML = path.resolve(process.cwd(), 'public', 'api-contents', 'env-session.app.html');
 const envSessionSource = () => fs.readFileSync(ENV_SESSION_HTML, 'utf-8');
 
-const PRESETS: Record<string, string | null> = {
-  production: env.API_BASE_URL_PROD,
-  staging:    env.API_BASE_URL_STAGING,
-  qa1:        env.API_BASE_URL_QA1,
-};
-
-const PRESET_LABELS: Record<string, string> = {
-  production: 'Production Server',
-  staging:    'Staging Server',
-  qa1:        'QA1 Server',
-};
+const presets = env.API_URL_PRESETS;
+const presetsMap = Object.fromEntries(presets.map((p) => [p.key, p.url])) as Record<string, string | null>;
 
 export class EnvController {
   private session: SessionOverrideService;
@@ -38,12 +29,8 @@ export class EnvController {
         NODE_ENV:                  env.NODE_ENV,
         CACHE:                     env.CACHE,
         CACHE_TIME:                env.CACHE_TIME,
-        API_BASE_URL_PROD:         env.API_BASE_URL_PROD,
-        API_BASE_URL_STAGING:      env.API_BASE_URL_STAGING,
-        API_BASE_URL_QA1:          env.API_BASE_URL_QA1,
       },
-      presets:       PRESETS,
-      presetLabels:  PRESET_LABELS,
+      presets,
       activeSession: this.session.getStatus(),
       applyUrl:      '/api/_/env-session',
     });
@@ -66,9 +53,9 @@ export class EnvController {
       return;
     }
 
-    const apiBaseUrl = PRESETS[preset];
+    const apiBaseUrl = presetsMap[preset];
     if (!apiBaseUrl) {
-      res.status(400).json({ error: `Preset "${preset}" is not configured. Set API_BASE_URL_${preset.toUpperCase()} in .env` });
+      res.status(400).json({ error: `Preset "${preset}" is not configured. Set the corresponding API_BASE_URL env var in .env` });
       return;
     }
 
