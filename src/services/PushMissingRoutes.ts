@@ -10,7 +10,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
         page_key:       EnumPageKes.home,
         route_path:     '/',
         content_path:   prefix + 'home.html',
-        content_source: 'file',
+        content_source: 'api',
         _source:        'force_pushed',
     }, 0);
 

@@ -1,5 +1,53 @@
-<ul>
-    <li>Menu 1</li>
-    <li>Menu 2</li>
-    <li>Menu 3</li>
-</ul>
+<header class="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-14">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2">
+        <img
+          id="RENTMY_STORE_LOGO"
+          src=""
+          alt="Store Logo"
+          class="h-8 w-auto object-contain hidden brightness-0 invert"
+          onerror="this.classList.add('hidden')"
+          onload="this.classList.remove('hidden'); document.getElementById('compact-logo-text').classList.add('hidden')"
+        >
+        <span id="compact-logo-text" class="text-base font-bold tracking-tight">RentStore</span>
+      </a>
+
+      <!-- Nav -->
+      <nav class="hidden md:flex items-center gap-6 text-sm text-gray-300">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <a href="/products" class="hover:text-white transition-colors">Products</a>
+        <a href="/packages" class="hover:text-white transition-colors">Packages</a>
+        <a href="/contact" class="hover:text-white transition-colors">Contact</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-2">
+        <a href="/cart" class="relative p-2 text-gray-300 hover:text-white transition-colors" aria-label="Cart">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        </a>
+        <a href="/products" class="hidden md:inline-flex bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-4 py-1.5 rounded-lg transition-colors">
+          Book Now
+        </a>
+        <button onclick="document.getElementById('compact-mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 text-gray-300 hover:text-white">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="compact-mobile-menu" class="hidden md:hidden border-t border-gray-800">
+    <div class="px-4 py-3 space-y-1 text-sm text-gray-300">
+      <a href="/" class="block px-3 py-2 hover:text-white hover:bg-gray-800 rounded-lg">Home</a>
+      <a href="/products" class="block px-3 py-2 hover:text-white hover:bg-gray-800 rounded-lg">Products</a>
+      <a href="/packages" class="block px-3 py-2 hover:text-white hover:bg-gray-800 rounded-lg">Packages</a>
+      <a href="/contact" class="block px-3 py-2 hover:text-white hover:bg-gray-800 rounded-lg">Contact</a>
+      <div class="pt-1">
+        <a href="/products" class="block text-center bg-indigo-600 text-white text-sm font-semibold px-4 py-2 rounded-lg">Book Now</a>
+      </div>
+    </div>
+  </div>
+</header>
