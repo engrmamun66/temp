@@ -63,7 +63,7 @@ function parseEnv(): EnvConfig {
     ],
     ASSET_URL:         process.env.ASSET_URL?.trim()         || null,
     PAYMENT_DOMAIN:    process.env.PAYMENT_DOMAIN?.trim()    || null,
-    AFFILIATE_SDK_URL: process.env.AFFILIATE_SDK_URL?.trim()                    || null,
+    AFFILIATE_SDK_URL: process.env.AFFILIATE_SDK_URL?.trim() || null,
   };
 }
 
