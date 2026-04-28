@@ -2,7 +2,8 @@ export interface RskRoute {
   page_key:       string;
   route_path:     string;
   content_path?:  string;
-  content_source?: string;
+  content_source?: 'file' | 'api';
+  _source?: 'force_pushed';
   [otherMeta: string]: unknown;
 }
 
