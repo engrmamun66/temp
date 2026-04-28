@@ -54,9 +54,10 @@ function parseEnv(): EnvConfig {
     CACHE: (process.env.CACHE ?? 'true') !== 'false',
     CACHE_TIME: parseInt(process.env.CACHE_TIME ?? '300', 10),
     API_URL_PRESETS: [
-      { key: 'production', label: 'Production Server', url: process.env.API_BASE_URL_PROD?.trim().replace(/\/$/, '')    || null },
-      { key: 'staging',    label: 'Staging Server',    url: process.env.API_BASE_URL_STAGING?.trim().replace(/\/$/, '') || null },
-      { key: 'qa1',        label: 'QA1 Server',        url: process.env.API_BASE_URL_QA1?.trim().replace(/\/$/, '')     || null },
+      { key: 'production', label: 'Production Server', url: process.env.API_BASE_URL_PROD?.trim().replace(/\/$/, '') || null },
+      { key: 'dev1',       label: 'Dev Team 1',        url: process.env.API_BASE_URL_DEV1?.trim().replace(/\/$/, '') || null },
+      { key: 'dev2',       label: 'Dev Team 2',        url: process.env.API_BASE_URL_DEV2?.trim().replace(/\/$/, '') || null },
+      { key: 'qa1',        label: 'QA1 Server',        url: process.env.API_BASE_URL_QA1?.trim().replace(/\/$/, '')  || null },
     ],
     ASSET_URL:         process.env.ASSET_URL?.trim().replace(/\/$/, '')         || null,
     PAYMENT_DOMAIN:    process.env.PAYMENT_DOMAIN?.trim().replace(/\/$/, '')    || null,
