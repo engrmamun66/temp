@@ -69,6 +69,10 @@ export interface HomeContentAndMeta {
 }
  
 export enum EnumPageKes {
-  home = 'home',
-  products_list = 'products_list',
+  home                      = 'home',
+  products_list             = 'products_list',
+  product_details           = 'product_details',
+  package_details           = 'package_details',
+  products_list_by_category = 'products_list_by_category',
+  not_found                 = 'not_found',
 }
