@@ -23,15 +23,6 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
         _source:        'force_pushed',
     });
 
-    // ------ Products list view -------------------------------------------- //
-    pushRouteIfNotExist(routes, {
-        page_key:       EnumPageKes.products_list_view,
-        route_path:     '/products',
-        content_path:   prefix + 'products-list-view.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
     // ------ Product details ----------------------------------------------- //
     pushRouteIfNotExist(routes, {
         page_key:       EnumPageKes.product_details,
