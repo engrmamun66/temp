@@ -13,7 +13,7 @@ import { env } from '../../config/env';
 const LAYOUTS_DIR      = path.resolve(process.cwd(), 'public', 'layouts');
 const DEFAULT_LAYOUT   = path.resolve(LAYOUTS_DIR, 'default.html');
 const PUBLIC_DIR       = path.resolve(process.cwd(), 'public');
-const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'pages', '404.html');
+const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'default-pages', '404.html');
 
 function resolveLayoutFile(layout: string | null | undefined): string {
   if (!layout || layout === 'default') return DEFAULT_LAYOUT;
