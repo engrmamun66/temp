@@ -11,8 +11,8 @@
     "rskdev": "cd src/i-server && php -S localhost:5000",
     "only__for__macOS__herd": "______________________________________",
     "plist": "herd proxies",
-    "proxy": "herd proxy teststore09.rentmy http://localhost:3000 && herd proxy teststore17leapinglogiccom.rentmy http://localhost:3000",
-    "unproxy": "herd proxy teststore09.rentmy && herd unproxy teststore17leapinglogiccom.rentmy"
+    "proxy": "herd proxy teststore09.rentmy http://localhost:3000 && herd proxy teststore17leapinglogiccom.rentmy http://localhost:3000 && erd proxy teststore03 http://localhost:3000",
+    "unproxy": "herd proxy teststore09.rentmy && herd unproxy teststore17leapinglogiccom.rentmy && herd unproxy teststore03"
   },
   "dependencies": {
     "@types/jsdom": "^28.0.1",

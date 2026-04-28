@@ -7,6 +7,7 @@ import { StoreConfigService } from '../../services/StoreConfigService';
 import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
 import { RskRoute } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
+import { env } from '../../config/env';
 
 const INDEX_HTML       = path.resolve(process.cwd(), 'public', 'index.html');
 const PUBLIC_DIR       = path.resolve(process.cwd(), 'public');
@@ -23,7 +24,10 @@ export class PageController {
   }
 
   handle = async (req: Request, res: Response): Promise<void> => {
-    const { subdomain, pageKey } = req.context;
+    const { pageKey } = req.context;
+    const subdomain = (!req.context.subdomain || req.context.subdomain === 'local' || req.context.subdomain === 'localhost')
+      ? env.CURRENT_DOMAIN
+      : req.context.subdomain;
     let isMissingLocalFile = false;
 
     const [storeConfig, storeResult] = await Promise.all([

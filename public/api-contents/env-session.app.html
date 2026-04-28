@@ -274,6 +274,29 @@
             transform: none;
         }
 
+        .clear-cache-btn {
+            padding: 9px 18px;
+            border: 1.5px solid var(--line);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 140ms ease;
+        }
+
+        .clear-cache-btn:not(:disabled):hover {
+            border-color: #b53434;
+            color: #8f1f1f;
+            transform: translateY(-1px);
+        }
+
+        .clear-cache-btn:disabled {
+            opacity: 0.38;
+            cursor: not-allowed;
+        }
+
         /* ── Env table ──────────────────────────────────────────────── */
         .section-title {
             margin: 0 0 12px;
@@ -447,6 +470,13 @@
                     :disabled="applying || !selectedPreset"
                     @click="apply"
                 >{{ applying ? 'Applying…' : 'Apply' }}</button>
+
+                <button
+                    class="clear-cache-btn"
+                    type="button"
+                    :disabled="clearingCache"
+                    @click="clearAllCache"
+                >{{ clearingCache ? 'Clearing…' : 'Clear All Cache' }}</button>
             </div>
         </div>
 
@@ -492,6 +522,7 @@
                     selectedPreset:  initialStateData.activeSession?.preset ?? null,
                     selectedTtl:     900000,
                     applying:        false,
+                    clearingCache:   false,
                     errorMessage:    '',
                     successMessage:  '',
                 };
@@ -520,6 +551,21 @@
                     this.selectedPreset  = key;
                     this.errorMessage   = '';
                     this.successMessage = '';
+                },
+                async clearAllCache() {
+                    this.errorMessage   = '';
+                    this.successMessage = '';
+                    this.clearingCache  = true;
+                    try {
+                        const res = await fetch('/api/_/clear-cache-all');
+                        const payload = await res.json();
+                        if (!res.ok) throw new Error(payload.error || `HTTP ${res.status}`);
+                        this.successMessage = `Cache cleared — ${payload.deletedCount} entr${payload.deletedCount === 1 ? 'y' : 'ies'} removed.`;
+                    } catch (err) {
+                        this.errorMessage = err instanceof Error ? err.message : 'Failed to clear cache.';
+                    } finally {
+                        this.clearingCache = false;
+                    }
                 },
                 async apply() {
                     if (!this.selectedPreset) return;
