@@ -65,7 +65,7 @@ export class EnvController {
       return;
     }
 
-    this.session.set(preset, presetEntry.API_BASE_URL, ttl);
+    this.session.set(preset, presetEntry.API_BASE_URL, presetEntry.ASSET_URL, presetEntry.PAYMENT_DOMAIN, ttl);
     logToFile(`[EnvController] session applied preset=${preset} ttlMs=${ttl}`);
     res.json({ success: true, activeSession: this.session.getStatus() });
   };

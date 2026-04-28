@@ -1,9 +1,11 @@
 import { logToFile } from '../utils/fileLogger';
 
 export interface SessionStatus {
-  preset:     string;
-  apiBaseUrl: string;
-  expiresAt:  number;
+  preset:        string;
+  apiBaseUrl:    string;
+  assetUrl:      string;
+  paymentDomain: string;
+  expiresAt:     number;
 }
 
 export class SessionOverrideService {
@@ -17,8 +19,8 @@ export class SessionOverrideService {
     return SessionOverrideService.instance;
   }
 
-  set(preset: string, apiBaseUrl: string, ttlMs: number): void {
-    this.active = { preset, apiBaseUrl, expiresAt: Date.now() + ttlMs };
+  set(preset: string, apiBaseUrl: string, assetUrl: string, paymentDomain: string, ttlMs: number): void {
+    this.active = { preset, apiBaseUrl, assetUrl, paymentDomain, expiresAt: Date.now() + ttlMs };
     logToFile(`[SessionOverrideService] set preset=${preset} expires=${new Date(this.active.expiresAt).toISOString()}`);
   }
 
@@ -29,11 +31,20 @@ export class SessionOverrideService {
 
   getApiBaseUrl(fallback: string): string {
     if (!this.active) return fallback;
-    if (Date.now() > this.active.expiresAt) {
-      this.active = null;
-      return fallback;
-    }
+    if (Date.now() > this.active.expiresAt) { this.active = null; return fallback; }
     return this.active.apiBaseUrl;
+  }
+
+  getAssetUrl(fallback: string | null): string | null {
+    if (!this.active) return fallback;
+    if (Date.now() > this.active.expiresAt) { this.active = null; return fallback; }
+    return this.active.assetUrl;
+  }
+
+  getPaymentDomain(fallback: string | null): string | null {
+    if (!this.active) return fallback;
+    if (Date.now() > this.active.expiresAt) { this.active = null; return fallback; }
+    return this.active.paymentDomain;
   }
 
   getStatus(): SessionStatus | null {

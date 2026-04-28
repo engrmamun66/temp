@@ -489,7 +489,7 @@
             data() {
                 return {
                     ...initialStateData,
-                    selectedPreset:  null,
+                    selectedPreset:  initialStateData.activeSession?.preset ?? null,
                     selectedTtl:     900000,
                     applying:        false,
                     errorMessage:    '',

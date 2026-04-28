@@ -36,8 +36,9 @@ export class RentMyGlobalBuilder {
       store_name:   String(storeResult.store.name),
       access_token: storeResult.store.token,
       env: {
-        ASSET_URL:         this.resolveFromPreset('ASSET_URL'),
-        PAYMENT_DOMAIN:    this.resolveFromPreset('PAYMENT_DOMAIN'),
+        API_BASE_URL:      SessionOverrideService.getInstance().getApiBaseUrl(env.API_BASE_URL),
+        ASSET_URL:         SessionOverrideService.getInstance().getAssetUrl(env.ASSET_URL),
+        PAYMENT_DOMAIN:    SessionOverrideService.getInstance().getPaymentDomain(env.PAYMENT_DOMAIN),
         AFFILIATE_SDK_URL: env.AFFILIATE_SDK_URL,
       },
       emDateTimePicker: {
@@ -56,15 +57,6 @@ export class RentMyGlobalBuilder {
       },
       page,
     };
-  }
-
-  private resolveFromPreset(field: 'ASSET_URL' | 'PAYMENT_DOMAIN'): string | null {
-    const session = SessionOverrideService.getInstance().getStatus();
-    if (session) {
-      const preset = env.API_URL_PRESETS.find((p) => p.key === session.preset);
-      if (preset) return preset[field];
-    }
-    return env[field];
   }
 
   scriptTag(subdomain: string, global: RentMyGlobal): string {
