@@ -29,7 +29,7 @@ function resolveSubdomain(hostname: string): string {
   // e.g. "sub.rentmydevteam1.leaperdev.rocks" → "sub"
   const suffix = `.${domain}`;
   if (host.endsWith(suffix)) {
-    return host.slice(0, host.length - suffix.length);
+    return stripTestTld(host.slice(0, host.length - suffix.length));
   }
 
   // Exact match (hostname === CURRENT_DOMAIN, no subdomain)
@@ -39,5 +39,9 @@ function resolveSubdomain(hostname: string): string {
 
   // Fallback: first segment (handles localhost and unknown patterns)
   const parts = host.split('.');
-  return parts.length > 1 ? parts[0] : host;
+  return stripTestTld(parts.length > 1 ? parts[0] : host);
+}
+
+function stripTestTld(value: string): string {
+  return value.endsWith('.test') ? value.slice(0, -5) : value;
 }

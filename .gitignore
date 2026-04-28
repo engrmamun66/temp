@@ -30,6 +30,7 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+ecosystem.config.js
 
 
 src/i-server/settings.*.json

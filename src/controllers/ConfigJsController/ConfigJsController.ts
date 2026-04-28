@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { ApiClient } from '../../services/ApiClient';
 import { StoreConfigService } from '../../services/StoreConfigService';
 import { RentMyGlobalBuilder } from '../../builders/RentMyGlobalBuilder';
+import { env } from '../../config/env';
 
 const builder = new RentMyGlobalBuilder();
 
@@ -15,7 +16,12 @@ export class ConfigJsController {
   }
 
   handle = async (req: Request, res: Response): Promise<void> => {
-    const { subdomain } = req.context;
+    const raw = req.context.subdomain;
+    const subdomain = ((!raw || raw === 'local' || raw === 'localhost')
+      ? env.CURRENT_DOMAIN
+      : raw
+    ).replace(/\.test$/, '');
+
     try {
       const [storeResult, storeConfig] = await Promise.all([
         this.apiClient.getOrFetchStoreResult(subdomain),
@@ -23,7 +29,8 @@ export class ConfigJsController {
       ]);
 
       const global = builder.build(storeResult, storeConfig.routes);
-      const domain = `https://${subdomain}.${process.env.CURRENT_DOMAIN ?? ''}`;
+      const protocol = req.hostname.includes('localhost') ? 'http' : 'https';
+      const domain = `${protocol}://${req.hostname}`;
       const js = `var DOMAIN = ${JSON.stringify(domain)};\nvar RENTMY_GLOBAL = ${JSON.stringify(global)};`;
 
       res.set('Content-Type', 'application/javascript');

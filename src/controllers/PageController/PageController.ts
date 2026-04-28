@@ -25,9 +25,10 @@ export class PageController {
 
   handle = async (req: Request, res: Response): Promise<void> => {
     const { pageKey } = req.context;
-    const subdomain = (!req.context.subdomain || req.context.subdomain === 'local' || req.context.subdomain === 'localhost')
+    const rawSubdomain = (!req.context.subdomain || req.context.subdomain === 'local' || req.context.subdomain === 'localhost')
       ? env.CURRENT_DOMAIN
       : req.context.subdomain;
+    const subdomain = rawSubdomain.replace(/\.test$/, '');
     let isMissingLocalFile = false;
 
     const [storeConfig, storeResult] = await Promise.all([
