@@ -1,7 +1,7 @@
 import { RskRoute, EnumPageKes } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
 
-const prefix = 'defaults-pages/'
+const prefix = 'default-pages/'
 
 export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 {
