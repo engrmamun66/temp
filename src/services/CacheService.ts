@@ -1,6 +1,7 @@
 import NodeCache from 'node-cache';
 import moment from 'moment';
 import { env } from '../config/env';
+import { SessionOverrideService } from './SessionOverrideService';
 import { CacheEntry, CacheListItem } from '../interfaces/CacheEntry';
 
 export class CacheService {
@@ -17,7 +18,8 @@ export class CacheService {
   }
 
   private buildKey(subdomain: string, page_key: string): string {
-    return `${subdomain}___${env.API_BASE_URL}___${page_key}`;
+    const baseUrl = SessionOverrideService.getInstance().getApiBaseUrl(env.API_BASE_URL);
+    return `${subdomain}___${baseUrl}___${page_key}`;
   }
 
   set<T>(subdomain: string, page_key: string, value: T, ttlSeconds: number): void {
