@@ -8,6 +8,14 @@ export interface RskRoute {
   [otherMeta: string]: unknown;
 }
 
+export interface RskOptionalConfigs {
+  layout?: string;
+  css?: string[];
+  scripts?: string[];
+  custom_css?: string;
+  custom_js?: string;
+}
+
 export interface StoreConfig {
   subdomain: string;
   routes: RskRoute[];
@@ -64,13 +72,6 @@ export interface HomeMeta {
   twitter: string;
 }
 
-export interface RskOptionalConfigs {
-  layout?: string;
-  css?: string[];
-  scripts?: string[];
-  custom_css?: string;
-  custom_js?: string;
-}
 
 export interface HomeContentAndMeta {
     contents: HomeContent[]
