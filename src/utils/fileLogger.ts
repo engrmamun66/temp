@@ -12,7 +12,7 @@ export function logToFile(...args: unknown[]): void {
     const existing = fs.existsSync(LOG_FILE) ? fs.readFileSync(LOG_FILE, 'utf-8') : '';
     const lines = existing ? existing.split('\n') : [];
 
-    if (lines.length >= 100) {
+    if (lines.length >= 200) {
       const resetMatch = existing.match(/\[reset______count:\s*(\d+)\]/);
       const resetCount = resetMatch ? parseInt(resetMatch[1], 10) + 1 : 1;
       fs.writeFileSync(LOG_FILE, `[reset______count: ${resetCount}]\n` + line, 'utf-8');
