@@ -53,6 +53,9 @@ export class PageController {
     const dom = new JSDOM(renderLayoutComponents(indexSource(route?.layout)));
     const { document } = dom.window;
 
+    // ====================================================== //
+    // === Pushing CSS, scripts, custom-CSS, and custom-js == //
+    // ====================================================== //
     const optCfg = this.storeService.getOptionalConfigs(subdomain);
     if (optCfg) {
       optCfg.css?.forEach(href => {
