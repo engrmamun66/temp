@@ -52,6 +52,32 @@ export class PageController {
 
     const dom = new JSDOM(renderLayoutComponents(indexSource(route?.layout)));
     const { document } = dom.window;
+
+    const optCfg = this.storeService.getOptionalConfigs(subdomain);
+    if (optCfg) {
+      optCfg.css?.forEach(href => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        document.head.appendChild(link);
+      });
+      if (optCfg.custom_css) {
+        const style = document.createElement('style');
+        style.textContent = optCfg.custom_css;
+        document.head.appendChild(style);
+      }
+      optCfg.scripts?.forEach(src => {
+        const script = document.createElement('script');
+        script.src = src;
+        document.body.appendChild(script);
+      });
+      if (optCfg.custom_js) {
+        const script = document.createElement('script');
+        script.textContent = optCfg.custom_js;
+        document.body.appendChild(script);
+      }
+    }
+
     const requestUrl      = this.buildRequestUrl(req);
     const siteName        = storeResult.store.name || this.getStoreString(storeResult.store, 'slug');
     const defaultImageUrl = storeResult.store.logo || '';

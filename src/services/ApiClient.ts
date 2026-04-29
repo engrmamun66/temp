@@ -3,7 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RskRoute, PageContent, HomeContent, HomeMeta } from '../interfaces';
+import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
 import { pushMissingRoutes } from './PushMissingRoutes';
 import { SessionOverrideService } from './SessionOverrideService';
@@ -79,6 +79,7 @@ export class ApiClient {
   private readonly http: AxiosInstance;
   private tokens: TokenCache = {};
   private storeData: StoreDataCache = {};
+  private rskOptionalConfigs: Record<string/* subdomain */, RskOptionalConfigs> = {};
 
   private constructor() {
     this.http = axios.create({
@@ -221,7 +222,7 @@ export class ApiClient {
     try {
       const resp = await this.authorizedGet<{
         status: string;
-        result: { data: { routes: RskRoute[]; redirections: Redirections } };
+        result: { data: { routes: RskRoute[]; redirections: Redirections; config?: RskOptionalConfigs } };
       }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
       let routes = resp.result.data.routes.map((r: RskRoute) => ({
         page_key:       r?.page_key,
@@ -229,6 +230,9 @@ export class ApiClient {
         content_path:   r?.content_path,
         content_source: r?.content_source, 
       }));
+      if(resp.result.data.config){
+        this.rskOptionalConfigs[subdomain] = resp.result.data.config
+      }
       return pushMissingRoutes(routes)
     } catch (err) {
       const status = (err as AxiosError).response?.status;
@@ -449,6 +453,10 @@ export class ApiClient {
   private asRecord(value: unknown): Record<string, unknown> | null {
     if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
     return value as Record<string, unknown>;
+  }
+
+  getOptionalConfigs(subdomain: string): RskOptionalConfigs | null {
+    return this.rskOptionalConfigs[subdomain] ?? null;
   }
 
   private asString(value: unknown): string {

@@ -64,6 +64,14 @@ export interface HomeMeta {
   twitter: string;
 }
 
+export interface RskOptionalConfigs {
+  layout?: string;
+  css?: string[];
+  scripts?: string[];
+  custom_css?: string;
+  custom_js?: string;
+}
+
 export interface HomeContentAndMeta {
     contents: HomeContent[]
     meta: HomeMeta

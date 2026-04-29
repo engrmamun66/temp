@@ -1,7 +1,7 @@
 import { ApiClient, StoreResult } from './ApiClient';
 import { CacheService } from './CacheService';
 import { HomeLayoutOrder } from '../types';
-import { RskRoute, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta } from '../interfaces';
+import { RskRoute, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta, RskOptionalConfigs } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
 
 const STORE_CACHE_KEY  = '__store_config';
@@ -142,6 +142,10 @@ export class StoreConfigService {
 
   async getStoreResult(subdomain: string): Promise<StoreResult> {
     return this.api.getOrFetchStoreResult(subdomain);
+  }
+
+  getOptionalConfigs(subdomain: string): RskOptionalConfigs | null {
+    return this.api.getOptionalConfigs(subdomain);
   }
 
   async getSitemapUrls(subdomain: string): Promise<string[]> {
