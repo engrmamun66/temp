@@ -221,6 +221,16 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
         _source:        'force_pushed',
     });
 
+
+    // ------ Customer: terms-and-conditions ------------------------------- //
+    pushRouteIfNotExist(routes, {
+        page_key:       EnumPageKes.terms_and_conditions,
+        route_path:     '/terms-and-conditions',
+        content_path:   '/terms-and-conditions',
+        content_source: 'api',
+        _source:        'force_pushed',
+    });
+
     // ------ Not found ----------------------------------------------------- //
     pushRouteIfNotExist(routes, {
         page_key:       EnumPageKes.not_found,

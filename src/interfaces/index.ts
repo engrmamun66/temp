@@ -132,5 +132,6 @@ export enum EnumPageKes {
   customer_order_history    = 'customer_order_history',
   customer_order_dashboard  = 'customer_order_dashboard',
   customer_billing          = 'customer_billing',
+  terms_and_conditions      = 'terms_and_conditions',
   not_found                 = 'not_found',
 }
