@@ -41,9 +41,10 @@ export class PageController {
     const subdomain = rawSubdomain.replace(/\.test$/, '');
     let isMissingLocalFile = false;
 
-    const [storeConfig, storeResult] = await Promise.all([
+    const [storeConfig, storeResult, navData] = await Promise.all([
       this.storeService.getRskConfigs(subdomain),
       this.storeService.getStoreResult(subdomain),
+      this.storeService.getStoreNavigations(subdomain),
     ]);
 
     const route        = storeConfig.routes.find((r) => r.page_key === pageKey);
@@ -58,10 +59,17 @@ export class PageController {
 
 
     {
-      // loading vue: to render app anywhere
-      const script = document.createElement('script');
-      script.src = 'https://unpkg.com/vue@3/dist/vue.global.prod.js';
-      document.body.appendChild(script);
+      // Vue CDN in <head> so inline body scripts can access it immediately
+      const vueScript = document.createElement('script');
+      vueScript.src = 'https://unpkg.com/vue@3/dist/vue.global.prod.js';
+      document.head.appendChild(vueScript);
+
+      // Nav data injected in <head> as JSON for client-side nav rendering
+      const navScript = document.createElement('script');
+      navScript.id = 'nav-data';
+      navScript.type = 'application/json';
+      navScript.textContent = JSON.stringify(navData.headerLinks);
+      document.head.appendChild(navScript);
     }
 
     // ====================================================== //
