@@ -1,4 +1,4 @@
-<header class="bg-stone-900 text-white sticky top-0 z-50">
+<header id="rentmy-header" class="bg-stone-900 text-white sticky top-0 z-50">
   <!-- Seasonal banner -->
   <div class="bg-green-800 text-green-100 text-xs text-center py-1.5 font-medium">
     🌲 Summer season open — Yosemite & Yellowstone gear now available
@@ -81,3 +81,84 @@
     </div>
   </div>
 </header>
+
+
+<script>
+  RentMyEvent.add_filter('cdn:create_component', (existing_components_array, extraData) => {
+
+  const headerComponent = {
+    selector: '#rentmy-header',
+    domModifireArray: [],
+    componentObject: {
+      components: { ...extraData?.components },
+      setup() {
+        const { ref, inject, onMounted, helper, currency, http, moment } = extraData
+        const { setQuery, getQuery, deleteQuery } = helper.withURL
+        const setWraperIsReady = inject('setWraperIsReady')
+        let is_buy_product = ref(false)
+
+        const site_specific = JSON.parse( localStorage.getItem("rentmy_contents") )?.site_specific;
+        const confg = site_specific?.confg;
+        console.log({confg});
+
+        let header_links = ref([])
+
+
+        async function loadMenus() {
+          const navigation_allowed = confg?.contents?.navigation //|| !this?.config?.access_token
+          if(!navigation_allowed) return html
+
+          let result = {}
+          let api_url = `/navigations` 
+          let cache_key = `${this.store_id}_${api_url}`
+          const cachedData = this.cache.get(api_url);
+          if(!cachedData){
+            let response = await this.HTTP.get(api_url) 
+            if(response.data.status == 'OK'){
+              result = response.data.result
+              this.cache.set(cache_key, result, 88000 /** 24.44 hour */);
+            } 
+            
+          } else {
+            result = cachedData
+          } 
+
+          let pages = result.data
+          let headerLinks = []
+          let footerLinks = []
+
+          if(pages?.length){
+            /**
+             * Data type of each page
+             * {
+                id: 15434,
+                sequence_no: 1,
+                content_id: 0,
+                content_type: 'Page',
+                label: 'Catalog',
+                content_url: 'products-list',
+                status: 1,
+                type: 'header',
+                parent_id: 0,
+                children: []
+              },
+            */
+            headerLinks = pages.filter(p => (p.status == 1 && p.type === 'header'))
+            footerLinks = pages.filter(p => (p.status == 1 && p.type === 'footer'))
+          } 
+        }
+
+        onMounted(() => {
+          setWraperIsReady(document.querySelector('#rentmy-header'))
+        })
+
+        return {
+           
+        }
+      },
+    },
+  }
+
+  return [...existing_components_array, headerComponent]
+})
+</script>
