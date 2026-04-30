@@ -7,7 +7,7 @@ import { StoreConfigService } from '../../services/StoreConfigService';
 import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
 import { RskRoute, Component } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
-import { renderLayoutComponents } from '../../utils/childs/layoutRenderer';
+import { renderLayoutComponents } from '../../utils/layoutRenderer';
 import { env } from '../../config/env';
 
 const LAYOUTS_DIR      = path.resolve(process.cwd(), 'public', 'layouts');
