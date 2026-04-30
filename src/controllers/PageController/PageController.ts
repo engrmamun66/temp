@@ -50,13 +50,14 @@ export class PageController {
     const pathParams   = route ? this.extractPathParams(route.route_path, req.path) : {};
     const effectiveRoute: RskRoute = route ?? { page_key: pageKey, route_path: req.path };
 
-    const dom = new JSDOM(renderLayoutComponents(indexSource(route?.layout)));
+    const optCfg = this.storeService.getOptionalConfigs(subdomain);
+    const resolvedLayout = route?.layout ?? optCfg?.layout;
+    const dom = new JSDOM(renderLayoutComponents(indexSource(resolvedLayout)));
     const { document } = dom.window;
 
     // ====================================================== //
     // === Pushing CSS, scripts, custom-CSS, and custom-js == //
     // ====================================================== //
-    const optCfg = this.storeService.getOptionalConfigs(subdomain);
     if (optCfg) {
       optCfg.css?.forEach(href => {
         const link = document.createElement('link');
