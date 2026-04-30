@@ -2,6 +2,7 @@ import path from 'path';
 import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import { env } from './config/env';
+import { requestContext } from './utils/requestContext';
 import { subdomainMiddleware } from './middleware/subdomainMiddleware';
 import { DynamicRouter } from './router/DynamicRouter';
 
@@ -45,6 +46,13 @@ export class App {
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
     this.express.use(express.static(path.resolve(process.cwd(), 'public'), { index: false }));
+
+    // Bind per-browser session ID (from cookie) into async context for every request
+    this.express.use((req, _res, next) => {
+      const match = (req.headers.cookie ?? '').match(/(?:^|;\s*)rsk_env_sid=([^;]+)/);
+      const sessionId = match?.[1] ?? '';
+      requestContext.run({ sessionId }, next);
+    });
 
     // Must run before DynamicRouter so req.context is populated
     this.express.use(subdomainMiddleware);

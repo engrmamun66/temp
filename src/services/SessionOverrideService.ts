@@ -1,3 +1,4 @@
+import { requestContext } from '../utils/requestContext';
 import { logToFile } from '../utils/fileLogger';
 
 export interface SessionStatus {
@@ -10,7 +11,7 @@ export interface SessionStatus {
 
 export class SessionOverrideService {
   private static instance: SessionOverrideService;
-  private active: SessionStatus | null = null;
+  private sessions = new Map<string, SessionStatus>();
 
   static getInstance(): SessionOverrideService {
     if (!SessionOverrideService.instance) {
@@ -19,40 +20,42 @@ export class SessionOverrideService {
     return SessionOverrideService.instance;
   }
 
-  set(preset: string, apiBaseUrl: string, assetUrl: string, paymentDomain: string, ttlMs: number): void {
-    this.active = { preset, apiBaseUrl, assetUrl, paymentDomain, expiresAt: Date.now() + ttlMs };
-    logToFile(`[SessionOverrideService] set preset=${preset} expires=${new Date(this.active.expiresAt).toISOString()}`);
+  set(sessionId: string, preset: string, apiBaseUrl: string, assetUrl: string, paymentDomain: string, ttlMs: number): void {
+    this.sessions.set(sessionId, { preset, apiBaseUrl, assetUrl, paymentDomain, expiresAt: Date.now() + ttlMs });
+    logToFile(`[SessionOverrideService] set sid=${sessionId} preset=${preset}`);
   }
 
-  clear(): void {
-    this.active = null;
-    logToFile('[SessionOverrideService] cleared');
+  clear(sessionId: string): void {
+    this.sessions.delete(sessionId);
+    logToFile(`[SessionOverrideService] cleared sid=${sessionId}`);
+  }
+
+  getStatus(sessionId: string): SessionStatus | null {
+    const s = this.sessions.get(sessionId);
+    if (!s) return null;
+    if (Date.now() > s.expiresAt) { this.sessions.delete(sessionId); return null; }
+    return { ...s };
+  }
+
+  // Called without args — reads session ID from the current request context
+  private current(): SessionStatus | null {
+    const sid = requestContext.getStore()?.sessionId;
+    if (!sid) return null;
+    const s = this.sessions.get(sid);
+    if (!s) return null;
+    if (Date.now() > s.expiresAt) { this.sessions.delete(sid); return null; }
+    return s;
   }
 
   getApiBaseUrl(fallback: string): string {
-    if (!this.active) return fallback;
-    if (Date.now() > this.active.expiresAt) { this.active = null; return fallback; }
-    return this.active.apiBaseUrl;
+    return this.current()?.apiBaseUrl ?? fallback;
   }
 
   getAssetUrl(fallback: string | null): string | null {
-    if (!this.active) return fallback;
-    if (Date.now() > this.active.expiresAt) { this.active = null; return fallback; }
-    return this.active.assetUrl;
+    return this.current()?.assetUrl ?? fallback;
   }
 
   getPaymentDomain(fallback: string | null): string | null {
-    if (!this.active) return fallback;
-    if (Date.now() > this.active.expiresAt) { this.active = null; return fallback; }
-    return this.active.paymentDomain;
-  }
-
-  getStatus(): SessionStatus | null {
-    if (!this.active) return null;
-    if (Date.now() > this.active.expiresAt) {
-      this.active = null;
-      return null;
-    }
-    return { ...this.active };
+    return this.current()?.paymentDomain ?? fallback;
   }
 }
