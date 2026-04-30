@@ -55,6 +55,15 @@ export class PageController {
     const dom = new JSDOM(renderLayoutComponents(indexSource(resolvedLayout), route?.components as Component[], resolvedLayout, storeResult));
     const { document } = dom.window;
 
+
+
+    {
+      // loading vue: to render app anywhere
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/vue@3/dist/vue.global.prod.js';
+      document.body.appendChild(script);
+    }
+
     // ====================================================== //
     // === Pushing CSS, scripts, custom-CSS, and custom-js == //
     // ====================================================== //
