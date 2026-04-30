@@ -269,7 +269,7 @@ function setRouteComponent(route: RskRoute, wasFound = false): void
             if(route.page_key == EnumPageKes.home){
                 components.push({
                     slot: Slots.top,
-                    files: []
+                    files: ['slider.html']
                 })
             }
             route.components = components
