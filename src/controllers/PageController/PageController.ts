@@ -52,7 +52,7 @@ export class PageController {
 
     const optCfg = this.storeService.getOptionalConfigs(subdomain);
     const resolvedLayout = route?.layout || optCfg?.layout || 'default';
-    const dom = new JSDOM(renderLayoutComponents(indexSource(resolvedLayout), route?.components as Component[], resolvedLayout));
+    const dom = new JSDOM(renderLayoutComponents(indexSource(resolvedLayout), route?.components as Component[], resolvedLayout, storeResult));
     const { document } = dom.window;
 
     // ====================================================== //

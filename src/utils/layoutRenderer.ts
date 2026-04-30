@@ -3,6 +3,7 @@ import fs from 'fs';
 import { JSDOM } from 'jsdom';
 import { Component } from '../interfaces';
 import { mofifyComponentHTML } from './childs/componentModifier';
+import { StoreResult } from '../services/ApiClient';
 
 const COMPONENTS_DIR = path.resolve(process.cwd(), 'public', 'layouts', 'components');
 
@@ -22,6 +23,7 @@ export function renderLayoutComponents(
   html: string,
   components?: Component[],
   layout = 'default',
+  storeResult?: StoreResult,
 ): string {
   const layoutDom = new JSDOM(html);
   const { document } = layoutDom.window;
@@ -42,7 +44,7 @@ export function renderLayoutComponents(
         if (content === null) continue;
 
         const compDom = new JSDOM(content);
-        mofifyComponentHTML(compDom, layout, file);
+        mofifyComponentHTML(compDom, layout, file, storeResult);
 
         // Extract all child nodes from the parsed component body
         compDom.window.document.body.childNodes.forEach((node) => {
