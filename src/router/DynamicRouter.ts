@@ -11,7 +11,7 @@ import { RobotsController } from '../controllers/RobotsController/RobotsControll
 import { RskRoute } from '../interfaces';
 import { helper } from '../utils/helper';
 
-const CONFIG_DOC_FILE = path.resolve(process.cwd(), 'public', 'config-doc.html');
+const CONFIG_DOC_FILE = path.resolve(process.cwd(), 'public', 'api-contents', 'config-doc.html');
 
 export class DynamicRouter {
   private router: Router;
