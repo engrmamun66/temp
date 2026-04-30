@@ -51,8 +51,8 @@ export class PageController {
     const effectiveRoute: RskRoute = route ?? { page_key: pageKey, route_path: req.path };
 
     const optCfg = this.storeService.getOptionalConfigs(subdomain);
-    const resolvedLayout = route?.layout ?? optCfg?.layout;
-    const dom = new JSDOM(renderLayoutComponents(indexSource(resolvedLayout), route?.components as Component[], resolvedLayout ?? 'default'));
+    const resolvedLayout = route?.layout || optCfg?.layout || 'default';
+    const dom = new JSDOM(renderLayoutComponents(indexSource(resolvedLayout), route?.components as Component[], resolvedLayout));
     const { document } = dom.window;
 
     // ====================================================== //
