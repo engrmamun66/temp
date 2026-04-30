@@ -6,8 +6,18 @@ export interface RskRoute {
   layout?:         string | null;
   _source?: 'force_pushed';
   [otherMeta: string]: unknown;
+  components?: Component[]
 }
 
+
+export enum Slots {
+  top = 'top',
+  bottom = 'bottom',
+}
+export interface Component {
+  slot?: keyof Slots,
+  files?: string[]
+}
 export interface RskOptionalConfigs {
   layout?: string;
   css?: string[];
