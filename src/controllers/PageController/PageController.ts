@@ -110,10 +110,6 @@ export class PageController {
         script.textContent = route.custom_js;
         document.body.appendChild(script);
       }
-      if (route.body_css) {
-        const classes = Array.isArray(route.body_css) ? route.body_css : route.body_css.split(/\s+/);
-        classes.filter(Boolean).forEach(cls => document.body.classList.add(cls));
-      }
     }
 
     const requestUrl      = this.buildRequestUrl(req);
