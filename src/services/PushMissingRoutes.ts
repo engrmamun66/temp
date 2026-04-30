@@ -226,7 +226,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
     pushRouteIfNotExist(routes, {
         page_key:       EnumPageKes.terms_and_conditions,
         route_path:     '/terms-and-conditions',
-        content_path:   '/terms-and-conditions',
+        content_path:   'terms-and-conditions',
         content_source: 'api',
         _source:        'force_pushed',
     });
