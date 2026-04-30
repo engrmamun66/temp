@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import { JSDOM } from 'jsdom';
 import { Component } from '../interfaces';
-import { mofifyComponentHTML } from './childs/componentRenderer';
+import { mofifyComponentHTML } from './childs/componentModifier';
 
 const COMPONENTS_DIR = path.resolve(process.cwd(), 'public', 'layouts', 'components');
 
