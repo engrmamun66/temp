@@ -292,6 +292,7 @@ export class ApiClient {
       canonical_url:    data?.canonical_url ?? '',
       children:         data?.children ?? [],
     };
+    console.log({data});
     console.log({contentPath});
     console.log(result);
     return result
