@@ -2,6 +2,7 @@ import NodeCache from 'node-cache';
 import moment from 'moment';
 import { env } from '../config/env';
 import { SessionOverrideService } from './SessionOverrideService';
+import { requestContext } from '../utils/requestContext';
 import { CacheEntry, CacheListItem } from '../interfaces/CacheEntry';
 
 export class CacheService {
@@ -22,15 +23,20 @@ export class CacheService {
     return `${subdomain}___${baseUrl}___${page_key}`;
   }
 
+  private isCacheEnabled(): boolean {
+    const ctx = requestContext.getStore();
+    return ctx !== undefined ? ctx.cacheEnabled : env.CACHE;
+  }
+
   set<T>(subdomain: string, page_key: string, value: T, ttlSeconds: number): void {
-    if (!env.CACHE) return;
+    if (!this.isCacheEnabled()) return;
     const key = this.buildKey(subdomain, page_key);
     const ttl = Number.isFinite(ttlSeconds) && ttlSeconds > 0 ? ttlSeconds : env.CACHE_TIME;
     this.cache.set(key, value, ttl);
   }
 
   get<T>(subdomain: string, page_key: string): T | undefined {
-    if (!env.CACHE) return undefined;
+    if (!this.isCacheEnabled()) return undefined;
     const key = this.buildKey(subdomain, page_key);
     return this.cache.get<T>(key);
   }

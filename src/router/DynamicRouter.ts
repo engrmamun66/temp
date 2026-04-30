@@ -53,6 +53,7 @@ export class DynamicRouter {
     this.router.get('/api/_/clear-cache', this.cacheCtrl.clearOne);
     this.router.get('/api/_/env-session', this.envCtrl.getSession);
     this.router.post('/api/_/env-session', this.envCtrl.applySession);
+    this.router.post('/api/_/env-cache', this.envCtrl.toggleCache);
     this.router.get('/config.js', this.configJsCtrl.handle);
     this.router.get('/robots.txt', this.robotsCtrl.generate);
     this.router.get('/sitemap.xml', this.sitemapCtrl.generate);

@@ -17,6 +17,11 @@ function getSessionId(req: Request): string | null {
   return match?.[1] ?? null;
 }
 
+function getCacheEnabled(req: Request): boolean {
+  const match = (req.headers.cookie ?? '').match(/(?:^|;\s*)rsk_cache=([^;]+)/);
+  return match ? match[1] !== '0' : env.CACHE;
+}
+
 function setSessionCookie(res: Response, sid: string): void {
   res.setHeader('Set-Cookie', `rsk_env_sid=${sid}; HttpOnly; SameSite=Strict; Path=/; Max-Age=86400`);
 }
@@ -42,8 +47,10 @@ export class EnvController {
         CACHE_TIME:                env.CACHE_TIME,
       },
       presets,
-      activeSession: sid ? this.session.getStatus(sid) : null,
-      applyUrl:      '/api/_/env-session',
+      activeSession:  sid ? this.session.getStatus(sid) : null,
+      cacheEnabled:   getCacheEnabled(req),
+      applyUrl:       '/api/_/env-session',
+      cacheToggleUrl: '/api/_/env-cache',
     });
 
     const html = envSessionSource().split('${initialState}').join(initialState);
@@ -87,6 +94,16 @@ export class EnvController {
   getSession = (req: Request, res: Response): void => {
     const sid = getSessionId(req);
     res.json({ activeSession: sid ? this.session.getStatus(sid) : null });
+  };
+
+  toggleCache = (req: Request, res: Response): void => {
+    const { enabled } = req.body as { enabled?: boolean };
+    if (typeof enabled !== 'boolean') {
+      res.status(400).json({ error: 'enabled must be a boolean' });
+      return;
+    }
+    res.setHeader('Set-Cookie', `rsk_cache=${enabled ? '1' : '0'}; HttpOnly; SameSite=Strict; Path=/; Max-Age=86400`);
+    res.json({ success: true, cacheEnabled: enabled });
   };
 
   private serializeState(value: unknown): string {

@@ -47,11 +47,14 @@ export class App {
     this.express.use(express.urlencoded({ extended: true }));
     this.express.use(express.static(path.resolve(process.cwd(), 'public'), { index: false }));
 
-    // Bind per-browser session ID (from cookie) into async context for every request
+    // Bind per-browser session ID and cache preference (from cookies) into async context
     this.express.use((req, _res, next) => {
-      const match = (req.headers.cookie ?? '').match(/(?:^|;\s*)rsk_env_sid=([^;]+)/);
-      const sessionId = match?.[1] ?? '';
-      requestContext.run({ sessionId }, next);
+      const cookie = req.headers.cookie ?? '';
+      const sidMatch   = cookie.match(/(?:^|;\s*)rsk_env_sid=([^;]+)/);
+      const cacheMatch = cookie.match(/(?:^|;\s*)rsk_cache=([^;]+)/);
+      const sessionId    = sidMatch?.[1] ?? '';
+      const cacheEnabled = cacheMatch ? cacheMatch[1] !== '0' : env.CACHE;
+      requestContext.run({ sessionId, cacheEnabled }, next);
     });
 
     // Must run before DynamicRouter so req.context is populated
