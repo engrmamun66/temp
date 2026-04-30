@@ -31,7 +31,7 @@ export class App {
       cors({
         origin: (origin, cb) => {
           // Allow requests from any *.CURRENT_DOMAIN and localhost for dev
-          if (!origin || origin.endsWith(env.CURRENT_DOMAIN) || /localhost/.test(origin)) {
+          if (!origin || origin.endsWith(env.CURRENT_DOMAIN) || /localhost/.test(origin) || /\.test$/.test(new URL(origin).hostname)) {
             cb(null, true);
           } else {
             cb(new Error(`CORS: origin "${origin}" not allowed`));

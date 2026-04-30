@@ -31,6 +31,7 @@ export class RentMyGlobalBuilder {
     }
 
     return {
+      is_rsk: true,
       store_id:     String(storeResult.store.id),
       locationId:   String(storeResult.location.id),
       store_name:   String(storeResult.store.name),
