@@ -484,9 +484,10 @@ export class ApiClient {
         status: string;
         result: { data: NavLink[] };
       }>(subdomain, '/navigations', { store_name: subdomain });
+      const sort = (arr: NavLink[]) => arr.sort((a, b) => a.sequence_no - b.sequence_no);
       const result = {
-        headerLinks: (resp.result?.data || []).filter(item => item.type === 'header'),
-        footerLinks: (resp.result?.data || []).filter(item => item.type === 'footer'),
+        headerLinks: sort((resp.result?.data || []).filter(item => item.status == 1 && item.type === 'header')),
+        footerLinks: sort((resp.result?.data || []).filter(item => item.status == 1 && item.type === 'footer')),
       };
       this.cache.set(subdomain, cacheKey, result, 1200);
       this.navData[subdomain] = result;
