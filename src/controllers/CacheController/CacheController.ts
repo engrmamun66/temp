@@ -24,31 +24,39 @@ export class CacheController {
   };
 
   index = (_req: Request, res: Response): void => {
-    res.status(200).type('text/html').send(`
-      <!DOCTYPE html>
-      <html lang="en">
-        <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>Internal Tools</title>
-          <style>
-            ul li{
-              padding: 5px;
-            }
-          </style>
-        </head>
-        <body>
-          <h1>Internal Tools</h1>
-          <ul>
-            <li><a href="/_/clist">Cache List</a></li>
-            <li><a href="/_/log">Debug Log</a></li>
-            <li><a href="/_/log?clear=true">Clear Debug Log</a></li>
-            <li><a href="/_/env">Env Session Manager</a></li>
-            <li><a href="/_/config-doc">Documentaion</a></li>
-          </ul>
-        </body>
-      </html>
-    `);
+    res.status(200).type('text/html').send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Internal Tools</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 60px 16px; }
+    .card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; width: 100%; max-width: 420px; overflow: hidden; }
+    .card-header { padding: 20px 24px; border-bottom: 1px solid #2d3148; }
+    .card-header h1 { font-size: 1rem; font-weight: 700; color: #a5b4fc; letter-spacing: .02em; }
+    ul { list-style: none; padding: 8px 0; }
+    li a { display: flex; align-items: center; gap: 10px; padding: 12px 24px; font-size: 0.88rem; color: #94a3b8; text-decoration: none; transition: background .15s, color .15s; }
+    li a:hover { background: #1e2133; color: #e2e8f0; }
+    li a::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #6366f1; flex-shrink: 0; }
+    li.danger a::before { background: #f87171; }
+    li + li { border-top: 1px solid #1e2133; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header"><h1>Internal Tools</h1></div>
+    <ul>
+      <li><a href="/_/clist">Cache List</a></li>
+      <li><a href="/_/log">Debug Log</a></li>
+      <li class="danger"><a href="/_/log?clear=true">Clear Debug Log</a></li>
+      <li><a href="/_/env">Env Session Manager</a></li>
+      <li><a href="/_/config-doc">Config Documentation</a></li>
+    </ul>
+  </div>
+</body>
+</html>`);
   };
 
   clearOne = (req: Request, res: Response): void => {
