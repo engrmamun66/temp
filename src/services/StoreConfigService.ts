@@ -1,7 +1,7 @@
 import { ApiClient, StoreResult } from './ApiClient';
 import { CacheService } from './CacheService';
 import { HomeLayoutOrder } from '../types';
-import { RskRoute, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta, RskOptionalConfigs } from '../interfaces';
+import { RskRoute, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta, RskOptionalConfigs, NavLink } from '../interfaces';
 import { Redirections } from '../types';
 import { logToFile } from '../utils/fileLogger';
 
@@ -151,6 +151,10 @@ export class StoreConfigService {
 
   getRedirections(subdomain: string): Redirections {
     return this.api.getRedirections(subdomain);
+  }
+
+  async getStoreNavigations(subdomain: string): Promise<{ headerLinks: NavLink[]; footerLinks: NavLink[] }> {
+    return this.api.getStoreNavigations(subdomain);
   }
 
   async getSitemapUrls(subdomain: string): Promise<string[]> {

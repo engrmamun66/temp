@@ -10,6 +10,7 @@ import { SitemapController } from '../controllers/SitemapController/SitemapContr
 import { RobotsController } from '../controllers/RobotsController/RobotsController';
 import { RskRoute } from '../interfaces';
 import { helper } from '../utils/helper';
+import { env } from '../config/env';
 
 const CONFIG_DOC_FILE = path.resolve(process.cwd(), 'public', 'api-contents', 'config-doc.html');
 
@@ -57,6 +58,14 @@ export class DynamicRouter {
     this.router.get('/sitemap.xml', this.sitemapCtrl.generate);
     this.router.get('/_/config-doc', (_req: Request, res: Response) => {
       res.set('Content-Type', 'text/html').send(fs.readFileSync(CONFIG_DOC_FILE, 'utf-8'));
+    });
+    this.router.get('/api/store-navigations', async (req: Request, res: Response) => {
+      const raw = (!req.context.subdomain || req.context.subdomain === 'local' || req.context.subdomain === 'localhost')
+        ? env.CURRENT_DOMAIN
+        : req.context.subdomain;
+      const subdomain = raw.replace(/\.test$/, '');
+      const data = await this.storeService.getStoreNavigations(subdomain);
+      res.json(data);
     });
   }
 

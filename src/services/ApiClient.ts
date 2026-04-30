@@ -3,10 +3,11 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs } from '../interfaces';
-import { logToFile } from '../utils/fileLogger';
+import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink } from '../interfaces';
+import { logToFile, clearFileLogs } from '../utils/fileLogger';
 import { pushMissingRoutes } from './PushMissingRoutes';
 import { SessionOverrideService } from './SessionOverrideService';
+import { CacheService } from './CacheService';
 
 // ── /get-settings response shape ────────────────────────────────────────────
 
@@ -77,12 +78,14 @@ interface StoreDataCache { [subdomain: string]: StoreResult }
 export class ApiClient {
   private static instance: ApiClient;
   private readonly http: AxiosInstance;
+  private readonly cache: CacheService;
   private tokens: TokenCache = {};
   private storeData: StoreDataCache = {};
   private rskOptionalConfigs: Record<string, RskOptionalConfigs> = {};
   private redirections: Record<string, Redirections> = {};
 
   private constructor() {
+    this.cache = CacheService.getInstance();
     this.http = axios.create({
       baseURL: env.API_BASE_URL,
       timeout: 10_000,
@@ -183,25 +186,29 @@ export class ApiClient {
     params?: Record<string, unknown>,
     extraHeaders?: Record<string, string>
   ): Promise<T> {
-    const token   = await this.getToken(subdomain);
-    const baseURL = SessionOverrideService.getInstance().getApiBaseUrl(env.API_BASE_URL);
+    const token      = await this.getToken(subdomain);
+    const locationId = this.storeData[subdomain]?.location?.id;
+    const baseURL    = SessionOverrideService.getInstance().getApiBaseUrl(env.API_BASE_URL);
+    const headers    = {
+      Authorization: `Bearer ${token}`,
+      ...(locationId ? { Location: String(locationId) } : {}),
+      ...(extraHeaders ?? {}),
+    };
     try {
-      const res = await this.http.get<T>(path, {
-        baseURL,
-        params,
-        headers: { Authorization: `Bearer ${token}`, ...(extraHeaders ?? {}) },
-      });
+      const res = await this.http.get<T>(path, { baseURL, params, headers });
       return res.data;
     } catch (err) {
       const axiosErr = err as AxiosError;
       if (axiosErr.response?.status === 401) {
         this.invalidate(subdomain);
-        const freshToken = await this.getToken(subdomain);
-        const retry = await this.http.get<T>(path, {
-          baseURL,
-          params,
-          headers: { Authorization: `Bearer ${freshToken}`, ...(extraHeaders ?? {}) },
-        });
+        const freshToken      = await this.getToken(subdomain);
+        const freshLocationId = this.storeData[subdomain]?.location?.id;
+        const retryHeaders    = {
+          Authorization: `Bearer ${freshToken}`,
+          ...(freshLocationId ? { Location: String(freshLocationId) } : {}),
+          ...(extraHeaders ?? {}),
+        };
+        const retry = await this.http.get<T>(path, { baseURL, params, headers: retryHeaders });
         return retry.data;
       }
       throw err;
@@ -290,8 +297,6 @@ export class ApiClient {
 
   async getSitemapUrls(subdomain: string): Promise<string[]> {
     try {
-      const storeResult = await this.getOrFetchStoreResult(subdomain);
-      const locationId = storeResult.location?.id;
       const resp = await this.authorizedGet<{
         status: string;
         result?: { data?: { urls?: unknown[] } };
@@ -299,7 +304,6 @@ export class ApiClient {
         subdomain,
         '/stores/sitemap',
         { store_name: subdomain },
-        locationId ? { Location: String(locationId) } : undefined
       );
 
       const urls = resp.result?.data?.urls;
@@ -465,6 +469,29 @@ export class ApiClient {
 
   getRedirections(subdomain: string): Redirections {
     return this.redirections[subdomain] ?? [];
+  }
+
+  async getStoreNavigations(subdomain: string): Promise<{ headerLinks: NavLink[]; footerLinks: NavLink[] }> {
+    const cacheKey = 'store_navigations';
+    const cached = this.cache.get<{ headerLinks: NavLink[]; footerLinks: NavLink[] }>(subdomain, cacheKey);
+    if (cached) return cached;
+    try {
+      const resp = await this.authorizedGet<{
+        status: string;
+        result: { data: NavLink[] };
+      }>(subdomain, '/navigations', { store_name: subdomain });
+      logToFile('response ====resp.result=== ', resp.result)
+      const result = {
+        headerLinks: (resp.result?.data || []).filter(item => item.type === 'header'),
+        footerLinks: (resp.result?.data || []).filter(item => item.type === 'footer'),
+      };
+      this.cache.set(subdomain, cacheKey, result, 1200);
+      return result;
+    } catch (err) {
+      const axiosErr = err as AxiosError;
+      logToFile(`[getStoreNavigations() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+      return { headerLinks: [], footerLinks: [] };
+    }
   }
 
   private asString(value: unknown): string {

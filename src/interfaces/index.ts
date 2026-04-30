@@ -88,6 +88,19 @@ export interface HomeMeta {
 }
 
 
+export interface NavLink {
+  id: number,
+  sequence_no: number,
+  content_id: number,
+  content_type: 'Page' | 'others',
+  label: string,
+  content_url: string,
+  status: 1 | 0,
+  type: 'header' | 'footer',
+  parent_id: number,
+  children?: NavLink[]
+}
+
 export interface HomeContentAndMeta {
     contents: HomeContent[]
     meta: HomeMeta
