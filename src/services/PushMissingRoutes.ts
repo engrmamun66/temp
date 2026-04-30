@@ -252,7 +252,7 @@ function setComponent(route: RskRoute): void
         route.components = [
             {
                 slot: Slots.top,
-                files: []
+                files: ['header.html']
             },
         ]
     }

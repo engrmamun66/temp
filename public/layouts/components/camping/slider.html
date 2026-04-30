@@ -1,0 +1,70 @@
+<section class="relative w-full min-h-[500px] overflow-hidden bg-stone-900">
+  <!-- Radio inputs -->
+  <input type="radio" name="camp-slider" id="cs1" class="hidden" checked>
+  <input type="radio" name="camp-slider" id="cs2" class="hidden">
+  <input type="radio" name="camp-slider" id="cs3" class="hidden">
+
+  <!-- Slides -->
+  <div class="camp-slides absolute inset-0 flex">
+    <!-- Slide 1 -->
+    <div class="min-w-full min-h-[500px] bg-gradient-to-br from-stone-900 via-green-900 to-stone-800 flex items-center justify-center relative">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(21,128,61,0.3)_0%,_transparent_60%)]"></div>
+      <div class="text-center px-6 max-w-2xl relative z-10">
+        <p class="text-amber-400 uppercase tracking-widest text-sm mb-3 font-semibold">The Wild Awaits</p>
+        <h2 class="text-white text-4xl md:text-5xl font-extrabold mb-4 leading-tight">Your Next Adventure<br>Starts Here</h2>
+        <p class="text-stone-300 text-lg mb-8">Premium camping gear available for rent. Pack light, explore far.</p>
+        <a href="#" class="inline-block bg-green-700 hover:bg-green-600 text-white font-bold px-8 py-3 rounded-lg border border-amber-400/30 transition-colors duration-200">Book Your Gear</a>
+      </div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="min-w-full min-h-[500px] bg-gradient-to-br from-green-900 via-stone-800 to-green-950 flex items-center justify-center relative">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(217,119,6,0.15)_0%,_transparent_60%)]"></div>
+      <div class="text-center px-6 max-w-2xl relative z-10">
+        <p class="text-amber-400 uppercase tracking-widest text-sm mb-3 font-semibold">Into the Forest</p>
+        <h2 class="text-white text-4xl md:text-5xl font-extrabold mb-4 leading-tight">Sleep Under<br>the Stars</h2>
+        <p class="text-stone-300 text-lg mb-8">Tents, sleeping bags, and everything you need for a perfect night out.</p>
+        <a href="#" class="inline-block bg-green-700 hover:bg-green-600 text-white font-bold px-8 py-3 rounded-lg border border-amber-400/30 transition-colors duration-200">Book Your Gear</a>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="min-w-full min-h-[500px] bg-gradient-to-br from-stone-800 via-green-800 to-stone-900 flex items-center justify-center relative">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(21,128,61,0.2)_0%,_transparent_70%)]"></div>
+      <div class="text-center px-6 max-w-2xl relative z-10">
+        <p class="text-amber-400 uppercase tracking-widest text-sm mb-3 font-semibold">Trail Ready</p>
+        <h2 class="text-white text-4xl md:text-5xl font-extrabold mb-4 leading-tight">Gear Up.<br>Head Out.</h2>
+        <p class="text-stone-300 text-lg mb-8">From day hikes to multi-day treks — we have the right kit for you.</p>
+        <a href="#" class="inline-block bg-green-700 hover:bg-green-600 text-white font-bold px-8 py-3 rounded-lg border border-amber-400/30 transition-colors duration-200">Book Your Gear</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrows -->
+  <label for="cs3" id="cprev1" class="camp-arrow absolute left-4 top-1/2 -translate-y-1/2 bg-green-700 hover:bg-green-600 text-amber-400 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer z-10 border border-amber-400/40">&#8592;</label>
+  <label for="cs1" id="cprev2" class="camp-arrow absolute left-4 top-1/2 -translate-y-1/2 bg-green-700 hover:bg-green-600 text-amber-400 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer z-10 border border-amber-400/40">&#8592;</label>
+  <label for="cs2" id="cprev3" class="camp-arrow absolute left-4 top-1/2 -translate-y-1/2 bg-green-700 hover:bg-green-600 text-amber-400 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer z-10 border border-amber-400/40">&#8592;</label>
+
+  <label for="cs2" id="cnext1" class="camp-arrow absolute right-4 top-1/2 -translate-y-1/2 bg-green-700 hover:bg-green-600 text-amber-400 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer z-10 border border-amber-400/40">&#8594;</label>
+  <label for="cs3" id="cnext2" class="camp-arrow absolute right-4 top-1/2 -translate-y-1/2 bg-green-700 hover:bg-green-600 text-amber-400 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer z-10 border border-amber-400/40">&#8594;</label>
+  <label for="cs1" id="cnext3" class="camp-arrow absolute right-4 top-1/2 -translate-y-1/2 bg-green-700 hover:bg-green-600 text-amber-400 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer z-10 border border-amber-400/40">&#8594;</label>
+
+  <!-- Dots -->
+  <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+    <label for="cs1" class="w-3 h-3 rounded-full bg-white/30 hover:bg-amber-400 cursor-pointer transition-colors duration-200 cdot-1"></label>
+    <label for="cs2" class="w-3 h-3 rounded-full bg-white/30 hover:bg-amber-400 cursor-pointer transition-colors duration-200 cdot-2"></label>
+    <label for="cs3" class="w-3 h-3 rounded-full bg-white/30 hover:bg-amber-400 cursor-pointer transition-colors duration-200 cdot-3"></label>
+  </div>
+</section>
+
+<style>
+  #cs1:checked ~ .camp-slides { transform: translateX(0%); transition: transform 0.5s ease; }
+  #cs2:checked ~ .camp-slides { transform: translateX(-100%); transition: transform 0.5s ease; }
+  #cs3:checked ~ .camp-slides { transform: translateX(-200%); transition: transform 0.5s ease; }
+
+  .camp-arrow { display: none; }
+  #cs1:checked ~ * #cprev1, #cs2:checked ~ * #cprev2, #cs3:checked ~ * #cprev3 { display: flex; }
+  #cs1:checked ~ * #cnext1, #cs2:checked ~ * #cnext2, #cs3:checked ~ * #cnext3 { display: flex; }
+
+  #cs1:checked ~ div .cdot-1,
+  #cs2:checked ~ div .cdot-2,
+  #cs3:checked ~ div .cdot-3 { background-color: rgb(251 191 36); }
+</style>
