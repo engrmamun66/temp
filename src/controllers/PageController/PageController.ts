@@ -80,6 +80,10 @@ export class PageController {
         script.textContent = optCfg.custom_js;
         document.body.appendChild(script);
       }
+      if (optCfg.body_css) {
+        const classes = Array.isArray(optCfg.body_css) ? optCfg.body_css : optCfg.body_css.split(/\s+/);
+        classes.filter(Boolean).forEach(cls => document.body.classList.add(cls));
+      }
     }
 
     const requestUrl      = this.buildRequestUrl(req);
