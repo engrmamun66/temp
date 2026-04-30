@@ -1,3 +1,5 @@
+import path from 'path';
+import fs from 'fs';
 import { Router, Request, Response, NextFunction } from 'express';
 import { StoreConfigService } from '../services/StoreConfigService';
 import { CacheController } from '../controllers/CacheController/CacheController';
@@ -8,6 +10,8 @@ import { SitemapController } from '../controllers/SitemapController/SitemapContr
 import { RobotsController } from '../controllers/RobotsController/RobotsController';
 import { RskRoute } from '../interfaces';
 import { helper } from '../utils/helper';
+
+const CONFIG_DOC_FILE = path.resolve(process.cwd(), 'public', 'config-doc.html');
 
 export class DynamicRouter {
   private router: Router;
@@ -51,6 +55,9 @@ export class DynamicRouter {
     this.router.get('/config.js', this.configJsCtrl.handle);
     this.router.get('/robots.txt', this.robotsCtrl.generate);
     this.router.get('/sitemap.xml', this.sitemapCtrl.generate);
+    this.router.get('/_/config-doc', (_req: Request, res: Response) => {
+      res.set('Content-Type', 'text/html').send(fs.readFileSync(CONFIG_DOC_FILE, 'utf-8'));
+    });
   }
 
   private registerDynamicCatchAll(): void {
