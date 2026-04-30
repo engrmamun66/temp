@@ -29,6 +29,7 @@ export class App {
 
     this.express.use(
       cors({
+        // origin: true, to allow an origin
         origin: (origin, cb) => {
           // Allow requests from any *.CURRENT_DOMAIN and localhost for dev
           if (!origin || origin.endsWith(env.CURRENT_DOMAIN) || /localhost/.test(origin) || /\.test$/.test(new URL(origin).hostname)) {
