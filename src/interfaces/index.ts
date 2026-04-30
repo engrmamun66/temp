@@ -6,9 +6,12 @@ export interface RskRoute {
   layout?:         string | null;
   _source?: 'force_pushed';
   [otherMeta: string]: unknown;
-  components?: Component[],
-  css?: string[];
-  scripts?: string[];
+  components?: Component[];
+  css?:        string[];
+  scripts?:    string[];
+  custom_css?: string;
+  custom_js?:  string;
+  body_css?:   string | string[];
 }
 
 

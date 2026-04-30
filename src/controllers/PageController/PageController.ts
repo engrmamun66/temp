@@ -86,6 +86,36 @@ export class PageController {
       }
     }
 
+    // ====================================================== //
+    // ======= Route-specific CSS, scripts, and body-css ==== //
+    // ====================================================== //
+    if (route) {
+      route.css?.forEach(href => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet'; link.href = href;
+        document.head.appendChild(link);
+      });
+      if (route.custom_css) {
+        const style = document.createElement('style');
+        style.textContent = route.custom_css;
+        document.head.appendChild(style);
+      }
+      route.scripts?.forEach(src => {
+        const script = document.createElement('script');
+        script.src = src;
+        document.body.appendChild(script);
+      });
+      if (route.custom_js) {
+        const script = document.createElement('script');
+        script.textContent = route.custom_js;
+        document.body.appendChild(script);
+      }
+      if (route.body_css) {
+        const classes = Array.isArray(route.body_css) ? route.body_css : route.body_css.split(/\s+/);
+        classes.filter(Boolean).forEach(cls => document.body.classList.add(cls));
+      }
+    }
+
     const requestUrl      = this.buildRequestUrl(req);
     const siteName        = storeResult.store.name || this.getStoreString(storeResult.store, 'slug');
     const defaultImageUrl = storeResult.store.logo || '';
