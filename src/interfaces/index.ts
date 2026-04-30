@@ -15,7 +15,7 @@ export enum Slots {
   bottom = 'bottom',
 }
 export interface Component {
-  slot?: keyof Slots,
+  slot?:  Slots,
   files?: string[]
 }
 export interface RskOptionalConfigs {

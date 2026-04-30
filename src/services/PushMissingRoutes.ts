@@ -1,4 +1,4 @@
-import { RskRoute, EnumPageKes } from '../interfaces';
+import { RskRoute, EnumPageKes, Component, Slots } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
 
 const prefix = 'default-pages/'
@@ -241,5 +241,19 @@ function pushRouteIfNotExist(routes: RskRoute[], route: RskRoute, pushed_to_inde
         if (pushed_to_index >= 0) routes.splice(pushed_to_index, 0, route);
         else routes.push(route);
         logToFile(`[PushMissingRoutes.ts] [route_pushed] ${route.page_key}`);
+    }
+}
+
+
+function setComponent(route: RskRoute): void
+{
+    let { components = [] } = route
+    if(!components.length){
+        route.components = [
+            {
+                slot: Slots.top,
+                files: []
+            },
+        ]
     }
 }

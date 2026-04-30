@@ -79,7 +79,8 @@ export class ApiClient {
   private readonly http: AxiosInstance;
   private tokens: TokenCache = {};
   private storeData: StoreDataCache = {};
-  private rskOptionalConfigs: Record<string/* subdomain */, RskOptionalConfigs> = {};
+  private rskOptionalConfigs: Record<string, RskOptionalConfigs> = {};
+  private redirections: Record<string, Redirections> = {};
 
   private constructor() {
     this.http = axios.create({
@@ -230,8 +231,11 @@ export class ApiClient {
         content_path:   r?.content_path,
         content_source: r?.content_source, 
       }));
-      if(resp.result.data.config){
-        this.rskOptionalConfigs[subdomain] = resp.result.data.config
+      if (resp.result.data.config) {
+        this.rskOptionalConfigs[subdomain] = resp.result.data.config;
+      }
+      if (resp.result.data.redirections) {
+        this.redirections[subdomain] = resp.result.data.redirections;
       }
       return pushMissingRoutes(routes)
     } catch (err) {
@@ -457,6 +461,10 @@ export class ApiClient {
 
   getOptionalConfigs(subdomain: string): RskOptionalConfigs | null {
     return this.rskOptionalConfigs[subdomain] ?? null;
+  }
+
+  getRedirections(subdomain: string): Redirections {
+    return this.redirections[subdomain] ?? [];
   }
 
   private asString(value: unknown): string {

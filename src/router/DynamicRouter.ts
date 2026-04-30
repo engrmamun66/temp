@@ -7,6 +7,7 @@ import { ConfigJsController } from '../controllers/ConfigJsController/ConfigJsCo
 import { SitemapController } from '../controllers/SitemapController/SitemapController';
 import { RobotsController } from '../controllers/RobotsController/RobotsController';
 import { RskRoute } from '../interfaces';
+import { helper } from '../utils/helper';
 
 export class DynamicRouter {
   private router: Router;
@@ -59,9 +60,23 @@ export class DynamicRouter {
 
       const config = await this.storeService.getRskConfigs(subdomain);
 
+      // ── Redirections ──────────────────────────────────────────────────────────
+      const redirections = this.storeService.getRedirections(subdomain);
+      if (redirections.length) {
+        const matching = redirections.filter(([from]) => {
+          const basePath = '/' + from.split('?')[0].replace(/^\/+/, '');
+          return basePath === slug;
+        });
+        if (matching.length) {
+          const exact = helper.getExactRoute(matching, req.query as Record<string, string>, (url) => helper.getQuery(url) as Record<string, string>);
+          const to = exact ? exact[1] : matching[0][1];
+          res.redirect(to.startsWith('/') ? to : `/${to}`);
+          return;
+        }
+      }
+
       const route: RskRoute | undefined = this.storeService.findRouteByPath(config.routes, slug);
 
-      // Attach page_key and route_path to request context (may be undefined for unknown slugs)
       req.context.pageKey   = route?.page_key ?? 'not_found';
       req.context.routePath = route?.route_path ?? slug;
 
