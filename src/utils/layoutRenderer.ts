@@ -1,40 +1,36 @@
 import path from 'path';
 import fs from 'fs';
+import { Component } from '../interfaces';
 
 const COMPONENTS_DIR = path.resolve(process.cwd(), 'public', 'layouts', 'components');
 
-// Matches an entire zone: <!-- startingTag::name --> ... <!-- endingTag::name -->
-const ZONE_RE = /<!--\s*startingTag::(\w+)\s*-->([\s\S]*?)<!--\s*endingTag::\1\s*-->/g;
-
-// Matches a single component directive inside a zone body
-const COMPONENT_RE = /<!--\s*component::([^\s>]+)\s*-->/g;
+// Matches <div data-slot="NAME"></div>
+const SLOT_RE = /<div\s+data-slot="([^"]+)"\s*><\/div>/g;
 
 function readComponent(componentPath: string): string | null {
   const normalized = componentPath.replace(/^\/+/, '');
   const filePath   = path.resolve(COMPONENTS_DIR, normalized);
-
-  // Prevent path traversal outside components dir
   if (!filePath.startsWith(`${COMPONENTS_DIR}${path.sep}`) && filePath !== COMPONENTS_DIR) {
     return null;
   }
-
   return fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf-8') : null;
 }
 
 /**
- * Processes layout HTML:
- * - Finds zones delimited by <!-- startingTag::name --> / <!-- endingTag::name -->
- * - Within each zone, tries <!-- component::path --> entries in order
- * - Replaces the entire zone with the first resolvable component's content
- * - Removes the zone if no component file is found
+ * Fills <!-- data-slot="NAME" --> elements in a layout HTML string.
+ * For each slot, iterates matching Component entries (by slot name) and tries
+ * their files[] in order — first resolvable file wins.
+ * Slots with no matching component are replaced with empty string.
  */
-export function renderLayoutComponents(html: string): string {
-  return html.replace(ZONE_RE, (_match, _zoneName: string, zoneBody: string) => {
-    COMPONENT_RE.lastIndex = 0;
-    let m: RegExpExecArray | null;
-    while ((m = COMPONENT_RE.exec(zoneBody)) !== null) {
-      const content = readComponent(m[1]);
-      if (content !== null) return content;
+export function renderLayoutComponents(html: string, components?: Component[]): string {
+  return html.replace(SLOT_RE, (_match, slotName: string) => {
+    if (!components?.length) return '';
+    const matching = components.filter((c) => (c.slot as string) === slotName);
+    for (const comp of matching) {
+      for (const file of (comp.files ?? [])) {
+        const content = readComponent(file);
+        if (content !== null) return content;
+      }
     }
     return '';
   });

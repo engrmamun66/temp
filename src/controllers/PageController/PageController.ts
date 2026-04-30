@@ -5,7 +5,7 @@ import { JSDOM } from 'jsdom';
 import { AxiosError } from 'axios';
 import { StoreConfigService } from '../../services/StoreConfigService';
 import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
-import { RskRoute } from '../../interfaces';
+import { RskRoute, Component } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
 import { renderLayoutComponents } from '../../utils/layoutRenderer';
 import { env } from '../../config/env';
@@ -52,7 +52,7 @@ export class PageController {
 
     const optCfg = this.storeService.getOptionalConfigs(subdomain);
     const resolvedLayout = route?.layout ?? optCfg?.layout;
-    const dom = new JSDOM(renderLayoutComponents(indexSource(resolvedLayout)));
+    const dom = new JSDOM(renderLayoutComponents(indexSource(resolvedLayout), route?.components as Component[]));
     const { document } = dom.window;
 
     // ====================================================== //
