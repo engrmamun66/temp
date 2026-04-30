@@ -112,71 +112,10 @@ export class CacheController {
   private renderCacheListPage(subdomain: string, items: CacheListItem[], clearAllUrl: string): string {
     const escapedSubdomain = this.escapeHtml(subdomain);
     const initialState = this.serializeState({ subdomain, items, clearAllUrl });
-    const serverTable = items.length > 0
-      ? `
-        <div class="table-card">
-          <table>
-            <thead>
-              <tr>
-                <th>Cache key</th>
-                <th>Expires at</th>
-                <th class="action-column">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${this.renderCacheRows(items)}
-            </tbody>
-          </table>
-        </div>
-      `
-      : `
-        <div class="empty-state">
-          No cache entries found for this subdomain.
-        </div>
-      `;
 
     return cacheListSource()
       .split('${escapedSubdomain}').join(escapedSubdomain)
-      .split('${items.length}').join(String(items.length))
-      .split('${serverTable}').join(serverTable)
       .split('${initialState}').join(initialState);
-  }
-
-  private renderCacheRows(items: CacheListItem[]): string {
-    return items.map((item) => `
-      <tr>
-        <td class="key-cell"><code>${this.escapeHtml(item.displayKey)}</code></td>
-        <td>${this.escapeHtml(this.formatExpiresAt(item.expiresAt))}</td>
-        <td class="actions-cell">
-          <div class="row-actions">
-            <button class="show-btn" type="button">Show Data</button>
-            <button class="delete-btn" type="button">Clear</button>
-          </div>
-        </td>
-      </tr>
-    `).join('');
-  }
-
-  private formatExpiresAt(value: string): string {
-    if (!value || value === 'no-expire') return value || '';
-
-    const [datePart, timePart] = value.split(' ');
-    if (!datePart || !timePart) return value;
-
-    const [year, month, day] = datePart.split('-');
-    const [hourText, minuteText] = timePart.split(':');
-    const hour = Number(hourText);
-    const minute = Number(minuteText);
-
-    if (!year || !month || !day || Number.isNaN(hour) || Number.isNaN(minute)) {
-      return value;
-    }
-
-    const suffix = hour >= 12 ? 'PM' : 'AM';
-    const formattedHour = String(hour % 12 || 12).padStart(2, '0');
-    const formattedMinute = String(minute).padStart(2, '0');
-
-    return `${year}-${month}-${day}, ${formattedHour}:${formattedMinute} ${suffix}`;
   }
 
   private escapeHtml(value: string): string {

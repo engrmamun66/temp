@@ -410,8 +410,8 @@
             <header class="hero">
                 <div>
                     <p class="eyebrow">Cache Inspector</p>
-                    <h1>${escapedSubdomain}</h1>
-                    <p class="meta">${items.length} of ${items.length} entries shown</p>
+                    <h1>{{ subdomain }}</h1>
+                    <p class="meta">{{ filteredItems.length }} of {{ items.length }} entries shown</p>
                 </div>
                 <div style="display:flex;gap:10px;align-items:center;">
                     <a class="back-link" href="/_">← Back</a>
@@ -419,111 +419,83 @@
                 </div>
             </header>
 
+            <p v-if="errorMessage" class="error-banner">{{ errorMessage }}</p>
+
             <section class="toolbar">
                 <label class="search-field">
                     <span>Filter cache key</span>
-                    <input type="search" placeholder="Search by key" value="" />
+                    <input v-model="searchTerm" type="search" placeholder="Search by key" />
                 </label>
                 <div class="toolbar-actions">
-                    <button class="clear-all-btn" type="button">Clear All</button>
+                    <button
+                        class="clear-all-btn"
+                        type="button"
+                        :disabled="pendingClearAll || pendingKey !== '' || !items.length"
+                        @click="clearAll"
+                    >
+                        {{ pendingClearAll ? 'Clearing...' : 'Clear All' }}
+                    </button>
                 </div>
             </section>
 
-            ${serverTable}
-        </div>
-    </div>
+            <div v-if="filteredItems.length" class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cache key</th>
+                            <th>Expires at</th>
+                            <th class="action-column">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in filteredItems" :key="item.key">
+                            <td class="key-cell"><code>{{ item.displayKey }}</code></td>
+                            <td>{{ formatExpiresAt(item.expiresAt) }}</td>
+                            <td class="actions-cell">
+                                <div class="row-actions">
+                                    <button
+                                        class="show-btn"
+                                        type="button"
+                                        :disabled="pendingShowKey === item.key || pendingClearAll"
+                                        @click="showData(item)"
+                                    >
+                                        {{ pendingShowKey === item.key ? 'Loading...' : 'Show Data' }}
+                                    </button>
+                                    <button
+                                        class="delete-btn"
+                                        type="button"
+                                        :disabled="pendingKey === item.key || pendingClearAll"
+                                        @click="deleteItem(item)"
+                                    >
+                                        {{ pendingKey === item.key ? 'Clearing...' : 'Clear' }}
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <script id="cache-list-template" type="text/x-template">
-    <div class="page-shell">
-        <header class="hero">
-        <div>
-            <p class="eyebrow">Cache Inspector</p>
-            <h1>{{ subdomain }}</h1>
-            <p class="meta">{{ filteredItems.length }} of {{ items.length }} entries shown</p>
-        </div>
-        <div style="display:flex;gap:10px;align-items:center;">
-            <a class="back-link" href="/_">← Back</a>
-            <a class="refresh-link" href="/_/clist">Refresh</a>
-        </div>
-        </header>
+            <div v-else class="empty-state">
+                {{ items.length ? 'No cache entries match the current filter.' : 'No cache entries found for this subdomain.' }}
+            </div>
 
-        <p v-if="errorMessage" class="error-banner">{{ errorMessage }}</p>
-
-        <section class="toolbar">
-        <label class="search-field">
-            <span>Filter cache key</span>
-            <input v-model="searchTerm" type="search" placeholder="Search by key" />
-        </label>
-        <div class="toolbar-actions">
-            <button
-                class="clear-all-btn"
-                type="button"
-                :disabled="pendingClearAll || pendingKey !== '' || !items.length"
-                @click="clearAll"
-            >
-                {{ pendingClearAll ? 'Clearing...' : 'Clear All' }}
-            </button>
-        </div>
-        </section>
-
-        <div v-if="filteredItems.length" class="table-card">
-        <table>
-            <thead>
-            <tr>
-                <th>Cache key</th>
-                <th>Expires at</th>
-                <th class="action-column">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in filteredItems" :key="item.key">
-                <td class="key-cell"><code>{{ item.displayKey }}</code></td>
-                <td>{{ formatExpiresAt(item.expiresAt) }}</td>
-                <td class="actions-cell">
-                <div class="row-actions">
-                    <button
-                        class="show-btn"
-                        type="button"
-                        :disabled="pendingShowKey === item.key || pendingClearAll"
-                        @click="showData(item)"
-                    >
-                        {{ pendingShowKey === item.key ? 'Loading...' : 'Show Data' }}
-                    </button>
-                    <button
-                        class="delete-btn"
-                        type="button"
-                        :disabled="pendingKey === item.key || pendingClearAll"
-                        @click="deleteItem(item)"
-                    >
-                        {{ pendingKey === item.key ? 'Clearing...' : 'Clear' }}
-                    </button>
-                </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        </div>
-
-        <div v-else class="empty-state">
-        {{ items.length ? 'No cache entries match the current filter.' : 'No cache entries found for this subdomain.' }}
-        </div>
-
-        <teleport to="body">
-            <section v-if="selectedDataKey" class="modal-backdrop" @click.self="hideData">
-                <div class="data-modal" role="dialog" aria-modal="true" aria-labelledby="cache-data-title">
-                <div class="data-modal-header">
-                    <div>
-                        <h2 id="cache-data-title">Cache Data</h2>
-                        <code>{{ selectedDataKey }}</code>
+            <teleport to="body">
+                <section v-if="selectedDataKey" class="modal-backdrop" @click.self="hideData">
+                    <div class="data-modal" role="dialog" aria-modal="true" aria-labelledby="cache-data-title">
+                        <div class="data-modal-header">
+                            <div>
+                                <h2 id="cache-data-title">Cache Data</h2>
+                                <code>{{ selectedDataKey }}</code>
+                            </div>
+                            <button class="data-modal-close" type="button" @click="hideData">Close</button>
+                        </div>
+                        <pre>{{ selectedDataText }}</pre>
                     </div>
-                    <button class="data-modal-close" type="button" @click="hideData">Close</button>
-                </div>
-                <pre>{{ selectedDataText }}</pre>
-                </div>
-            </section>
-        </teleport>
+                </section>
+            </teleport>
+        </div>
     </div>
-    </script>
 
     <script id="cache-list-state" type="application/json">${initialState}</script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
@@ -533,7 +505,6 @@
         const { createApp } = Vue;
 
         createApp({
-            template: '#cache-list-template',
             data() {
                 return {
                     ...initialStateData,
