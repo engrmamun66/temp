@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import { JSDOM } from 'jsdom';
 import { Component, NavLink } from '../interfaces';
+import { mofifyComponentHTML } from './componentRenderer';
 
 const COMPONENTS_DIR = path.resolve(process.cwd(), 'public', 'layouts', 'components');
 
@@ -36,6 +37,7 @@ export function renderLayoutComponents(
           if (content !== null) {
               const dom = new JSDOM(content);
               // const { document } = dom.window;
+              mofifyComponentHTML(dom, layout, file)
               return dom.serialize();
           }
         }
