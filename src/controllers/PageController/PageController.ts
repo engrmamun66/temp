@@ -66,7 +66,7 @@ export class PageController {
 
       // Nav data injected in <head> as JSON for client-side nav rendering
       const navScript = document.createElement('script');
-      navScript.id = 'nav-data';
+      navScript.id = 'header-nav-data';
       navScript.type = 'application/json';
       navScript.textContent = JSON.stringify(navData.headerLinks);
       document.head.appendChild(navScript);
