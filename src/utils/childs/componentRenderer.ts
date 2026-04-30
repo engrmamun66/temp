@@ -1,5 +1,6 @@
 import { JSDOM } from 'jsdom';
 
+
 export function mofifyComponentHTML(dom: JSDOM, layout: string, file: string): void {
     const { document } = dom.window;
 
@@ -12,5 +13,5 @@ export function mofifyComponentHTML(dom: JSDOM, layout: string, file: string): v
 
 
 function modify_header(document: Document): void {
-    
+
 }

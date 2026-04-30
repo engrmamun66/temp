@@ -21,6 +21,7 @@ export enum Slots {
 export interface Component {
   slot?:  Slots,
   files?: string[]
+  slot_classed?: string | string[],
 }
 export interface RskOptionalConfigs {
   layout?: string;
