@@ -28,24 +28,7 @@
 
       <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-1">
-        <a href="/" class="px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all">Home</a>
-        <div class="relative group">
-          <button class="px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all flex items-center gap-1">
-            Gear
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="absolute top-full left-0 mt-1 w-52 bg-stone-900 border border-stone-700 rounded-xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Tents & Shelters</a>
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Sleeping Bags</a>
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Backpacks & Packs</a>
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Cooking Gear</a>
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Navigation & Safety</a>
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Lighting & Power</a>
-          </div>
-        </div>
-        <a href="/trails" class="px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all">Trails</a>
-        <a href="/campsites" class="px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all">Campsites</a>
-        <a href="/guides" class="px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all">Guides</a>
+        <div data-nav="header"></div>
       </nav>
 
       <!-- Actions -->
@@ -70,56 +53,7 @@
   <!-- Mobile menu -->
   <div id="camping-mobile-menu" class="hidden md:hidden border-t border-stone-800">
     <div class="px-4 py-4 space-y-1">
-      <a href="/" class="block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg">Home</a>
-      <a href="/gear" class="block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg">Gear</a>
-      <a href="/trails" class="block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg">Trails</a>
-      <a href="/campsites" class="block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg">Campsites</a>
-      <a href="/guides" class="block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg">Guides</a>
-      <div class="pt-2">
-        <a href="/book-gear" class="block text-center bg-green-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl">Book Gear</a>
-      </div>
+      <div data-nav="header-mobile"></div>
     </div>
   </div>
 </header>
-
-
-<script>
-  RentMyEvent.add_filter('cdn:create_component', (existing_components_array, extraData) => {
-
-  const dynamicComponent = {
-    selector: '#rentmy-header',
-    domModifireArray: [],
-    componentObject: {
-      components: { ...extraData?.components },
-      setup() {
-        const { ref, inject, onMounted, helper, currency, http, moment, Axios } = extraData
-        const { setQuery, getQuery, deleteQuery } = helper.withURL
-        const setWraperIsReady = inject('setWraperIsReady')
-  
-         
-
-        let header_links = ref([])
-
-
-        async function loadMenus() { 
-
-          let result = await Axios.get(`${window.location.origin}/api/store-navigations`)
-          console.log({result});
-           
-        }
-
-        onMounted(async() => {
-          // await loadMenus()
-          setWraperIsReady(document.querySelector('#rentmy-header'))
-        })
-
-        return {
-           
-        }
-      },
-    },
-  }
-
-  return [...existing_components_array, dynamicComponent]
-})
-</script>

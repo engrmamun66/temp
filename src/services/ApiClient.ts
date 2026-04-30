@@ -83,6 +83,7 @@ export class ApiClient {
   private storeData: StoreDataCache = {};
   private rskOptionalConfigs: Record<string, RskOptionalConfigs> = {};
   private redirections: Record<string, Redirections> = {};
+  private navData: Record<string, { headerLinks: NavLink[]; footerLinks: NavLink[] }> = {};
 
   private constructor() {
     this.cache = CacheService.getInstance();
@@ -474,24 +475,31 @@ export class ApiClient {
   async getStoreNavigations(subdomain: string): Promise<{ headerLinks: NavLink[]; footerLinks: NavLink[] }> {
     const cacheKey = 'store_navigations';
     const cached = this.cache.get<{ headerLinks: NavLink[]; footerLinks: NavLink[] }>(subdomain, cacheKey);
-    if (cached) return cached;
+    if (cached) {
+      this.navData[subdomain] = cached;
+      return cached;
+    }
     try {
       const resp = await this.authorizedGet<{
         status: string;
         result: { data: NavLink[] };
       }>(subdomain, '/navigations', { store_name: subdomain });
-      logToFile('response ====resp.result=== ', resp.result)
       const result = {
         headerLinks: (resp.result?.data || []).filter(item => item.type === 'header'),
         footerLinks: (resp.result?.data || []).filter(item => item.type === 'footer'),
       };
       this.cache.set(subdomain, cacheKey, result, 1200);
+      this.navData[subdomain] = result;
       return result;
     } catch (err) {
       const axiosErr = err as AxiosError;
       logToFile(`[getStoreNavigations() error] ${axiosErr.response?.data ?? axiosErr.message}`);
       return { headerLinks: [], footerLinks: [] };
     }
+  }
+
+  getNavData(subdomain: string): { headerLinks: NavLink[]; footerLinks: NavLink[] } | null {
+    return this.navData[subdomain] ?? null;
   }
 
   private asString(value: unknown): string {

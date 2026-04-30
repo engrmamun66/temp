@@ -29,6 +29,8 @@ export class StoreConfigService {
     if (cached) return cached;
 
     const routes = await this.api.getRskConfigs(subdomain);
+    await this.api.getStoreNavigations(subdomain);
+
     const config: StoreConfig = { subdomain, routes };
     this.cache.set(subdomain, STORE_CACHE_KEY, config, STORE_CACHE_TTL);
     return config;
@@ -155,6 +157,10 @@ export class StoreConfigService {
 
   async getStoreNavigations(subdomain: string): Promise<{ headerLinks: NavLink[]; footerLinks: NavLink[] }> {
     return this.api.getStoreNavigations(subdomain);
+  }
+
+  getNavData(subdomain: string): { headerLinks: NavLink[]; footerLinks: NavLink[] } | null {
+    return this.api.getNavData(subdomain);
   }
 
   async getSitemapUrls(subdomain: string): Promise<string[]> {
