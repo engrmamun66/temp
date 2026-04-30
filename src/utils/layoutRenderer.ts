@@ -31,17 +31,17 @@ export function renderLayoutComponents(
     return html.replace(SLOT_RE, (_match, slotName: string) => {
       if (!components?.length) return '';
       const matching = components.filter((c) => (c.slot as string) === slotName);
+      const parts: string[] = [];
       for (const comp of matching) {
         for (const file of (comp.files ?? [])) {
           const content = readComponent(file, layout);
           if (content !== null) {
-              const dom = new JSDOM(content);
-              // const { document } = dom.window;
-              mofifyComponentHTML(dom, layout, file)
-              return dom.serialize();
+            const dom = new JSDOM(content);
+            mofifyComponentHTML(dom, layout, file);
+            parts.push(dom.serialize());
           }
         }
       }
-      return '';
+      return parts.join('');
     });
 }
