@@ -5,13 +5,13 @@ export function mofifyComponentHTML(dom: JSDOM, layout: string, file: string): v
     const { document } = dom.window;
 
     if(file === 'header.html'){
-        modify_header(document)
+        modify_header_navigation(document)
     }
 
 }
 
 
 
-function modify_header(document: Document): void {
+function modify_header_navigation(document: Document): void {
 
 }
