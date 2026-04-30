@@ -240,20 +240,39 @@ function pushRouteIfNotExist(routes: RskRoute[], route: RskRoute, pushed_to_inde
     if (!find) {
         if (pushed_to_index >= 0) routes.splice(pushed_to_index, 0, route);
         else routes.push(route);
-        logToFile(`[PushMissingRoutes.ts] [route_pushed] ${route.page_key}`);
+        setRouteComponent(route)
     }
 }
 
 
-function setComponent(route: RskRoute): void
+function setRouteComponent(route: RskRoute, wasFound = false): void
 {
     let { components = [] } = route
     if(!components.length){
-        route.components = [
+        let header_footer = [
             {
                 slot: Slots.top,
                 files: ['header.html']
             },
+            {
+                slot: Slots.bottom,
+                files: ['footer.html']
+            },
         ]
+
+        if(wasFound){
+            route.components = header_footer
+        } else {
+            let components = [
+                ...header_footer
+            ]
+            if(route.page_key == EnumPageKes.home){
+                components.push({
+                    slot: Slots.top,
+                    files: []
+                })
+            }
+            route.components = components
+        }
     }
 }
