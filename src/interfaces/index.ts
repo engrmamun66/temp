@@ -5,7 +5,6 @@ export interface RskRoute {
   content_source?: 'file' | 'api';
   layout?:         string | null;
   _source?: 'force_pushed';
-  [otherMeta: string]: unknown;
   components?: Component[];
   css?:        string[];
   scripts?:    string[];
