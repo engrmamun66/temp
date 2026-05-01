@@ -5,6 +5,6 @@ export function resolveStoreSubdomain(rawSubdomain: string | null | undefined): 
     ? env.CURRENT_DOMAIN
     : rawSubdomain;
   subdomain = subdomain.replace(/\.test$/, '')
-  // console.log({subdomain});
+  console.log({subdomain});
   return subdomain
 }
