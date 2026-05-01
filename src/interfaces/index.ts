@@ -10,6 +10,7 @@ export interface RskRoute {
   scripts?:    string[];
   custom_css?: string;
   custom_js?:  string;
+  body_css?:  string | string[];
   [otherMeta: string]: unknown;
 }
 
