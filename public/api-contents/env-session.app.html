@@ -381,10 +381,7 @@
         .toggle-row {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid var(--line);
+            gap: 12px; 
         }
 
         .toggle-label {
@@ -503,6 +500,9 @@
                     :disabled="applying || !p.API_BASE_URL"
                     :title="p.API_BASE_URL"
                     @click="select(p.key)"
+                    @click="() => {
+                        clearAllCache(); apply()
+                    }"
                 >{{ p.label }}</button>
             </div>
 
@@ -511,6 +511,7 @@
                 <select
                     class="ttl-select"
                     v-model="selectedTtl"
+                    @change="() => {clearAllCache();apply()}"
                     :disabled="applying || selectedPreset === 'default' || !selectedPreset"
                 >
                     <option :value="300000">5 minutes</option>
@@ -520,7 +521,18 @@
                     <option :value="3600000">1 hour</option>
                 </select>
 
-                <button
+                <div class="toggle-row">
+                    <span class="toggle-label">Cache</span>
+                    <div class="toggle-switch" @click="toggleCache()" role="switch" :aria-checked="String(cacheEnabled)">
+                        <span :class="['toggle-track', cacheEnabled ? 'on' : '']"></span>
+                        <span :class="['toggle-thumb', cacheEnabled ? 'on' : '']"></span>
+                    </div>
+                    <span class="toggle-desc">
+                        {{ cacheEnabled ? 'On — responses are cached for this session' : 'Off — every request hits the API directly' }}
+                    </span>
+                </div>
+
+                <!-- <button
                     class="apply-btn"
                     type="button"
                     :disabled="applying || !selectedPreset"
@@ -532,19 +544,11 @@
                     type="button"
                     :disabled="clearingCache"
                     @click="clearAllCache"
-                >{{ clearingCache ? 'Clearing…' : 'Clear All Cache' }}</button>
-            </div>
+                >{{ clearingCache ? 'Clearing…' : 'Clear All Cache' }}</button> -->
 
-            <div class="toggle-row">
-                <span class="toggle-label">Cache</span>
-                <div class="toggle-switch" @click="toggleCache" role="switch" :aria-checked="String(cacheEnabled)">
-                    <span :class="['toggle-track', cacheEnabled ? 'on' : '']"></span>
-                    <span :class="['toggle-thumb', cacheEnabled ? 'on' : '']"></span>
-                </div>
-                <span class="toggle-desc">
-                    {{ cacheEnabled ? 'On — responses are cached for this session' : 'Off — every request hits the API directly' }}
-                </span>
+                
             </div>
+ 
         </div>
 
         <!-- Env variables table -->
