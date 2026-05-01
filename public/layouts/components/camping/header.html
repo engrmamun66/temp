@@ -59,45 +59,37 @@
 
 <script>
 (function () {
-  var stateEl = document.querySelector('script#header-nav-data');
+  var stateEl = document.querySelector('script#header_footer_nav_data');
   if (!stateEl || typeof Vue === 'undefined') return;
 
-  var flat = JSON.parse(stateEl.textContent || '[]');
+  var navData = JSON.parse(stateEl.textContent || '{}');
+  var links = navData.headerLinks || [];
 
-  // Build parent → children tree
-  var map = {};
-  flat.forEach(function (l) { map[l.id] = Object.assign({}, l, { children: [] }); });
-  var roots = [];
-  flat.forEach(function (l) {
-    if (l.parent_id && map[l.parent_id]) {
-      map[l.parent_id].children.push(map[l.id]);
-    } else {
-      roots.push(map[l.id]);
-    }
-  });
+  function href(url) { return url ? '/' + url.replace(/^\/+/, '') : '/'; }
 
-  var LINK_CLS   = 'px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all';
-  var CHILD_CLS  = 'block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800';
-  var MOBILE_CLS = 'block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg';
+  var LINK_CLS        = 'px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all';
+  var CHILD_CLS       = 'block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800';
+  var MOBILE_CLS      = 'block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg';
   var MOBILE_CHILD_CLS = 'block px-6 py-1.5 text-sm text-stone-400 hover:text-white hover:bg-stone-800 rounded-lg';
-  var DOWN_ARROW = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
+  var DOWN_ARROW      = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
 
   // Desktop nav
   var desktopEl = document.getElementById('rentmy-header-nav');
   if (desktopEl) {
     Vue.createApp({
-      data: function () { return { links: roots }; },
+      data: function () { return { links: links }; },
+      methods: { href: href },
       template:
         '<template v-for="link in links" :key="link.id">' +
-          '<div v-if="link.children.length" class="rsk-nav-dropdown relative">' +
+          '<div v-if="link.children && link.children.length" class="rsk-nav-dropdown relative">' +
             '<button class="' + LINK_CLS + ' flex items-center gap-1">' +
               '<span>{{ link.label }}</span>' + DOWN_ARROW +
             '</button>' +
             '<div class="rsk-nav-dropdown-menu absolute top-full left-0 mt-1 w-52 bg-stone-900 border border-stone-700 rounded-xl shadow-xl py-2 z-50">' +
-              '<a v-for="child in link.children" :key="child.id" :href="child.content_url" class="' + CHILD_CLS + '">{{ child.label }}</a>' +
+              '<a v-for="child in link.children" :key="child.id" :href="href(child.content_url)" class="' + CHILD_CLS + '">{{ child.label }}</a>' +
             '</div>' +
           '</div>' +
-          '<a v-else :href="link.content_url" class="' + LINK_CLS + '">{{ link.label }}</a>' +
+          '<a v-else :href="href(link.content_url)" class="' + LINK_CLS + '">{{ link.label }}</a>' +
         '</template>',
     }).mount(desktopEl);
   }
@@ -106,12 +98,13 @@
   var mobileEl = document.getElementById('rentmy-mobile-nav');
   if (mobileEl) {
     Vue.createApp({
-      data: function () { return { links: roots }; },
+      data: function () { return { links: links }; },
+      methods: { href: href },
       template:
         '<template v-for="link in links" :key="link.id">' +
-          '<a :href="link.content_url" class="' + MOBILE_CLS + '">{{ link.label }}</a>' +
-          '<template v-if="link.children.length">' +
-            '<a v-for="child in link.children" :key="child.id" :href="child.content_url" class="' + MOBILE_CHILD_CLS + '">{{ child.label }}</a>' +
+          '<a :href="href(link.content_url)" class="' + MOBILE_CLS + '">{{ link.label }}</a>' +
+          '<template v-if="link.children && link.children.length">' +
+            '<a v-for="child in link.children" :key="child.id" :href="href(child.content_url)" class="' + MOBILE_CHILD_CLS + '">{{ child.label }}</a>' +
           '</template>' +
         '</template>',
     }).mount(mobileEl);
