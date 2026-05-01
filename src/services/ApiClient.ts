@@ -263,7 +263,9 @@ export class ApiClient {
     } catch (err) {
       const status = (err as AxiosError).response?.status;
       logToFile(`[ApiClient] [getRskConfigs()] failed subdomain=${subdomain} status=${status ?? 'network'}`);
-      return [] as RskRoute[];
+      this.rskOptionalConfigs[this.storeKey(subdomain)] = {};
+      this.redirections[this.storeKey(subdomain)] = [];
+      return pushMissingRoutes([]) as RskRoute[];
     }
   }
 

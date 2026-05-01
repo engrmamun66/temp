@@ -25,6 +25,12 @@ function resolveLayoutFile(layout: string | null | undefined): string {
 const indexSource = (layout: string | null | undefined) =>
   fs.readFileSync(resolveLayoutFile(layout), 'utf-8');
 
+function resolveBodyCss(value: string | string[] | Record<string, boolean>): string[] {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  if (typeof value === 'string') return value.split(/\s+/).filter(Boolean);
+  return Object.entries(value).filter(([, v]) => v).map(([k]) => k);
+}
+
 export class PageController {
   private storeService: StoreConfigService;
   private seoAndMetaCtrl: SeoMetaController;
@@ -112,8 +118,8 @@ export class PageController {
         document.body.appendChild(script);
       }
       if (optCfg.body_css) {
-        const classes = Array.isArray(optCfg.body_css) ? optCfg.body_css : optCfg.body_css.split(/\s+/);
-        classes.filter(Boolean).forEach(cls => document.body.classList.add(cls));
+        const classes = resolveBodyCss(optCfg.body_css);
+        classes.forEach(cls => document.body.classList.add(cls));
       }
     }
 
@@ -140,6 +146,9 @@ export class PageController {
         const script = document.createElement('script');
         script.textContent = route.custom_js;
         document.body.appendChild(script);
+      }
+      if (route.body_css) {
+        resolveBodyCss(route.body_css).forEach(cls => document.body.classList.add(cls));
       }
     }
 

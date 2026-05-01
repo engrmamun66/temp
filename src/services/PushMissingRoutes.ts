@@ -229,6 +229,13 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
         content_path:   'pages/terms-and-conditions',
         content_source: 'api',
         _source:        'force_pushed',
+        components: [
+            {
+                files: ['header'],
+                slot: Slots.top,
+                slot_classed: 'container'
+            }
+        ]
     });
 
     // ------ Not found ----------------------------------------------------- //
@@ -259,7 +266,7 @@ function setRouteComponent(route: RskRoute, wasFound = false): void
 {
     let { components = [] } = route
     if(!components.length){
-        let header_footer = [
+        let header_footer: Component[] = [
             {
                 slot: Slots.top,
                 files: ['header.html']
