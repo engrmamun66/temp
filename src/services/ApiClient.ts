@@ -3,7 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink } from '../interfaces';
+import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots } from '../interfaces';
 import { logToFile, clearFileLogs } from '../utils/fileLogger';
 import { pushMissingRoutes } from './PushMissingRoutes';
 import { SessionOverrideService } from './SessionOverrideService';
@@ -247,15 +247,26 @@ export class ApiClient {
     let { headerLinks, footerLinks } = await this.getStoreNavigations(subdomain)
     let routes: RskRoute[] = [...headerLinks, ...footerLinks].flat().map(item => {
       return ({
-        title: item.label,
-        route_path: item.content_url,
-        page_key: item.content_url,
+        title: item.label as string,
+        route_path: item.content_url as string,
+        page_key: item.content_url as string,
         content_path: 'pages/' + item.content_url.replace(/^\/+/, ''),
         content_source: 'api',
+        components: [
+          {
+            slot: Slots.header,
+            files: ['header'],
+          },
+          {
+            slot: Slots.footer,
+            files: ['footer'],
+          },
+        ]
       })
     })
 
     this.rskOptionalConfigs[this.storeKey(subdomain)] = {}
+    this.redirections[this.storeKey(subdomain)] = [];
 
     return pushMissingRoutes(routes, subdomain)
 
