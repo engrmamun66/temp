@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { ApiClient } from '../../services/ApiClient';
 import { StoreConfigService } from '../../services/StoreConfigService';
 import { RentMyGlobalBuilder } from '../../builders/RentMyGlobalBuilder';
-import { resolveStoreSubdomain } from '../../utils/resolveStoreSubdomain';
 
 const builder = new RentMyGlobalBuilder();
 
@@ -16,7 +15,7 @@ export class ConfigJsController {
   }
 
   handle = async (req: Request, res: Response): Promise<void> => {
-    const subdomain = resolveStoreSubdomain(req.context.subdomain);
+    const subdomain = req.context.subdomain;
 
     try {
       const [storeResult, storeConfig] = await Promise.all([

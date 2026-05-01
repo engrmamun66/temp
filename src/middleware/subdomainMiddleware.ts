@@ -17,7 +17,6 @@ export function subdomainMiddleware(req: Request, _res: Response, next: NextFunc
 }
 
 export function resolveSubdomain(hostname: string): string {
-  // Forced dev subdomain takes full priority when set
   if (env.SUBDOMAIN_FOR_DEV) {
     return env.SUBDOMAIN_FOR_DEV;
   }
@@ -25,21 +24,20 @@ export function resolveSubdomain(hostname: string): string {
   const domain = env.CURRENT_DOMAIN.toLowerCase();
   const host = hostname.toLowerCase();
 
-  // Strip trailing dot of CURRENT_DOMAIN from hostname
-  // e.g. "sub.rentmydevteam1.leaperdev.rocks" → "sub"
   const suffix = `.${domain}`;
   if (host.endsWith(suffix)) {
-    return stripTestTld(host.slice(0, host.length - suffix.length));
+    const sub = stripTestTld(host.slice(0, host.length - suffix.length));
+    return sub || domain;
   }
 
-  // Exact match (hostname === CURRENT_DOMAIN, no subdomain)
   if (host === domain) {
-    return '';
+    return domain;
   }
 
   // Fallback: first segment (handles localhost and unknown patterns)
   const parts = host.split('.');
-  return stripTestTld(parts.length > 1 ? parts[0] : host);
+  const sub = stripTestTld(parts.length > 1 ? parts[0] : host);
+  return (!sub || sub === 'local' || sub === 'localhost') ? domain : sub;
 }
 
 function stripTestTld(value: string): string {

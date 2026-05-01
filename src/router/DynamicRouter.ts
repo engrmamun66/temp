@@ -10,7 +10,7 @@ import { SitemapController } from '../controllers/SitemapController/SitemapContr
 import { RobotsController } from '../controllers/RobotsController/RobotsController';
 import { RskRoute } from '../interfaces';
 import { helper } from '../utils/helper';
-import { resolveStoreSubdomain } from '../utils/resolveStoreSubdomain';
+
 
 const CONFIG_DOC_FILE = path.resolve(process.cwd(), 'public', 'api-contents', 'config-doc.html');
 
@@ -62,7 +62,7 @@ export class DynamicRouter {
       res.set('Content-Type', 'text/html').send(fs.readFileSync(CONFIG_DOC_FILE, 'utf-8'));
     });
     this.router.get('/api/store-navigations', async (req: Request, res: Response) => {
-      const subdomain = resolveStoreSubdomain(req.context.subdomain);
+      const subdomain = req.context.subdomain;
       const data = await this.storeService.getStoreNavigations(subdomain);
       res.json(data);
     });
@@ -70,7 +70,7 @@ export class DynamicRouter {
 
   private registerDynamicCatchAll(): void {
     this.router.use(async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
-      const subdomain = resolveStoreSubdomain(req.context.subdomain);
+      const subdomain = req.context.subdomain;
       const slug = req.path === '' ? '/' : req.path;
 
       const config = await this.storeService.getRskConfigs(subdomain);

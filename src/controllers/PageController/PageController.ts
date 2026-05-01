@@ -9,7 +9,7 @@ import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
 import { RskRoute, Component } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
 import { renderLayoutComponents } from '../../utils/layoutRenderer';
-import { resolveStoreSubdomain } from '../../utils/resolveStoreSubdomain';
+
 
 const LAYOUTS_DIR      = path.resolve(process.cwd(), 'public', 'layouts');
 const DEFAULT_LAYOUT   = path.resolve(LAYOUTS_DIR, 'default.html');
@@ -36,7 +36,7 @@ export class PageController {
 
   handle = async (req: Request, res: Response): Promise<void> => {
     const { pageKey } = req.context;
-    const subdomain = resolveStoreSubdomain(req.context.subdomain);
+    const subdomain = req.context.subdomain;
     let isMissingLocalFile = false;
 
     const [storeConfig, storeResult, navData] = await Promise.all([
