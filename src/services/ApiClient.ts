@@ -118,8 +118,9 @@ export class ApiClient {
   private loadFromFile(): void {
     const file = readTokenFile();
     for (const [subdomain, entry] of Object.entries(file)) {
-      this.tokens[subdomain]    = entry.token;
-      this.storeData[subdomain] = entry.storeResult;
+      const key = this.storeKey(subdomain);
+      this.tokens[key]    = entry.token;
+      this.storeData[key] = entry.storeResult;
     }
     const count = Object.keys(file).length;
     if (count > 0) console.log(`[ApiClient] Loaded ${count} token(s) from file cache`);
@@ -140,6 +141,13 @@ export class ApiClient {
     }
   }
 
+  // ── Session-scoped cache key ──────────────────────────────────────────────
+
+  private storeKey(subdomain: string): string {
+    const base = SessionOverrideService.getInstance().getApiBaseUrl(env.API_BASE_URL);
+    return base === env.API_BASE_URL ? subdomain : `${subdomain}|||${base}`;
+  }
+
   // ── Token / store-data fetch ──────────────────────────────────────────────
 
   private async fetchStoreResult(subdomain: string): Promise<StoreResult> {
@@ -150,32 +158,38 @@ export class ApiClient {
       params: { store_name: subdomain },
     });
     const result = res.data.result;
-    this.tokens[subdomain]    = result?.store?.token || 'token-fetched-failed';
-    this.storeData[subdomain] = result;
-    this.saveToFile('result', result)
-    this.saveToFile(subdomain, result);
+    const key = this.storeKey(subdomain);
+    this.tokens[key]    = result?.store?.token || 'token-fetched-failed';
+    this.storeData[key] = result;
+    if (baseURL === env.API_BASE_URL) {
+      this.saveToFile('result', result);
+      this.saveToFile(subdomain, result);
+    }
     return result;
   }
 
   private async getToken(subdomain: string): Promise<string> {
-    if (!this.tokens[subdomain]) {
+    const key = this.storeKey(subdomain);
+    if (!this.tokens[key]) {
       await this.fetchStoreResult(subdomain);
     }
-    return this.tokens[subdomain];
+    return this.tokens[key];
   }
 
   /** Returns cached store result (token + store_id + locationId + store_name). */
   async getOrFetchStoreResult(subdomain: string): Promise<StoreResult> {
-    if (!this.storeData[subdomain]) {
+    const key = this.storeKey(subdomain);
+    if (!this.storeData[key]) {
       await this.fetchStoreResult(subdomain);
     }
-    return this.storeData[subdomain];
+    return this.storeData[key];
   }
 
   /** Invalidate memory + file caches for a subdomain (e.g. on 401). */
   private invalidate(subdomain: string): void {
-    delete this.tokens[subdomain];
-    delete this.storeData[subdomain];
+    const key = this.storeKey(subdomain);
+    delete this.tokens[key];
+    delete this.storeData[key];
     this.removeFromFile(subdomain);
   }
 
@@ -188,7 +202,7 @@ export class ApiClient {
     extraHeaders?: Record<string, string>
   ): Promise<T> {
     const token      = await this.getToken(subdomain);
-    const locationId = this.storeData[subdomain]?.location?.id;
+    const locationId = this.storeData[this.storeKey(subdomain)]?.location?.id;
     const baseURL    = SessionOverrideService.getInstance().getApiBaseUrl(env.API_BASE_URL);
     const headers    = {
       Authorization: `Bearer ${token}`,
@@ -203,7 +217,7 @@ export class ApiClient {
       if (axiosErr.response?.status === 401) {
         this.invalidate(subdomain);
         const freshToken      = await this.getToken(subdomain);
-        const freshLocationId = this.storeData[subdomain]?.location?.id;
+        const freshLocationId = this.storeData[this.storeKey(subdomain)]?.location?.id;
         const retryHeaders    = {
           Authorization: `Bearer ${freshToken}`,
           ...(freshLocationId ? { Location: String(freshLocationId) } : {}),
@@ -240,10 +254,10 @@ export class ApiClient {
         content_source: r?.content_source, 
       }));
       if (resp.result.data.config) {
-        this.rskOptionalConfigs[subdomain] = resp.result.data.config;
+        this.rskOptionalConfigs[this.storeKey(subdomain)] = resp.result.data.config;
       }
       if (resp.result.data.redirections) {
-        this.redirections[subdomain] = resp.result.data.redirections;
+        this.redirections[this.storeKey(subdomain)] = resp.result.data.redirections;
       }
       return pushMissingRoutes(routes)
     } catch (err) {
@@ -466,18 +480,18 @@ export class ApiClient {
   }
 
   getOptionalConfigs(subdomain: string): RskOptionalConfigs | null {
-    return this.rskOptionalConfigs[subdomain] ?? null;
+    return this.rskOptionalConfigs[this.storeKey(subdomain)] ?? null;
   }
 
   getRedirections(subdomain: string): Redirections {
-    return this.redirections[subdomain] ?? [];
+    return this.redirections[this.storeKey(subdomain)] ?? [];
   }
 
   async getStoreNavigations(subdomain: string): Promise<{ headerLinks: NavLink[]; footerLinks: NavLink[] }> {
     const cacheKey = 'store_navigations';
     const cached = this.cache.get<{ headerLinks: NavLink[]; footerLinks: NavLink[] }>(subdomain, cacheKey);
     if (cached) {
-      this.navData[subdomain] = cached;
+      this.navData[this.storeKey(subdomain)] = cached;
       return cached;
     }
     try {
@@ -491,7 +505,7 @@ export class ApiClient {
         footerLinks: sort((resp.result?.data || []).filter(item => item.status == 1 && item.type === 'footer')),
       };
       this.cache.set(subdomain, cacheKey, result, 1200);
-      this.navData[subdomain] = result;
+      this.navData[this.storeKey(subdomain)] = result;
       return result;
     } catch (err) {
       const axiosErr = err as AxiosError;
@@ -501,7 +515,7 @@ export class ApiClient {
   }
 
   getNavData(subdomain: string): { headerLinks: NavLink[]; footerLinks: NavLink[] } | null {
-    return this.navData[subdomain] ?? null;
+    return this.navData[this.storeKey(subdomain)] ?? null;
   }
 
   private asString(value: unknown): string {

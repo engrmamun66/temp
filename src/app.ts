@@ -5,6 +5,8 @@ import { env } from './config/env';
 import { requestContext } from './utils/requestContext';
 import { subdomainMiddleware } from './middleware/subdomainMiddleware';
 import { DynamicRouter } from './router/DynamicRouter';
+import { logToFile } from './utils/fileLogger';
+import { getRequestOrigin } from './utils/requestOrigin';
 
 // Import interface augmentation so req.context is recognised everywhere
 import './interfaces/RequestContext';
@@ -54,7 +56,9 @@ export class App {
       const cacheMatch = cookie.match(/(?:^|;\s*)rsk_cache=([^;]+)/);
       const sessionId    = sidMatch?.[1] ?? '';
       const cacheEnabled = cacheMatch ? cacheMatch[1] !== '0' : env.CACHE;
-      requestContext.run({ sessionId, cacheEnabled }, next);
+      const requestOrigin = getRequestOrigin(req);
+      logToFile(`[app] ${req.method} ${req.path} sid=${sessionId || '(none)'} origin=${requestOrigin || '(none)'}`);
+      requestContext.run({ sessionId, cacheEnabled, requestOrigin }, next);
     });
 
     // Must run before DynamicRouter so req.context is populated

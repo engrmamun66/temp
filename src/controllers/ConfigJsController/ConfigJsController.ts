@@ -34,6 +34,8 @@ export class ConfigJsController {
       const js = `var DOMAIN = ${JSON.stringify(domain)};\nvar RENTMY_GLOBAL = ${JSON.stringify(global)};`;
 
       res.set('Content-Type', 'application/javascript');
+      res.set('Cache-Control', 'private, no-cache');
+      res.set('Vary', 'Cookie');
       res.send(js);
     } catch (err) {
       console.error(`[ConfigJsController] subdomain=${subdomain}`, err);

@@ -198,7 +198,11 @@ export class PageController {
     }
 
     const statusCode = pageKey === 'not_found' || isMissingLocalFile ? 404 : 200;
-    res.status(statusCode).set('Content-Type', 'text/html').send(dom.serialize());
+    res.status(statusCode)
+      .set('Content-Type', 'text/html')
+      .set('Cache-Control', 'private, no-cache')
+      .set('Vary', 'Cookie')
+      .send(dom.serialize());
   };
 
 

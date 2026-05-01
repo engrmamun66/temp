@@ -586,7 +586,7 @@
             data() {
                 return {
                     ...initialStateData,
-                    selectedPreset:  initialStateData.activeSession?.preset ?? null,
+                    selectedPreset:  initialStateData.activeSession?.preset ?? 'default',
                     selectedTtl:     900000,
                     applying:        false,
                     clearingCache:   false,
@@ -598,10 +598,11 @@
             computed: {
                 envRows() {
                     const session = this.activeSession;
+                    const overrideKeys = new Set(['API_BASE_URL', 'ASSET_URL', 'PAYMENT_DOMAIN']);
                     return Object.entries(this.env).map(([key, value]) => ({
                         key,
                         value:      value === null || value === undefined ? null : String(value),
-                        overridden: session !== null && key === 'API_BASE_URL',
+                        overridden: session !== null && overrideKeys.has(key),
                     }));
                 },
             },
@@ -625,7 +626,7 @@
                     this.successMessage = '';
                     this.clearingCache  = true;
                     try {
-                        const res = await fetch('/api/_/clear-cache-all');
+                        const res = await fetch('/api/_/clear-cache-all', { credentials: 'same-origin' });
                         const payload = await res.json();
                         if (!res.ok) throw new Error(payload.error || `HTTP ${res.status}`);
                         this.successMessage = `Cache cleared — ${payload.deletedCount} entr${payload.deletedCount === 1 ? 'y' : 'ies'} removed.`;
@@ -642,6 +643,7 @@
                     this.togglingCache  = true;
                     try {
                         const res = await fetch(this.cacheToggleUrl, {
+                            credentials: 'same-origin',
                             method:  'POST',
                             headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                             body:    JSON.stringify({ enabled: !this.cacheEnabled }),
@@ -649,6 +651,7 @@
                         const payload = await res.json();
                         if (!res.ok) throw new Error(payload.error || `HTTP ${res.status}`);
                         this.cacheEnabled   = payload.cacheEnabled;
+                        if (payload.effectiveEnv) this.env = payload.effectiveEnv;
                         this.successMessage = `Cache ${payload.cacheEnabled ? 'enabled' : 'disabled'} for this browser session.`;
                     } catch (err) {
                         this.errorMessage = err instanceof Error ? err.message : 'Failed to toggle cache.';
@@ -663,6 +666,7 @@
                     this.applying       = true;
                     try {
                         const res = await fetch(this.applyUrl, {
+                            credentials: 'same-origin',
                             method:  'POST',
                             headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                             body:    JSON.stringify({ preset: this.selectedPreset, ttlMs: this.selectedTtl }),
@@ -671,6 +675,7 @@
                         if (!res.ok) throw new Error(payload.error || `HTTP ${res.status}`);
 
                         this.activeSession = payload.activeSession;
+                        if (payload.effectiveEnv) this.env = payload.effectiveEnv;
 
                         if (this.selectedPreset === 'default') {
                             this.successMessage = 'Session cleared. Using default .env values.';
