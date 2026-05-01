@@ -6,8 +6,8 @@ export interface RskRoute {
   layout?:         string | null;
   _source?: 'force_pushed';
   components?: Component[];
-  css?:        string[];
-  scripts?:    string[];
+  css?:        string | string[];
+  scripts?:    string | string[];
   custom_css?: string;
   custom_js?:  string;
   body_css?:  string | string[] | Record<string, boolean>;
@@ -26,8 +26,8 @@ export interface Component {
 }
 export interface RskOptionalConfigs {
   layout?: string;
-  css?: string[];
-  scripts?: string[];
+  css?: string | string[];
+  scripts?: string | string[];
   custom_css?: string;
   custom_js?: string;
   body_css?: string | string[] | Record<string, boolean>;

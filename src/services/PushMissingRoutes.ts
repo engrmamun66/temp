@@ -12,6 +12,10 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
         content_path:   prefix + 'home.html',
         content_source: 'api',
         _source:        'force_pushed',
+        // body_css: [
+        //     'container',
+        //     'container-fluid',
+        // ],
     }, 0);
 
     // ------ Products list ------------------------------------------------- //

@@ -25,6 +25,11 @@ function resolveLayoutFile(layout: string | null | undefined): string {
 const indexSource = (layout: string | null | undefined) =>
   fs.readFileSync(resolveLayoutFile(layout), 'utf-8');
 
+function toArray(value: string | string[] | undefined): string[] {
+  if (!value) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
 function resolveBodyCss(value: string | string[] | Record<string, boolean>): string[] {
   if (Array.isArray(value)) return value.filter(Boolean);
   if (typeof value === 'string') return value.split(/\s+/).filter(Boolean);
@@ -96,7 +101,7 @@ export class PageController {
     // === Pushing CSS, scripts, custom-CSS, and custom-js == //
     // ====================================================== //
     if (optCfg) {
-      optCfg.css?.forEach(href => {
+      toArray(optCfg.css).forEach(href => {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = href;
@@ -107,7 +112,7 @@ export class PageController {
         style.textContent = optCfg.custom_css;
         document.head.appendChild(style);
       }
-      optCfg.scripts?.forEach(src => {
+      toArray(optCfg.scripts).forEach(src => {
         const script = document.createElement('script');
         script.src = src;
         document.body.appendChild(script);
@@ -127,7 +132,7 @@ export class PageController {
     // ======= Route-specific CSS, scripts, and body-css ==== //
     // ====================================================== //
     if (route) {
-      route.css?.forEach(href => {
+      toArray(route.css).forEach(href => {
         const link = document.createElement('link');
         link.rel = 'stylesheet'; link.href = href;
         document.head.appendChild(link);
@@ -137,7 +142,7 @@ export class PageController {
         style.textContent = route.custom_css;
         document.head.appendChild(style);
       }
-      route.scripts?.forEach(src => {
+      toArray(route.scripts).forEach(src => {
         const script = document.createElement('script');
         script.src = src;
         document.body.appendChild(script);
