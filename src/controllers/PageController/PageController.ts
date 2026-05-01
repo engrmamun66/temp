@@ -25,6 +25,10 @@ function resolveLayoutFile(layout: string | null | undefined): string {
 const indexSource = (layout: string | null | undefined) =>
   fs.readFileSync(resolveLayoutFile(layout), 'utf-8');
 
+function resolveTitle(title: string, slugName: string): string {
+  return title.replace(/\{\{site_name\}\}/g, slugName);
+}
+
 function toArray(value: string | string[] | undefined): string[] {
   if (!value) return [];
   return Array.isArray(value) ? value : [value];
@@ -163,7 +167,7 @@ export class PageController {
     }
 
     const requestUrl      = this.buildRequestUrl(req);
-    const siteName        = this.getStoreString(store, 'name') || this.getStoreString(store, 'slug') || subdomain;
+    const siteName        = this.getStoreString(store, 'slug') || subdomain;
     const defaultImageUrl = this.getStoreString(store, 'logo');
     const defaultIconUrl  = this.getStoreString(store, 'favicon') || defaultImageUrl;
     const metaOptions     = { route: effectiveRoute, requestUrl, siteName, defaultImageUrl, defaultIconUrl };
@@ -179,7 +183,7 @@ export class PageController {
         const filePath   = this.resolvePublicFilePath(route.content_path);
         const fileExists = fs.existsSync(filePath);
         if (fileExists) {
-          if (route.title) document.title = `${route.title} | ${siteName}`;
+          if (route.title) document.title = `${resolveTitle(route.title, siteName)}`;
         } else {
           isMissingLocalFile = true;
           document.title = '404 | File Not Found';

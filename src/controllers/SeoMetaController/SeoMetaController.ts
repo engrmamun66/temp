@@ -23,10 +23,11 @@ export class SeoMetaController {
     defaultIconUrl = '',
   }: ApplyPageMetaOptions): void {
     const rm = this._asRouteMeta(meta);
+    const tpl = (s: string) => s.replace(/\{\{site_name\}\}/g, siteName);
 
-    const title       = rm?.og_title       || this._resolveTitle(route, meta);
-    const description = rm?.og_description || this._resolveDescription(route, meta);
-    const keywords    = this._resolveKeywords(route, meta);
+    const title       = tpl(rm?.og_title       || this._resolveTitle(route, meta));
+    const description = tpl(rm?.og_description || this._resolveDescription(route, meta));
+    const keywords    = tpl(this._resolveKeywords(route, meta));
     const canonicalUrl = this._resolveCanonicalUrl(route, meta, requestUrl);
     const imageUrl    = rm?.og_image || this._resolveImageUrl(route, meta, defaultImageUrl);
     const iconUrl     = this._resolveIconUrl(route, meta, defaultIconUrl || imageUrl);
@@ -35,7 +36,7 @@ export class SeoMetaController {
     const robots      = rm?.robots || 'index, follow';
     const author      = rm?.author || siteName;
     const locale      = rm?.og_locale || 'en_US';
-    const baseTitle   = this._resolveTitle(route, meta);
+    const baseTitle   = tpl(this._resolveTitle(route, meta));
 
     if (baseTitle) {
       document.title = baseTitle;

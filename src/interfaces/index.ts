@@ -1,5 +1,9 @@
 export interface RskRoute {
-  title:           string; // you can pass: '{sitename}: Page title here
+  /**
+   * title = '{{site_name}}:: home
+   * Then replace {{site_name}} with interface StoreResult.store.slug
+   */
+  title:           string; 
   page_key:        string;
   route_path:      string;
   content_path?:   string;

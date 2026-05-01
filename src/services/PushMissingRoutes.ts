@@ -7,12 +7,15 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 {
     // ------ Home ---------------------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Home',
+        title:          '{{site_name}}: Home',
         page_key:       EnumPageKes.home,
         route_path:     '/',
         content_path:   prefix + 'home.html',
         content_source: 'api',
         _source:        'force_pushed',
+        meta_data: {
+            title: 'F'
+        }
     }, 0);
 
     // ------ Products list ------------------------------------------------- //
