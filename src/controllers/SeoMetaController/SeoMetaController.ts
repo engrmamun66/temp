@@ -1,8 +1,8 @@
-import { RskRoute, PageContent, HomeMeta } from '../../interfaces';
+import { RskRoute, PageContent, HomeMeta, RouteMeta } from '../../interfaces';
 
 interface ApplyPageMetaOptions {
   route: RskRoute;
-  meta: PageContent | HomeMeta;
+  meta: PageContent | HomeMeta | RouteMeta;
   requestUrl?: string;
   siteName?: string;
   defaultImageUrl?: string;
@@ -71,6 +71,23 @@ export class SeoMetaController {
       siteName,
       type: this._resolveSchemaType(route.page_key),
     });
+
+    if (route.full_schema) {
+      this._setCustomSchema(document, route.full_schema as string | Record<string, unknown>);
+    }
+  }
+
+  private _setCustomSchema(document: Document, schema: string | Record<string, unknown>): void {
+    let tag = document.querySelector('script[data-rsk-schema="custom"]') as HTMLScriptElement | null;
+    if (!tag) {
+      tag = document.createElement('script');
+      tag.type = 'application/ld+json';
+      tag.setAttribute('data-rsk-schema', 'custom');
+      this._appendHeadNode(document, tag);
+    }
+    tag.textContent = typeof schema === 'string'
+      ? schema
+      : this._formatStructuredData(schema);
   }
 
   private _setMetaByName(document: Document, name: string, content: string): void {

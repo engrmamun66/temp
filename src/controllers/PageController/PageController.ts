@@ -190,6 +190,9 @@ export class PageController {
             ? fs.readFileSync(filePath, 'utf-8')
             : this.defaultFileNotFoundHtml();
         }
+        if (fileExists && route.meta_data) {
+          this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: route.meta_data });
+        }
 
       // ── Home page ───────────────────────────────────────────────────────────
       } else if (pageKey === 'home') {
