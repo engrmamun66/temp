@@ -3,7 +3,7 @@ import { logToFile } from '../utils/fileLogger';
 
 const prefix = 'default-pages/'
 
-export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
+export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRoute[]
 {
     // ------ Home ---------------------------------------------------------- //
     pushRouteIfNotExist(routes, {
@@ -20,7 +20,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Products list ------------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Products',
+        title:          '{{site_name}}: Products',
         page_key:       EnumPageKes.products_list,
         route_path:     '/products-list',
         content_path:   prefix + 'products-list.html',
@@ -30,7 +30,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Product details ----------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Product Details',
+        title:          '{{site_name}}: Product Details',
         page_key:       EnumPageKes.product_details,
         route_path:     '/products/:url',
         content_path:   prefix + 'product-details.html',
@@ -40,7 +40,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Package details ----------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Package Details',
+        title:          '{{site_name}}: Package Details',
         page_key:       EnumPageKes.package_details,
         route_path:     '/packages/:url',
         content_path:   prefix + 'package-details.html',
@@ -50,7 +50,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Products list by category ------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Category',
+        title:          '{{site_name}}: Category',
         page_key:       EnumPageKes.products_list_by_category,
         route_path:     '/category/:uuid',
         content_path:   prefix + 'category.html',
@@ -60,7 +60,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Wish list ----------------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Wish List',
+        title:          '{{site_name}}: Wish List',
         page_key:       EnumPageKes.wish_list,
         route_path:     '/wish-list',
         content_path:   prefix + 'wish-list.html',
@@ -70,7 +70,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Cart ---------------------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Cart',
+        title:          '{{site_name}}: Cart',
         page_key:       EnumPageKes.cart,
         route_path:     '/cart',
         content_path:   prefix + 'cart.html',
@@ -80,7 +80,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Checkout ------------------------------------------------------ //
     pushRouteIfNotExist(routes, {
-        title:          'Checkout',
+        title:          '{{site_name}}: Checkout',
         page_key:       EnumPageKes.checkout,
         route_path:     '/checkout',
         content_path:   prefix + 'checkout.html',
@@ -90,7 +90,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Order complete ------------------------------------------------ //
     pushRouteIfNotExist(routes, {
-        title:          'Order Complete',
+        title:          '{{site_name}}: Order Complete',
         page_key:       EnumPageKes.order_complete,
         route_path:     '/order-complete',
         content_path:   prefix + 'order-complete.html',
@@ -100,7 +100,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Order details ------------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Order Details',
+        title:          '{{site_name}}: Order Details',
         page_key:       EnumPageKes.order_details,
         route_path:     '/order-details/:id',
         content_path:   prefix + 'customer-order-details.html',
@@ -110,7 +110,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Membership plan ----------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Membership Plan',
+        title:          '{{site_name}}: Membership Plan',
         page_key:       EnumPageKes.membership_plan,
         route_path:     '/membership-plan',
         content_path:   prefix + 'membership-plan.html',
@@ -120,7 +120,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Event management ---------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Event Management',
+        title:          '{{site_name}}: Event Management',
         page_key:       EnumPageKes.event_management,
         route_path:     '/event-management',
         content_path:   prefix + 'event-management.html',
@@ -130,7 +130,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Rentmy dashboard ---------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Dashboard',
+        title:          '{{site_name}}: Dashboard',
         page_key:       EnumPageKes.rentmy_dashboard,
         route_path:     '/rentmy-dashboard',
         content_path:   prefix + 'rentmy-dashboard.html',
@@ -140,7 +140,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Customer: login ----------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Login',
+        title:          '{{site_name}}: Login',
         page_key:       EnumPageKes.login,
         route_path:     '/login',
         content_path:   prefix + 'customer-login.html',
@@ -150,7 +150,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Customer: registration ---------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Registration',
+        title:          '{{site_name}}: Registration',
         page_key:       EnumPageKes.registration,
         route_path:     '/registration',
         content_path:   prefix + 'customer-registration.html',
@@ -160,7 +160,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Customer: reset password -------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Reset Password',
+        title:          '{{site_name}}: Reset Password',
         page_key:       EnumPageKes.reset_password,
         route_path:     '/reset-password',
         content_path:   prefix + 'customer-reset-password.html',
@@ -170,7 +170,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Partner: login ------------------------------------------------ //
     pushRouteIfNotExist(routes, {
-        title:          'Partner Login',
+        title:          '{{site_name}}: Partner Login',
         page_key:       EnumPageKes.partner_login,
         route_path:     '/partner-login',
         content_path:   prefix + 'partner-login.html',
@@ -180,7 +180,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Partner: registration ----------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Partner Registration',
+        title:          '{{site_name}}: Partner Registration',
         page_key:       EnumPageKes.partner_registration,
         route_path:     '/partner-registration',
         content_path:   prefix + 'partner-registration.html',
@@ -190,7 +190,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Customer: profile --------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'My Profile',
+        title:          '{{site_name}}: My Profile',
         page_key:       EnumPageKes.customer_profile,
         route_path:     '/profile',
         content_path:   prefix + 'customer-profile.html',
@@ -200,7 +200,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Customer: change password ------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Change Password',
+        title:          '{{site_name}}: Change Password',
         page_key:       EnumPageKes.customer_change_password,
         route_path:     '/change-password',
         content_path:   prefix + 'customer-change-password.html',
@@ -210,7 +210,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Customer: change avatar --------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Change Avatar',
+        title:          '{{site_name}}: Change Avatar',
         page_key:       EnumPageKes.customer_change_avatar,
         route_path:     '/change-avatar',
         content_path:   prefix + 'customer-change-avatar.html',
@@ -220,7 +220,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Customer: order history --------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Order History',
+        title:          '{{site_name}}: Order History',
         page_key:       EnumPageKes.customer_order_history,
         route_path:     '/order-history',
         content_path:   prefix + 'customer-order-history.html',
@@ -230,7 +230,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Customer: order dashboard ------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'My Dashboard',
+        title:          '{{site_name}}: My Dashboard',
         page_key:       EnumPageKes.customer_order_dashboard,
         route_path:     '/dashboard',
         content_path:   prefix + 'customer-dashboard.html',
@@ -240,7 +240,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Customer: billing --------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          'Billing',
+        title:          '{{site_name}}: Billing',
         page_key:       EnumPageKes.customer_billing,
         route_path:     '/billing',
         content_path:   prefix + 'customer-billing-details.html',
@@ -250,7 +250,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Terms and conditions ------------------------------------------ //
     pushRouteIfNotExist(routes, {
-        title:          'Terms and Conditions',
+        title:          '{{site_name}}: Terms and Conditions',
         page_key:       EnumPageKes.terms_and_conditions,
         route_path:     '/terms-and-conditions',
         content_path:   'pages/terms-and-conditions',
@@ -270,7 +270,7 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
 
     // ------ Not found ----------------------------------------------------- //
     pushRouteIfNotExist(routes, {
-        title:          '404 - Page Not Found',
+        title:          '{{site_name}}: 404 - Page Not Found',
         page_key:       EnumPageKes.not_found,
         route_path:     '/not-found',
         content_path:   prefix + 'not-found.html',

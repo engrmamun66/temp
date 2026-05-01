@@ -267,7 +267,7 @@ export class ApiClient {
         this.redirections[this.storeKey(subdomain)] = [];
       }
       
-      return pushMissingRoutes(routes)
+      return pushMissingRoutes(routes, subdomain)
 
     } catch (err) {
       const status = (err as AxiosError).response?.status;
@@ -275,7 +275,7 @@ export class ApiClient {
       
       this.rskOptionalConfigs[this.storeKey(subdomain)] = {};
       this.redirections[this.storeKey(subdomain)] = [];
-      return pushMissingRoutes([]);
+      return pushMissingRoutes([], subdomain);
     }
   }
 
