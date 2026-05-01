@@ -233,8 +233,11 @@ export function pushMissingRoutes(routes: RskRoute[]): RskRoute[]
             {
                 files: ['header'],
                 slot: Slots.top,
-                slot_classed: 'container'
-            }
+            },
+            {
+                files: ['footer'],
+                slot: Slots.bottom,
+            },
         ]
     });
 
@@ -264,32 +267,26 @@ function pushRouteIfNotExist(routes: RskRoute[], route: RskRoute, pushed_to_inde
 
 function setRouteComponent(route: RskRoute, wasFound = false): void
 {
-    let { components = [] } = route
-    if(!components.length){
-        let header_footer: Component[] = [
-            {
-                slot: Slots.top,
-                files: ['header.html']
-            },
-            {
-                slot: Slots.bottom,
-                files: ['footer.html']
-            },
-        ]
+    let header_footer: Component[] = [
+        {
+            slot: Slots.top,
+            files: ['header.html']
+        },
+        {
+            slot: Slots.bottom,
+            files: ['footer.html']
+        },
+    ]
 
-        if(wasFound){
-            route.components = header_footer
-        } else {
-            let components = [
-                ...header_footer
-            ]
-            if(route.page_key == EnumPageKes.home){
-                components.push({
-                    slot: Slots.top,
-                    files: ['slider.html']
-                })
-            }
-            route.components = components
-        }
-    }
+    if(!route.components) route.components = []
+ 
+    route.components = [...header_footer, ...route.components]
+    
+    if(route.page_key == EnumPageKes.home){
+        route.components.push({
+            slot: Slots.top,
+            files: ['slider.html']
+        })
+    } 
+    
 }
