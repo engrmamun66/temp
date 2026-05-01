@@ -4,7 +4,8 @@ import { Request, Response } from 'express';
 import { CacheService } from '../../services/CacheService';
 import { CacheListItem } from '../../interfaces/CacheEntry';
 
-const DEBUG_LOG = path.resolve(process.cwd(), '.cache', 'debug.log');
+const DEBUG_LOG  = path.resolve(process.cwd(), '.cache', 'debug.log');
+const CACHE_DIR  = path.resolve(process.cwd(), '.cache');
 const CACHE_LIST_HTML = path.resolve(process.cwd(), 'public', 'api-contents', 'cache-list.app.html');
 const cacheListSource = () => fs.readFileSync(CACHE_LIST_HTML, 'utf-8');
 
@@ -93,6 +94,17 @@ export class CacheController {
       expiresAt: entry.expiresAt,
       data: entry.value,
     });
+  };
+
+  deleteCacheFolder = (_req: Request, res: Response): void => {
+    try {
+      if (fs.existsSync(CACHE_DIR)) {
+        fs.rmSync(CACHE_DIR, { recursive: true, force: true });
+      }
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: (err as Error).message });
+    }
   };
 
   debugLog = (req: Request, res: Response): void => {

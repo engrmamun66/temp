@@ -98,6 +98,22 @@
 
         .back-link:hover { transform: translateY(-1px); }
 
+        .danger-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            background: rgba(181, 52, 52, 0.08);
+            color: #b53434;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: transform 140ms ease, background 140ms ease;
+        }
+        .danger-btn:hover:not(:disabled) { transform: translateY(-1px); background: rgba(181, 52, 52, 0.15); }
+        .danger-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
         /* ── Session banner ─────────────────────────────────────────── */
         .session-banner {
             display: flex;
@@ -455,7 +471,12 @@
                 <h1>Env Session</h1>
                 <p class="meta">Temporarily override the API server. All outbound calls use the session URL until it expires.</p>
             </div>
-            <a class="back-link" href="/_">← Back</a>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <button class="danger-btn" :disabled="deletingCache" @click="deleteCacheFolder">
+                    {{ deletingCache ? 'Deleting…' : 'Delete .cache folder' }}
+                </button>
+                <a class="back-link" href="/_">← Back</a>
+            </div>
         </header>
 
         <!-- Feedback messages -->
@@ -595,6 +616,7 @@
                     applying:        false,
                     clearingCache:   false,
                     togglingCache:   false,
+                    deletingCache:   false,
                     errorMessage:    '',
                     successMessage:  '',
                 };
@@ -690,6 +712,23 @@
                         this.errorMessage = err instanceof Error ? err.message : 'Failed to apply session.';
                     } finally {
                         this.applying = false;
+                    }
+                },
+                async deleteCacheFolder() {
+                    if(!confirm('Do you want to delete?'))
+                    if (this.deletingCache) return;
+                    this.errorMessage   = '';
+                    this.successMessage = '';
+                    this.deletingCache  = true;
+                    try {
+                        const res = await fetch('/api/_/delete-cache-folder', { method: 'POST' });
+                        const payload = await res.json();
+                        if (!res.ok) throw new Error(payload.error || `HTTP ${res.status}`);
+                        this.successMessage = '.cache folder deleted.';
+                    } catch (err) {
+                        this.errorMessage = err instanceof Error ? err.message : 'Failed to delete .cache folder.';
+                    } finally {
+                        this.deletingCache = false;
                     }
                 },
             },

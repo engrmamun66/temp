@@ -51,6 +51,7 @@ export class DynamicRouter {
     this.router.get('/api/_/cache-data', this.cacheCtrl.showData);
     this.router.get('/api/_/clear-cache-all', this.cacheCtrl.clearAll);
     this.router.get('/api/_/clear-cache', this.cacheCtrl.clearOne);
+    this.router.post('/api/_/delete-cache-folder', this.cacheCtrl.deleteCacheFolder);
     this.router.get('/api/_/env-session', this.envCtrl.getSession);
     this.router.post('/api/_/env-session', this.envCtrl.applySession);
     this.router.post('/api/_/env-cache', this.envCtrl.toggleCache);
