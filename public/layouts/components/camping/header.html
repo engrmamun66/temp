@@ -1,4 +1,4 @@
-<header class="bg-stone-900 text-white sticky top-0 z-50">
+<header id="rentmy-header" class="bg-stone-900 text-white sticky top-0 z-50">
   <!-- Seasonal banner -->
   <div class="bg-green-800 text-green-100 text-xs text-center py-1.5 font-medium">
     🌲 Summer season open — Yosemite & Yellowstone gear now available
@@ -10,16 +10,7 @@
 
       <!-- Logo -->
       <a href="/" class="flex items-center gap-3">
-        <div class="relative">
-          <div class="w-10 h-10 bg-green-700 rounded-full flex items-center justify-center">
-            <svg class="w-5 h-5 text-green-100" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2L2 19h20L12 2zm0 4l7 13H5l7-13z" opacity="0.6"/>
-              <path d="M12 6L4 20h16L12 6z"/>
-            </svg>
-          </div>
-          <div class="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-amber-400 rounded-full border-2 border-stone-900"></div>
-        </div>
-        <img id="RENTMY_STORE_LOGO" src="" alt="Logo" class="h-8 object-contain hidden brightness-0 invert" onerror="this.classList.add('hidden')">
+        <img data-selector="RENTMY_STORE_LOGO" src="" alt="Logo" class="h-8 object-contain hidden" onerror="this.classList.add('hidden')">
         <div>
           <span class="block text-base font-bold leading-none tracking-wide">WildNest</span>
           <span class="block text-[9px] text-green-400 tracking-widest uppercase leading-none mt-0.5">Gear & Adventures</span>
@@ -27,26 +18,7 @@
       </a>
 
       <!-- Desktop nav -->
-      <nav class="hidden md:flex items-center gap-1">
-        <a href="/" class="px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all">Home</a>
-        <div class="relative group">
-          <button class="px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all flex items-center gap-1">
-            Gear
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="absolute top-full left-0 mt-1 w-52 bg-stone-900 border border-stone-700 rounded-xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Tents & Shelters</a>
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Sleeping Bags</a>
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Backpacks & Packs</a>
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Cooking Gear</a>
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Navigation & Safety</a>
-            <a href="#" class="block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800">Lighting & Power</a>
-          </div>
-        </div>
-        <a href="/trails" class="px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all">Trails</a>
-        <a href="/campsites" class="px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all">Campsites</a>
-        <a href="/guides" class="px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all">Guides</a>
-      </nav>
+      <nav id="rentmy-header-nav" class="hidden md:flex items-center gap-1"></nav>
 
       <!-- Actions -->
       <div class="flex items-center gap-2">
@@ -69,15 +41,81 @@
 
   <!-- Mobile menu -->
   <div id="camping-mobile-menu" class="hidden md:hidden border-t border-stone-800">
-    <div class="px-4 py-4 space-y-1">
-      <a href="/" class="block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg">Home</a>
-      <a href="/gear" class="block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg">Gear</a>
-      <a href="/trails" class="block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg">Trails</a>
-      <a href="/campsites" class="block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg">Campsites</a>
-      <a href="/guides" class="block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg">Guides</a>
-      <div class="pt-2">
-        <a href="/book-gear" class="block text-center bg-green-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl">Book Gear</a>
-      </div>
-    </div>
+    <div id="rentmy-mobile-nav" class="px-4 py-4 space-y-1"></div>
   </div>
 </header>
+
+<style>
+  .rsk-nav-dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+  }
+  .rsk-nav-dropdown:hover .rsk-nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+  }
+</style>
+
+<script>
+(function () {
+  var stateEl = document.querySelector('script#header-nav-data');
+  if (!stateEl || typeof Vue === 'undefined') return;
+
+  var flat = JSON.parse(stateEl.textContent || '[]');
+
+  // Build parent → children tree
+  var map = {};
+  flat.forEach(function (l) { map[l.id] = Object.assign({}, l, { children: [] }); });
+  var roots = [];
+  flat.forEach(function (l) {
+    if (l.parent_id && map[l.parent_id]) {
+      map[l.parent_id].children.push(map[l.id]);
+    } else {
+      roots.push(map[l.id]);
+    }
+  });
+
+  var LINK_CLS   = 'px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg transition-all';
+  var CHILD_CLS  = 'block px-4 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800';
+  var MOBILE_CLS = 'block px-3 py-2 text-sm text-stone-300 hover:text-white hover:bg-stone-800 rounded-lg';
+  var MOBILE_CHILD_CLS = 'block px-6 py-1.5 text-sm text-stone-400 hover:text-white hover:bg-stone-800 rounded-lg';
+  var DOWN_ARROW = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
+
+  // Desktop nav
+  var desktopEl = document.getElementById('rentmy-header-nav');
+  if (desktopEl) {
+    Vue.createApp({
+      data: function () { return { links: roots }; },
+      template:
+        '<template v-for="link in links" :key="link.id">' +
+          '<div v-if="link.children.length" class="rsk-nav-dropdown relative">' +
+            '<button class="' + LINK_CLS + ' flex items-center gap-1">' +
+              '<span>{{ link.label }}</span>' + DOWN_ARROW +
+            '</button>' +
+            '<div class="rsk-nav-dropdown-menu absolute top-full left-0 mt-1 w-52 bg-stone-900 border border-stone-700 rounded-xl shadow-xl py-2 z-50">' +
+              '<a v-for="child in link.children" :key="child.id" :href="child.content_url" class="' + CHILD_CLS + '">{{ child.label }}</a>' +
+            '</div>' +
+          '</div>' +
+          '<a v-else :href="link.content_url" class="' + LINK_CLS + '">{{ link.label }}</a>' +
+        '</template>',
+    }).mount(desktopEl);
+  }
+
+  // Mobile nav
+  var mobileEl = document.getElementById('rentmy-mobile-nav');
+  if (mobileEl) {
+    Vue.createApp({
+      data: function () { return { links: roots }; },
+      template:
+        '<template v-for="link in links" :key="link.id">' +
+          '<a :href="link.content_url" class="' + MOBILE_CLS + '">{{ link.label }}</a>' +
+          '<template v-if="link.children.length">' +
+            '<a v-for="child in link.children" :key="child.id" :href="child.content_url" class="' + MOBILE_CHILD_CLS + '">{{ child.label }}</a>' +
+          '</template>' +
+        '</template>',
+    }).mount(mobileEl);
+  }
+})();
+</script>
+
