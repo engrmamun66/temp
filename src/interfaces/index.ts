@@ -15,10 +15,21 @@ export interface RskRoute {
 }
 
 
+// header
+// home_slider
+// after_nav
+// before_footer
+// footer
+
 export enum Slots {
-  top = 'top',
-  bottom = 'bottom',
+  header = 'header',
+  homeSlider = 'home_slider',
+  top = 'after_nav', 
+  bottom = 'before_footer',
+  footer = 'footer',
 }
+
+
 export interface Component {
   slot?:  Slots,
   files?: string[]

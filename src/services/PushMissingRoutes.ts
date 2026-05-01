@@ -273,11 +273,11 @@ function setRouteComponent(route: RskRoute, wasFound = false): void
 {
     let header_footer: Component[] = [
         {
-            slot: Slots.top,
+            slot: Slots.header,
             files: ['header.html']
         },
         {
-            slot: Slots.bottom,
+            slot: Slots.footer,
             files: ['footer.html']
         },
     ]
@@ -288,7 +288,7 @@ function setRouteComponent(route: RskRoute, wasFound = false): void
     
     if(route.page_key == EnumPageKes.home){
         route.components.push({
-            slot: Slots.top,
+            slot: Slots.homeSlider,
             files: ['slider.html']
         })
     } 

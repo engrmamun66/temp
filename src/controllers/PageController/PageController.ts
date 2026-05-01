@@ -171,7 +171,7 @@ export class PageController {
     const logoEl = document.getElementById('RENTMY_STORE_LOGO') as HTMLImageElement | null;
     if (logoEl && defaultImageUrl) logoEl.src = defaultImageUrl;
 
-    const contentDiv = document.getElementById('dynamic_page_contents');
+    const contentDiv = document.getElementById('default_page_contents');
 
     try {
       // ── Static file page ────────────────────────────────────────────────────
