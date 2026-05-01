@@ -8,7 +8,7 @@ import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
 import { RskRoute, Component } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
 import { renderLayoutComponents } from '../../utils/layoutRenderer';
-import { env } from '../../config/env';
+import { resolveStoreSubdomain } from '../../utils/resolveStoreSubdomain';
 
 const LAYOUTS_DIR      = path.resolve(process.cwd(), 'public', 'layouts');
 const DEFAULT_LAYOUT   = path.resolve(LAYOUTS_DIR, 'default.html');
@@ -35,10 +35,7 @@ export class PageController {
 
   handle = async (req: Request, res: Response): Promise<void> => {
     const { pageKey } = req.context;
-    const rawSubdomain = (!req.context.subdomain || req.context.subdomain === 'local' || req.context.subdomain === 'localhost')
-      ? env.CURRENT_DOMAIN
-      : req.context.subdomain;
-    const subdomain = rawSubdomain.replace(/\.test$/, '');
+    const subdomain = resolveStoreSubdomain(req.context.subdomain);
     let isMissingLocalFile = false;
 
     const [storeConfig, storeResult, navData] = await Promise.all([
@@ -129,14 +126,19 @@ export class PageController {
       }
     }
 
+    const store = (storeResult?.store ?? {}) as Record<string, unknown>;
+    if (!this.hasStoreId(store)) {
+      logToFile(`[PageController] missing store payload for subdomain=${subdomain}`);
+    }
+
     const requestUrl      = this.buildRequestUrl(req);
-    const siteName        = storeResult.store.name || this.getStoreString(storeResult.store, 'slug');
-    const defaultImageUrl = storeResult.store.logo || '';
-    const defaultIconUrl  = this.getStoreString(storeResult.store, 'favicon') || defaultImageUrl;
+    const siteName        = this.getStoreString(store, 'name') || this.getStoreString(store, 'slug') || subdomain;
+    const defaultImageUrl = this.getStoreString(store, 'logo');
+    const defaultIconUrl  = this.getStoreString(store, 'favicon') || defaultImageUrl;
     const metaOptions     = { route: effectiveRoute, requestUrl, siteName, defaultImageUrl, defaultIconUrl };
 
     const logoEl = document.getElementById('RENTMY_STORE_LOGO') as HTMLImageElement | null;
-    if (logoEl && storeResult.store.logo) logoEl.src = storeResult.store.logo;
+    if (logoEl && defaultImageUrl) logoEl.src = defaultImageUrl;
 
     const contentDiv = document.getElementById('dynamic_page_contents');
 
@@ -254,5 +256,9 @@ export class PageController {
   private getStoreString(store: Record<string, unknown>, key: string): string {
     const value = store[key];
     return typeof value === 'string' ? value : '';
+  }
+
+  private hasStoreId(store: Record<string, unknown>): boolean {
+    return typeof store.id === 'string' || typeof store.id === 'number';
   }
 }

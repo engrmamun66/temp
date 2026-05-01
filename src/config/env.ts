@@ -31,6 +31,10 @@ function requireEnv(key: string): string {
   return value;
 }
 
+function normalizeApiBaseUrl(value: string): string {
+  return value.trim().replace(/\/+$/, '');
+}
+
 function parseEnv(): EnvConfig {
   const missing: string[] = [];
   const required = ['API_BASE_URL', 'CURRENT_DOMAIN'];
@@ -45,22 +49,26 @@ function parseEnv(): EnvConfig {
 
   const subdomainForDev = process.env.SUBDOMAIN_FOR_DEV?.trim() || null;
   const rskConfigServer = process.env.RSK_CONFIG_SERVER_FOR_DEV?.trim() || '';
+  const apiUrlPresets: EnvPreset[] = [
+    { key: 'production', label: 'Production', API_BASE_URL: 'https://clientapi.rentmy.co/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/images.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmy.co/' },
+    { key: 'dev1', label: 'Dev1/QA1', API_BASE_URL: 'https://rentmyapidevteam1.leaperdev.rocks/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks/' },
+    { key: 'dev2', label: 'Dev2/QA2', API_BASE_URL: 'https://rentmyapidevteam2.leaperdev.rocks/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks/' },
+    { key: 'staging1', label: 'Stagin-1', API_BASE_URL: 'https://api.rentmystag1ng.com/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmy.co/' },
+  ].map((preset) => ({
+    ...preset,
+    API_BASE_URL: normalizeApiBaseUrl(preset.API_BASE_URL),
+  }));
 
   return {
     PORT: parseInt(process.env.PORT ?? '3000', 10),
-    API_BASE_URL: requireEnv('API_BASE_URL').replace(/\/$/, ''),
+    API_BASE_URL: normalizeApiBaseUrl(requireEnv('API_BASE_URL')),
     CURRENT_DOMAIN: requireEnv('CURRENT_DOMAIN'),
     SUBDOMAIN_FOR_DEV: subdomainForDev,
     RSK_CONFIG_SERVER_FOR_DEV: rskConfigServer.replace(/\/$/, ''),
     NODE_ENV: process.env.NODE_ENV ?? 'development',
     CACHE: (process.env.CACHE ?? 'true') !== 'false',
     CACHE_TIME: parseInt(process.env.CACHE_TIME ?? '300', 10),
-    API_URL_PRESETS: [
-      { key: 'production', label: 'Production',         API_BASE_URL: 'https://clientapi.rentmy.co/api/',                ASSET_URL: 'https://s3.us-east-2.amazonaws.com/images.rentmy.co/',  PAYMENT_DOMAIN: 'https://payment.rentmy.co/' },
-      { key: 'dev1',       label: 'Dev1/QA1',           API_BASE_URL: 'https://rentmyapidevteam1.leaperdev.rocks/api/',  ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/',    PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks/' },
-      { key: 'dev2',       label: 'Dev2/QA2',           API_BASE_URL: 'https://rentmyapidevteam2.leaperdev.rocks/api/',  ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/',    PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks/' },
-      { key: 'staging1',   label: 'Stagin-1',           API_BASE_URL: 'https://api.rentmystag1ng.com/api/',              ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/',    PAYMENT_DOMAIN: 'https://payment.rentmy.co/' },
-    ],
+    API_URL_PRESETS: apiUrlPresets,
     ASSET_URL:         process.env.ASSET_URL?.trim()         || null,
     PAYMENT_DOMAIN:    process.env.PAYMENT_DOMAIN?.trim()    || null,
     AFFILIATE_SDK_URL: process.env.AFFILIATE_SDK_URL?.trim() || null,

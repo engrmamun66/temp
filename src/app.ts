@@ -3,7 +3,7 @@ import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import { env } from './config/env';
 import { requestContext } from './utils/requestContext';
-import { subdomainMiddleware } from './middleware/subdomainMiddleware';
+import { subdomainMiddleware, resolveSubdomain } from './middleware/subdomainMiddleware';
 import { DynamicRouter } from './router/DynamicRouter';
 import { logToFile } from './utils/fileLogger';
 import { getRequestOrigin } from './utils/requestOrigin';
@@ -63,6 +63,17 @@ export class App {
 
     // Must run before DynamicRouter so req.context is populated
     this.express.use(subdomainMiddleware);
+    this.express.use((req, res, next) => {
+      const canonicalHost = this.resolveCanonicalLocalHost(req.hostname);
+      if (!canonicalHost || canonicalHost === req.hostname.toLowerCase()) {
+        next();
+        return;
+      }
+
+      const target = `${req.protocol}://${canonicalHost}${req.originalUrl}`;
+      logToFile(`[app] redirect local host ${req.hostname} -> ${canonicalHost}`);
+      res.redirect(302, target);
+    });
   }
 
   private applyRoutes(): void {
@@ -75,5 +86,21 @@ export class App {
       console.error('[App] Unhandled error:', err.message);
       res.status(500).json({ error: 'Internal server error' });
     });
+  }
+
+  private resolveCanonicalLocalHost(hostname: string): string | null {
+    const host = hostname.toLowerCase();
+    const currentDomain = env.CURRENT_DOMAIN.toLowerCase();
+
+    if (!currentDomain.endsWith('.test') || !host.endsWith('.test')) return null;
+    if (host === currentDomain) return currentDomain;
+
+    const subdomain = resolveSubdomain(host);
+    if (!subdomain) return currentDomain;
+    if (currentDomain === `${subdomain}.test` || currentDomain.startsWith(`${subdomain}.`)) {
+      return currentDomain;
+    }
+
+    return `${subdomain}.${currentDomain}`;
   }
 }

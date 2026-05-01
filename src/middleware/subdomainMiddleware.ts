@@ -16,7 +16,7 @@ export function subdomainMiddleware(req: Request, _res: Response, next: NextFunc
   next();
 }
 
-function resolveSubdomain(hostname: string): string {
+export function resolveSubdomain(hostname: string): string {
   // Forced dev subdomain takes full priority when set
   if (env.SUBDOMAIN_FOR_DEV) {
     return env.SUBDOMAIN_FOR_DEV;

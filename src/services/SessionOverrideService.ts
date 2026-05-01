@@ -14,6 +14,10 @@ export interface SessionStatus {
 
 const SESSION_FILE = path.resolve(process.cwd(), '.cache', 'sessions.json');
 
+function normalizeApiBaseUrl(value: string): string {
+  return value.trim().replace(/\/+$/, '');
+}
+
 function readSessionFile(): Record<string, SessionStatus> {
   try {
     if (fs.existsSync(SESSION_FILE)) {
@@ -75,7 +79,7 @@ export class SessionOverrideService {
     const normalizedOrigin = origin.trim();
     this.sessions.set(sessionId, {
       preset,
-      apiBaseUrl,
+      apiBaseUrl: normalizeApiBaseUrl(apiBaseUrl),
       assetUrl,
       paymentDomain,
       expiresAt: Date.now() + ttlMs,
@@ -130,7 +134,7 @@ export class SessionOverrideService {
     if (changed) this.persistToFile();
   }
   getApiBaseUrl(fallback: string): string {
-    return this.current()?.apiBaseUrl ?? fallback;
+    return normalizeApiBaseUrl(this.current()?.apiBaseUrl ?? fallback);
   }
 
   getAssetUrl(fallback: string | null): string | null {

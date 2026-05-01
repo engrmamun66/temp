@@ -20,22 +20,27 @@ export interface RentMyGlobal {
 }
 
 export class RentMyGlobalBuilder {
-  build(storeResult: StoreResult, routes: RskRoute[]): RentMyGlobal {
+  build(storeResult: StoreResult, routes: RskRoute[], subdomain = ''): RentMyGlobal {
     const page: Record<string, string> = {};
     for (const route of routes) {
       page[route.page_key] = route.route_path.replace(/:([a-zA-Z_]+)/g, '{$1}');
     }
-    if (!storeResult.store?.id) {
+    const store = (storeResult?.store ?? {}) as Record<string, unknown>;
+    const location = (storeResult?.location ?? {}) as Record<string, unknown>;
+    const storeId = this.getScalar(store.id);
+    const locationId = this.getScalar(location.id);
+    const storeName = this.getString(store, 'slug') || this.getString(store, 'name') || subdomain;
+
+    if (!storeId) {
       logToFile('[RentMyGlobalBuilder] missing store.id', { storeResult });
-      return {} as any
     }
 
     return {
       is_rsk: true,
-      store_id:     String(storeResult.store.id),
-      locationId:   String(storeResult.location.id),
-      store_name:   String(storeResult.store.name),
-      access_token: storeResult.store.token,
+      store_id:     storeId,
+      locationId:   locationId,
+      store_name:   storeName,
+      access_token: this.getString(store, 'token'),
       env: {
         API_BASE_URL:      SessionOverrideService.getInstance().getApiBaseUrl(env.API_BASE_URL),
         ASSET_URL:         SessionOverrideService.getInstance().getAssetUrl(env.ASSET_URL),
@@ -68,5 +73,14 @@ export class RentMyGlobalBuilder {
       `var RENTMY_GLOBAL = ${JSON.stringify(global)};`,
       '</script>',
     ].join('\n');
+  }
+
+  private getScalar(value: unknown): string {
+    return typeof value === 'string' || typeof value === 'number' ? String(value) : '';
+  }
+
+  private getString(record: Record<string, unknown>, key: string): string {
+    const value = record[key];
+    return typeof value === 'string' ? value : '';
   }
 }
