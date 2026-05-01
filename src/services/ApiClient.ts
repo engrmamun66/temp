@@ -247,25 +247,35 @@ export class ApiClient {
         status: string;
         result: { data: { routes: RskRoute[]; redirections: Redirections; config?: RskOptionalConfigs } };
       }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
-      let routes = resp.result.data.routes.map((r: RskRoute) => ({
-        page_key:       r?.page_key,
-        route_path:     '/' + (r?.route_path || '').replace(/^\/+/, ''),
-        content_path:   r?.content_path,
-        content_source: r?.content_source, 
-      }));
-      if (resp.result.data.config) {
-        this.rskOptionalConfigs[this.storeKey(subdomain)] = resp.result.data.config;
+
+      let routes:RskRoute[] = []
+      if(resp.result?.data?.routes?.length){
+        resp.result.data.routes.map((r: RskRoute) => ({
+          page_key:       r?.page_key,
+          route_path:     '/' + (r?.route_path || '').replace(/^\/+/, ''),
+          content_path:   r?.content_path,
+          content_source: r?.content_source, 
+        }));
+        if (resp.result.data.config) {
+          this.rskOptionalConfigs[this.storeKey(subdomain)] = resp.result.data.config;
+        }
+        if (resp.result.data.redirections) {
+          this.redirections[this.storeKey(subdomain)] = resp.result.data.redirections;
+        }
+      } else {
+        this.rskOptionalConfigs[this.storeKey(subdomain)] = {};
+        this.redirections[this.storeKey(subdomain)] = [];
       }
-      if (resp.result.data.redirections) {
-        this.redirections[this.storeKey(subdomain)] = resp.result.data.redirections;
-      }
+      
       return pushMissingRoutes(routes)
+
     } catch (err) {
       const status = (err as AxiosError).response?.status;
       logToFile(`[ApiClient] [getRskConfigs()] failed subdomain=${subdomain} status=${status ?? 'network'}`);
+      
       this.rskOptionalConfigs[this.storeKey(subdomain)] = {};
       this.redirections[this.storeKey(subdomain)] = [];
-      return pushMissingRoutes([]) as RskRoute[];
+      return pushMissingRoutes([]);
     }
   }
 
