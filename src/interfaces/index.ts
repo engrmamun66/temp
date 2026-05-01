@@ -1,4 +1,5 @@
 export interface RskRoute {
+  title:           string; // you can pass: '{sitename}: Page title here
   page_key:        string;
   route_path:      string;
   content_path?:   string;
@@ -11,7 +12,20 @@ export interface RskRoute {
   custom_css?: string;
   custom_js?:  string;
   body_css?:  string | string[] | Record<string, boolean>;
+  meta_data?: RouteMeta;
+  full_schema?: string | Record<string, any>;
   [otherMeta: string]: unknown;
+}
+
+
+export interface RouteMeta {
+  title: string;
+  description: string;
+  keywords: string;
+  imageUrl: string;
+  image_description: string;
+  favIcon: string;
+  twitter: string;
 }
 
 

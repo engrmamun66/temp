@@ -58,7 +58,7 @@ export class PageController {
 
     const route        = storeConfig.routes.find((r) => r.page_key === pageKey);
     const pathParams   = route ? this.extractPathParams(route.route_path, req.path) : {};
-    const effectiveRoute: RskRoute = route ?? { page_key: pageKey, route_path: req.path };
+    const effectiveRoute: RskRoute = route ?? { title: '', page_key: pageKey, route_path: req.path };
 
     const optCfg = this.storeService.getOptionalConfigs(subdomain);
     const resolvedLayout = route?.layout || optCfg?.layout || 'default';
@@ -178,7 +178,9 @@ export class PageController {
       if (route?.content_source === 'file' && route.content_path) {
         const filePath   = this.resolvePublicFilePath(route.content_path);
         const fileExists = fs.existsSync(filePath);
-        if (!fileExists) {
+        if (fileExists) {
+          if (route.title) document.title = `${route.title} | ${siteName}`;
+        } else {
           isMissingLocalFile = true;
           document.title = '404 | File Not Found';
           logToFile(`[PageController] local file not found page_key=${pageKey} subdomain=${subdomain} file=${filePath}`);
