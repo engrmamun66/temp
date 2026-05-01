@@ -317,11 +317,17 @@ function setRouteComponent(route: RskRoute, wasFound = false): void
             files: ['slider.html']
         })
     }
-    if(route.page_key == EnumPageKes.products_list){
+    else {
         route.components.push({
             slot: Slots.afterNav,
             files: ['breadcrumbs/default']
         })
     }
+    // if(route.page_key == EnumPageKes.products_list){
+    //     route.components.push({
+    //         slot: Slots.afterNav,
+    //         files: ['breadcrumbs/default']
+    //     })
+    // }
 
 }
