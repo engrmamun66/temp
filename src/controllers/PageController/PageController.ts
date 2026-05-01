@@ -71,7 +71,6 @@ export class PageController {
     }
 
     {
-      //
       const assetBase = SessionOverrideService.getInstance().getCdnAssetUrl(null);
       const base = assetBase ? assetBase.replace(/\/+$/, '') : null;
 
