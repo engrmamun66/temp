@@ -19,13 +19,21 @@ export interface RskRoute {
 
 
 export interface RouteMeta {
-  title: string;
-  description: string;
-  keywords: string;
-  imageUrl: string;
-  image_description: string;
-  favIcon: string;
-  twitter: string;
+  title?:             string;
+  description?:       string;
+  keywords?:          string;
+  canonical_url?:     string;
+  imageUrl?:          string;
+  image_description?: string;
+  favIcon?:           string;
+  twitter?:           string;
+  og_title?:          string;
+  og_description?:    string;
+  og_image?:          string;
+  og_type?:           string;
+  og_locale?:         string;
+  author?:            string;
+  robots?:            string;
 }
 
 

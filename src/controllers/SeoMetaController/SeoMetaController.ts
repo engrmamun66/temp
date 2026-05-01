@@ -1,8 +1,10 @@
 import { RskRoute, PageContent, HomeMeta, RouteMeta } from '../../interfaces';
 
+type AnyMeta = PageContent | HomeMeta | RouteMeta;
+
 interface ApplyPageMetaOptions {
   route: RskRoute;
-  meta: PageContent | HomeMeta | RouteMeta;
+  meta: AnyMeta;
   requestUrl?: string;
   siteName?: string;
   defaultImageUrl?: string;
@@ -20,22 +22,28 @@ export class SeoMetaController {
     defaultImageUrl = '',
     defaultIconUrl = '',
   }: ApplyPageMetaOptions): void {
-    const title = this._resolveTitle(route, meta);
-    const description = this._resolveDescription(route, meta);
-    const keywords = this._resolveKeywords(route, meta);
-    const canonicalUrl = this._resolveCanonicalUrl(route, meta, requestUrl);
-    const imageUrl = this._resolveImageUrl(route, meta, defaultImageUrl);
-    const iconUrl = this._resolveIconUrl(route, meta, defaultIconUrl || imageUrl);
-    const twitter = this._resolveTwitter(route, meta);
-    const pageType = this._resolvePageType(route.page_key);
+    const rm = this._asRouteMeta(meta);
 
-    if (title) {
-      document.title = title;
+    const title       = rm?.og_title       || this._resolveTitle(route, meta);
+    const description = rm?.og_description || this._resolveDescription(route, meta);
+    const keywords    = this._resolveKeywords(route, meta);
+    const canonicalUrl = this._resolveCanonicalUrl(route, meta, requestUrl);
+    const imageUrl    = rm?.og_image || this._resolveImageUrl(route, meta, defaultImageUrl);
+    const iconUrl     = this._resolveIconUrl(route, meta, defaultIconUrl || imageUrl);
+    const twitter     = this._resolveTwitter(route, meta);
+    const pageType    = rm?.og_type || this._resolvePageType(route.page_key);
+    const robots      = rm?.robots || 'index, follow';
+    const author      = rm?.author || siteName;
+    const locale      = rm?.og_locale || 'en_US';
+    const baseTitle   = this._resolveTitle(route, meta);
+
+    if (baseTitle) {
+      document.title = baseTitle;
     }
 
-    this._setMetaByName(document, 'description', description);
+    this._setMetaByName(document, 'description', this._resolveDescription(route, meta));
     this._setMetaByName(document, 'keywords', keywords);
-    this._setMetaByName(document, 'robots', 'index, follow');
+    this._setMetaByName(document, 'robots', robots);
 
     if (canonicalUrl) {
       this._setCanonical(document, canonicalUrl);
@@ -58,10 +66,10 @@ export class SeoMetaController {
     this._setMetaByProperty(document, 'og:site_name', siteName || title);
     this._setMetaByProperty(document, 'og:type', pageType);
     this._setMetaByProperty(document, 'og:description', description);
-    this._setMetaByProperty(document, 'og:author', siteName);
+    this._setMetaByProperty(document, 'og:author', author);
     this._setMetaByProperty(document, 'og:image', imageUrl);
     this._setMetaByProperty(document, 'og:image:alt', title);
-    this._setMetaByProperty(document, 'og:locale', 'en_US');
+    this._setMetaByProperty(document, 'og:locale', locale);
 
     this._setStructuredData(document, {
       title,
@@ -198,47 +206,49 @@ export class SeoMetaController {
     tag.textContent = this._formatStructuredData(schema);
   }
 
-  private _resolveTitle(route: RskRoute, meta: PageContent | HomeMeta): string {
+  private _asRouteMeta(meta: AnyMeta): RouteMeta | null {
+    if ('meta_title' in meta) return null; // PageContent
+    return meta as RouteMeta;
+  }
+
+  private _resolveTitle(route: RskRoute, meta: AnyMeta): string {
     if ('meta_title' in meta) return meta.meta_title ?? '';
-    return meta.title || this._getRouteString(route, ['title', 'meta_title']);
+    return (meta as HomeMeta | RouteMeta).title || this._getRouteString(route, ['title', 'meta_title']);
   }
 
-  private _resolveDescription(route: RskRoute, meta: PageContent | HomeMeta): string {
+  private _resolveDescription(route: RskRoute, meta: AnyMeta): string {
     if ('meta_description' in meta) return meta.meta_description ?? '';
-    return meta.description || this._getRouteString(route, ['description', 'meta_description']);
+    return (meta as HomeMeta | RouteMeta).description || this._getRouteString(route, ['description', 'meta_description']);
   }
 
-  private _resolveKeywords(route: RskRoute, meta: PageContent | HomeMeta): string {
+  private _resolveKeywords(route: RskRoute, meta: AnyMeta): string {
     if ('meta_keyword' in meta) return meta.meta_keyword ?? '';
-    return meta.keywords || this._getRouteString(route, ['keywords', 'meta_keyword']);
+    return (meta as HomeMeta | RouteMeta).keywords || this._getRouteString(route, ['keywords', 'meta_keyword']);
   }
 
-  private _resolveCanonicalUrl(route: RskRoute, meta: PageContent | HomeMeta, requestUrl: string): string {
+  private _resolveCanonicalUrl(route: RskRoute, meta: AnyMeta, requestUrl: string): string {
     if ('canonical_url' in meta) {
-      return meta.canonical_url || this._getRouteString(route, ['canonical_url', 'canonicalUrl']) || requestUrl;
+      return (meta as PageContent | RouteMeta).canonical_url || this._getRouteString(route, ['canonical_url', 'canonicalUrl']) || requestUrl;
     }
-
     return this._getRouteString(route, ['canonical_url', 'canonicalUrl']) || requestUrl;
   }
 
-  private _resolveImageUrl(route: RskRoute, meta: PageContent | HomeMeta, fallback: string): string {
+  private _resolveImageUrl(route: RskRoute, meta: AnyMeta, fallback: string): string {
     if ('featured_image' in meta) {
-      return meta.featured_image || meta.thumbnail_image || this._getRouteString(route, ['imageUrl', 'image', 'og_image']) || fallback;
+      return (meta as PageContent).featured_image || (meta as PageContent).thumbnail_image || this._getRouteString(route, ['imageUrl', 'image', 'og_image']) || fallback;
     }
-
-    return meta.imageUrl || this._getRouteString(route, ['imageUrl', 'image', 'og_image']) || fallback;
+    return (meta as HomeMeta | RouteMeta).imageUrl || this._getRouteString(route, ['imageUrl', 'image', 'og_image']) || fallback;
   }
 
-  private _resolveIconUrl(route: RskRoute, meta: PageContent | HomeMeta, fallback: string): string {
+  private _resolveIconUrl(route: RskRoute, meta: AnyMeta, fallback: string): string {
     if ('favIcon' in meta) {
-      return meta.favIcon || this._getRouteString(route, ['favIcon', 'favicon']) || fallback;
+      return (meta as HomeMeta | RouteMeta).favIcon || this._getRouteString(route, ['favIcon', 'favicon']) || fallback;
     }
-
     return this._getRouteString(route, ['favIcon', 'favicon']) || fallback;
   }
 
-  private _resolveTwitter(route: RskRoute, meta: PageContent | HomeMeta): string {
-    if ('twitter' in meta) return meta.twitter || this._getRouteString(route, ['twitter']);
+  private _resolveTwitter(route: RskRoute, meta: AnyMeta): string {
+    if ('twitter' in meta) return (meta as HomeMeta | RouteMeta).twitter || this._getRouteString(route, ['twitter']);
     return this._getRouteString(route, ['twitter']);
   }
 
