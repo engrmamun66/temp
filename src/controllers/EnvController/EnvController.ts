@@ -129,7 +129,7 @@ export class EnvController {
       return;
     }
 
-    this.session.set(sid, preset, presetEntry.API_BASE_URL, presetEntry.ASSET_URL, presetEntry.PAYMENT_DOMAIN, ttl, requestOrigin);
+    this.session.set(sid, preset, presetEntry.API_BASE_URL, presetEntry.ASSET_URL, presetEntry.CDN_ASSET_URL ?? '', presetEntry.PAYMENT_DOMAIN, ttl, requestOrigin);
     logToFile(`[EnvController] session applied sid=${sid} preset=${preset} ttlMs=${ttl}`);
     const activeSession = this.session.getStatus(sid);
     res.json({
@@ -171,6 +171,7 @@ export class EnvController {
       CACHE:                     cacheEnabled,
       CACHE_TIME:                env.CACHE_TIME,
       ASSET_URL:                 activeSession?.assetUrl ?? env.ASSET_URL,
+      CDN_ASSET_URL:             activeSession?.cdnAssetUrl ?? null,
       PAYMENT_DOMAIN:            activeSession?.paymentDomain ?? env.PAYMENT_DOMAIN,
       AFFILIATE_SDK_URL:         env.AFFILIATE_SDK_URL,
     };

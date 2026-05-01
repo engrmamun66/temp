@@ -7,6 +7,7 @@ export interface SessionStatus {
   preset:        string;
   apiBaseUrl:    string;
   assetUrl:      string;
+  cdnAssetUrl:   string;
   paymentDomain: string;
   expiresAt:     number;
   origin?:       string;
@@ -74,13 +75,14 @@ export class SessionOverrideService {
     writeSessionFile(data);
   }
 
-  set(sessionId: string, preset: string, apiBaseUrl: string, assetUrl: string, paymentDomain: string, ttlMs: number, origin = ''): void {
+  set(sessionId: string, preset: string, apiBaseUrl: string, assetUrl: string, cdnAssetUrl: string, paymentDomain: string, ttlMs: number, origin = ''): void {
     this.removeExpiredSessions();
     const normalizedOrigin = origin.trim();
     this.sessions.set(sessionId, {
       preset,
       apiBaseUrl: normalizeApiBaseUrl(apiBaseUrl),
       assetUrl,
+      cdnAssetUrl,
       paymentDomain,
       expiresAt: Date.now() + ttlMs,
       origin: normalizedOrigin || undefined,
@@ -104,20 +106,29 @@ export class SessionOverrideService {
     return s ? { ...s } : null;
   }
 
-  // Called without args — reads session ID from the current request context
+  // Called without args — reads session ID from the current request context.
+  // Falls back to the most recently set session when the browser's SID has no match
+  // (e.g. session was applied from a different domain/tab in local dev).
   private current(): SessionStatus | null {
     this.removeExpiredSessions();
     const store = requestContext.getStore();
     const sid = store?.sessionId;
     const origin = store?.requestOrigin;
-    const sessions = [...this.sessions.entries()];
-    const current = sid ? this.sessions.get(sid) ?? null : null;
+
+    const byId = sid ? this.sessions.get(sid) ?? null : null;
+    if (byId) return { ...byId };
+
+    // Fall back to the session with the latest expiry (most recently applied)
+    let latest: SessionStatus | null = null;
+    for (const s of this.sessions.values()) {
+      if (!latest || s.expiresAt > latest.expiresAt) latest = s;
+    }
 
     logToFile(
-      `[SessionOverrideService.current] store=${JSON.stringify(store)} sid=${sid} origin=${origin || '(none)'} sessions=${sessions.map(([key]) => key).join(',')} resolved=${current?.preset ?? '(none)'}`
+      `[SessionOverrideService.current] sid=${sid || '(none)'} origin=${origin || '(none)'} fallback=${latest?.preset ?? 'none'}`
     );
 
-    return current;
+    return latest ? { ...latest } : null;
   }
 
   private removeExpiredSessions(): void {
@@ -139,6 +150,11 @@ export class SessionOverrideService {
 
   getAssetUrl(fallback: string | null): string | null {
     return this.current()?.assetUrl ?? fallback;
+  }
+
+  getCdnAssetUrl(fallback: string | null): string | null {
+    const url = this.current()?.cdnAssetUrl;
+    return (url !== undefined && url !== '') ? url : fallback;
   }
 
   getPaymentDomain(fallback: string | null): string | null {

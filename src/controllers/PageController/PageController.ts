@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { JSDOM } from 'jsdom';
 import { AxiosError } from 'axios';
 import { StoreConfigService } from '../../services/StoreConfigService';
+import { SessionOverrideService } from '../../services/SessionOverrideService';
 import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
 import { RskRoute, Component } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
@@ -67,6 +68,23 @@ export class PageController {
       navScript.type = 'application/json';
       navScript.textContent = JSON.stringify(navData.headerLinks);
       document.head.appendChild(navScript);
+    }
+
+    {
+      //
+      const assetBase = SessionOverrideService.getInstance().getCdnAssetUrl(null);
+      const base = assetBase ? assetBase.replace(/\/+$/, '') : null;
+
+      const globalCss = document.createElement('link');
+      globalCss.rel  = 'stylesheet';
+      globalCss.href = base ? `${base}/assets/index.css` : '/css/global.css';
+      document.head.appendChild(globalCss);
+
+      const globalJs = document.createElement('script');
+      globalJs.src   = base ? `${base}/assets/script_prod.js` : '/js/script_prod.js';
+      globalJs.defer = true;
+      globalJs.async = true;
+      document.head.appendChild(globalJs);
     }
 
     // ====================================================== //

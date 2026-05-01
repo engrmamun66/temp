@@ -520,10 +520,7 @@
                     type="button"
                     :disabled="applying || !p.API_BASE_URL"
                     :title="p.API_BASE_URL"
-                    @click="select(p.key)"
-                    @click="() => {
-                        clearAllCache(); apply()
-                    }"
+                    @click="() => { select(p.key); clearAllCache(); apply(); }"
                 >{{ p.label }}</button>
             </div>
 

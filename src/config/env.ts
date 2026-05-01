@@ -8,6 +8,7 @@ export interface EnvPreset {
   API_BASE_URL:   string;
   ASSET_URL:      string;
   PAYMENT_DOMAIN: string;
+  CDN_ASSET_URL?: string;
 }
 
 interface EnvConfig {
@@ -54,6 +55,10 @@ function parseEnv(): EnvConfig {
     { key: 'dev1', label: 'Dev1/QA1', API_BASE_URL: 'https://rentmyapidevteam1.leaperdev.rocks/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks/' },
     { key: 'dev2', label: 'Dev2/QA2', API_BASE_URL: 'https://rentmyapidevteam2.leaperdev.rocks/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks/' },
     { key: 'staging1', label: 'Stagin-1', API_BASE_URL: 'https://api.rentmystag1ng.com/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmy.co/' },
+    { key: 'production-', label: ' Production:local-cdn', API_BASE_URL: 'https://clientapi.rentmy.co/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/images.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmy.co/' },
+    { key: 'dev1-', label: ' Dev1/QA1:local-cdn', API_BASE_URL: 'https://rentmyapidevteam1.leaperdev.rocks/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks/' },
+    { key: 'dev2-', label: ' Dev2/QA2:local-cdn', API_BASE_URL: 'https://rentmyapidevteam2.leaperdev.rocks/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmydevteam1.leaperdev.rocks/' },
+    { key: 'staging1-', label: ' Stagin-1:local-cdn', API_BASE_URL: 'https://api.rentmystag1ng.com/api/', ASSET_URL: 'https://s3.us-east-2.amazonaws.com/pimg.rentmy.co/', PAYMENT_DOMAIN: 'https://payment.rentmy.co/', CDN_ASSET_URL: 'http://localhost:4444' },
   ].map((preset) => ({
     ...preset,
     API_BASE_URL: normalizeApiBaseUrl(preset.API_BASE_URL),
