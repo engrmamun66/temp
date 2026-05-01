@@ -70,7 +70,7 @@ export function renderLayoutComponents(
       }
     }
 
-    slotEl.replaceWith(...nodes);
+    nodes.forEach((n) => slotEl.appendChild(n));
   });
 
   return layoutDom.serialize();
