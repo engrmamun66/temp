@@ -23,6 +23,10 @@ export interface RskRoute {
 
 
 export interface RouteMeta {
+  /**
+   * title = '{{site_name}}:: home
+   * Then replace {{site_name}} with interface StoreResult.store.slug
+   */
   title?:             string;
   description?:       string;
   keywords?:          string;

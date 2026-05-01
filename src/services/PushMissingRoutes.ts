@@ -14,7 +14,7 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         content_source: 'api',
         _source:        'force_pushed',
         meta_data: {
-            title: 'F'
+            title: '{{site_name}}:: Meta Tile for testing'
         }
     }, 0);
 

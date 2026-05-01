@@ -204,19 +204,19 @@ export class PageController {
         const { contents, meta } = await this.storeService.loadHomePageContents(subdomain, contentPath);
         if (contentDiv) contentDiv.innerHTML = contents.map((item) => item.content).join('');
         else logToFile(`[PageController] contentDiv not found page_key=${pageKey}`);
-        this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta });
+        this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: {...meta, ...route?.meta_data || {}} });
 
       // ── Products list (home-level meta) ─────────────────────────────────────
       } else if (pageKey === 'products_list') {
         const meta = await this.storeService.getProductsListMeta(subdomain);
-        this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta });
+        this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: {...meta, ...route?.meta_data || {}} });
 
       // ── Product / package details (per-product meta) ─────────────────────────
       } else if (pageKey === 'product_details' || pageKey === 'package_details') {
         const productUrl = pathParams.url || '';
         if (productUrl) {
           const meta = await this.storeService.getProductDetailsMeta(subdomain, productUrl);
-          this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta });
+          this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: {...meta, ...route?.meta_data || {}} });
         }
 
       // ── Category product list (per-category meta) ────────────────────────────
@@ -224,13 +224,13 @@ export class PageController {
         const uid = pathParams.uuid || pathParams.uid || '';
         if (uid) {
           const meta = await this.storeService.getCategoryMeta(subdomain, uid);
-          this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta });
+          this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: {...meta, ...route?.meta_data || {}} });
         }
 
       // ── Generic API page with content_path ──────────────────────────────────
       } else if (route?.content_path) {
         const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
-        this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: pageContent });
+        this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: {...pageContent, ...route?.meta_data || {}}});
         if (contentDiv) contentDiv.innerHTML = pageContent.contents.content;
       }
 
