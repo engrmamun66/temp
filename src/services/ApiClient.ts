@@ -245,31 +245,70 @@ export class ApiClient {
 
 
     let { headerLinks, footerLinks } = await this.getStoreNavigations(subdomain)
-    let routes: RskRoute[] = [...headerLinks, ...footerLinks].flat().map(item => {
 
-      const resolvePath = (content_url: string) => (content_url == 'blog' ? 'blog' : 'pages/' + content_url.replace(/^\/+/, ''))
+    // Recursively collect all nav items including nested children
+    const collectNavItems = (items: NavLink[]): NavLink[] =>
+      items.flatMap(item => [item, ...collectNavItems(item.children ?? [])]);
 
-      return ({
-        title: item.label,
-        route_path: item.content_url,
-        page_key: item.content_url,
-        content_path: resolvePath(item.content_type),
-        content_source: 'api',
-        components: [
-          {
-            slot: Slots.header,
-            files: ['header'],
-          },
-          {
-            slot: Slots.footer,
-            files: ['footer'],
-          },
-        ]
+    // URLs already handled by pushMissingRoutes — skip to avoid overriding built-in page logic
+    const BUILTIN_URLS = new Set([
+      'products-list', 'wish-list', 'cart', 'checkout', 'order-complete',
+      'membership-plan', 'event-management', 'rentmy-dashboard', 'login',
+      'registration', 'reset-password', 'partner-login', 'partner-registration',
+      'profile', 'change-password', 'change-avatar', 'order-history',
+      'dashboard', 'billing', 'terms-and-conditions', 'not-found',
+    ]);
+
+    const seenKeys = new Set<string>();
+    let routes: RskRoute[] = collectNavItems([...headerLinks, ...footerLinks])
+      .filter(item => item.content_type === 'Page' && !!item.content_url)
+      .map((item): RskRoute | null => {
+        const url = item.content_url.replace(/^\/+/, '');
+        // if (BUILTIN_URLS.has(url)) return null;
+
+        let page_key: string;
+        let route_path: string;
+        let content_path: string;
+
+        if (url === 'blog') {
+          page_key     = 'blog';
+          route_path   = '/blog';
+          content_path = 'blog';
+        } else if (url.startsWith('page/')) {
+          const slug   = url.slice('page/'.length);
+          if (!slug) return null;
+          page_key     = slug;
+          route_path   = '/' + slug;
+          content_path = 'pages/' + slug;
+        } else {
+          page_key     = url.replace(/-/g, '_');
+          route_path   = '/' + url;
+          content_path = 'pages/' + url;
+          console.log({content_path});
+        }
+
+        if (seenKeys.has(page_key)) return null;
+        seenKeys.add(page_key);
+
+        return {
+          title:          item.label,
+          route_path,
+          page_key,
+          content_path,
+          content_source: 'api',
+          components: [
+            { slot: Slots.header, files: ['header.html'] },
+            { slot: Slots.footer, files: ['footer.html'] },
+          ],
+        };
       })
-    })
+      .filter((r): r is RskRoute => r !== null);
+    // logToFile('[[[[[[routes]]]]]]', routes)
 
     this.rskOptionalConfigs[this.storeKey(subdomain)] = {}
     this.redirections[this.storeKey(subdomain)] = [];
+
+    this.cache.set(subdomain, '[routes]', routes, 3000);
 
     return pushMissingRoutes(routes, subdomain)
 
