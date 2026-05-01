@@ -242,41 +242,60 @@ export class ApiClient {
   // ── Public API methods ────────────────────────────────────────────────────
 
   async getRskConfigs(subdomain: string): Promise<RskRoute[]> {
-    try {
-      const resp = await this.authorizedGet<{
-        status: string;
-        result: { data: { routes: RskRoute[]; redirections: Redirections; config?: RskOptionalConfigs } };
-      }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
 
-      let routes:RskRoute[] = []
-      if(resp.result?.data?.routes?.length){
-        resp.result.data.routes.map((r: RskRoute) => ({
-          page_key:       r?.page_key,
-          route_path:     '/' + (r?.route_path || '').replace(/^\/+/, ''),
-          content_path:   r?.content_path,
-          content_source: r?.content_source, 
-        }));
-        if (resp.result.data.config) {
-          this.rskOptionalConfigs[this.storeKey(subdomain)] = resp.result.data.config;
-        }
-        if (resp.result.data.redirections) {
-          this.redirections[this.storeKey(subdomain)] = resp.result.data.redirections;
-        }
-      } else {
-        this.rskOptionalConfigs[this.storeKey(subdomain)] = {};
-        this.redirections[this.storeKey(subdomain)] = [];
-      }
-      
-      return pushMissingRoutes(routes, subdomain)
 
-    } catch (err) {
-      const status = (err as AxiosError).response?.status;
-      logToFile(`[ApiClient] [getRskConfigs()] failed subdomain=${subdomain} status=${status ?? 'network'}`);
+    let { headerLinks, footerLinks } = await this.getStoreNavigations(subdomain)
+    let routes: RskRoute[] = [...headerLinks, ...footerLinks].flat().map(item => {
+      return ({
+        title: item.label,
+        route_path: item.content_url,
+        page_key: item.content_url,
+        content_path: 'pages/' + item.content_url.replace(/^\/+/, ''),
+        content_source: 'api',
+      })
+    })
+
+    this.rskOptionalConfigs[this.storeKey(subdomain)] = {}
+
+    return pushMissingRoutes(routes, subdomain)
+
+
+
+    // try {
+    //   const resp = await this.authorizedGet<{
+    //     status: string;
+    //     result: { data: { routes: RskRoute[]; redirections: Redirections; config?: RskOptionalConfigs } };
+    //   }>(subdomain, (env.RSK_CONFIG_SERVER_FOR_DEV || '') + '/rsk-configs', { subdomain });
+
+    //   let routes:RskRoute[] = []
+    //   if(resp.result?.data?.routes?.length){
+    //     resp.result.data.routes.map((r: RskRoute) => ({
+    //       page_key:       r?.page_key,
+    //       route_path:     '/' + (r?.route_path || '').replace(/^\/+/, ''),
+    //       content_path:   r?.content_path,
+    //       content_source: r?.content_source, 
+    //     }));
+    //     if (resp.result.data.config) {
+    //       this.rskOptionalConfigs[this.storeKey(subdomain)] = resp.result.data.config;
+    //     }
+    //     if (resp.result.data.redirections) {
+    //       this.redirections[this.storeKey(subdomain)] = resp.result.data.redirections;
+    //     }
+    //   } else {
+    //     this.rskOptionalConfigs[this.storeKey(subdomain)] = {};
+    //     this.redirections[this.storeKey(subdomain)] = [];
+    //   }
       
-      this.rskOptionalConfigs[this.storeKey(subdomain)] = {};
-      this.redirections[this.storeKey(subdomain)] = [];
-      return pushMissingRoutes([], subdomain);
-    }
+    //   return pushMissingRoutes(routes, subdomain)
+
+    // } catch (err) {
+    //   const status = (err as AxiosError).response?.status;
+    //   logToFile(`[ApiClient] [getRskConfigs()] failed subdomain=${subdomain} status=${status ?? 'network'}`);
+      
+    //   this.rskOptionalConfigs[this.storeKey(subdomain)] = {};
+    //   this.redirections[this.storeKey(subdomain)] = [];
+    //   return pushMissingRoutes([], subdomain);
+    // }
   }
 
   async getPageContent(subdomain: string, contentPath: string): Promise<PageContent> {
