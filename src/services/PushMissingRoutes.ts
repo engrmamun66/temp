@@ -14,8 +14,9 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         content_source: 'api',
         _source:        'force_pushed',
         meta_data: {
-            title: '{{site_name}}:: Meta Tile for testing'
-        }
+            // title: '{{site_name}}:: Meta Tile for testing'
+        },
+        // layout: subdomain === 'teststore09' ? 'default' : 'camping'
     }, 0);
 
     // ------ Products list ------------------------------------------------- //
@@ -259,11 +260,11 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         components: [
             {
                 files: ['header'],
-                slot: Slots.top,
+                slot: Slots.header,
             },
             {
                 files: ['footer'],
-                slot: Slots.bottom,
+                slot: Slots.footer,
             },
         ]
     });
@@ -314,6 +315,12 @@ function setRouteComponent(route: RskRoute, wasFound = false): void
         route.components.push({
             slot: Slots.homeSlider,
             files: ['slider.html']
+        })
+    }
+    if(route.page_key == EnumPageKes.products_list){
+        route.components.push({
+            slot: Slots.afterNav,
+            files: ['breadcrumbs/default']
         })
     }
 

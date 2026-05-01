@@ -81,9 +81,9 @@
       template:
         '<template v-for="link in links" :key="link.id">' +
           '<div v-if="link.children && link.children.length" class="rsk-nav-dropdown relative">' +
-            '<button class="' + LINK_CLS + ' flex items-center gap-1">' +
+            '<a :href="href(link.content_url)" class="' + LINK_CLS + ' flex items-center gap-1">' +
               '<span>{{ link.label }}</span>' + DOWN_ARROW +
-            '</button>' +
+            '</a>' +
             '<div class="rsk-nav-dropdown-menu absolute top-full left-0 mt-1 w-52 bg-stone-900 border border-stone-700 rounded-xl shadow-xl py-2 z-50">' +
               '<a v-for="child in link.children" :key="child.id" :href="href(child.content_url)" class="' + CHILD_CLS + '">{{ child.label }}</a>' +
             '</div>' +

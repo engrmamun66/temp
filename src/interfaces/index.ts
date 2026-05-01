@@ -54,8 +54,8 @@ export interface RouteMeta {
 export enum Slots {
   header = 'header',
   homeSlider = 'home_slider',
-  top = 'after_nav', 
-  bottom = 'before_footer',
+  afterNav = 'after_nav', 
+  beforeFooter = 'before_footer',
   footer = 'footer',
 }
 

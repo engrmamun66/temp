@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import { JSDOM } from 'jsdom';
-import { Component } from '../interfaces';
+import { Component, RskRoute } from '../interfaces';
 import { mofifyComponentHTML } from './childs/componentModifier';
 import { StoreResult } from '../services/ApiClient';
 
@@ -21,12 +21,14 @@ function readComponent(file: string, layout: string): string | null {
 
 export function renderLayoutComponents(
   html: string,
-  components?: Component[],
+  route: RskRoute,
   layout = 'default',
-  storeResult?: StoreResult,
+  storeResult: StoreResult,
 ): string {
   const layoutDom = new JSDOM(html);
   const { document } = layoutDom.window;
+
+  const components = route?.components || []
 
   const slotEls = document.querySelectorAll<HTMLElement>('[data-slot]');
 
@@ -44,7 +46,7 @@ export function renderLayoutComponents(
         if (content === null) continue;
 
         const compDom = new JSDOM(content);
-        mofifyComponentHTML(compDom, layout, file, storeResult);
+        mofifyComponentHTML(compDom, layout, file, storeResult, route);
 
         // Extract all child nodes from the parsed component body
         compDom.window.document.body.childNodes.forEach((node) => {

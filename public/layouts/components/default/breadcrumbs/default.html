@@ -1,0 +1,92 @@
+<div id="rentmy-breadcrumb-default" data-pagekey="" class="min-h-screen flex flex-col bg-gray-50"> 
+  
+</div>
+
+<script>
+(function () {
+  const element___selector = '#rentmy-breadcrumb-default'
+  var stateEl = document.querySelector(element___selector);
+  if (!stateEl || typeof Vue === 'undefined') return;
+
+  let page_key = stateEl.getAttribute('data-pagekey') || '--null---'
+  console.log({page_key});
+
+  const Home = {
+    name: 'Home',
+    slug: '/',
+  }
+  const ProductList = {
+    name: 'Products List',
+    slug: '#'
+  }
+
+  let typeObjects = {
+    'products_list': [ Home, ProductList ]
+  }
+
+  let links = typeObjects?.[page_key] || [ Home ]
+ 
+  // Desktop nav
+  var desktopEl = document.querySelector(element___selector);
+  if (desktopEl) {
+    Vue.createApp({
+      data: function () { return { links: links }; },
+      methods: {
+
+      },
+      template: `
+
+        <!--=====================================================-->
+        <!--================ Page: Products List ================-->
+        <!--=====================================================-->
+        <template v-if="page_key == 'products_list'">
+
+          <div class="w-full bg-white shadow px-6 py-4">
+            <nav id="rentmy-breadcrumb-default" class="flex items-center space-x-2 text-sm text-gray-600">
+              <template v-for="(link, index) in links" :key="index">
+                <a :href="link.slug" class="hover:text-blue-600">{{ link?.name }}</a>
+                <span v-if="index < links.length - 1">/</span> 
+              </template>
+            </nav>
+          </div>
+
+          <!-- Main Content -->
+          <div class="flex-1 flex items-center justify-center">
+            <div class="text-center">
+              <h1 class="text-3xl font-bold text-gray-800">Page Content</h1>
+              <p class="text-gray-500 mt-2">Your content goes here</p>
+            </div>
+          </div>
+        </template>
+
+
+
+        <!--=====================================================-->
+        <!--======================= Else ========================-->
+        <!--=====================================================-->
+
+        <template v-else>
+
+          <div class="w-full bg-white shadow px-6 py-4">
+            <nav id="rentmy-breadcrumb-default" class="flex items-center space-x-2 text-sm text-gray-600">
+              <template v-for="(link, index) in links" :key="index">
+                <a :href="link.slug" class="hover:text-blue-600">{{ link?.name }}</a>
+                <span v-if="index < links.length - 1">/</span> 
+              </template>
+            </nav>
+          </div>
+
+          <!-- Main Content -->
+          <div class="flex-1 flex items-center justify-center">
+            <div class="text-center">
+              <h1 class="text-3xl font-bold text-gray-800">Page Content</h1>
+              <p class="text-gray-500 mt-2">Your content goes here</p>
+            </div>
+          </div>
+        </template>
+        `,
+    }).mount(desktopEl);
+  }
+ 
+})();
+</script>
