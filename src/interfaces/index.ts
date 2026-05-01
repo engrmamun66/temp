@@ -176,4 +176,5 @@ export enum EnumPageKes {
   customer_billing          = 'customer_billing',
   terms_and_conditions      = 'terms_and_conditions',
   not_found                 = 'not_found',
+  blog                      = 'blog',
 }
