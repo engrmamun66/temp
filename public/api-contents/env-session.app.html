@@ -466,9 +466,9 @@
         <p v-if="successMessage" class="message success">{{ successMessage }}</p>
 
         <!-- Active session banner -->
-        <div :class="['session-banner', activeSession ? 'active' : 'inactive']">
+        <!-- <div :class="['session-banner', activeSession ? 'active' : 'inactive']">
             <span class="session-dot"></span>
-            <!-- <span v-if="activeSession">
+            <span v-if="activeSession">
                 <strong>Active:</strong> {{ labelFor(activeSession.preset) }}
                 &nbsp;&mdash;&nbsp;
                 <code>{{ activeSession.apiBaseUrl }}</code>
@@ -478,8 +478,8 @@
             <span v-else>
                 No active override &mdash; using default
                 <strong>{{ env.API_BASE_URL }}</strong>
-            </span> -->
-        </div>
+            </span>
+        </div> -->
 
         <!-- Server presets + controls -->
         <div class="control-card">
