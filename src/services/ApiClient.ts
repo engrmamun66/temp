@@ -246,11 +246,14 @@ export class ApiClient {
 
     let { headerLinks, footerLinks } = await this.getStoreNavigations(subdomain)
     let routes: RskRoute[] = [...headerLinks, ...footerLinks].flat().map(item => {
+
+      const resolvePath = (content_url: string) => (content_url == 'blog' ? 'blog' : 'pages/' + content_url.replace(/^\/+/, ''))
+
       return ({
-        title: item.label as string,
-        route_path: item.content_url as string,
-        page_key: item.content_url as string,
-        content_path: 'pages/' + item.content_url.replace(/^\/+/, ''),
+        title: item.label,
+        route_path: item.content_url,
+        page_key: item.content_url,
+        content_path: resolvePath(item.content_type),
         content_source: 'api',
         components: [
           {

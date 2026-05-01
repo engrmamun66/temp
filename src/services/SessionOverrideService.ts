@@ -35,7 +35,7 @@ function writeSessionFile(data: Record<string, SessionStatus>): void {
     fs.mkdirSync(path.dirname(SESSION_FILE), { recursive: true });
     fs.writeFileSync(SESSION_FILE, JSON.stringify(data, null, 2), 'utf-8');
   } catch (err) {
-    console.warn('[SessionOverrideService] Could not write session file:', (err as Error).message);
+    // console.warn('[SessionOverrideService] Could not write session file:', (err as Error).message);
   }
 }
 
@@ -64,7 +64,7 @@ export class SessionOverrideService {
         loaded++;
       }
     }
-    if (loaded > 0) console.log(`[SessionOverrideService] Loaded ${loaded} active session(s) from file`);
+    // if (loaded > 0) console.log(`[SessionOverrideService] Loaded ${loaded} active session(s) from file`);
   }
 
   private persistToFile(): void {
@@ -124,9 +124,9 @@ export class SessionOverrideService {
       if (!latest || s.expiresAt > latest.expiresAt) latest = s;
     }
 
-    logToFile(
-      `[SessionOverrideService.current] sid=${sid || '(none)'} origin=${origin || '(none)'} fallback=${latest?.preset ?? 'none'}`
-    );
+    // logToFile(
+    //   `[SessionOverrideService.current] sid=${sid || '(none)'} origin=${origin || '(none)'} fallback=${latest?.preset ?? 'none'}`
+    // );
 
     return latest ? { ...latest } : null;
   }
