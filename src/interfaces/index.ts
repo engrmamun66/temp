@@ -131,6 +131,7 @@ export interface HomeMeta {
 }
 
 
+
 export interface NavLink {
   id: number,
   sequence_no: number,
@@ -175,28 +176,37 @@ export enum EnumPageKes {
   customer_order_dashboard  = 'customer_order_dashboard',
   customer_billing          = 'customer_billing',
   terms_and_conditions      = 'terms_and_conditions',
-  not_found                 = 'not_found',
   blog                      = 'blog',
+  singleBlog                = 'singleBlog',
+  not_found                 = 'not_found',
 }
 
 export interface BlogItem {
-    id: number,
-    store_id: number,
-    location: number,
-    name: string,
-    slug: string,
-    meta_description: string | null,
-    meta_keyword: string,
-    status: number,
-    thumbnail_image: string | null,
-    featured_image: string | null,
-    created: string,
-    modified: string,
-    short_description: string | null,
+  id: number;
+  store_id: number;
+  location: number;
+  name: string;
+  title: string;
+  slug: string;
+  contents?: { content: string; short_description?: string };
+  short_description: string | null;
+  featured_image: string | null;
+  thumbnail_image: string | null;
+  tags?: string[] | null;
+  status: number;
+  created: string;
+  modified: string;
+  meta_title?: string;
+  meta_description: string | null;
+  meta_keyword: string;
+  canonical_url?: string;
 }
+
 export interface BlogReponseData {
-    limit: number;
-    page_no: number;
-    total: number;
-    data: BlogItem[]
+  limit: number;
+  page_no: number;
+  total: number;
+  data: BlogItem[];
 }
+
+export type BlogResponseData = BlogReponseData;
