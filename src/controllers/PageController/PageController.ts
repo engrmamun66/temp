@@ -230,7 +230,6 @@ export class PageController {
       // ── Generic API page with content_path ──────────────────────────────────
       } else if (route?.content_path) {
         const pageContent = await this.storeService.getPageContent(subdomain, route.content_path);
-        console.log('=======}|||', {'route.content_path': route.content_path});
         this.seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: {...pageContent, ...route?.meta_data || {}}});
         if (contentDiv) contentDiv.innerHTML = pageContent.contents.content;
       }

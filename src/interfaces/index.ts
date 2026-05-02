@@ -178,3 +178,25 @@ export enum EnumPageKes {
   not_found                 = 'not_found',
   blog                      = 'blog',
 }
+
+export interface BlogItem {
+    id: number,
+    store_id: number,
+    location: number,
+    name: string,
+    slug: string,
+    meta_description: string | null,
+    meta_keyword: string,
+    status: number,
+    thumbnail_image: string | null,
+    featured_image: string | null,
+    created: string,
+    modified: string,
+    short_description: string | null,
+}
+export interface BlogReponseData {
+    limit: number;
+    page_no: number;
+    total: number;
+    data: BlogItem[]
+}
