@@ -5,10 +5,12 @@ import { handleHomePage } from './homePageControl';
 import { handleProductDetailsPage } from './productDetailsPageControl';
 import { handleProductsListByCategoryPage } from './productsListByCategoryPageControl';
 import { handleProductsListPage } from './productsListPageControl';
+import { handleSingleBlogPage } from './singleBlogPageControl';
 import { PageWiseControlContext, PageWiseControlResult } from './types';
 
 export async function handlePageWiseControl(ctx: PageWiseControlContext): Promise<PageWiseControlResult> {
   const handlers = [
+    handleSingleBlogPage,
     handleFilePage,
     handleHomePage,
     handleProductsListPage,

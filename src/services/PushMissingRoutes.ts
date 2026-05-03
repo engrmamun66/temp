@@ -233,6 +233,16 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         _source:        'force_pushed',
     });
 
+    // ------ Rentmy dynamic page ------------------------------------------------------- //
+    pushRouteIfNotExist(routes, {
+        title:          '{{site_name}}:: Dynamic page',
+        page_key:       EnumPageKes.rentmy_dynamic_page,
+        route_path:     '/page/:rentmy_page_slug',
+        content_path:   '/pages',
+        content_source: 'api',
+        _source:        'force_pushed',
+    });
+
     // pushRouteIfNotExist(routes, {
     //     title:          '{{site_name}}:: Billing',
     //     page_key:       EnumPageKes.customer_billing,

@@ -3,7 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData } from '../interfaces';
+import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData, BlogTag } from '../interfaces';
 import { logToFile, clearFileLogs } from '../utils/fileLogger';
 import { pushMissingRoutes } from './PushMissingRoutes';
 import { SessionOverrideService } from './SessionOverrideService';
@@ -411,6 +411,22 @@ export class ApiClient {
       total: data?.total ?? 0,
       data: Array.isArray(data?.data) ? data.data : [],
     };
+  }
+
+  async getBlogTags(subdomain: string): Promise<BlogTag[]> {
+    let data: BlogTag[] | null = null;
+    try {
+      const resp = await this.authorizedGet<{
+        status: string;
+        result: BlogTag[];
+      }>(subdomain, '/tags');
+      data = Array.isArray(resp.result) ? resp.result : null;
+    } catch (err) {
+      const axiosErr = err as AxiosError;
+      logToFile(`[getBlogTags() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+    }
+
+    return Array.isArray(data) ? data : [];
   }
 
   async getSitemapUrls(subdomain: string): Promise<string[]> {

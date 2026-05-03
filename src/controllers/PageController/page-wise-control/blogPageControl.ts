@@ -1,10 +1,10 @@
-import { BlogItem, BlogResponseData, RouteMeta } from '../../../interfaces';
+import { BlogItem, BlogResponseData, BlogTag, RouteMeta } from '../../../interfaces';
 import { logToFile } from '../../../utils/fileLogger';
 import { PageWiseControlContext, PageWiseControlResult } from './types';
 
 const HANDLER_NAME = 'blogPageControl';
 
-function renderBlogListHtml(blogContent: BlogResponseData, siteName: string): string {
+function renderBlogListHtml(blogContent: BlogResponseData, siteName: string, tags: BlogTag[]): string {
   const blogs = Array.isArray(blogContent.data) ? blogContent.data : [];
   const totalBlogs = blogContent.total || blogs.length;
   const pageLabel = blogContent.page_no > 0 ? `Page ${blogContent.page_no}` : 'Blog Archive';
@@ -12,6 +12,7 @@ function renderBlogListHtml(blogContent: BlogResponseData, siteName: string): st
   const blogCards = blogs.length > 0
     ? blogs.map((blog) => renderBlogCard(blog)).join('')
     : renderBlogEmptyState(siteName);
+  const topTags = renderTopBlogTags(tags);
 
   return `
     <section class="bg-gradient-to-b from-slate-50 via-white to-white">
@@ -42,6 +43,8 @@ function renderBlogListHtml(blogContent: BlogResponseData, siteName: string): st
           </div>
         </div>
 
+        ${topTags}
+
         <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           ${blogCards}
         </div>
@@ -53,7 +56,7 @@ function renderBlogListHtml(blogContent: BlogResponseData, siteName: string): st
 function renderBlogCard(blog: BlogItem): string {
   const title = escapeHtml(blog.title || blog.name || 'Untitled article');
   const blogUrl = escapeHtml(buildBlogUrl(blog.slug));
-  const imageUrl = escapeHtml(resolveBlogImage(blog));
+  const imageUrl = escapeHtml(resolveBlogThumbnail(blog));
   const excerpt = escapeHtml(getBlogExcerpt(blog));
   const publishedDate = escapeHtml(formatBlogDate(blog.created || blog.modified));
   const tags = renderBlogTags(blog);
@@ -114,6 +117,38 @@ function renderBlogTags(blog: BlogItem): string {
   )).join('');
 }
 
+function renderTopBlogTags(tags: BlogTag[]): string {
+  const validTags = tags.filter((tag) => tag && typeof tag.name === 'string' && tag.name.trim() !== '');
+  if (validTags.length === 0) return '';
+
+  const tagLinks = validTags.map((tag) => {
+    const tagUrl = escapeHtml(resolveTagUrl(tag.url));
+    const tagName = escapeHtml(tag.name);
+    return `
+      <a
+        href="${tagUrl}"
+        class="inline-flex items-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-amber-500 hover:bg-amber-50 hover:text-amber-700"
+      >
+        ${tagName}
+      </a>
+    `;
+  }).join('');
+
+  return `
+    <div class="mt-10 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Browse by tag</p>
+          <h2 class="mt-2 text-2xl font-bold text-slate-900">Explore topics</h2>
+        </div>
+      </div>
+      <div class="mt-5 flex flex-wrap gap-3">
+        ${tagLinks}
+      </div>
+    </div>
+  `;
+}
+
 function renderBlogEmptyState(siteName: string): string {
   return `
     <div class="md:col-span-2 xl:col-span-3">
@@ -138,8 +173,8 @@ function getBlogExcerpt(blog: BlogItem): string {
   return 'Read the full article for practical details, insights, and the complete story.';
 }
 
-function resolveBlogImage(blog: BlogItem): string {
-  return sanitizeUrl(blog.featured_image || blog.thumbnail_image || '');
+function resolveBlogThumbnail(blog: BlogItem): string {
+  return sanitizeUrl(blog.thumbnail_image || '');
 }
 
 function buildBlogUrl(slug: string): string {
@@ -177,6 +212,14 @@ function sanitizeUrl(value: string): string {
   return '';
 }
 
+function resolveTagUrl(value: string): string {
+  const sanitized = sanitizeUrl(value);
+  if (sanitized) return sanitized;
+
+  const trimmed = value.trim().replace(/^\/+/, '');
+  return trimmed ? `/${trimmed}` : '/blog';
+}
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
@@ -204,7 +247,10 @@ export async function handleBlogPage(ctx: PageWiseControlContext): Promise<PageW
 
   if (pageKey !== 'blog') return { handlerName: HANDLER_NAME, handled: false };
 
-  const blogContent = await storeService.getBlogPageContent(subdomain, route?.content_path || '');
+  const [blogContent, blogTags] = await Promise.all([
+    storeService.getBlogPageContent(subdomain, route?.content_path || ''),
+    storeService.getBlogTags(subdomain),
+  ]);
   const routeMeta: RouteMeta = route?.meta_data ?? {};
   const blogMeta: RouteMeta = {
     ...routeMeta,
@@ -217,7 +263,7 @@ export async function handleBlogPage(ctx: PageWiseControlContext): Promise<PageW
   };
 
   seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: blogMeta });
-  if (contentDiv) contentDiv.innerHTML = renderBlogListHtml(blogContent, siteName);
+  if (contentDiv) contentDiv.innerHTML = renderBlogListHtml(blogContent, siteName, blogTags);
 
   return { handlerName: HANDLER_NAME, handled: true };
 }

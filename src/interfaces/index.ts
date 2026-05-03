@@ -178,6 +178,7 @@ export enum EnumPageKes {
   blog                      = 'blog',
   singleBlog                = 'singleBlog',
   not_found                 = 'not_found',
+  rentmy_dynamic_page       = 'rentmy_dynamic_page',
 }
 
 export interface BlogItem {
@@ -209,3 +210,13 @@ export interface BlogReponseData {
 }
 
 export type BlogResponseData = BlogReponseData;
+
+
+export interface BlogTag { 
+    id: number;
+    name: string;
+    is_shown_in_nav: boolean;
+    url: string;
+    status: number;
+    type: string;
+} 
