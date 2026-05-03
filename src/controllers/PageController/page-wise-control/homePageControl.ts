@@ -3,7 +3,6 @@ import { PageWiseControlContext, PageWiseControlResult } from './types';
 
 export async function handleHomePage(ctx: PageWiseControlContext): Promise<PageWiseControlResult> {
   const { pageKey, route, subdomain, contentDiv, storeService, seoAndMetaCtrl, document, metaOptions } = ctx;
-  console.log({pageKey});
   if (pageKey !== 'home') return { handled: false };
 
   const contentPath = route?.content_path ?? '/pages/contents?source=online';
