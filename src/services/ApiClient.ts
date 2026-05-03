@@ -251,7 +251,7 @@ export class ApiClient {
       items.flatMap(item => [item, ...collectNavItems(item.children ?? [])]);
 
     // URLs already handled by pushMissingRoutes — skip to avoid overriding built-in page logic
-    const BUILTIN_URLS = new Set([
+    const BUILT_IN_URLS = new Set([
       'products-list', 'wish-list', 'cart', 'checkout', 'order-complete',
       'membership-plan', 'event-management', 'rentmy-dashboard', 'login',
       'registration', 'reset-password', 'partner-login', 'partner-registration',
@@ -264,7 +264,10 @@ export class ApiClient {
       .filter(item => item.content_type === 'Page' && !!item.content_url)
       .map((item): RskRoute | null => {
         const url = item.content_url.replace(/^\/+/, '');
-        if (BUILTIN_URLS.has(url)) return null;
+        if (BUILT_IN_URLS.has(url)) {
+          console.log('page__url::', url);
+          return null;
+        }
 
         let page_key: string;
         let route_path: string;

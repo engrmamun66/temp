@@ -14,16 +14,6 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         _source:        'force_pushed',
     }, 0);
 
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Products',
-        page_key:       EnumPageKes.products_list,
-        route_path:     '/products-list',
-        content_path:   '/page/',
-        content_source: 'api',
-        _source:        'force_pushed',
-    });
-
     
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Products',
