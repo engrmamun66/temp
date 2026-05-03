@@ -17,9 +17,12 @@ function renderBlogListHtml(blogContent: BlogResponseData, siteName: string, tag
   return `
     <section class="bg-gradient-to-b from-slate-50 via-white to-white">
       <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+
+        <!--
+      
         <div class="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 text-white shadow-[0_24px_80px_rgba(15,23,42,0.28)]">
           <div class="grid gap-10 px-6 py-10 sm:px-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,0.8fr)] lg:px-14 lg:py-14">
-            <div>
+            <div class="">
               <span class="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-slate-200">
                 Journal
               </span>
@@ -42,6 +45,8 @@ function renderBlogListHtml(blogContent: BlogResponseData, siteName: string, tag
             </div>
           </div>
         </div>
+
+        -->
 
         ${topTags}
 
