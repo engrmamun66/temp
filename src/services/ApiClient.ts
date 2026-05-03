@@ -210,6 +210,7 @@ export class ApiClient {
       ...(extraHeaders ?? {}),
     };
     try {
+      logToFile('[api_endpoint]', {baseURL, path})
       const res = await this.http.get<T>(path, { baseURL, params, headers });
       return res.data;
     } catch (err) {
@@ -396,9 +397,9 @@ export class ApiClient {
     try {
       const resp = await this.authorizedGet<{
         status: string;
-        result: { data: BlogResponseData };
+        result: BlogResponseData;
       }>(subdomain, contentPath);
-      data = resp.result?.data || null;
+      data = resp.result || null;
     } catch (err) {
       const axiosErr = err as AxiosError;
       logToFile(`[getBlogPageContent() error] ${axiosErr.response?.data ?? axiosErr.message}`);

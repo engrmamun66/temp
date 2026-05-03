@@ -1,4 +1,5 @@
 import { BlogItem, BlogResponseData, RouteMeta } from '../../../interfaces';
+import { logToFile } from '../../../utils/fileLogger';
 import { PageWiseControlContext, PageWiseControlResult } from './types';
 
 const HANDLER_NAME = 'blogPageControl';
