@@ -174,7 +174,7 @@ function getBlogExcerpt(blog: BlogItem): string {
 }
 
 function resolveBlogThumbnail(blog: BlogItem): string {
-  return sanitizeUrl(blog.thumbnail_image || '');
+  return sanitizeUrl(blog.thumbnail_image || blog.featured_image || '');
 }
 
 function buildBlogUrl(slug: string): string {
