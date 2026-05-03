@@ -3,7 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots } from '../interfaces';
+import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData } from '../interfaces';
 import { logToFile, clearFileLogs } from '../utils/fileLogger';
 import { pushMissingRoutes } from './PushMissingRoutes';
 import { SessionOverrideService } from './SessionOverrideService';
@@ -256,7 +256,7 @@ export class ApiClient {
       'membership-plan', 'event-management', 'rentmy-dashboard', 'login',
       'registration', 'reset-password', 'partner-login', 'partner-registration',
       'profile', 'change-password', 'change-avatar', 'order-history',
-      'dashboard', 'billing', 'terms-and-conditions', 'not-found',
+      'dashboard', 'billing', 'terms-and-conditions', 'not-found', 'blog',
     ]);
 
     const seenKeys = new Set<string>();
@@ -264,17 +264,13 @@ export class ApiClient {
       .filter(item => item.content_type === 'Page' && !!item.content_url)
       .map((item): RskRoute | null => {
         const url = item.content_url.replace(/^\/+/, '');
-        // if (BUILTIN_URLS.has(url)) return null;
+        if (BUILTIN_URLS.has(url)) return null;
 
         let page_key: string;
         let route_path: string;
         let content_path: string;
 
-        if (url === 'blog') {
-          page_key     = 'blog';
-          route_path   = '/blog';
-          content_path = 'blog';
-        } else if (url.startsWith('page/')) {
+        if (url.startsWith('page/')) {
           const slug   = url.slice('page/'.length);
           if (!slug) return null;
           page_key     = slug;
@@ -284,7 +280,6 @@ export class ApiClient {
           page_key     = url.replace(/-/g, '_');
           route_path   = '/' + url;
           content_path = 'pages/' + url;
-          console.log({content_path});
         }
 
         if (seenKeys.has(page_key)) return null;
@@ -391,6 +386,27 @@ export class ApiClient {
       children:         data?.children ?? [],
     };
     return result
+  }
+
+  async getBlogPageContent(subdomain: string, contentPath: string): Promise<BlogResponseData> {
+    let data: BlogResponseData | null = null;
+    try {
+      const resp = await this.authorizedGet<{
+        status: string;
+        result: { data: BlogResponseData };
+      }>(subdomain, contentPath);
+      data = resp.result?.data || null;
+    } catch (err) {
+      const axiosErr = err as AxiosError;
+      logToFile(`[getBlogPageContent() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+    }
+
+    return {
+      limit: data?.limit ?? 0,
+      page_no: data?.page_no ?? 1,
+      total: data?.total ?? 0,
+      data: Array.isArray(data?.data) ? data.data : [],
+    };
   }
 
   async getSitemapUrls(subdomain: string): Promise<string[]> {

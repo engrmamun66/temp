@@ -6,8 +6,8 @@ export interface RskRoute {
   title:           string; 
   page_key:        string;
   route_path:      string;
-  content_path?:   string;
-  content_source?: 'file' | 'api';
+  content_path:   string;
+  content_source: 'file' | 'api';
   layout?:         string | null;
   _source?: 'force_pushed';
   components?: Component[];
@@ -162,7 +162,6 @@ export enum EnumPageKes {
   order_details             = 'order_details',
   wish_list                 = 'wish_list',
   membership_plan           = 'membership_plan',
-  event_management          = 'event_management',
   rentmy_dashboard          = 'rentmy_dashboard',
   login                     = 'login',
   registration              = 'registration',
