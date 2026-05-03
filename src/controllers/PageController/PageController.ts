@@ -9,7 +9,7 @@ import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
 import { RskRoute } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
 import { renderLayoutComponents } from '../../utils/layoutRenderer';
-import { handlePageWiseControl } from './page-wise-control';
+import { handlePageWiseControl } from './page-wise-control/_index';
 
 
 const LAYOUTS_DIR      = path.resolve(process.cwd(), 'public', 'layouts');
