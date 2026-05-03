@@ -18,12 +18,15 @@ export async function handlePageWiseControl(ctx: PageWiseControlContext): Promis
     handleGenericApiPage,
   ];
 
+  
   for (const handler of handlers) {
     const result = await handler(ctx);
+    console.log({handled_result: result});
     if (result.handled) return result;
   }
 
-  return { handled: false };
+  console.log({handled_result: '__failed__'});
+  return { handlerName: 'pageWiseControl.unhandled', handled: false };
 }
 
 export type { PageMetaOptions, PageWiseControlContext, PageWiseControlResult } from './types';

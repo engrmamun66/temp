@@ -1,9 +1,11 @@
 import { logToFile } from '../../../utils/fileLogger';
 import { PageWiseControlContext, PageWiseControlResult } from './types';
 
+const HANDLER_NAME = 'homePageControl';
+
 export async function handleHomePage(ctx: PageWiseControlContext): Promise<PageWiseControlResult> {
   const { pageKey, route, subdomain, contentDiv, storeService, seoAndMetaCtrl, document, metaOptions } = ctx;
-  if (pageKey !== 'home') return { handled: false };
+  if (pageKey !== 'home') return { handlerName: HANDLER_NAME, handled: false };
 
   const contentPath = route?.content_path ?? '/pages/contents?source=online';
   const { contents, meta } = await storeService.loadHomePageContents(subdomain, contentPath);
@@ -12,5 +14,5 @@ export async function handleHomePage(ctx: PageWiseControlContext): Promise<PageW
   else logToFile(`[PageController] contentDiv not found page_key=${pageKey}`);
 
   seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: { ...meta, ...route?.meta_data || {} } });
-  return { handled: true };
+  return { handlerName: HANDLER_NAME, handled: true };
 }

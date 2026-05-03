@@ -1,6 +1,8 @@
 import { BlogItem, BlogResponseData, RouteMeta } from '../../../interfaces';
 import { PageWiseControlContext, PageWiseControlResult } from './types';
 
+const HANDLER_NAME = 'blogPageControl';
+
 function renderBlogListHtml(blogContent: BlogResponseData, siteName: string): string {
   const blogs = Array.isArray(blogContent.data) ? blogContent.data : [];
   const totalBlogs = blogContent.total || blogs.length;
@@ -199,7 +201,7 @@ export async function handleBlogPage(ctx: PageWiseControlContext): Promise<PageW
     contentDiv,
   } = ctx;
 
-  if (pageKey !== 'blog') return { handled: false };
+  if (pageKey !== 'blog') return { handlerName: HANDLER_NAME, handled: false };
 
   const blogContent = await storeService.getBlogPageContent(subdomain, route?.content_path || '');
   const routeMeta: RouteMeta = route?.meta_data ?? {};
@@ -216,5 +218,5 @@ export async function handleBlogPage(ctx: PageWiseControlContext): Promise<PageW
   seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: blogMeta });
   if (contentDiv) contentDiv.innerHTML = renderBlogListHtml(blogContent, siteName);
 
-  return { handled: true };
+  return { handlerName: HANDLER_NAME, handled: true };
 }

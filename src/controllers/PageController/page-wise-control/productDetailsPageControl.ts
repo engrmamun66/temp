@@ -1,8 +1,10 @@
 import { PageWiseControlContext, PageWiseControlResult } from './types';
 
+const HANDLER_NAME = 'productDetailsPageControl';
+
 export async function handleProductDetailsPage(ctx: PageWiseControlContext): Promise<PageWiseControlResult> {
   const { pageKey, pathParams, route, subdomain, storeService, seoAndMetaCtrl, document, metaOptions } = ctx;
-  if (pageKey !== 'product_details' && pageKey !== 'package_details') return { handled: false };
+  if (pageKey !== 'product_details' && pageKey !== 'package_details') return { handlerName: HANDLER_NAME, handled: false };
 
   const productUrl = pathParams.url || '';
   if (productUrl) {
@@ -10,5 +12,5 @@ export async function handleProductDetailsPage(ctx: PageWiseControlContext): Pro
     seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: { ...meta, ...route?.meta_data || {} } });
   }
 
-  return { handled: true };
+  return { handlerName: HANDLER_NAME, handled: true };
 }

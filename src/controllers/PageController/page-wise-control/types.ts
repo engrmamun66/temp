@@ -28,6 +28,7 @@ export interface PageWiseControlContext {
 }
 
 export interface PageWiseControlResult {
+  handlerName: string;
   handled: boolean;
   isMissingLocalFile?: boolean;
 }

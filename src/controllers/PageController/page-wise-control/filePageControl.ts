@@ -5,6 +5,7 @@ import { PageWiseControlContext, PageWiseControlResult } from './types';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'default-pages', '404.html');
+const HANDLER_NAME = 'filePageControl';
 
 function resolveTitle(title: string, siteName: string): string {
   return title.replace(/\{\{site_name\}\}/g, siteName);
@@ -34,7 +35,7 @@ function defaultFileNotFoundHtml(): string {
 
 export async function handleFilePage(ctx: PageWiseControlContext): Promise<PageWiseControlResult> {
   const { route, document, siteName, contentDiv, seoAndMetaCtrl, metaOptions, pageKey, subdomain } = ctx;
-  if (route?.content_source !== 'file' || !route.content_path) return { handled: false };
+  if (route?.content_source !== 'file' || !route.content_path) return { handlerName: HANDLER_NAME, handled: false };
 
   const filePath = resolvePublicFilePath(route.content_path);
   const fileExists = fs.existsSync(filePath);
@@ -56,5 +57,5 @@ export async function handleFilePage(ctx: PageWiseControlContext): Promise<PageW
     seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: route.meta_data });
   }
 
-  return { handled: true, isMissingLocalFile: !fileExists };
+  return { handlerName: HANDLER_NAME, handled: true, isMissingLocalFile: !fileExists };
 }
