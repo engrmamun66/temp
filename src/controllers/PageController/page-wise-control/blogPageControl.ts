@@ -248,7 +248,7 @@ export async function handleBlogPage(ctx: PageWiseControlContext): Promise<PageW
   if (pageKey !== 'blog') return { handlerName: HANDLER_NAME, handled: false };
 
   const [blogContent, blogTags] = await Promise.all([
-    storeService.getBlogPageContent(subdomain, route?.content_path || ''),
+    storeService.getBlogList(subdomain, route?.content_path || ''),
     storeService.getBlogTags(subdomain),
   ]);
   const routeMeta: RouteMeta = route?.meta_data ?? {};

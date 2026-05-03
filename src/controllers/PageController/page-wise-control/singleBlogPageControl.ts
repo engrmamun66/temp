@@ -171,7 +171,7 @@ export async function handleSingleBlogPage(ctx: PageWiseControlContext): Promise
     contentDiv.innerHTML = fs.readFileSync(filePath, 'utf-8');
   }
 
-  const blogResponse = await storeService.getBlogPageContent(subdomain, BLOG_CONTENT_PATH);
+  const blogResponse = await storeService.getBlogList(subdomain, BLOG_CONTENT_PATH);
   const slug = pathParams.slug || '';
   const blog = findBlogBySlug(blogResponse.data, slug);
 

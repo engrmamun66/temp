@@ -392,7 +392,7 @@ export class ApiClient {
     return result
   }
 
-  async getBlogPageContent(subdomain: string, contentPath: string): Promise<BlogResponseData> {
+  async getBlogList(subdomain: string, contentPath: string): Promise<BlogResponseData> {
     let data: BlogResponseData | null = null;
     try {
       const resp = await this.authorizedGet<{
@@ -402,7 +402,7 @@ export class ApiClient {
       data = resp.result || null;
     } catch (err) {
       const axiosErr = err as AxiosError;
-      logToFile(`[getBlogPageContent() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+      logToFile(`[getBlogList() error] ${axiosErr.response?.data ?? axiosErr.message}`);
     }
 
     return {
