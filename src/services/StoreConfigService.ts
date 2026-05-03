@@ -1,7 +1,7 @@
 import { ApiClient, StoreResult } from './ApiClient';
 import { CacheService } from './CacheService';
 import { HomeLayoutOrder } from '../types';
-import { RskRoute, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta, RskOptionalConfigs, NavLink, BlogResponseData, BlogTag } from '../interfaces';
+import { RskRoute, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta, RskOptionalConfigs, NavLink, BlogResponseData, BlogTag, SingleBlog } from '../interfaces';
 import { Redirections } from '../types';
 import { logToFile } from '../utils/fileLogger';
 
@@ -150,6 +150,16 @@ export class StoreConfigService {
 
     const data = await this.api.getBlogList(subdomain, contentPath);
     this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
+    return data;
+  }
+
+  async getBlogDetails(subdomain: string, slug: string): Promise<SingleBlog | null> {
+    const cacheKey = `single_blog__${slug}`;
+    const cached = this.cache.get<SingleBlog>(subdomain, cacheKey);
+    if (cached) return cached;
+
+    const data = await this.api.getBlogDetails(subdomain, slug);
+    if (data) this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
     return data;
   }
 

@@ -3,7 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData, BlogTag } from '../interfaces';
+import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData, BlogTag, SingleBlog } from '../interfaces';
 import { logToFile, clearFileLogs } from '../utils/fileLogger';
 import { pushMissingRoutes } from './PushMissingRoutes';
 import { SessionOverrideService } from './SessionOverrideService';
@@ -427,6 +427,57 @@ export class ApiClient {
     }
 
     return Array.isArray(data) ? data : [];
+  }
+
+  async getBlogDetails(subdomain: string, slug: string): Promise<SingleBlog | null> {
+    let data: SingleBlog | null = null;
+    const contentPath = `pages/${encodeURIComponent(slug)}`;
+
+    try {
+      const resp = await this.authorizedGet<{
+        status: string;
+        result?: SingleBlog | { data?: SingleBlog };
+      }>(subdomain, contentPath);
+
+      const result = resp.result;
+      if (result && typeof result === 'object' && 'data' in result) {
+        data = result.data ?? null;
+      } else {
+        data = (result as SingleBlog | undefined) ?? null;
+      }
+    } catch (err) {
+      const axiosErr = err as AxiosError;
+      logToFile(`[getBlogDetails() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+    }
+
+    if (!data) return null;
+
+    return {
+      id: data.id ?? 0,
+      store_id: data.store_id ?? 0,
+      location: data.location ?? 0,
+      name: data.name ?? '',
+      slug: data.slug ?? '',
+      contents: {
+        heading: data.contents?.heading ?? '',
+        content: data.contents?.content ?? '',
+        checkbox_count: data.contents?.checkbox_count ?? 0,
+        signature_count: data.contents?.signature_count ?? 0,
+      },
+      meta_title: data.meta_title ?? '',
+      meta_description: data.meta_description ?? '',
+      meta_keyword: data.meta_keyword ?? '',
+      status: data.status ?? 0,
+      type: 'blog',
+      tags: Array.isArray(data.tags) ? data.tags : null,
+      parent_id: data.parent_id ?? null,
+      featured_image: data.featured_image ?? null,
+      thumbnail_image: data.thumbnail_image ?? null,
+      created: data.created ?? '',
+      modified: data.modified ?? '',
+      canonical_url: data.canonical_url ?? '',
+      children: Array.isArray(data.children) ? data.children : [],
+    };
   }
 
   async getSitemapUrls(subdomain: string): Promise<string[]> {

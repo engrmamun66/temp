@@ -1,22 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import { BlogItem, RouteMeta } from '../../../interfaces';
+import { RouteMeta, SingleBlog } from '../../../interfaces';
 import { logToFile } from '../../../utils/fileLogger';
 import { PageWiseControlContext, PageWiseControlResult } from './types';
 
 const HANDLER_NAME = 'singleBlogPageControl';
-const BLOG_CONTENT_PATH = 'blogs';
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'default-pages', '404.html');
-
-function normalizeSlug(value: string): string {
-  return decodeURIComponent(value || '').trim().toLowerCase();
-}
-
-function findBlogBySlug(blogs: BlogItem[], slug: string): BlogItem | undefined {
-  const normalizedSlug = normalizeSlug(slug);
-  return blogs.find((blog) => normalizeSlug(blog.slug) === normalizedSlug);
-}
 
 function sanitizeUrl(value: string): string {
   const trimmed = value.trim();
@@ -78,11 +68,11 @@ function defaultFileNotFoundHtml(): string {
   `;
 }
 
-function buildSingleBlogMeta(blog: BlogItem, routeMeta: RouteMeta, siteName: string, requestUrl: string, defaultImageUrl: string, defaultIconUrl: string): RouteMeta {
-  const excerpt = truncateText(stripHtml(blog.short_description || blog.contents?.short_description || blog.contents?.content || ''), 220);
+function buildSingleBlogMeta(blog: SingleBlog, routeMeta: RouteMeta, siteName: string, requestUrl: string, defaultImageUrl: string, defaultIconUrl: string): RouteMeta {
+  const excerpt = truncateText(stripHtml(blog.contents?.content || ''), 220);
   return {
     ...routeMeta,
-    title: blog.meta_title || blog.title || blog.name || routeMeta.title || `${siteName} Blog`,
+    title: blog.meta_title || blog.name || routeMeta.title || `${siteName} Blog`,
     description: blog.meta_description || excerpt || routeMeta.description || `Read the latest article from ${siteName}.`,
     keywords: blog.meta_keyword || routeMeta.keywords || 'blog, article',
     canonical_url: blog.canonical_url || routeMeta.canonical_url || requestUrl,
@@ -91,15 +81,13 @@ function buildSingleBlogMeta(blog: BlogItem, routeMeta: RouteMeta, siteName: str
   };
 }
 
-function resolveBlogDetailImage(blog: BlogItem): string {
+function resolveBlogDetailImage(blog: SingleBlog): string {
   return sanitizeUrl(blog.featured_image || blog.thumbnail_image || '');
 }
 
-function renderBlogContent(blog: BlogItem): string {
+function renderBlogContent(blog: SingleBlog): string {
   const imageUrl = resolveBlogDetailImage(blog);
-  console.log({imageUrl});
   const publishedDate = formatBlogDate(blog.created || blog.modified);
-  const excerpt = truncateText(stripHtml(blog.short_description || blog.contents?.short_description || ''), 240);
   const content = blog.contents?.content || '';
 
   return `
@@ -108,14 +96,13 @@ function renderBlogContent(blog: BlogItem): string {
         <div class="mb-8 overflow-hidden rounded-[1.75rem] bg-slate-100 shadow-sm">
           <img
             src="${escapeHtml(imageUrl)}"
-            alt="${escapeHtml(blog.title || blog.name || 'Blog image')}"
+            alt="${escapeHtml(blog.name || 'Blog image')}"
             class="h-auto w-full object-cover"
             loading="eager"
           />
         </div>
       ` : ''}
       ${publishedDate ? `<p class="mb-4 text-sm font-medium uppercase tracking-[0.22em] text-slate-500">${escapeHtml(publishedDate)}</p>` : ''}
-      ${excerpt ? `<p class="mb-8 text-lg leading-8 text-slate-600">${escapeHtml(excerpt)}</p>` : ''}
       <div class="space-y-6 text-base leading-8 text-slate-700">
         ${content}
       </div>
@@ -171,9 +158,8 @@ export async function handleSingleBlogPage(ctx: PageWiseControlContext): Promise
     contentDiv.innerHTML = fs.readFileSync(filePath, 'utf-8');
   }
 
-  const blogResponse = await storeService.getBlogList(subdomain, BLOG_CONTENT_PATH);
   const slug = pathParams.slug || '';
-  const blog = findBlogBySlug(blogResponse.data, slug);
+  const blog = slug ? await storeService.getBlogDetails(subdomain, slug) : null;
 
   const titleEl = document.getElementById('dynamic_page_title');
   const breadcrumbEl = document.getElementById('breadcrumb_title_from_page_slug');
@@ -197,7 +183,7 @@ export async function handleSingleBlogPage(ctx: PageWiseControlContext): Promise
     return { handlerName: HANDLER_NAME, handled: true };
   }
 
-  const blogTitle = blog.title || blog.name || 'Blog';
+  const blogTitle = blog.name || 'Blog';
   const bannerImageUrl = resolveBlogDetailImage(blog);
 
   if (titleEl) titleEl.textContent = blogTitle;
