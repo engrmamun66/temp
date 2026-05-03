@@ -220,3 +220,8 @@ export interface BlogTag {
     status: number;
     type: string;
 } 
+
+export interface SingleBlog extends Omit<PageContent, 'type' | 'tags'> {
+  type: 'blog';
+  tags: string[] | null;
+}
