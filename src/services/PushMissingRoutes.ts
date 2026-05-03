@@ -216,7 +216,7 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Blog',
         page_key:       EnumPageKes.blog,
-        route_path:     '/blog',
+        route_path:     '/blogs',
         // content_path:   prefix + 'blog.html',
         content_path:   'blog',
         content_source: 'api',
