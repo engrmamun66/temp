@@ -1,6 +1,6 @@
 import { BlogItem, BlogResponseData, BlogTag, RouteMeta } from '../../../interfaces';
 import { logToFile } from '../../../utils/fileLogger';
-import { PageWiseControlContext, PageWiseControlResult } from './types';
+import { PageWiseControlContext, PageWiseControlResult, getContentApiPath } from './types';
 
 const HANDLER_NAME = 'blogPageControl';
 
@@ -253,7 +253,7 @@ export async function handleBlogPage(ctx: PageWiseControlContext): Promise<PageW
   if (pageKey !== 'blog') return { handlerName: HANDLER_NAME, handled: false };
 
   const [blogContent, blogTags] = await Promise.all([
-    storeService.getBlogList(subdomain, route?.content_path || ''),
+    storeService.getBlogList(subdomain, getContentApiPath(route?.content_path) || ''),
     storeService.getBlogTags(subdomain),
   ]);
   const routeMeta: RouteMeta = route?.meta_data ?? {};

@@ -1,5 +1,5 @@
 import { logToFile } from '../../../utils/fileLogger';
-import { PageWiseControlContext, PageWiseControlResult } from './types';
+import { PageWiseControlContext, PageWiseControlResult, getContentApiPath } from './types';
 
 const HANDLER_NAME = 'homePageControl';
 
@@ -7,7 +7,7 @@ export async function handleHomePage(ctx: PageWiseControlContext): Promise<PageW
   const { pageKey, route, subdomain, contentDiv, storeService, seoAndMetaCtrl, document, metaOptions } = ctx;
   if (pageKey !== 'home') return { handlerName: HANDLER_NAME, handled: false };
 
-  const contentPath = route?.content_path ?? '/pages/contents?source=online';
+  const contentPath = getContentApiPath(route?.content_path) || '/pages/contents?source=online';
   const { contents, meta } = await storeService.loadHomePageContents(subdomain, contentPath);
 
   if (contentDiv) contentDiv.innerHTML = contents.map((item) => item.content).join('');

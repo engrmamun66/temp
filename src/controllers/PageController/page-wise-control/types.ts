@@ -32,3 +32,13 @@ export interface PageWiseControlResult {
   handled: boolean;
   isMissingLocalFile?: boolean;
 }
+
+type ContentPath = RskRoute['content_path'] | undefined;
+
+export function getContentFilePath(cp: ContentPath): string {
+  return typeof cp === 'object' ? cp.file : (cp ?? '');
+}
+
+export function getContentApiPath(cp: ContentPath): string {
+  return typeof cp === 'object' ? cp.api_end_point : (cp ?? '');
+}

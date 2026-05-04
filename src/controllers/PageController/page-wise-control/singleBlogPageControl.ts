@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { RouteMeta, SingleBlog } from '../../../interfaces';
 import { logToFile } from '../../../utils/fileLogger';
-import { PageWiseControlContext, PageWiseControlResult } from './types';
+import { PageWiseControlContext, PageWiseControlResult, getContentFilePath } from './types';
 
 const HANDLER_NAME = 'singleBlogPageControl';
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
@@ -144,7 +144,7 @@ export async function handleSingleBlogPage(ctx: PageWiseControlContext): Promise
   if (pageKey !== 'singleBlog') return { handlerName: HANDLER_NAME, handled: false };
   if (!route?.content_path) return { handlerName: HANDLER_NAME, handled: false };
 
-  const filePath = resolvePublicFilePath(route.content_path);
+  const filePath = resolvePublicFilePath(getContentFilePath(route.content_path));
   const fileExists = fs.existsSync(filePath);
 
   if (!fileExists) {

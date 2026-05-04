@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { logToFile } from '../../../utils/fileLogger';
-import { PageWiseControlContext, PageWiseControlResult } from './types';
+import { PageWiseControlContext, PageWiseControlResult, getContentFilePath } from './types';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'default-pages', '404.html');
@@ -35,9 +35,10 @@ function defaultFileNotFoundHtml(): string {
 
 export async function handleFilePage(ctx: PageWiseControlContext): Promise<PageWiseControlResult> {
   const { route, document, siteName, contentDiv, seoAndMetaCtrl, metaOptions, pageKey, subdomain } = ctx;
-  if (route?.content_source !== 'file' || !route.content_path) return { handlerName: HANDLER_NAME, handled: false };
+  const templatePath = getContentFilePath(route?.content_path);
+  if (route?.content_source !== 'file' || !templatePath) return { handlerName: HANDLER_NAME, handled: false };
 
-  const filePath = resolvePublicFilePath(route.content_path);
+  const filePath = resolvePublicFilePath(templatePath);
   const fileExists = fs.existsSync(filePath);
 
   if (fileExists) {
