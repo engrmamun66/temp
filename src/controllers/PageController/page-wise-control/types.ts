@@ -40,5 +40,5 @@ export function getContentFilePath(cp: ContentPath): string {
 }
 
 export function getContentApiPath(cp: ContentPath): string {
-  return typeof cp === 'object' ? cp.api_end_point : (cp ?? '');
+  return typeof cp === 'object' ? cp.seo_end_point : (cp ?? '');
 }

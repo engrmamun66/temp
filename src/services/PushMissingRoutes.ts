@@ -29,7 +29,7 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         page_key:       EnumPageKes.product_details,
         route_path:     '/products/:url',
         content_path:   {
-            api_end_point: '/stores/{subdomain}/meta/product-details', 
+            seo_end_point: '/stores/{subdomain}/meta/product-details', 
             file: prefix + 'product-details.html'
         },
         content_source: 'api',
@@ -42,7 +42,7 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         page_key:       EnumPageKes.package_details,
         route_path:     '/packages/:url',
         content_path:   {
-            api_end_point: '/stores/{subdomain}/meta/product-details', 
+            seo_end_point: '/stores/{subdomain}/meta/product-details', 
             file: prefix + 'package-details.html'
         },
         content_source: 'api',
