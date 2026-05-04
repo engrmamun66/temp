@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { logToFile } from '../../../utils/fileLogger';
-import { PageWiseControlContext, PageWiseControlResult, getContentFilePath, getContentApiPath } from './types';
+import { PageWiseControlContext, PageWiseControlResult, getContentFilePath, getSeoEndpoint } from './types';
 import { resolvePublicFilePath } from './filePageControl';
 
 const HANDLER_NAME = 'productDetailsPageControl';
@@ -25,7 +25,7 @@ export async function handleProductDetailsPage(ctx: PageWiseControlContext): Pro
 
   const productUrl = pathParams.url || '';
   if (productUrl) {
-    const apiEndpoint = getContentApiPath(route?.content_path) || undefined;
+    const apiEndpoint = getSeoEndpoint(route?.content_path);
     const meta = await storeService.getProductDetailsMeta(subdomain, productUrl, apiEndpoint);
     seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: { ...meta, ...route?.meta_data || {} } });
   }
