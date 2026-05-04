@@ -3,10 +3,15 @@ import { PageWiseControlContext, PageWiseControlResult } from './types';
 const HANDLER_NAME = 'genericApiPageControl';
 
 export async function handleGenericApiPage(ctx: PageWiseControlContext): Promise<PageWiseControlResult> {
-  const { route, subdomain, storeService, seoAndMetaCtrl, document, metaOptions, contentDiv } = ctx;
+  const { route, subdomain, storeService, seoAndMetaCtrl, document, metaOptions, contentDiv, pathParams } = ctx;
   if (!route?.content_path) return { handlerName: HANDLER_NAME, handled: false };
 
-  const pageContent = await storeService.getPageContent(subdomain, route.content_path);
+  const pageContent = await storeService.getPageContent(subdomain, route.content_path, {
+    pageKey: route.page_key,
+    requestQuery: {
+      rentmy_page_slug: pathParams.rentmy_page_slug,
+    },
+  });
   seoAndMetaCtrl.applyPageMeta(document, { ...metaOptions, meta: { ...pageContent, ...route?.meta_data || {} } });
   if (contentDiv) contentDiv.innerHTML = pageContent.contents.content;
 

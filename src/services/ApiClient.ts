@@ -3,7 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData, BlogTag, SingleBlog } from '../interfaces';
+import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData, BlogTag, SingleBlog, EnumPageKes } from '../interfaces';
 import { logToFile, clearFileLogs } from '../utils/fileLogger';
 import { pushMissingRoutes } from './PushMissingRoutes';
 import { SessionOverrideService } from './SessionOverrideService';
@@ -32,6 +32,26 @@ export interface StoreResult {
 interface GetSettingsResponse {
   status: string;
   result: StoreResult;
+}
+
+export interface GetPageContentOptions {
+  pageKey?: string;
+  requestQuery?: Record<string, string | undefined>;
+}
+
+export function resolvePageContentPath(contentPath: string, options?: GetPageContentOptions): string {
+  const rentmyPageSlug = options?.requestQuery?.rentmy_page_slug?.trim();
+  if (options?.pageKey !== EnumPageKes.rentmy_dynamic_page || !rentmyPageSlug) {
+    return contentPath;
+  }
+
+  const encodedSlug = encodeURIComponent(rentmyPageSlug);
+  if (contentPath.includes(':rentmy_page_slug')) {
+    return contentPath.replace(':rentmy_page_slug', encodedSlug);
+  }
+
+  const normalizedContentPath = contentPath.replace(/\/+$/, '');
+  return `${normalizedContentPath}/${encodedSlug}`;
 }
 
 // ── File-based token persistence ─────────────────────────────────────────────
@@ -350,13 +370,15 @@ export class ApiClient {
     // }
   }
 
-  async getPageContent(subdomain: string, contentPath: string): Promise<PageContent> {
+  async getPageContent(subdomain: string, contentPath: string, options?: GetPageContentOptions): Promise<PageContent> {
+    const resolvedContentPath = resolvePageContentPath(contentPath, options);
     let data: null | PageContent = null;
+    
     try {
       const resp = await this.authorizedGet<{
         status: string;
         result: { data: PageContent };
-      }>(subdomain, contentPath);
+      }>(subdomain, resolvedContentPath);
       data = resp.result?.data || null
     } catch (err) {
       const axiosErr = err as AxiosError;

@@ -1,4 +1,4 @@
-import { ApiClient, StoreResult } from './ApiClient';
+import { ApiClient, GetPageContentOptions, StoreResult, resolvePageContentPath } from './ApiClient';
 import { CacheService } from './CacheService';
 import { HomeLayoutOrder } from '../types';
 import { RskRoute, StoreConfig, PageContent, HomeContent, HomeMeta, HomeContentAndMeta, RskOptionalConfigs, NavLink, BlogResponseData, BlogTag, SingleBlog } from '../interfaces';
@@ -133,12 +133,13 @@ export class StoreConfigService {
     return { title: '', description: '', keywords: '', imageUrl: '', image_description: '', favIcon: '', twitter: '' };
   }
 
-  async getPageContent(subdomain: string, contentPath: string): Promise<PageContent> {
-    const cacheKey = `content__${contentPath}`;
+  async getPageContent(subdomain: string, contentPath: string, options?: GetPageContentOptions): Promise<PageContent> {
+    const resolvedContentPath = resolvePageContentPath(contentPath, options);
+    const cacheKey = `content__${resolvedContentPath}`;
     const cached = this.cache.get<PageContent>(subdomain, cacheKey);
     if (cached) return cached;
 
-    const data = await this.api.getPageContent(subdomain, contentPath);
+    const data = await this.api.getPageContent(subdomain, contentPath, options);
     this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
     return data;
   }
