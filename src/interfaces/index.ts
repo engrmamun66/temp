@@ -136,7 +136,7 @@ export interface NavLink {
   id: number,
   sequence_no: number,
   content_id: number,
-  content_type: 'Page' | 'Product',
+  content_type: 'Page' | 'Product' | 'Category',
   label: string,
   content_url: string,
   status: 1 | 0,

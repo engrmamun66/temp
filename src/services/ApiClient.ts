@@ -5,7 +5,7 @@ import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
 import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData, BlogTag, SingleBlog, EnumPageKes } from '../interfaces';
 import { logToFile, clearFileLogs } from '../utils/fileLogger';
-import { fixProductLinks } from '../utils/helper';
+import { fixProductLinks, fixCategoryLinks } from '../utils/helper';
 import { pushMissingRoutes } from './PushMissingRoutes';
 import { SessionOverrideService } from './SessionOverrideService';
 import { CacheService } from './CacheService';
@@ -708,8 +708,8 @@ export class ApiClient {
       }>(subdomain, '/navigations', { store_name: subdomain });
       const sort = (arr: NavLink[]) => arr.sort((a, b) => a.sequence_no - b.sequence_no);
       const result = {
-        headerLinks: fixProductLinks(sort((resp.result?.data || []).filter(item => item.status == 1 && item.type === 'header'))),
-        footerLinks: fixProductLinks(sort((resp.result?.data || []).filter(item => item.status == 1 && item.type === 'footer'))),
+        headerLinks: fixCategoryLinks(fixProductLinks(sort((resp.result?.data || []).filter(item => item.status == 1 && item.type === 'header')))),
+        footerLinks: fixCategoryLinks(fixProductLinks(sort((resp.result?.data || []).filter(item => item.status == 1 && item.type === 'footer')))),
       };
 
       this.cache.set(subdomain, cacheKey, result, 1200);

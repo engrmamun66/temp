@@ -110,9 +110,10 @@ export const helper = {
 export default helper;
 
 
-const PRODUCT_UUID_RE = /^(product\/)([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})\/(.+)$/i;
+const PRODUCT_UUID_RE  = /^(product\/)([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})\/(.+)$/i;
+const CATEGORY_UUID_RE = /^(category\/[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})\/.+$/i;
 
-// from "product/e4550124ded311edba81023ae3a002ea/quote2" to "product/quote2"
+// "product/e4550124ded311edba81023ae3a002ea/quote2" → "product/quote2"
 export function fixProductLinks<T extends { content_type: string; content_url: string; children?: T[] }>(
   links: T[],
 ): T[] {
@@ -124,3 +125,18 @@ export function fixProductLinks<T extends { content_type: string; content_url: s
     return { ...link, content_url: `${match[1]}${match[3]}`, children };
   });
 }
+
+// "category/74b505e7637411ee9eaf023d0c634269/klub" → "category/74b505e7637411ee9eaf023d0c634269"
+export function fixCategoryLinks<T extends { content_type: string; content_url: string; children?: T[] }>(
+  links: T[],
+): T[] {
+  return links.map((link) => {
+    const children = link.children ? fixCategoryLinks(link.children) : link.children;
+    if (link.content_type !== 'Category') return children !== link.children ? { ...link, children } : link;
+    const match = CATEGORY_UUID_RE.exec(link.content_url);
+    if (!match) return children !== link.children ? { ...link, children } : link;
+    return { ...link, content_url: match[1], children };
+  });
+}
+
+

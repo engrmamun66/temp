@@ -53,7 +53,7 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         title:          '{{site_name}}:: Category',
         page_key:       EnumPageKes.products_list_by_category,
         route_path:     '/category/:uuid',
-        content_path:   prefix + 'category.html',
+        content_path:   prefix + 'package-details.html',
         content_source: 'file',
         _source:        'force_pushed',
     });
