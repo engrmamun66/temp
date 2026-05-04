@@ -8,6 +8,7 @@ export interface RskRoute {
   route_path:      string;
   content_path:   string;
   content_source: 'file' | 'api';
+  html_page_path?: string; // public/default-pages
   layout?:         string | null;
   _source?: 'force_pushed';
   components?: Component[];
