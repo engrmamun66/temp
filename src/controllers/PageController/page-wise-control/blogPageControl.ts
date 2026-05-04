@@ -127,11 +127,11 @@ function renderTopBlogTags(tags: BlogTag[]): string {
   if (validTags.length === 0) return '';
 
   const tagLinks = validTags.map((tag) => {
-    const tagUrl = escapeHtml(resolveTagUrl(tag.url));
+    const tagUrl = tag.url;
     const tagName = escapeHtml(tag.name);
     return `
       <a
-        href="${tagUrl}"
+        href="?tags=${tagUrl}"
         class="inline-flex items-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-amber-500 hover:bg-amber-50 hover:text-amber-700"
       >
         ${tagName}
@@ -144,10 +144,10 @@ function renderTopBlogTags(tags: BlogTag[]): string {
       <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Browse by tag</p>
-          <h2 class="mt-2 text-2xl font-bold text-slate-900">Explore topics</h2>
+          <!-- <h2 class="mt-2 text-2xl font-bold text-slate-900">Explore topics</h2> -->
         </div>
       </div>
-      <div class="mt-5 flex flex-wrap gap-3">
+      <div class="mt-2 flex flex-wrap gap-3">
         ${tagLinks}
       </div>
     </div>

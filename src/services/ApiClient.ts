@@ -418,15 +418,27 @@ export class ApiClient {
     try {
       const resp = await this.authorizedGet<{
         status: string;
-        result: BlogTag[];
+        result: {data: BlogTag[]};
       }>(subdomain, '/tags');
-      data = Array.isArray(resp.result) ? resp.result : null;
+      data = Array.isArray(resp.result?.data) ? resp.result?.data : null;
     } catch (err) {
       const axiosErr = err as AxiosError;
       logToFile(`[getBlogTags() error] ${axiosErr.response?.data ?? axiosErr.message}`);
     }
 
-    return Array.isArray(data) ? data : [];
+    let result = Array.isArray(data) ? data : [];
+    if(result?.length){
+      result.splice(0, 0, {
+        id: -1,
+        is_shown_in_nav: false,
+        name: 'All Tags',
+        status: 1,
+        type: 'blog',
+        url: ''
+      })
+    }
+
+    return result
   }
 
   async getBlogDetails(subdomain: string, slug: string): Promise<SingleBlog | null> {
