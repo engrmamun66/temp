@@ -115,12 +115,12 @@ export class StoreConfigService {
     }
   }
 
-  async getCategoryMeta(subdomain: string, uid: string): Promise<HomeMeta> {
+  async getCategoryMeta(subdomain: string, uid: string, endpointTemplate?: string): Promise<HomeMeta> {
     const cacheKey = `category_meta__${uid}`;
     const cached = this.cache.get<HomeMeta>(subdomain, cacheKey);
     if (cached) return cached;
     try {
-      const data = await this.api.getCategoryMeta(subdomain, uid);
+      const data = await this.api.getCategoryMeta(subdomain, uid, endpointTemplate);
       this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
       return data;
     } catch (err) {

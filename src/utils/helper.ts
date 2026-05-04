@@ -113,7 +113,7 @@ export default helper;
 const PRODUCT_UUID_RE  = /^(product\/)([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})\/(.+)$/i;
 const CATEGORY_UUID_RE = /^(category\/[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})\/.+$/i;
 
-// "product/e4550124ded311edba81023ae3a002ea/quote2" → "product/quote2"
+// "product/e4550124ded311edba81023ae3a002ea/quote2" → "products/quote2"
 export function fixProductLinks<T extends { content_type: string; content_url: string; children?: T[] }>(
   links: T[],
 ): T[] {
@@ -122,7 +122,7 @@ export function fixProductLinks<T extends { content_type: string; content_url: s
     if (link.content_type !== 'Product') return children !== link.children ? { ...link, children } : link;
     const match = PRODUCT_UUID_RE.exec(link.content_url);
     if (!match) return children !== link.children ? { ...link, children } : link;
-    return { ...link, content_url: `${match[1]}${match[3]}`, children };
+    return { ...link, content_url: `products/${match[3]}`, children };
   });
 }
 

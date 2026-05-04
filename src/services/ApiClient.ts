@@ -613,11 +613,14 @@ export class ApiClient {
     }
   }
 
-  async getCategoryMeta(subdomain: string, uid: string): Promise<HomeMeta> {
+  async getCategoryMeta(subdomain: string, uid: string, endpointTemplate?: string): Promise<HomeMeta> {
     try {
+      const endpoint = endpointTemplate
+        ? endpointTemplate.replace('{subdomain}', subdomain)
+        : `/stores/${subdomain}/meta/category`;
       const resp = await this.authorizedGet<unknown>(
         subdomain,
-        `/stores/${subdomain}/meta/category`,
+        endpoint,
         { uid },
       );
       const seo = this.extractHomeMetaPayload(resp);
