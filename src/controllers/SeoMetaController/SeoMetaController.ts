@@ -1,4 +1,5 @@
 import { RskRoute, PageContent, HomeMeta, RouteMeta } from '../../interfaces';
+import { logToFile } from '../../utils/fileLogger';
 
 type AnyMeta = PageContent | HomeMeta | RouteMeta;
 

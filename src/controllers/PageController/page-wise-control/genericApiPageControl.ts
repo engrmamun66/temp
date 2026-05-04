@@ -1,3 +1,4 @@
+import { logToFile } from '../../../utils/fileLogger';
 import { PageWiseControlContext, PageWiseControlResult, getContentApiPath } from './types';
 
 const HANDLER_NAME = 'genericApiPageControl';
