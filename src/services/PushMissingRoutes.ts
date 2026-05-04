@@ -31,17 +31,8 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         content_path:   prefix + 'product-details.html',
         content_source: 'file',
         _source:        'force_pushed',
-    }, {"force_push": true});
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Product Details',
-        page_key:       EnumPageKes.product_details,
-        route_path:     '/products/:uuid/:url',
-        content_path:   prefix + 'product-details.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-        
-    }, {"force_push": true});
+    });
+    
 
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Package Details',
