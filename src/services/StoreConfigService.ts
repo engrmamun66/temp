@@ -101,12 +101,12 @@ export class StoreConfigService {
     }
   }
 
-  async getProductDetailsMeta(subdomain: string, productUrl: string): Promise<HomeMeta> {
+  async getProductDetailsMeta(subdomain: string, productUrl: string, endpointTemplate?: string): Promise<HomeMeta> {
     const cacheKey = `product_details_meta__${productUrl}`;
     const cached = this.cache.get<HomeMeta>(subdomain, cacheKey);
     if (cached) return cached;
     try {
-      const data = await this.api.getProductDetailsMeta(subdomain, productUrl);
+      const data = await this.api.getProductDetailsMeta(subdomain, productUrl, endpointTemplate);
       this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
       return data;
     } catch (err) {

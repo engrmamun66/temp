@@ -11,7 +11,7 @@ function resolveTitle(title: string, siteName: string): string {
   return title.replace(/\{\{site_name\}\}/g, siteName);
 }
 
-function resolvePublicFilePath(contentPath: string): string {
+export function resolvePublicFilePath(contentPath: string): string {
   const normalizedPath = contentPath.replace(/^\/+/, '');
   const filePath = path.resolve(PUBLIC_DIR, normalizedPath);
   if (!filePath.startsWith(`${PUBLIC_DIR}${path.sep}`) && filePath !== PUBLIC_DIR) {
