@@ -24,7 +24,8 @@ export class ConfigJsController {
       ]);
 
       const global = builder.build(storeResult, storeConfig.routes, subdomain);
-      const protocol = req.hostname.includes('localhost') ? 'http' : 'https';
+      const forwardedProto = req.headers['x-forwarded-proto'];
+      const protocol = Array.isArray(forwardedProto) ? forwardedProto[0] : (forwardedProto || req.protocol);
       const domain = `${protocol}://${req.hostname}`;
       const js = `var DOMAIN = ${JSON.stringify(domain)};\nvar RENTMY_GLOBAL = ${JSON.stringify(global)};`;
 

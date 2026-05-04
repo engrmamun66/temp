@@ -226,10 +226,9 @@ export class PageController {
 
   private buildRequestUrl(req: Request): string {
     const forwardedProto = req.headers['x-forwarded-proto'];
-    let protocol = Array.isArray(forwardedProto) ? forwardedProto[0] : forwardedProto || req.protocol;
+    const protocol = Array.isArray(forwardedProto) ? forwardedProto[0] : (forwardedProto || req.protocol);
     const host    = req.get('host') || '';
     const urlPath = `${host}${req.originalUrl}`;
-    if (host && !host.includes('localhost')) protocol = 'https';
     return protocol ? `${protocol}://${urlPath}` : urlPath;
   }
 

@@ -65,8 +65,8 @@ export class RentMyGlobalBuilder {
     };
   }
 
-  scriptTag(subdomain: string, global: RentMyGlobal): string {
-    const domain = `https://${subdomain}.${env.CURRENT_DOMAIN}`;
+  scriptTag(subdomain: string, global: RentMyGlobal, protocol: 'http' | 'https'): string {
+    const domain = `${protocol}://${subdomain}.${env.CURRENT_DOMAIN}`;
     return [
       '<script>',
       `var DOMAIN = ${JSON.stringify(domain)};`,
