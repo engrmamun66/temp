@@ -10,13 +10,13 @@ import { PageWiseControlContext, PageWiseControlResult } from './types';
 
 export async function handlePageWiseControl(ctx: PageWiseControlContext): Promise<PageWiseControlResult> {
   const handlers = [
-    handleSingleBlogPage,
-    handleFilePage,
     handleHomePage,
     handleProductsListPage,
-    handleProductDetailsPage,
     handleProductsListByCategoryPage,
+    handleProductDetailsPage,
     handleBlogPage,
+    handleSingleBlogPage,
+    handleFilePage,
     handleGenericApiPage,
   ];
 

@@ -12,7 +12,7 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         content_path:   prefix + 'home.html',
         content_source: 'api',
         _source:        'force_pushed',
-    }, 0);
+    }, {index: 0});
 
     
     pushRouteIfNotExist(routes, {
@@ -31,7 +31,17 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         content_path:   prefix + 'product-details.html',
         content_source: 'file',
         _source:        'force_pushed',
-    });
+    }, {"force_push": true});
+
+    pushRouteIfNotExist(routes, {
+        title:          '{{site_name}}:: Product Details',
+        page_key:       EnumPageKes.product_details,
+        route_path:     '/products/:uuid/:url',
+        content_path:   prefix + 'product-details.html',
+        content_source: 'file',
+        _source:        'force_pushed',
+        
+    }, {"force_push": true});
 
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Package Details',
@@ -274,11 +284,16 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
 }
 
 
-function pushRouteIfNotExist(routes: RskRoute[], route: RskRoute, pushed_to_index: number = -1): void
+function pushRouteIfNotExist(routes: RskRoute[], route: RskRoute, {index=0, force_push= false} = {}): void
 {
+    if(force_push){
+        routes.push(route)
+        setRouteComponent(route)
+        return
+    }
     const find = routes.find((item: RskRoute) => item.page_key === route.page_key);
     if (!find) {
-        if (pushed_to_index >= 0) routes.splice(pushed_to_index, 0, route);
+        if (index >= 0) routes.splice(index, 0, route);
         else routes.push(route);
         setRouteComponent(route)
     }
