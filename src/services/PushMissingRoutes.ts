@@ -26,7 +26,7 @@ import { pushSingleBlog } from './pase-wise-pushes/push:single-blog';
 import { pushDynamicPage } from './pase-wise-pushes/push:dynamic-page';
 import { pushTermsAndConditions } from './pase-wise-pushes/push:terms-and-conditions';
 
-const prefix = 'default-pages/'
+export const prefix = 'default-pages/'
 
 export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): RskRoute[]
 {
@@ -101,4 +101,14 @@ export function setRouteComponent(route: RskRoute, wasFound = false): void
     if(!route.components) route.components = []
 
     route.components = [...header_footer, ...route.components]
+}
+
+export function trimSlashes(slug: string): string {
+    return slug.replace(/^\/+/, '').replace(/\/+$/, '')
+}
+ 
+export function findRentmyPage(rentmyPages: RentMyPage[], slug: string): RentMyPage | null
+{   
+    
+    return rentmyPages.find(page => trimSlashes(page.slug) === trimSlashes(slug)) || null
 }
