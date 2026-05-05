@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { logToFile } from '../../../utils/fileLogger';
-import { PageWiseControlContext, PageWiseControlResult, getContentFilePath, getSeoEndpoint } from './types';
+import { PageWiseControlContext, PageWiseControlResult, getContentFilePath, getSeoEndpoint, getApiEndpoint } from './types';
 import { resolvePublicFilePath } from './filePageControl';
 
 const HANDLER_NAME = 'productsListByCategoryPageControl';
@@ -10,6 +10,8 @@ export async function handleProductsListByCategoryPage(ctx: PageWiseControlConte
   if (pageKey !== 'products_list_by_category') return { handlerName: HANDLER_NAME, handled: false };
 
   const templatePath = getContentFilePath(route?.content_path);
+  const apiEndpoint = getApiEndpoint(route?.content_path);
+
   if (templatePath) {
     const filePath = resolvePublicFilePath(templatePath);
     if (fs.existsSync(filePath)) {
@@ -19,6 +21,9 @@ export async function handleProductsListByCategoryPage(ctx: PageWiseControlConte
       logToFile(`[PageController] local file not found page_key=${pageKey} subdomain=${subdomain} file=${filePath}`);
       return { handlerName: HANDLER_NAME, handled: true, isMissingLocalFile: true };
     }
+  } else if (apiEndpoint) {
+    const pageContent = await storeService.getPageContent(subdomain, apiEndpoint, { pageKey: route?.page_key });
+    if (contentDiv) contentDiv.innerHTML = pageContent.contents.content;
   }
 
   const uid = pathParams.uuid || pathParams.uid || '';

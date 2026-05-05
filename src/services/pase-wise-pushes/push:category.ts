@@ -14,11 +14,9 @@ export function pushCategory(routes: RskRoute[], rentmyPages: RentMyPage[], subd
             content_path:  {
                 seo_end_point: '/stores/{subdomain}/meta/category',
                 api_endpoint: `pages/${page.slug}`,
-                file: '',
             },
             content_source: 'api',
         }, { force_push: true });
-
 
     } else {
         pushRouteIfNotExist(routes, {
