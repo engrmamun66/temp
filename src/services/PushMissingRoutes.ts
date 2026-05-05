@@ -2,6 +2,7 @@ import { RskRoute, EnumPageKes, Component, Slots } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
 import { pushProductsList } from './pase-wise-pushes/push:products-list';
 import { pushProductDetails } from './pase-wise-pushes/push:product-details';
+import { pushPackageDetails } from './pase-wise-pushes/push:package-details';
 
 const prefix = 'default-pages/'
 
@@ -18,19 +19,7 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
 
     pushProductsList(routes, subdomain);
     pushProductDetails(routes, subdomain);
-    
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Package Details',
-        page_key:       EnumPageKes.package_details,
-        route_path:     '/packages/:url',
-        content_path:   {
-            seo_end_point: '/stores/{subdomain}/meta/product-details', 
-            file: prefix + 'package-details.html'
-        },
-        content_source: 'api',
-        _source:        'force_pushed',
-    });
+    pushPackageDetails(routes, subdomain);
 
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Category',
