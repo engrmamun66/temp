@@ -284,7 +284,7 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
 }
 
 
-function pushRouteIfNotExist(routes: RskRoute[], route: RskRoute, {index=0, force_push= false} = {}): void
+export function pushRouteIfNotExist(routes: RskRoute[], route: RskRoute, {index=0, force_push= false} = {}): void
 {
     if(force_push){
         routes.push(route)
@@ -300,7 +300,7 @@ function pushRouteIfNotExist(routes: RskRoute[], route: RskRoute, {index=0, forc
 }
 
 
-function setRouteComponent(route: RskRoute, wasFound = false): void
+export function setRouteComponent(route: RskRoute, wasFound = false): void
 {
     let header_footer: Component[] = [
         {
