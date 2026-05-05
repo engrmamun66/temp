@@ -30,81 +30,32 @@ export const prefix = 'default-pages/'
 
 export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): RskRoute[]
 {
-    // route: /
-    pushHome(routes, rentmyPages, subdomain);
-    
-    // route: /products-list
-    pushProductsList(routes, rentmyPages, subdomain);
-    
-    // route: /products/:url
-    pushProductDetails(routes, rentmyPages, subdomain);
-    
-    // route: /packages/:url
-    pushPackageDetails(routes, rentmyPages, subdomain);
-    
-    // route: /category/:uuid
-    pushCategory(routes, rentmyPages, subdomain);
-    
-    // route: /wish-list
-    pushWishList(routes, rentmyPages, subdomain);
-    
-    // route: /cart
-    pushCart(routes, rentmyPages, subdomain);
-    
-    // route: /checkout
-    pushCheckout(routes, rentmyPages, subdomain);
-    
-    // route: /order-complete
-    pushOrderComplete(routes, rentmyPages, subdomain);
-    
-    // route: /order-details/:id
-    pushOrderDetails(routes, rentmyPages, subdomain);
-    
-    // route: /membership-plan
-    pushMembershipPlan(routes, rentmyPages, subdomain);
-    
-    // route: /rentmy-dashboard
-    pushRentmyDashboard(routes, rentmyPages, subdomain);
-    
-    // route: /login
-    pushLogin(routes, rentmyPages, subdomain);
-    
-    // route: /registration
-    pushRegistration(routes, rentmyPages, subdomain);
-    
-    // route: /reset-password
-    pushResetPassword(routes, rentmyPages, subdomain);
-    
-    // route: /partner-login
-    pushPartnerLogin(routes, rentmyPages, subdomain);
-    
-    // route: /partner-registration
-    pushPartnerRegistration(routes, rentmyPages, subdomain);
-    
-    // route: /profile
-    pushCustomerProfile(routes, rentmyPages, subdomain);
-    
-    // route: /change-password
-    pushChangePassword(routes, rentmyPages, subdomain);
-    
-    // route: /change-avatar
-    pushChangeAvatar(routes, rentmyPages, subdomain);
-    
-    // route: /order-history
-    pushOrderHistory(routes, rentmyPages, subdomain);
-    
-    // route: /blog
-    pushBlog(routes, rentmyPages, subdomain);
-    
-    // route: /blog/:slug
-    pushSingleBlog(routes, rentmyPages, subdomain);
-    
-    // route: /page/:rentmy_page_slug
-    pushDynamicPage(routes, rentmyPages, subdomain);
-    
-    // route: /terms-and-conditions
-    pushTermsAndConditions(routes, rentmyPages, subdomain);
-    
+    pushHome(routes, rentmyPages, subdomain);                 // route: /
+    pushProductsList(routes, rentmyPages, subdomain);         // route: /products-list
+    pushProductDetails(routes, rentmyPages, subdomain);       // route: /products/:url
+    pushPackageDetails(routes, rentmyPages, subdomain);       // route: /packages/:url
+    pushCategory(routes, rentmyPages, subdomain);             // route: /category/:uuid
+    pushWishList(routes, rentmyPages, subdomain);             // route: /wish-list
+    pushCart(routes, rentmyPages, subdomain);                 // route: /cart
+    pushCheckout(routes, rentmyPages, subdomain);             // route: /checkout
+    pushOrderComplete(routes, rentmyPages, subdomain);        // route: /order-complete
+    pushOrderDetails(routes, rentmyPages, subdomain);         // route: /order-details/:id
+    pushMembershipPlan(routes, rentmyPages, subdomain);       // route: /membership-plan
+    pushRentmyDashboard(routes, rentmyPages, subdomain);      // route: /rentmy-dashboard
+    pushLogin(routes, rentmyPages, subdomain);                // route: /login
+    pushRegistration(routes, rentmyPages, subdomain);         // route: /registration
+    pushResetPassword(routes, rentmyPages, subdomain);        // route: /reset-password
+    pushPartnerLogin(routes, rentmyPages, subdomain);         // route: /partner-login
+    pushPartnerRegistration(routes, rentmyPages, subdomain);  // route: /partner-registration
+    pushCustomerProfile(routes, rentmyPages, subdomain);      // route: /profile
+    pushChangePassword(routes, rentmyPages, subdomain);       // route: /change-password
+    pushChangeAvatar(routes, rentmyPages, subdomain);         // route: /change-avatar
+    pushOrderHistory(routes, rentmyPages, subdomain);         // route: /order-history
+    pushBlog(routes, rentmyPages, subdomain);                 // route: /blog
+    pushSingleBlog(routes, rentmyPages, subdomain);           // route: /blog/:slug
+    pushDynamicPage(routes, rentmyPages, subdomain);          // route: /page/:rentmy_page_slug
+    pushTermsAndConditions(routes, rentmyPages, subdomain);   // route: /terms-and-conditions
+
 
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: 404 - Page Not Found',
