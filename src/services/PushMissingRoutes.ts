@@ -109,6 +109,9 @@ export function trimSlashes(slug: string): string {
  
 export function findRentmyPage(rentmyPages: RentMyPage[], slug: string): RentMyPage | null
 {   
-    
-    return rentmyPages.find(page => trimSlashes(page.slug) === trimSlashes(slug)) || null
+    return rentmyPages.find(page => {
+        slug = trimSlashes(slug)
+        page.slug = trimSlashes(page.slug)
+        return page.slug === slug
+    }) || null
 }
