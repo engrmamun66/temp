@@ -179,6 +179,7 @@ export enum EnumPageKes {
   singleBlog                = 'singleBlog',
   not_found                 = 'not_found',
   rentmy_dynamic_page       = 'rentmy_dynamic_page',
+  contact                   = 'contact',
 }
 
 export interface BlogItem {

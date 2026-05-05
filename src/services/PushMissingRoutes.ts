@@ -26,6 +26,7 @@ import { pushSingleBlog } from './pase-wise-pushes/push:single-blog';
 import { pushDynamicPage } from './pase-wise-pushes/push:dynamic-page';
 import { pushTermsAndConditions } from './pase-wise-pushes/push:terms-and-conditions';
 import { pushNotFound } from './pase-wise-pushes/push:404-not-found';
+import { pushContact } from './pase-wise-pushes/push:contact';
 
 export const prefix = 'default-pages/'
 
@@ -55,6 +56,7 @@ export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[],
     pushBlog(routes, rentmyPages, subdomain);                 // route: /blog
     pushSingleBlog(routes, rentmyPages, subdomain);           // route: /blog/:slug
     pushDynamicPage(routes, rentmyPages, subdomain);          // route: /page/:rentmy_page_slug
+    pushContact(routes, rentmyPages, subdomain);              // route: /contact
     pushTermsAndConditions(routes, rentmyPages, subdomain);   // route: /terms-and-conditions
     pushNotFound(routes, rentmyPages, subdomain);             // route: /not-found
 
