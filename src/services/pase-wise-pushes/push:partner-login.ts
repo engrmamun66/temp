@@ -1,7 +1,6 @@
 import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
-import { pushRouteIfNotExist } from '../PushMissingRoutes';
+import { pushRouteIfNotExist, prefix } from '../PushMissingRoutes';
 
-const prefix = 'default-pages/';
 
 export function pushPartnerLogin(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
     pushRouteIfNotExist(routes, {
