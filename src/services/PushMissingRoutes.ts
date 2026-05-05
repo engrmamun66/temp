@@ -1,5 +1,6 @@
 import { RskRoute, EnumPageKes, Component, Slots } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
+import { pushProductsList } from './pase-wise-pushes/push:products-list';
 
 const prefix = 'default-pages/'
 
@@ -13,6 +14,8 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
         content_source: 'api',
         _source:        'force_pushed',
     }, {index: 0});
+
+    pushProductsList(routes, subdomain)
 
     
     pushRouteIfNotExist(routes, {
@@ -284,7 +287,7 @@ export function pushMissingRoutes(routes: RskRoute[], subdomain: string): RskRou
 }
 
 
-export function pushRouteIfNotExist(routes: RskRoute[], route: RskRoute, {index=0, force_push= false} = {}): void
+export function pushRouteIfNotExist(routes: RskRoute[], route: RskRoute, {index=0, force_push= false, subdomain = ''} = {}): void
 {
     if(force_push){
         routes.push(route)
