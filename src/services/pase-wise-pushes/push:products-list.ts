@@ -1,5 +1,5 @@
 import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
-import { pushRouteIfNotExist, findRentmyPage, trimSlashes, prefix } from '../PushMissingRoutes';
+import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 
 export function pushProductsList(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
