@@ -6,7 +6,7 @@ export interface RskRoute {
   title:           string; 
   page_key:        string;
   route_path:      string;
-  content_path:   string | { file: string, seo_end_point: string};
+  content_path:   string | { file?: string; seo_end_point: string; api_endpoint?: string };
   content_source: 'file' | 'api';
   layout?:         string | null;
   _source?: 'force_pushed';

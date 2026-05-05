@@ -37,7 +37,7 @@ export interface PageWiseControlResult {
 type ContentPath = RskRoute['content_path'] | undefined;
 
 export function getContentFilePath(cp: ContentPath): string {
-  return typeof cp === 'object' ? cp.file : (cp ?? '');
+  return typeof cp === 'object' ? (cp?.file || '') : (cp ?? '');
 }
 
 export function getContentApiPath(cp: ContentPath): string {
@@ -46,4 +46,8 @@ export function getContentApiPath(cp: ContentPath): string {
 
 export function getSeoEndpoint(cp: ContentPath): string | undefined {
   return typeof cp === 'object' ? cp.seo_end_point : undefined;
+}
+
+export function getApiEndpoint(cp: ContentPath): string | undefined {
+  return typeof cp === 'object' ? cp.api_endpoint : undefined;
 }

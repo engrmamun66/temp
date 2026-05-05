@@ -33,14 +33,14 @@ export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[],
 {
     pushHome(routes, rentmyPages, subdomain);                 // route: /
     pushProductsList(routes, rentmyPages, subdomain);         // route: /products-list
-    pushProductDetails(routes, rentmyPages, subdomain);       // route: /products/:url
-    pushPackageDetails(routes, rentmyPages, subdomain);       // route: /packages/:url
-    pushCategory(routes, rentmyPages, subdomain);             // route: /category/:uuid
+    pushProductDetails(routes, rentmyPages, subdomain);       // route: /product-details -> /products/:url
+    pushPackageDetails(routes, rentmyPages, subdomain);       // route: /package-details -> /packages/:url
+    pushCategory(routes, rentmyPages, subdomain);             // route: /category-products -> /category/:uuid
     pushWishList(routes, rentmyPages, subdomain);             // route: /wish-list
     pushCart(routes, rentmyPages, subdomain);                 // route: /cart
     pushCheckout(routes, rentmyPages, subdomain);             // route: /checkout
     pushOrderComplete(routes, rentmyPages, subdomain);        // route: /order-complete
-    pushOrderDetails(routes, rentmyPages, subdomain);         // route: /order-details/:id
+    pushOrderDetails(routes, rentmyPages, subdomain);         // route: /order-details -> /order-details/:id
     pushMembershipPlan(routes, rentmyPages, subdomain);       // route: /membership-plan
     pushRentmyDashboard(routes, rentmyPages, subdomain);      // route: /rentmy-dashboard
     pushLogin(routes, rentmyPages, subdomain);                // route: /login
