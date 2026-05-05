@@ -1,5 +1,6 @@
 import { RskRoute, EnumPageKes, Component, Slots, RentMyPage } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
+import { pushHome } from './pase-wise-pushes/push:home';
 import { pushProductsList } from './pase-wise-pushes/push:products-list';
 import { pushProductDetails } from './pase-wise-pushes/push:product-details';
 import { pushPackageDetails } from './pase-wise-pushes/push:package-details';
@@ -29,15 +30,7 @@ const prefix = 'default-pages/'
 
 export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): RskRoute[]
 {
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Home',
-        page_key:       EnumPageKes.home,
-        route_path:     '/',
-        content_path:   prefix + 'home.html',
-        content_source: 'api',
-        _source:        'force_pushed',
-    }, {index: 0});
-
+    pushHome(routes, rentmyPages, subdomain);
     pushProductsList(routes, rentmyPages, subdomain);
     pushProductDetails(routes, rentmyPages, subdomain);
     pushPackageDetails(routes, rentmyPages, subdomain);
