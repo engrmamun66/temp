@@ -5,6 +5,25 @@ import { pushProductDetails } from './pase-wise-pushes/push:product-details';
 import { pushPackageDetails } from './pase-wise-pushes/push:package-details';
 import { pushCategory } from './pase-wise-pushes/push:category';
 import { pushWishList } from './pase-wise-pushes/push:wish-list';
+import { pushCart } from './pase-wise-pushes/push:cart';
+import { pushCheckout } from './pase-wise-pushes/push:checkout';
+import { pushOrderComplete } from './pase-wise-pushes/push:order-complete';
+import { pushOrderDetails } from './pase-wise-pushes/push:order-details';
+import { pushMembershipPlan } from './pase-wise-pushes/push:membership-plan';
+import { pushRentmyDashboard } from './pase-wise-pushes/push:rentmy-dashboard';
+import { pushLogin } from './pase-wise-pushes/push:login';
+import { pushRegistration } from './pase-wise-pushes/push:registration';
+import { pushResetPassword } from './pase-wise-pushes/push:reset-password';
+import { pushPartnerLogin } from './pase-wise-pushes/push:partner-login';
+import { pushPartnerRegistration } from './pase-wise-pushes/push:partner-registration';
+import { pushCustomerProfile } from './pase-wise-pushes/push:customer-profile';
+import { pushChangePassword } from './pase-wise-pushes/push:change-password';
+import { pushChangeAvatar } from './pase-wise-pushes/push:change-avatar';
+import { pushOrderHistory } from './pase-wise-pushes/push:order-history';
+import { pushBlog } from './pase-wise-pushes/push:blog';
+import { pushSingleBlog } from './pase-wise-pushes/push:single-blog';
+import { pushDynamicPage } from './pase-wise-pushes/push:dynamic-page';
+import { pushTermsAndConditions } from './pase-wise-pushes/push:terms-and-conditions';
 
 const prefix = 'default-pages/'
 
@@ -24,190 +43,25 @@ export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[],
     pushPackageDetails(routes, rentmyPages, subdomain);
     pushCategory(routes, rentmyPages, subdomain);
     pushWishList(routes, rentmyPages, subdomain);
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Cart',
-        page_key:       EnumPageKes.cart,
-        route_path:     '/cart',
-        content_path:   prefix + 'cart.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Checkout',
-        page_key:       EnumPageKes.checkout,
-        route_path:     '/checkout',
-        content_path:   prefix + 'checkout.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Order Complete',
-        page_key:       EnumPageKes.order_complete,
-        route_path:     '/order-complete',
-        content_path:   prefix + 'order-complete.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Order Details',
-        page_key:       EnumPageKes.order_details,
-        route_path:     '/order-details/:id',
-        content_path:   prefix + 'customer-order-details.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Membership Plan',
-        page_key:       EnumPageKes.membership_plan,
-        route_path:     '/membership-plan',
-        content_path:   prefix + 'membership-plan.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-   
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Dashboard',
-        page_key:       EnumPageKes.rentmy_dashboard,
-        route_path:     '/rentmy-dashboard',
-        content_path:   prefix + 'rentmy-dashboard.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Login',
-        page_key:       EnumPageKes.login,
-        route_path:     '/login',
-        content_path:   prefix + 'customer-login.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    // ------ Customer: registration ---------------------------------------- //
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Registration',
-        page_key:       EnumPageKes.registration,
-        route_path:     '/registration',
-        content_path:   prefix + 'customer-registration.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    // ------ Customer: reset password -------------------------------------- //
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Reset Password',
-        page_key:       EnumPageKes.reset_password,
-        route_path:     '/reset-password',
-        content_path:   prefix + 'customer-reset-password.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Partner Login',
-        page_key:       EnumPageKes.partner_login,
-        route_path:     '/partner-login',
-        content_path:   prefix + 'partner-login.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Partner Registration',
-        page_key:       EnumPageKes.partner_registration,
-        route_path:     '/partner-registration',
-        content_path:   prefix + 'partner-registration.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: My Profile',
-        page_key:       EnumPageKes.customer_profile,
-        route_path:     '/profile',
-        content_path:   prefix + 'customer-profile.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    // ------ Customer: change password ------------------------------------- //
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Change Password',
-        page_key:       EnumPageKes.customer_change_password,
-        route_path:     '/change-password',
-        content_path:   prefix + 'customer-change-password.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    // ------ Customer: change avatar --------------------------------------- //
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Change Avatar',
-        page_key:       EnumPageKes.customer_change_avatar,
-        route_path:     '/change-avatar',
-        content_path:   prefix + 'customer-change-avatar.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    // ------ Customer: order history --------------------------------------- //
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Order History',
-        page_key:       EnumPageKes.customer_order_history,
-        route_path:     '/order-history',
-        content_path:   prefix + 'customer-order-history.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-     
-
-    // ------ Blog list --------------------------------------------------------- //
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Blog',
-        page_key:       EnumPageKes.blog,
-        route_path:     '/blog',
-        // content_path:   prefix + 'blog.html',
-        content_path:   'blogs',
-        content_source: 'api',
-        _source:        'force_pushed',
-    });
-
-    // ------ Single blog ------------------------------------------------------- //
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Blog',
-        page_key:       EnumPageKes.singleBlog,
-        route_path:     '/blog/:slug',
-        content_path:   prefix + 'blog-details.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    // ------ Rentmy dynamic page ------------------------------------------------------- //
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Dynamic page',
-        page_key:       EnumPageKes.rentmy_dynamic_page,
-        route_path:     '/page/:rentmy_page_slug',
-        content_path:   '/pages/:rentmy_page_slug',
-        content_source: 'api',
-        _source:        'force_pushed',
-    });
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Terms and Conditions',
-        page_key:       EnumPageKes.terms_and_conditions,
-        route_path:     '/terms-and-conditions',
-        content_path:   'pages/terms-and-conditions',
-        content_source: 'api',
-        _source:        'force_pushed',
-    });
+    pushCart(routes, rentmyPages, subdomain);
+    pushCheckout(routes, rentmyPages, subdomain);
+    pushOrderComplete(routes, rentmyPages, subdomain);
+    pushOrderDetails(routes, rentmyPages, subdomain);
+    pushMembershipPlan(routes, rentmyPages, subdomain);
+    pushRentmyDashboard(routes, rentmyPages, subdomain);
+    pushLogin(routes, rentmyPages, subdomain);
+    pushRegistration(routes, rentmyPages, subdomain);
+    pushResetPassword(routes, rentmyPages, subdomain);
+    pushPartnerLogin(routes, rentmyPages, subdomain);
+    pushPartnerRegistration(routes, rentmyPages, subdomain);
+    pushCustomerProfile(routes, rentmyPages, subdomain);
+    pushChangePassword(routes, rentmyPages, subdomain);
+    pushChangeAvatar(routes, rentmyPages, subdomain);
+    pushOrderHistory(routes, rentmyPages, subdomain);
+    pushBlog(routes, rentmyPages, subdomain);
+    pushSingleBlog(routes, rentmyPages, subdomain);
+    pushDynamicPage(routes, rentmyPages, subdomain);
+    pushTermsAndConditions(routes, rentmyPages, subdomain);
 
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: 404 - Page Not Found',
@@ -254,24 +108,4 @@ export function setRouteComponent(route: RskRoute, wasFound = false): void
     if(!route.components) route.components = []
 
     route.components = [...header_footer, ...route.components]
-
-    if(route.page_key == EnumPageKes.home){
-        // route.components.push({
-        //     slot: Slots.homeSlider,
-        //     files: ['slider.html']
-        // })
-    }
-    else {
-        // route.components.push({
-        //     slot: Slots.afterNav,
-        //     files: ['breadcrumbs/default']
-        // })
-    }
-    // if(route.page_key == EnumPageKes.products_list){
-    //     route.components.push({
-    //         slot: Slots.afterNav,
-    //         files: ['breadcrumbs/default']
-    //     })
-    // }
-
 }
