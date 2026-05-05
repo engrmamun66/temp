@@ -3,6 +3,8 @@ import { logToFile } from '../utils/fileLogger';
 import { pushProductsList } from './pase-wise-pushes/push:products-list';
 import { pushProductDetails } from './pase-wise-pushes/push:product-details';
 import { pushPackageDetails } from './pase-wise-pushes/push:package-details';
+import { pushCategory } from './pase-wise-pushes/push:category';
+import { pushWishList } from './pase-wise-pushes/push:wish-list';
 
 const prefix = 'default-pages/'
 
@@ -20,27 +22,8 @@ export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[],
     pushProductsList(routes, rentmyPages, subdomain);
     pushProductDetails(routes, rentmyPages, subdomain);
     pushPackageDetails(routes, rentmyPages, subdomain);
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Category',
-        page_key:       EnumPageKes.products_list_by_category,
-        route_path:     '/category/:uuid',
-        content_path:  {
-            file: prefix + 'products-list.html',
-            seo_end_point: '/stores/{subdomain}/meta/category'
-        }, 
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Wish List',
-        page_key:       EnumPageKes.wish_list,
-        route_path:     '/wish-list',
-        content_path:   prefix + 'wish-list.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
+    pushCategory(routes, rentmyPages, subdomain);
+    pushWishList(routes, rentmyPages, subdomain);
 
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Cart',
@@ -69,23 +52,23 @@ export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[],
         _source:        'force_pushed',
     });
 
-    // pushRouteIfNotExist(routes, {
-    //     title:          '{{site_name}}:: Order Details',
-    //     page_key:       EnumPageKes.order_details,
-    //     route_path:     '/order-details/:id',
-    //     content_path:   prefix + 'customer-order-details.html',
-    //     content_source: 'file',
-    //     _source:        'force_pushed',
-    // });
+    pushRouteIfNotExist(routes, {
+        title:          '{{site_name}}:: Order Details',
+        page_key:       EnumPageKes.order_details,
+        route_path:     '/order-details/:id',
+        content_path:   prefix + 'customer-order-details.html',
+        content_source: 'file',
+        _source:        'force_pushed',
+    });
 
-    // pushRouteIfNotExist(routes, {
-    //     title:          '{{site_name}}:: Membership Plan',
-    //     page_key:       EnumPageKes.membership_plan,
-    //     route_path:     '/membership-plan',
-    //     content_path:   prefix + 'membership-plan.html',
-    //     content_source: 'file',
-    //     _source:        'force_pushed',
-    // });
+    pushRouteIfNotExist(routes, {
+        title:          '{{site_name}}:: Membership Plan',
+        page_key:       EnumPageKes.membership_plan,
+        route_path:     '/membership-plan',
+        content_path:   prefix + 'membership-plan.html',
+        content_source: 'file',
+        _source:        'force_pushed',
+    });
 
    
 
@@ -154,45 +137,37 @@ export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[],
         _source:        'force_pushed',
     });
 
-    // // ------ Customer: change password ------------------------------------- //
-    // pushRouteIfNotExist(routes, {
-    //     title:          '{{site_name}}:: Change Password',
-    //     page_key:       EnumPageKes.customer_change_password,
-    //     route_path:     '/change-password',
-    //     content_path:   prefix + 'customer-change-password.html',
-    //     content_source: 'file',
-    //     _source:        'force_pushed',
-    // });
+    // ------ Customer: change password ------------------------------------- //
+    pushRouteIfNotExist(routes, {
+        title:          '{{site_name}}:: Change Password',
+        page_key:       EnumPageKes.customer_change_password,
+        route_path:     '/change-password',
+        content_path:   prefix + 'customer-change-password.html',
+        content_source: 'file',
+        _source:        'force_pushed',
+    });
 
-    // // ------ Customer: change avatar --------------------------------------- //
-    // pushRouteIfNotExist(routes, {
-    //     title:          '{{site_name}}:: Change Avatar',
-    //     page_key:       EnumPageKes.customer_change_avatar,
-    //     route_path:     '/change-avatar',
-    //     content_path:   prefix + 'customer-change-avatar.html',
-    //     content_source: 'file',
-    //     _source:        'force_pushed',
-    // });
+    // ------ Customer: change avatar --------------------------------------- //
+    pushRouteIfNotExist(routes, {
+        title:          '{{site_name}}:: Change Avatar',
+        page_key:       EnumPageKes.customer_change_avatar,
+        route_path:     '/change-avatar',
+        content_path:   prefix + 'customer-change-avatar.html',
+        content_source: 'file',
+        _source:        'force_pushed',
+    });
 
-    // // ------ Customer: order history --------------------------------------- //
-    // pushRouteIfNotExist(routes, {
-    //     title:          '{{site_name}}:: Order History',
-    //     page_key:       EnumPageKes.customer_order_history,
-    //     route_path:     '/order-history',
-    //     content_path:   prefix + 'customer-order-history.html',
-    //     content_source: 'file',
-    //     _source:        'force_pushed',
-    // });
+    // ------ Customer: order history --------------------------------------- //
+    pushRouteIfNotExist(routes, {
+        title:          '{{site_name}}:: Order History',
+        page_key:       EnumPageKes.customer_order_history,
+        route_path:     '/order-history',
+        content_path:   prefix + 'customer-order-history.html',
+        content_source: 'file',
+        _source:        'force_pushed',
+    });
 
-    // // ------ Customer: order dashboard ------------------------------------- //
-    // pushRouteIfNotExist(routes, {
-    //     title:          '{{site_name}}:: My Dashboard',
-    //     page_key:       EnumPageKes.customer_order_dashboard,
-    //     route_path:     '/dashboard',
-    //     content_path:   prefix + 'customer-dashboard.html',
-    //     content_source: 'file',
-    //     _source:        'force_pushed',
-    // });
+     
 
     // ------ Blog list --------------------------------------------------------- //
     pushRouteIfNotExist(routes, {
@@ -224,15 +199,6 @@ export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[],
         content_source: 'api',
         _source:        'force_pushed',
     });
-
-    // pushRouteIfNotExist(routes, {
-    //     title:          '{{site_name}}:: Billing',
-    //     page_key:       EnumPageKes.customer_billing,
-    //     route_path:     '/billing',
-    //     content_path:   prefix + 'customer-billing-details.html',
-    //     content_source: 'file',
-    //     _source:        'force_pushed',
-    // });
 
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Terms and Conditions',
