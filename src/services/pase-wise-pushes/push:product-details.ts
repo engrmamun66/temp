@@ -6,7 +6,6 @@ export function pushProductDetails(routes: RskRoute[], rentmyPages: RentMyPage[]
 
     let page: RentMyPage | null = findRentmyPage(rentmyPages, 'product-details')
     if(page){
-        console.log('=====', 'details page'); 
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.product_details,
