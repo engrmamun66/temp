@@ -1,822 +1,818 @@
- 
-<main class="my-5 container">
-    <div id="RentMyCheckoutWrapper" class="RentMyCheckoutWrapper RentMyWrapper">
-        <div class="RentMyRow">
-            <div class="CheckoutLeftSide">
-                <div class="ReturningCustomerTitle" data-rentmyattr="SignInPopupArea">
-                    <!-- There as customer has to log in first -->
-                    <h5> <span data-rentmyattr="WelcomeText">Welcome to</span> <span
-                            data-rentmyattr="StoreName">teststore05</span> <a data-rentmyattr="SignIn">(Sign in)</a>
-                    </h5>
-                </div>
-                <div class="BillingDetailsLeftside">
-                    <div class="BillingDetailsLeftSideInner" data-rentmyattr="BillingBorder">
-                        <span class="BillingCheckoutTitle">Billing Details</span>
-                        <form>
-                            <div class="RentMyRow" data-rentmyattr="BillingGeneralInfo">
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="FirstNameDiv">
-                                    <label for="exampleInputText1"> First Name</label>
-                                    <input type="text" class="RentMyInputField" data-rentmyattr="FirstName" />
+<div id="RentMyCheckoutWrapper" class="RentMyCheckoutWrapper RentMyWrapper">
+    <div class="RentMyRow">
+        <div class="CheckoutLeftSide">
+            <div class="ReturningCustomerTitle" data-rentmyattr="SignInPopupArea">
+                <!-- There as customer has to log in first -->
+                <h5> <span data-rentmyattr="WelcomeText">Welcome to</span> <span
+                        data-rentmyattr="StoreName">teststore05</span> <a data-rentmyattr="SignIn">(Sign in)</a>
+                </h5>
+            </div>
+            <div class="BillingDetailsLeftside">
+                <div class="BillingDetailsLeftSideInner" data-rentmyattr="BillingBorder">
+                    <span class="BillingCheckoutTitle">Billing Details</span>
+                    <form>
+                        <div class="RentMyRow" data-rentmyattr="BillingGeneralInfo">
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="FirstNameDiv">
+                                <label for="exampleInputText1"> First Name</label>
+                                <input type="text" class="RentMyInputField" data-rentmyattr="FirstName" />
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="LastNameDiv">
+                                <label for="exampleInputText1">Last Name</label>
+                                <input type="text" class="RentMyInputField" data-rentmyattr="LastName" />
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="MobileDiv">
+                                <label for="exampleInputText1">Mobile Number</label>
+                                <div class="InputGroup">
+                                    <span class="InputGroupText CountryFlagCode" data-rentmyattr="FlagArea">
+                                        <img data-rentmyattr="RentMyRemoveMe" style="width: 30px;"
+                                            class="CountryFlag"
+                                            src="https://purecatamphetamine.github.io/country-flag-icons/3x2/NZ.svg"
+                                            alt="New Zealand (Aotearoa)" title="New Zealand (Aotearoa)">
+                                        <i data-rentmyattr="FlagIcon" class="RentmyCountryFlagIcon"></i>
+                                        <span class="PhoneCode" data-rentmyattr="PhoneCode"> +64 </span>
+                                    </span>
+                                    <input type="text" data-rentmyattr="Mobile" autocomplete="billing phone"
+                                        class="RentMyInputField PhoneInput">
                                 </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="LastNameDiv">
-                                    <label for="exampleInputText1">Last Name</label>
-                                    <input type="text" class="RentMyInputField" data-rentmyattr="LastName" />
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="MobileDiv">
-                                    <label for="exampleInputText1">Mobile Number</label>
-                                    <div class="InputGroup">
-                                        <span class="InputGroupText CountryFlagCode" data-rentmyattr="FlagArea">
-                                            <img data-rentmyattr="RentMyRemoveMe" style="width: 30px;"
-                                                class="CountryFlag"
-                                                src="https://purecatamphetamine.github.io/country-flag-icons/3x2/NZ.svg"
-                                                alt="New Zealand (Aotearoa)" title="New Zealand (Aotearoa)">
-                                            <i data-rentmyattr="FlagIcon" class="RentmyCountryFlagIcon"></i>
-                                            <span class="PhoneCode" data-rentmyattr="PhoneCode"> +64 </span>
-                                        </span>
-                                        <input type="text" data-rentmyattr="Mobile" autocomplete="billing phone"
-                                            class="RentMyInputField PhoneInput">
-                                    </div>
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="EmailDiv">
-                                    <label for="exampleInputText1">Email Name </label>
-                                    <input type="email" class="RentMyInputField" data-rentmyattr="Email" />
-                                </div>
-                                <div class="RentMyInputGroup RentMyFullwidth" data-rentmyattr="CompanyDiv">
-                                    <label for="exampleInputText1">Company Name(Optional)</label>
-                                    <input type="text" class="RentMyInputField" data-rentmyattr="Company" />
-                                </div>
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="EmailDiv">
+                                <label for="exampleInputText1">Email Name </label>
+                                <input type="email" class="RentMyInputField" data-rentmyattr="Email" />
+                            </div>
+                            <div class="RentMyInputGroup RentMyFullwidth" data-rentmyattr="CompanyDiv">
+                                <label for="exampleInputText1">Company Name(Optional)</label>
+                                <input type="text" class="RentMyInputField" data-rentmyattr="Company" />
+                            </div>
 
-                                <div class="RentMyRow billing-details-checkbox"
-                                    data-rentmyattr="AllSavedBililingAddress">
-                                    <div class="RentMyInputGroup RentMyFullwidth">
-                                        <label class="RentMyRadio" data-rentmyattr="SingleAddress">
-                                            This is a save address
-                                            <input type="radio" name="select_address" value="rent">
-                                            <span></span>
-                                        </label>
-                                        <!-- Create New -->
-                                        <label class="RentMyRadio" data-rentmyattr="CreateAddress">
-                                            Create New
-                                            <input type="radio" name="select_address" value="rent">
-                                            <span></span>
-                                        </label>
-                                    </div>
-                                </div>
-
+                            <div class="RentMyRow billing-details-checkbox"
+                                data-rentmyattr="AllSavedBililingAddress">
                                 <div class="RentMyInputGroup RentMyFullwidth">
-                                    <label for="exampleInputText1" data-rentmyattr="CountryLabel">Country</label>
-                                    <select class="RentMyInputField" data-rentmyattr="Country">
-                                        <option value=""> Country Name </option>
-                                    </select>
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="AddressLine1Div">
-                                    <label for="exampleInputText1">Address Line 1</label>
-                                    <input type="text" class="RentMyInputField" placeholder="Enter a location"
-                                        data-rentmyattr="AddressLine1" />
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="AddressLine2Div">
-                                    <label for="exampleInputText1">Address Line 2</label>
-                                    <input type="text" class="RentMyInputField" data-rentmyattr="AddressLine2" />
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="CityDiv">
-                                    <label for="city_online">City</label>
-                                    <input type="text" class="RentMyInputField" data-rentmyattr="City" />
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="StateDiv">
-                                    <label for="state_online">State</label>
-                                    <input type="text" class="RentMyInputField" data-rentmyattr="State" />
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="ZipCodeDiv">
-                                    <label for="zipcode_online"> Zipcode</label>
-                                    <input type="text" class="RentMyInputField" data-rentmyattr="Zipcode" />
+                                    <label class="RentMyRadio" data-rentmyattr="SingleAddress">
+                                        This is a save address
+                                        <input type="radio" name="select_address" value="rent">
+                                        <span></span>
+                                    </label>
+                                    <!-- Create New -->
+                                    <label class="RentMyRadio" data-rentmyattr="CreateAddress">
+                                        Create New
+                                        <input type="radio" name="select_address" value="rent">
+                                        <span></span>
+                                    </label>
                                 </div>
                             </div>
 
-                            <div class="RentMyRow" data-rentmyattr="BillingAdditionalInfo">
-                                <div class="RentMyFullwidth">
-                                    <div class="BillingCheckoutSubTitle">
-                                        <h5 Title>
-                                            <i class="fa fa-plus"></i>
-                                            Additional Information
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="SpecialComments">
-                                    <label for="file">Special Instructions/Comments</label>
-                                    <input type="text" class="RentMyInputField">
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="SpecialRequest">
-                                    <label for="file">Special Request</label>
-                                    <input type="text" class="RentMyInputField">
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="DrivingLicence">
-                                    <label for="file">Driving Licence</label>
-                                    <input type="text" class="RentMyInputField">
-                                </div>
-
+                            <div class="RentMyInputGroup RentMyFullwidth">
+                                <label for="exampleInputText1" data-rentmyattr="CountryLabel">Country</label>
+                                <select class="RentMyInputField" data-rentmyattr="Country">
+                                    <option value=""> Country Name </option>
+                                </select>
                             </div>
-                            <div class="RentMyRow" data-rentmyattr="BillingCustomCheckoutInfo">
-                                <div class="RentMyFullwidth">
-                                    <div class="BillingCheckoutSubTitle">
-                                        <h5>
-                                            <i class="fa fa-plus"></i>
-                                            <span data-rentmyattr="title_custom_checkout">Custom checkout
-                                                information</span>
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="CustomField">
-                                    <!-- <label for="file">Text Field</label>
-                            <input type="text" class="RentMyInputField"> -->
-                                </div>
-                                <!-- <div class="RentMyInputGroup RentMyHalfwidth" CustomField>
-                            <label for="">Select Field</label>
-                            <select class="RentMyInputField">
-                                <option value="" name="name2">--Select--</option>
-                                <option name="name2" value="asddsa"> asddsa </option>
-                                <option name="name2" value="xfsdfsfd"> xfsdfsfd </option>
-                            </select>
-                        </div> -->
-                                <!-- <div class="RentMyInputGroup RentMyHalfwidth">
-                            <label for="file">Upload File</label>
-                            <div class="InputGroup InputFileGroup">
-                                <input type="file" class="RentMyInputField">
-                                <div class="IconAndFileName">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <span filename=""></span>
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="AddressLine1Div">
+                                <label for="exampleInputText1">Address Line 1</label>
+                                <input type="text" class="RentMyInputField" placeholder="Enter a location"
+                                    data-rentmyattr="AddressLine1" />
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="AddressLine2Div">
+                                <label for="exampleInputText1">Address Line 2</label>
+                                <input type="text" class="RentMyInputField" data-rentmyattr="AddressLine2" />
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="CityDiv">
+                                <label for="city_online">City</label>
+                                <input type="text" class="RentMyInputField" data-rentmyattr="City" />
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="StateDiv">
+                                <label for="state_online">State</label>
+                                <input type="text" class="RentMyInputField" data-rentmyattr="State" />
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="ZipCodeDiv">
+                                <label for="zipcode_online"> Zipcode</label>
+                                <input type="text" class="RentMyInputField" data-rentmyattr="Zipcode" />
+                            </div>
+                        </div>
+
+                        <div class="RentMyRow" data-rentmyattr="BillingAdditionalInfo">
+                            <div class="RentMyFullwidth">
+                                <div class="BillingCheckoutSubTitle">
+                                    <h5 Title>
+                                        <i class="fa fa-plus"></i>
+                                        Additional Information
+                                    </h5>
                                 </div>
                             </div>
-                        </div> -->
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="SpecialComments">
+                                <label for="file">Special Instructions/Comments</label>
+                                <input type="text" class="RentMyInputField">
                             </div>
-                        </form>
-                    </div>
-                    <div class="BillingDetailsLeftSideInner FullfillmentArea" data-rentmyattr="FullfillmentArea"
-                        data-rentmyattr2="FullfillmentBorder">
-                        <h2 class="BillingCheckoutTitle" data-rentmyattr="Title">Fulfillment</h2>
-                        <div class="FullfillmentTabArea">
-                            <div class="FullfillmentTabList">
-                                <ul>
-                                    <li data-rentmyattr="PickupTab">
-                                        <!-- <a href="#Pickup" class="TabActive">
-                                    <div class="fullfilment-btn">
-                                        <img src="img/pickup.png" alt="" class="icon" />
-                                        <img src="img/pickup-white.png" alt="" class="icon-active" />
-                                    </div>
-                                    <h5>Pickup</h5>
-                                </a> -->
-                                    </li>
-                                    <li data-rentmyattr="ShippingTab">
-                                        <!-- <a href="#shipping">
-                                    <div class="fullfilment-btn">
-                                        <img src="img/shipping.png" alt="" class="icon" />
-                                        <img src="img/shipping-white.png" alt="" class="icon-active" />
-                                    </div>
-                                    <h5>Shipping</h5>
-                                </a> -->
-                                    </li>
-                                    <li data-rentmyattr="DeliveryTab">
-                                        <!-- <a href="#delivery">
-                                    <div class="fullfilment-btn">
-                                        <img src="img/delivery.png" alt="" class="icon" />
-                                        <img src="img/delivery-white.png" alt="" class="icon-active" />
-                                    </div>
-                                    <h5>Delivery</h5>
-                                </a> -->
-                                    </li>
-                                </ul>
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="SpecialRequest">
+                                <label for="file">Special Request</label>
+                                <input type="text" class="RentMyInputField">
                             </div>
-                            <div class="FullfillmentTabContent">
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="DrivingLicence">
+                                <label for="file">Driving Licence</label>
+                                <input type="text" class="RentMyInputField">
+                            </div>
+
+                        </div>
+                        <div class="RentMyRow" data-rentmyattr="BillingCustomCheckoutInfo">
+                            <div class="RentMyFullwidth">
+                                <div class="BillingCheckoutSubTitle">
+                                    <h5>
+                                        <i class="fa fa-plus"></i>
+                                        <span data-rentmyattr="title_custom_checkout">Custom checkout
+                                            information</span>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="CustomField">
+                                <!-- <label for="file">Text Field</label>
+                        <input type="text" class="RentMyInputField"> -->
+                            </div>
+                            <!-- <div class="RentMyInputGroup RentMyHalfwidth" CustomField>
+                        <label for="">Select Field</label>
+                        <select class="RentMyInputField">
+                            <option value="" name="name2">--Select--</option>
+                            <option name="name2" value="asddsa"> asddsa </option>
+                            <option name="name2" value="xfsdfsfd"> xfsdfsfd </option>
+                        </select>
+                    </div> -->
+                            <!-- <div class="RentMyInputGroup RentMyHalfwidth">
+                        <label for="file">Upload File</label>
+                        <div class="InputGroup InputFileGroup">
+                            <input type="file" class="RentMyInputField">
+                            <div class="IconAndFileName">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span filename=""></span>
+                            </div>
+                        </div>
+                    </div> -->
+                        </div>
+                    </form>
+                </div>
+                <div class="BillingDetailsLeftSideInner FullfillmentArea" data-rentmyattr="FullfillmentArea"
+                    data-rentmyattr2="FullfillmentBorder">
+                    <h2 class="BillingCheckoutTitle" data-rentmyattr="Title">Fulfillment</h2>
+                    <div class="FullfillmentTabArea">
+                        <div class="FullfillmentTabList">
+                            <ul>
+                                <li data-rentmyattr="PickupTab">
+                                    <!-- <a href="#Pickup" class="TabActive">
+                                <div class="fullfilment-btn">
+                                    <img src="img/pickup.png" alt="" class="icon" />
+                                    <img src="img/pickup-white.png" alt="" class="icon-active" />
+                                </div>
+                                <h5>Pickup</h5>
+                            </a> -->
+                                </li>
+                                <li data-rentmyattr="ShippingTab">
+                                    <!-- <a href="#shipping">
+                                <div class="fullfilment-btn">
+                                    <img src="img/shipping.png" alt="" class="icon" />
+                                    <img src="img/shipping-white.png" alt="" class="icon-active" />
+                                </div>
+                                <h5>Shipping</h5>
+                            </a> -->
+                                </li>
+                                <li data-rentmyattr="DeliveryTab">
+                                    <!-- <a href="#delivery">
+                                <div class="fullfilment-btn">
+                                    <img src="img/delivery.png" alt="" class="icon" />
+                                    <img src="img/delivery-white.png" alt="" class="icon-active" />
+                                </div>
+                                <h5>Delivery</h5>
+                            </a> -->
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="FullfillmentTabContent">
 
 
-                                <div class="FullfillmentTabBody FullfillmentPickup" data-rentmyattr="PickupLocations">
-                                    <div class="PickupLocationList" data-rentmyattr="Location">
-                                        <!-- <label class="RentMyRadio">
-                                    <input type="radio" name="RentalType" value="rent"> 
-                                    Default location (5627 Covehaven Dr, Dallas, TX, US)
-                                    <span></span>
-                                </label> -->
+                            <div class="FullfillmentTabBody FullfillmentPickup" data-rentmyattr="PickupLocations">
+                                <div class="PickupLocationList" data-rentmyattr="Location">
+                                    <!-- <label class="RentMyRadio">
+                                <input type="radio" name="RentalType" value="rent"> 
+                                Default location (5627 Covehaven Dr, Dallas, TX, US)
+                                <span></span>
+                            </label> -->
+                                </div>
+                            </div>
+
+
+                            <div class="FullfillmentTabBody FullfillmentShippingAndDelivery"
+                                data-rentmyattr="ShipAndDelivery">
+                                <!-- <div class="RentMyRow" data-rentmyattr="SameAsAboveArea">
+                                    <div class="RentMyInputGroup RentMyFullwidth">
+                                        <label class="RentMyCheckbox">
+                                            <input type="checkbox" data-rentmyattr="SameAsAbove">
+                                            Same as above
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div> -->
+
+                                <div class="FullfillmentTabBody FullfillmentPickup"
+                                    data-rentmyattr="ShippingAddressList">
+                                    <div class="PickupLocationList" data-rentmyattr="Address">
+                                        <label class="RentMyRadio">
+                                            <input type="radio" name="shipping_address" value="rent">
+                                            Default location (5627 Covehaven Dr, Dallas, TX, US)
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <div class="PickupLocationList" data-rentmyattr="CreateNew">
+                                        <label class="RentMyRadio">
+                                            <input type="radio" name="shipping_address" value="rent">
+                                            Create New
+                                            <span></span>
+                                        </label>
                                     </div>
                                 </div>
 
-
-                                <div class="FullfillmentTabBody FullfillmentShippingAndDelivery"
-                                    data-rentmyattr="ShipAndDelivery">
-                                    <!-- <div class="RentMyRow" data-rentmyattr="SameAsAboveArea">
-                                        <div class="RentMyInputGroup RentMyFullwidth">
-                                            <label class="RentMyCheckbox">
-                                                <input type="checkbox" data-rentmyattr="SameAsAbove">
-                                                Same as above
-                                                <span></span>
-                                            </label>
+                                <form class="mt-4">
+                                    <div class="RentMyRow">
+                                        <div class="RentMyInputGroup RentMyHalfwidth"
+                                            data-rentmyattr="FirstNameDiv">
+                                            <label for="exampleInputText1"> First Name</label>
+                                            <input type="text" class="RentMyInputField"
+                                                data-rentmyattr="FirstName" />
                                         </div>
-                                    </div> -->
+                                        <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="LastNameDiv">
+                                            <label for="exampleInputText1">Last Name</label>
+                                            <input type="text" class="RentMyInputField"
+                                                data-rentmyattr="LastName" />
+                                        </div>
+                                        <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="MobileDiv">
+                                            <label for="exampleInputText1">Mobile Number</label>
+                                            <input type="text" class="RentMyInputField" data-rentmyattr="Mobile" />
+                                        </div>
+                                        <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="EmailDiv">
+                                            <label for="exampleInputText1">Email Name </label>
+                                            <input type="email" class="RentMyInputField" data-rentmyattr="Email" />
+                                        </div>
+                                        <div class="RentMyInputGroup RentMyFullwidth" data-rentmyattr="CompanyDiv">
+                                            <label for="exampleInputText1">Company Name(Optional)</label>
+                                            <input type="text" class="RentMyInputField" data-rentmyattr="Company" />
+                                        </div>
+                                        <!-- <div class="RentMyInputGroup RentMyFullwidth">
+                                            <label for="exampleInputText1"
+                                                data-rentmyattr="CountryLabel">Country</label>
+                                            <select class="RentMyInputField" data-rentmyattr="Country">
+                                                <option value=""> Country Name </option>
+                                            </select>
+                                        </div> -->
 
-                                    <div class="FullfillmentTabBody FullfillmentPickup"
-                                        data-rentmyattr="ShippingAddressList">
-                                        <div class="PickupLocationList" data-rentmyattr="Address">
+                                        <div class="RentMyInputGroup RentMyHalfwidth"
+                                            data-rentmyattr="AddressLine1Div">
+                                            <label for="exampleInputText1">Address Line 1</label>
+                                            <input type="text" class="RentMyInputField"
+                                                placeholder="Enter a location" data-rentmyattr="AddressLine1" />
+                                        </div>
+                                        <div class="RentMyInputGroup RentMyHalfwidth"
+                                            data-rentmyattr="AddressLine2Div">
+                                            <label for="exampleInputText1">Address Line 2</label>
+                                            <input type="text" class="RentMyInputField"
+                                                data-rentmyattr="AddressLine2" />
+                                        </div>
+                                        <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="CityDiv">
+                                            <label for="city_online">City</label>
+                                            <input type="text" class="RentMyInputField" data-rentmyattr="City" />
+                                        </div>
+                                        <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="StateDiv">
+                                            <label for="state_online">State</label>
+                                            <input type="text" class="RentMyInputField" data-rentmyattr="State" />
+                                        </div>
+                                        <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="ZipCodeDiv">
+                                            <label for="zipcode_online"> Zipcode</label>
+                                            <input type="text" class="RentMyInputField" data-rentmyattr="Zipcode" />
+                                        </div>
+
+
+                                    </div>
+                                </form>
+
+                                <div class="ShippingMethodArea" data-rentmyattr="ShippingMethods">
+                                    <h5 Title>Select Shipping Method</h5>
+                                    <div data-rentmyattr="AllMethods">
+                                        <div class="PickupLocationList" data-rentmyattr="Method">
                                             <label class="RentMyRadio">
-                                                <input type="radio" name="shipping_address" value="rent">
-                                                Default location (5627 Covehaven Dr, Dallas, TX, US)
-                                                <span></span>
-                                            </label>
-                                        </div>
-                                        <div class="PickupLocationList" data-rentmyattr="CreateNew">
-                                            <label class="RentMyRadio">
-                                                <input type="radio" name="shipping_address" value="rent">
-                                                Create New
-                                                <span></span>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <form class="mt-4">
-                                        <div class="RentMyRow">
-                                            <div class="RentMyInputGroup RentMyHalfwidth"
-                                                data-rentmyattr="FirstNameDiv">
-                                                <label for="exampleInputText1"> First Name</label>
-                                                <input type="text" class="RentMyInputField"
-                                                    data-rentmyattr="FirstName" />
-                                            </div>
-                                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="LastNameDiv">
-                                                <label for="exampleInputText1">Last Name</label>
-                                                <input type="text" class="RentMyInputField"
-                                                    data-rentmyattr="LastName" />
-                                            </div>
-                                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="MobileDiv">
-                                                <label for="exampleInputText1">Mobile Number</label>
-                                                <input type="text" class="RentMyInputField" data-rentmyattr="Mobile" />
-                                            </div>
-                                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="EmailDiv">
-                                                <label for="exampleInputText1">Email Name </label>
-                                                <input type="email" class="RentMyInputField" data-rentmyattr="Email" />
-                                            </div>
-                                            <div class="RentMyInputGroup RentMyFullwidth" data-rentmyattr="CompanyDiv">
-                                                <label for="exampleInputText1">Company Name(Optional)</label>
-                                                <input type="text" class="RentMyInputField" data-rentmyattr="Company" />
-                                            </div>
-                                            <!-- <div class="RentMyInputGroup RentMyFullwidth">
-                                                <label for="exampleInputText1"
-                                                    data-rentmyattr="CountryLabel">Country</label>
-                                                <select class="RentMyInputField" data-rentmyattr="Country">
-                                                    <option value=""> Country Name </option>
-                                                </select>
-                                            </div> -->
-
-                                            <div class="RentMyInputGroup RentMyHalfwidth"
-                                                data-rentmyattr="AddressLine1Div">
-                                                <label for="exampleInputText1">Address Line 1</label>
-                                                <input type="text" class="RentMyInputField"
-                                                    placeholder="Enter a location" data-rentmyattr="AddressLine1" />
-                                            </div>
-                                            <div class="RentMyInputGroup RentMyHalfwidth"
-                                                data-rentmyattr="AddressLine2Div">
-                                                <label for="exampleInputText1">Address Line 2</label>
-                                                <input type="text" class="RentMyInputField"
-                                                    data-rentmyattr="AddressLine2" />
-                                            </div>
-                                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="CityDiv">
-                                                <label for="city_online">City</label>
-                                                <input type="text" class="RentMyInputField" data-rentmyattr="City" />
-                                            </div>
-                                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="StateDiv">
-                                                <label for="state_online">State</label>
-                                                <input type="text" class="RentMyInputField" data-rentmyattr="State" />
-                                            </div>
-                                            <div class="RentMyInputGroup RentMyHalfwidth" data-rentmyattr="ZipCodeDiv">
-                                                <label for="zipcode_online"> Zipcode</label>
-                                                <input type="text" class="RentMyInputField" data-rentmyattr="Zipcode" />
-                                            </div>
-
-
-                                        </div>
-                                    </form>
-
-                                    <div class="ShippingMethodArea" data-rentmyattr="ShippingMethods">
-                                        <h5 Title>Select Shipping Method</h5>
-                                        <div data-rentmyattr="AllMethods">
-                                            <div class="PickupLocationList" data-rentmyattr="Method">
-                                                <label class="RentMyRadio">
-                                                    <input type="radio" name="shipping_methods" value="rent">
-                                                    Flat Rate
-                                                    <b>$33.99</b>
-                                                    <span></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="ShippingCostArea" data-rentmyattr="DeliveryCosts">
-                                        <h5 class="mb-2" Title>Delivery Cost</h5>
-                                        <div class="PickupLocationList" data-rentmyattr="Cost">
-                                            <label class="RentMyRadio">
-                                                <input type="radio" name="delivery_cost" value="rent">
-                                                Zone A
+                                                <input type="radio" name="shipping_methods" value="rent">
+                                                Flat Rate
                                                 <b>$33.99</b>
                                                 <span></span>
                                             </label>
                                         </div>
                                     </div>
-
-                                    <div class="DeliveryAddressMsg" data-rentmyattr="DeliveryOutsideAreaMsg">
-                                        Your address is outside of our delivery area. Please contact us to make
-                                        other arrangements.
-                                    </div>
-                                    <div class="DeliveryAddressErrorMsg" data-rentmyattr="DeliveryAddressErrorMsg">
-                                        Delivery is not possible for your address
-                                    </div>
-
-
-
-                                    <div class="RentMyRow mt-3">
-                                        <div class="RentMyButtonGroup RentMyFullwidth RentMyGetShippingArea">
-                                            <button type="button" class="RentMyBtn RentMyGetShippingBtn"
-                                                data-rentmyattr="GetShippingMethodsBtn">Get shipping method <i
-                                                    class="fa fa-arrow-right"></i></button>
-                                        </div>
-                                        <!-- <div class="RentMyButtonGroup RentMyFullwidth RentMyGetShippingArea">
-                                            <button type="button" class="RentMyBtn RentMyGetShippingBtn"
-                                                GetDeliveryCostBtn>Get delivery cost <i
-                                                    class="fa fa-arrow-right"></i></button>
-                                        </div> -->
-                                    </div>
-
                                 </div>
-                                <div class="FullfillmentTabBody FullfillmentShippingAndDelivery"
-                                    data-rentmyattr="DeliveryTypeMultiDistance">
-                                    <div class="accordion" id="accordionExample">
-                                        <div data-rentmyattr="MultiDistanceDropOffAddress"
-                                            class="accordion-item position-relative">
-                                            <h2 class="accordion-header" id="headingOne">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                                                    aria-expanded="false" aria-controls="collapseOne">
-                                                    <div class="delivery-collaps">
-                                                        <div class="delivery-collaps-row">
-                                                            <div class="delivery-collaps-title"> Drop off
-                                                                Address </div>
-                                                            <div class="delivery-collaps-nameaddress">
-                                                                <span data-rentmyattr="DropAddress1">1</span>
-                                                                <span data-rentmyattr="DropAddress2">2</span>
-                                                                <span data-rentmyattr="DropAddress3">3</span>
-                                                            </div>
-                                                            <div class="delivery-collaps-above"></div>
+
+                                <div class="ShippingCostArea" data-rentmyattr="DeliveryCosts">
+                                    <h5 class="mb-2" Title>Delivery Cost</h5>
+                                    <div class="PickupLocationList" data-rentmyattr="Cost">
+                                        <label class="RentMyRadio">
+                                            <input type="radio" name="delivery_cost" value="rent">
+                                            Zone A
+                                            <b>$33.99</b>
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="DeliveryAddressMsg" data-rentmyattr="DeliveryOutsideAreaMsg">
+                                    Your address is outside of our delivery area. Please contact us to make
+                                    other arrangements.
+                                </div>
+                                <div class="DeliveryAddressErrorMsg" data-rentmyattr="DeliveryAddressErrorMsg">
+                                    Delivery is not possible for your address
+                                </div>
+
+
+
+                                <div class="RentMyRow mt-3">
+                                    <div class="RentMyButtonGroup RentMyFullwidth RentMyGetShippingArea">
+                                        <button type="button" class="RentMyBtn RentMyGetShippingBtn"
+                                            data-rentmyattr="GetShippingMethodsBtn">Get shipping method <i
+                                                class="fa fa-arrow-right"></i></button>
+                                    </div>
+                                    <!-- <div class="RentMyButtonGroup RentMyFullwidth RentMyGetShippingArea">
+                                        <button type="button" class="RentMyBtn RentMyGetShippingBtn"
+                                            GetDeliveryCostBtn>Get delivery cost <i
+                                                class="fa fa-arrow-right"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <div class="FullfillmentTabBody FullfillmentShippingAndDelivery"
+                                data-rentmyattr="DeliveryTypeMultiDistance">
+                                <div class="accordion" id="accordionExample">
+                                    <div data-rentmyattr="MultiDistanceDropOffAddress"
+                                        class="accordion-item position-relative">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                aria-expanded="false" aria-controls="collapseOne">
+                                                <div class="delivery-collaps">
+                                                    <div class="delivery-collaps-row">
+                                                        <div class="delivery-collaps-title"> Drop off
+                                                            Address </div>
+                                                        <div class="delivery-collaps-nameaddress">
+                                                            <span data-rentmyattr="DropAddress1">1</span>
+                                                            <span data-rentmyattr="DropAddress2">2</span>
+                                                            <span data-rentmyattr="DropAddress3">3</span>
                                                         </div>
-                                                    </div>
-
-
-                                                </button>
-                                            </h2>
-                                            <div class="delivery-collaps-above same-as-above">
-                                                <div class="RentMyRow">
-                                                    <div class="RentMyInputGroup RentMyFullwidth">
-                                                        <label class="RentMyCheckbox">
-                                                            <input type="checkbox" data-rentmyattr="SameAsAbove">
-                                                            Same as above
-                                                            <span></span>
-                                                        </label>
+                                                        <div class="delivery-collaps-above"></div>
                                                     </div>
                                                 </div>
+
+
+                                            </button>
+                                        </h2>
+                                        <div class="delivery-collaps-above same-as-above">
+                                            <div class="RentMyRow">
+                                                <div class="RentMyInputGroup RentMyFullwidth">
+                                                    <label class="RentMyCheckbox">
+                                                        <input type="checkbox" data-rentmyattr="SameAsAbove">
+                                                        Same as above
+                                                        <span></span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <div id="collapseOne" class="accordion-collapse collapse"
-                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="custom-alert"></div>
+                                        </div>
+                                        <div id="collapseOne" class="accordion-collapse collapse"
+                                            aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="custom-alert"></div>
 
-                                                    <div class="order_details block">
+                                                <div class="order_details block">
 
-                                                        <form novalidate=""
-                                                            class="row mt-4 block ng-untouched ng-pristine ng-valid checkout-content">
-                                                            <div class="col-md-12 order_details">
-                                                                <div class="row">
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="FirstNameDiv">
-                                                                        <label for="exampleInputText1"> First
-                                                                            Name</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="FirstName" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="LastNameDiv">
-                                                                        <label for="exampleInputText1">Last Name</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="LastName" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="EmailDiv">
-                                                                        <label for="exampleInputText1">Email Name
-                                                                        </label>
-                                                                        <input type="email" class="RentMyInputField"
-                                                                            data-rentmyattr="Email" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyFullwidth">
-                                                                        <label for="exampleInputText1"
-                                                                            data-rentmyattr="CountryLabel">Country</label>
-                                                                        <select class="RentMyInputField"
-                                                                            data-rentmyattr="Country">
-                                                                            <option value=""> Country Name </option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="AddressLine1Div">
-                                                                        <label for="exampleInputText1">Address Line
-                                                                            1</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            placeholder="Enter a location"
-                                                                            data-rentmyattr="AddressLine1" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="AddressLine2Div">
-                                                                        <label for="exampleInputText1">Address Line
-                                                                            2</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="AddressLine2" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="CityDiv">
-                                                                        <label for="city_online">City</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="City" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="StateDiv">
-                                                                        <label for="state_online">State</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="State" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="ZipCodeDiv">
-                                                                        <label for="zipcode_online"> Zipcode</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="Zipcode" />
-                                                                    </div>
+                                                    <form novalidate=""
+                                                        class="row mt-4 block ng-untouched ng-pristine ng-valid checkout-content">
+                                                        <div class="col-md-12 order_details">
+                                                            <div class="row">
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="FirstNameDiv">
+                                                                    <label for="exampleInputText1"> First
+                                                                        Name</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="FirstName" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="LastNameDiv">
+                                                                    <label for="exampleInputText1">Last Name</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="LastName" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="EmailDiv">
+                                                                    <label for="exampleInputText1">Email Name
+                                                                    </label>
+                                                                    <input type="email" class="RentMyInputField"
+                                                                        data-rentmyattr="Email" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyFullwidth">
+                                                                    <label for="exampleInputText1"
+                                                                        data-rentmyattr="CountryLabel">Country</label>
+                                                                    <select class="RentMyInputField"
+                                                                        data-rentmyattr="Country">
+                                                                        <option value=""> Country Name </option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="AddressLine1Div">
+                                                                    <label for="exampleInputText1">Address Line
+                                                                        1</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        placeholder="Enter a location"
+                                                                        data-rentmyattr="AddressLine1" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="AddressLine2Div">
+                                                                    <label for="exampleInputText1">Address Line
+                                                                        2</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="AddressLine2" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="CityDiv">
+                                                                    <label for="city_online">City</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="City" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="StateDiv">
+                                                                    <label for="state_online">State</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="State" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="ZipCodeDiv">
+                                                                    <label for="zipcode_online"> Zipcode</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="Zipcode" />
                                                                 </div>
                                                             </div>
-                                                        </form>
-                                                    </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div data-rentmyattr="MultiDistancePickupAddress"
-                                            class="accordion-item position-relative">
-                                            <h2 class="accordion-header" id="headingTwo">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                                    aria-expanded="false" aria-controls="collapseTwo">
-                                                    <div class="delivery-collaps">
-                                                        <div class="delivery-collaps-row">
-                                                            <div class="delivery-collaps-title"> Pickup Address
-                                                            </div>
-
+                                    <div data-rentmyattr="MultiDistancePickupAddress"
+                                        class="accordion-item position-relative">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                aria-expanded="false" aria-controls="collapseTwo">
+                                                <div class="delivery-collaps">
+                                                    <div class="delivery-collaps-row">
+                                                        <div class="delivery-collaps-title"> Pickup Address
                                                         </div>
+
                                                     </div>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseTwo" class="accordion-collapse collapse"
-                                                aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <div class="custom-alert"></div>
+                                                </div>
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                            aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="custom-alert"></div>
 
-                                                    <div class="order_details block">
+                                                <div class="order_details block">
 
-                                                        <form novalidate=""
-                                                            class="row mt-4 block ng-untouched ng-pristine ng-valid checkout-content">
-                                                            <div class="col-md-12 order_details">
-                                                                <div class="row">
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="FirstNameDiv">
-                                                                        <label for="exampleInputText1"> First
-                                                                            Name</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="FirstName" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="LastNameDiv">
-                                                                        <label for="exampleInputText1">Last Name</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="LastName" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="EmailDiv">
-                                                                        <label for="exampleInputText1">Email Name
-                                                                        </label>
-                                                                        <input type="email" class="RentMyInputField"
-                                                                            data-rentmyattr="Email" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyFullwidth">
-                                                                        <label for="exampleInputText1"
-                                                                            data-rentmyattr="CountryLabel">Country</label>
-                                                                        <select class="RentMyInputField"
-                                                                            data-rentmyattr="Country">
-                                                                            <option value=""> Country Name </option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="AddressLine1Div">
-                                                                        <label for="exampleInputText1">Address Line
-                                                                            1</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            placeholder="Enter a location"
-                                                                            data-rentmyattr="AddressLine1" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="AddressLine2Div">
-                                                                        <label for="exampleInputText1">Address Line
-                                                                            2</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="AddressLine2" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="CityDiv">
-                                                                        <label for="city_online">City</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="City" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="StateDiv">
-                                                                        <label for="state_online">State</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="State" />
-                                                                    </div>
-                                                                    <div class="RentMyInputGroup RentMyHalfwidth"
-                                                                        data-rentmyattr="ZipCodeDiv">
-                                                                        <label for="zipcode_online"> Zipcode</label>
-                                                                        <input type="text" class="RentMyInputField"
-                                                                            data-rentmyattr="Zipcode" />
-                                                                    </div>
+                                                    <form novalidate=""
+                                                        class="row mt-4 block ng-untouched ng-pristine ng-valid checkout-content">
+                                                        <div class="col-md-12 order_details">
+                                                            <div class="row">
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="FirstNameDiv">
+                                                                    <label for="exampleInputText1"> First
+                                                                        Name</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="FirstName" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="LastNameDiv">
+                                                                    <label for="exampleInputText1">Last Name</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="LastName" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="EmailDiv">
+                                                                    <label for="exampleInputText1">Email Name
+                                                                    </label>
+                                                                    <input type="email" class="RentMyInputField"
+                                                                        data-rentmyattr="Email" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyFullwidth">
+                                                                    <label for="exampleInputText1"
+                                                                        data-rentmyattr="CountryLabel">Country</label>
+                                                                    <select class="RentMyInputField"
+                                                                        data-rentmyattr="Country">
+                                                                        <option value=""> Country Name </option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="AddressLine1Div">
+                                                                    <label for="exampleInputText1">Address Line
+                                                                        1</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        placeholder="Enter a location"
+                                                                        data-rentmyattr="AddressLine1" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="AddressLine2Div">
+                                                                    <label for="exampleInputText1">Address Line
+                                                                        2</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="AddressLine2" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="CityDiv">
+                                                                    <label for="city_online">City</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="City" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="StateDiv">
+                                                                    <label for="state_online">State</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="State" />
+                                                                </div>
+                                                                <div class="RentMyInputGroup RentMyHalfwidth"
+                                                                    data-rentmyattr="ZipCodeDiv">
+                                                                    <label for="zipcode_online"> Zipcode</label>
+                                                                    <input type="text" class="RentMyInputField"
+                                                                        data-rentmyattr="Zipcode" />
                                                                 </div>
                                                             </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-right"><button class="btn theme-btn btn-primary"
-                                            data-rentmyattr="GetDeliveryCost" style="margin-top: 20px;"> Get delivery
-                                            cost &nbsp;<i class="fa fa-forward"></i></button>
-                                    </div>
-                                    <div class="DeliveryCostList" data-rentmyattr="DeliveryCostList">
-                                        <ul>
-                                            <li class="DeliveryCostChild" data-rentmyattr="DeliveryCostChild">
-                                                <span>10</span>
-                                            </li>
-                                            <li class="DeliveryCostTotal" data-rentmyattr="DeliveryCostTotal">
-                                                <span>20</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="DeliveryAddressMsg" data-rentmyattr="DeliveryOutsideAreaMsg">
-                                        Your address is outside of our delivery area. Please contact us to make
-                                        other arrangements.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="CheckoutRightSide" data-rentmyattr="OrderSummary">
-                <div class="OrderReviewWrapper" data-rentmyattr="Contents">
-                    <span class="OrderReviewTitle">Your Order Summary</span>
-                    <div class="OrderReviewWrapperBody">
-                        <div class="OrderSummery">
-                            <div class="CheckoutDatetimeShow" data-rentmyattr="CheckoutDatetime">
-                                12/21/2023 - 12/21/2023
-                            </div>
-                            <div class="CheckoutOrderList" data-rentmyattr="CartItems">
-                                <div class="CheckoutOrderItem" data-rentmyattr="Item">
-                                    <div class="OrderItemImg">
-                                        <img src="" alt="order itemimg" class="img-fluid" />
-                                    </div>
-                                    <div class="OrderItemContent">
-                                        <div class="OrderName" data-rentmyattr="ProductName">AA</div>
-                                        <div class="OrderQuantity" data-rentmyattr="ProductQuantity">( qty : 1 )</div>
-                                        <div class="OrderOtherInfo">
-                                            <p class="qty" data-rentmyattr="ProductVaraint">test: 1</p>
-                                            <p class="OrderItemPrice" data-rentmyattr="ProductPrice">
-                                                Price: €0.00
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <table class="RentMyTable OrderSummaryTable">
-                            <tfoot>
-                                <tr class="cart-subtotal">
-                                    <th data-rentmyattr="SubtotalLabel">Subtotal</th>
-                                    <td data-rentmyattr="Subtotal">
-                                        $0.00
-                                    </td>
-                                </tr>
-                                <tr data-rentmyattr="TaxesFeesLabel">
-                                    <th>Taxes & Fees</th>
-                                    <td><span data-rentmyattr="TaxesFees"> €0.00</span></td>
-                                </tr>
-                                <tr class="cart-subtotal" data-rentmyattr="OptionalServiceCheckoutRow">
-                                    <th>Optional Services</th>
-                                    <td data-rentmyattr="OptionalService">
-                                        $0.00
-                                    </td>
-                                </tr>
-                                <tr class="cart-subtotal" data-rentmyattr="DepositAmountCheckoutRow">
-                                    <th data-rentmyattr="DepositAmountLabel">Deposit Amount</th>
-                                    <td data-rentmyattr="DepositAmount">
-                                        $0.00
-                                    </td>
-                                </tr>
-                                <tr class="cart-subtotal" data-rentmyattr="TaxAmountLabel">
-                                    <th>Tax</th>
-                                    <td data-rentmyattr="TaxAmount">
-                                        $0.00
-                                    </td>
-                                </tr>
-                                <!-- <tr class="cart-subtotal">
-                                    <th>Shipping two-way estimate</th>
-                                    <td data-rentmyattr="ShippingTwoWayEstimate">
-                                        $0.00
-                                    </td>
-                                </tr> -->
-                                <tr class="cart-subtotal">
-                                    <th data-rentmyattr="lbl_shipping">Shipping Charge</th>
-                                    <td data-rentmyattr="ShippingCharge">
-                                        $0.00
-                                    </td>
-                                </tr>
-                                <tr class="cart-subtotal">
-                                    <th data-rentmyattr="LblDeliveryTax">Delivery Tax</th>
-                                    <td data-rentmyattr="DeliveryTax">
-                                        $0.00
-                                    </td>
-                                </tr>
-                                <tr class="cart-subtotal">
-                                    <th class="delivery-options" data-rentmyattr="LblMultiDelivery">
-                                        Drop off
-                                    </th>
-                                    <td data-rentmyattr="MultiDeliveryValue">
-                                        <span class="delivery-options-val">
-                                            $0.00
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr class="order-total">
-                                    <th data-rentmyattr="LblTotal">Total</th>
-                                    <td>
-                                        <strong data-rentmyattr="TotalAmount">
-                                            $0.00
-                                        </strong>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-
-                        <div class="RentMyOptionalService" data-rentmyattr="AdditionalCharges">
-                            <div class="RentMyRow">
-                                <div class="RentMyFullwidth">
-                                    <div class="RentMyAdditionalChargeTitle">Optional Services</div>
-                                </div>
-                                <!-- Start -->
-                                <div class="RentMyFullwidth" data-rentmyattr="SingleCharge">
-                                    <div class="RentMyRow">
-                                        <div class="RentMyCheckboxInline">
-                                            <label class="RentMyCheckbox" data-rentmyattr="Title">
-                                                <input type="checkbox">
-                                                give donate
-                                                <span></span>
-                                            </label>
-                                        </div>
-                                        <div class="RentMyOptionalServiceContent"
-                                            data-rentmyattr="FeeAmountsAndShowInputAmout">
-                                            <div class="RentMyBtnToolbar">
-                                                <div class="RentMyBtnGroup">
-                                                    <button type="button" class="RentMyGroupBtn"
-                                                        data-rentmyattr="FeeAmounts">10%</button>
-                                                    <button type="button" class="RentMyGroupBtn RentMyInputAmountBtn"
-                                                        data-rentmyattr="ShowInputAmount">Input Amount</button>
-                                                </div>
-                                                <select class="RentMyInputField" data-rentmyattr="SelectOptions">
-                                                    <option>op, op2</option>
-                                                </select>
-                                            </div>
-                                            <div class="RentMyInputAmountArea" data-rentmyattr="InputAmountArea">
-                                                <div class="RentMyInputGroup">
-                                                    <input class="RentMyInputField" type="text"
-                                                        data-rentmyattr="InputAmount" />
-                                                    <div class="RentMyInputGroupAppend">
-                                                        <button type="button" class="RentMyGroupBtn RentMyOptionalOkBtn"
-                                                            data-rentmyattr="OkButton"><i
-                                                                class="fa fa-check"></i></button>
-                                                        <button type="button"
-                                                            class="RentMyGroupBtn RentMyOptionalCancelBtn"
-                                                            data-rentmyattr="CancelButton"><i
-                                                                class="fa fa-times"></i></button>
-                                                    </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End -->
-                            </div>
-                        </div>
-
-                        <div class="checkout-checkbox">
-                            <!-- <div class="CreateCustomerCheckbox" data-rentmyattr="IsCustomerAccountDiv">
-                                <label class="RentMyCheckbox">
-                                    <input type="checkbox" data-rentmyattr="IsCustomerAccount">
-                                    Create an account to make ordering faster in the future
-                                    <span></span>
-                                </label>
-                            </div> -->
-                            <div class="TermsConditionsCheckbox" data-rentmyattr="CheckoutExtracCheckbox">
-                                <label class="RentMyCheckbox">
-                                    <input type="checkbox">
-                                    <div data-rentmyattr="TextArea">
-                                        <!-- Text will place here from config file, under key of "checkout_extraCheckboxText" -->
-                                    </div>
-                                    <span></span>
-                                </label>
-                            </div>
-                            <div class="TermsConditionsCheckbox" data-rentmyattr="TermsConditions">
-                                <label class="RentMyCheckbox">
-                                    <input type="checkbox">
-                                    I have read and agree with the <a style="cursor: pointer;"
-                                        data-rentmyattr="ShowPopup">terms &amp; conditions</a>
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="SignatureContainer" data-rentmyattr="SingnatureArea">
-                            <div class="SignaturePad">
-                                <div class="SignaturePadBody">
-                                    <canvas></canvas>
+                                <div class="text-right"><button class="btn theme-btn btn-primary"
+                                        data-rentmyattr="GetDeliveryCost" style="margin-top: 20px;"> Get delivery
+                                        cost &nbsp;<i class="fa fa-forward"></i></button>
                                 </div>
-                            </div>
-                            <div class="SignatureFooter">
-                                <p>Signature</p>
-                                <div class="UndoClear">
-                                    <a Clear>Clear</a>
-                                    <a Undo>Undo</a>
+                                <div class="DeliveryCostList" data-rentmyattr="DeliveryCostList">
+                                    <ul>
+                                        <li class="DeliveryCostChild" data-rentmyattr="DeliveryCostChild">
+                                            <span>10</span>
+                                        </li>
+                                        <li class="DeliveryCostTotal" data-rentmyattr="DeliveryCostTotal">
+                                            <span>20</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="DeliveryAddressMsg" data-rentmyattr="DeliveryOutsideAreaMsg">
+                                    Your address is outside of our delivery area. Please contact us to make
+                                    other arrangements.
                                 </div>
                             </div>
                         </div>
-
-                        <div class="CheckoutBackcartPlaceorder">
-                            <a class="RentMyBtn RentMyBackCartBtn" href="#" data-rentmyattr="BackToCartBtn"><i
-                                    class="fa fa-backward"></i> &nbsp;<span data-rentmyattr="BackToCartBtnLabel">Back to
-                                    Cart</span></a>
-                            <button type="button" class="RentMyBtn RentMyPlaceOrder" data-rentmyattr="PlaceOrderBtn"
-                                successMessage="" errorMessage=""><span data-rentmyattr="PlaceOrderBtnLabel">
-                                    Proceed To Payment
-                                </span></button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="CheckoutRightSide" data-rentmyattr="OrderWisthListSummary">
-                <div class="OrderReviewWrapper" data-rentmyattr="WisthListContents">
-                    <span class="OrderReviewTitle">Your Quote Summary</span>
-                    <div class="OrderReviewWrapperBody">
-                        <div class="OrderSummery">
-                            <div class="CheckoutOrderList" data-rentmyattr="WisthListItems">
-                                <div class="CheckoutOrderItem" data-rentmyattr="WisthListItem">
-                                    <div class="OrderItemImg">
-                                        <img src="" alt="order itemimg" class="img-fluid" />
-                                    </div>
-                                    <div class="OrderItemContent">
-                                        <div class="OrderName" data-rentmyattr="ProductName">AA</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="CheckoutBackcartPlaceorder">
-                            <a class="RentMyBtn RentMyBackCartBtn" href="#" data-rentmyattr="BackToWishListBtn"><i
-                                    class="fa fa-backward"></i> &nbsp;<span data-rentmyattr="BackToWishListBtnLabel">
-                                    Back To Wish List </span></a>
-                            <button type="button" class="RentMyBtn RentMyPlaceOrder"
-                                data-rentmyattr="PlaceQuoteOrderBtn"><span data-rentmyattr="PlaceOrderBtnLabel">Place
-                                    Quote</span></button>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</main>
+        <div class="CheckoutRightSide" data-rentmyattr="OrderSummary">
+            <div class="OrderReviewWrapper" data-rentmyattr="Contents">
+                <span class="OrderReviewTitle">Your Order Summary</span>
+                <div class="OrderReviewWrapperBody">
+                    <div class="OrderSummery">
+                        <div class="CheckoutDatetimeShow" data-rentmyattr="CheckoutDatetime">
+                            12/21/2023 - 12/21/2023
+                        </div>
+                        <div class="CheckoutOrderList" data-rentmyattr="CartItems">
+                            <div class="CheckoutOrderItem" data-rentmyattr="Item">
+                                <div class="OrderItemImg">
+                                    <img src="" alt="order itemimg" class="img-fluid" />
+                                </div>
+                                <div class="OrderItemContent">
+                                    <div class="OrderName" data-rentmyattr="ProductName">AA</div>
+                                    <div class="OrderQuantity" data-rentmyattr="ProductQuantity">( qty : 1 )</div>
+                                    <div class="OrderOtherInfo">
+                                        <p class="qty" data-rentmyattr="ProductVaraint">test: 1</p>
+                                        <p class="OrderItemPrice" data-rentmyattr="ProductPrice">
+                                            Price: €0.00
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="RentMyTable OrderSummaryTable">
+                        <tfoot>
+                            <tr class="cart-subtotal">
+                                <th data-rentmyattr="SubtotalLabel">Subtotal</th>
+                                <td data-rentmyattr="Subtotal">
+                                    $0.00
+                                </td>
+                            </tr>
+                            <tr data-rentmyattr="TaxesFeesLabel">
+                                <th>Taxes & Fees</th>
+                                <td><span data-rentmyattr="TaxesFees"> €0.00</span></td>
+                            </tr>
+                            <tr class="cart-subtotal" data-rentmyattr="OptionalServiceCheckoutRow">
+                                <th>Optional Services</th>
+                                <td data-rentmyattr="OptionalService">
+                                    $0.00
+                                </td>
+                            </tr>
+                            <tr class="cart-subtotal" data-rentmyattr="DepositAmountCheckoutRow">
+                                <th data-rentmyattr="DepositAmountLabel">Deposit Amount</th>
+                                <td data-rentmyattr="DepositAmount">
+                                    $0.00
+                                </td>
+                            </tr>
+                            <tr class="cart-subtotal" data-rentmyattr="TaxAmountLabel">
+                                <th>Tax</th>
+                                <td data-rentmyattr="TaxAmount">
+                                    $0.00
+                                </td>
+                            </tr>
+                            <!-- <tr class="cart-subtotal">
+                                <th>Shipping two-way estimate</th>
+                                <td data-rentmyattr="ShippingTwoWayEstimate">
+                                    $0.00
+                                </td>
+                            </tr> -->
+                            <tr class="cart-subtotal">
+                                <th data-rentmyattr="lbl_shipping">Shipping Charge</th>
+                                <td data-rentmyattr="ShippingCharge">
+                                    $0.00
+                                </td>
+                            </tr>
+                            <tr class="cart-subtotal">
+                                <th data-rentmyattr="LblDeliveryTax">Delivery Tax</th>
+                                <td data-rentmyattr="DeliveryTax">
+                                    $0.00
+                                </td>
+                            </tr>
+                            <tr class="cart-subtotal">
+                                <th class="delivery-options" data-rentmyattr="LblMultiDelivery">
+                                    Drop off
+                                </th>
+                                <td data-rentmyattr="MultiDeliveryValue">
+                                    <span class="delivery-options-val">
+                                        $0.00
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="order-total">
+                                <th data-rentmyattr="LblTotal">Total</th>
+                                <td>
+                                    <strong data-rentmyattr="TotalAmount">
+                                        $0.00
+                                    </strong>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="RentMyOptionalService" data-rentmyattr="AdditionalCharges">
+                        <div class="RentMyRow">
+                            <div class="RentMyFullwidth">
+                                <div class="RentMyAdditionalChargeTitle">Optional Services</div>
+                            </div>
+                            <!-- Start -->
+                            <div class="RentMyFullwidth" data-rentmyattr="SingleCharge">
+                                <div class="RentMyRow">
+                                    <div class="RentMyCheckboxInline">
+                                        <label class="RentMyCheckbox" data-rentmyattr="Title">
+                                            <input type="checkbox">
+                                            give donate
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <div class="RentMyOptionalServiceContent"
+                                        data-rentmyattr="FeeAmountsAndShowInputAmout">
+                                        <div class="RentMyBtnToolbar">
+                                            <div class="RentMyBtnGroup">
+                                                <button type="button" class="RentMyGroupBtn"
+                                                    data-rentmyattr="FeeAmounts">10%</button>
+                                                <button type="button" class="RentMyGroupBtn RentMyInputAmountBtn"
+                                                    data-rentmyattr="ShowInputAmount">Input Amount</button>
+                                            </div>
+                                            <select class="RentMyInputField" data-rentmyattr="SelectOptions">
+                                                <option>op, op2</option>
+                                            </select>
+                                        </div>
+                                        <div class="RentMyInputAmountArea" data-rentmyattr="InputAmountArea">
+                                            <div class="RentMyInputGroup">
+                                                <input class="RentMyInputField" type="text"
+                                                    data-rentmyattr="InputAmount" />
+                                                <div class="RentMyInputGroupAppend">
+                                                    <button type="button" class="RentMyGroupBtn RentMyOptionalOkBtn"
+                                                        data-rentmyattr="OkButton"><i
+                                                            class="fa fa-check"></i></button>
+                                                    <button type="button"
+                                                        class="RentMyGroupBtn RentMyOptionalCancelBtn"
+                                                        data-rentmyattr="CancelButton"><i
+                                                            class="fa fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End -->
+                        </div>
+                    </div>
+
+                    <div class="checkout-checkbox">
+                        <!-- <div class="CreateCustomerCheckbox" data-rentmyattr="IsCustomerAccountDiv">
+                            <label class="RentMyCheckbox">
+                                <input type="checkbox" data-rentmyattr="IsCustomerAccount">
+                                Create an account to make ordering faster in the future
+                                <span></span>
+                            </label>
+                        </div> -->
+                        <div class="TermsConditionsCheckbox" data-rentmyattr="CheckoutExtracCheckbox">
+                            <label class="RentMyCheckbox">
+                                <input type="checkbox">
+                                <div data-rentmyattr="TextArea">
+                                    <!-- Text will place here from config file, under key of "checkout_extraCheckboxText" -->
+                                </div>
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="TermsConditionsCheckbox" data-rentmyattr="TermsConditions">
+                            <label class="RentMyCheckbox">
+                                <input type="checkbox">
+                                I have read and agree with the <a style="cursor: pointer;"
+                                    data-rentmyattr="ShowPopup">terms &amp; conditions</a>
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="SignatureContainer" data-rentmyattr="SingnatureArea">
+                        <div class="SignaturePad">
+                            <div class="SignaturePadBody">
+                                <canvas></canvas>
+                            </div>
+                        </div>
+                        <div class="SignatureFooter">
+                            <p>Signature</p>
+                            <div class="UndoClear">
+                                <a Clear>Clear</a>
+                                <a Undo>Undo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="CheckoutBackcartPlaceorder">
+                        <a class="RentMyBtn RentMyBackCartBtn" href="#" data-rentmyattr="BackToCartBtn"><i
+                                class="fa fa-backward"></i> &nbsp;<span data-rentmyattr="BackToCartBtnLabel">Back to
+                                Cart</span></a>
+                        <button type="button" class="RentMyBtn RentMyPlaceOrder" data-rentmyattr="PlaceOrderBtn"
+                            successMessage="" errorMessage=""><span data-rentmyattr="PlaceOrderBtnLabel">
+                                Proceed To Payment
+                            </span></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="CheckoutRightSide" data-rentmyattr="OrderWisthListSummary">
+            <div class="OrderReviewWrapper" data-rentmyattr="WisthListContents">
+                <span class="OrderReviewTitle">Your Quote Summary</span>
+                <div class="OrderReviewWrapperBody">
+                    <div class="OrderSummery">
+                        <div class="CheckoutOrderList" data-rentmyattr="WisthListItems">
+                            <div class="CheckoutOrderItem" data-rentmyattr="WisthListItem">
+                                <div class="OrderItemImg">
+                                    <img src="" alt="order itemimg" class="img-fluid" />
+                                </div>
+                                <div class="OrderItemContent">
+                                    <div class="OrderName" data-rentmyattr="ProductName">AA</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="CheckoutBackcartPlaceorder">
+                        <a class="RentMyBtn RentMyBackCartBtn" href="#" data-rentmyattr="BackToWishListBtn"><i
+                                class="fa fa-backward"></i> &nbsp;<span data-rentmyattr="BackToWishListBtnLabel">
+                                Back To Wish List </span></a>
+                        <button type="button" class="RentMyBtn RentMyPlaceOrder"
+                            data-rentmyattr="PlaceQuoteOrderBtn"><span data-rentmyattr="PlaceOrderBtnLabel">Place
+                                Quote</span></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        RentMyEvent.add_filter('cdn:checkout:same_as_above', (bool) => {
-            console.log({bool});
-            return false
-        }) 
-    })
+    // document.addEventListener("DOMContentLoaded", () => {
+    //     RentMyEvent.add_filter('cdn:checkout:same_as_above', (bool) => {
+    //         console.log({bool});
+    //         return false
+    //     }) 
+    // })
 </script>

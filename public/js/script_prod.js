@@ -47,7 +47,7 @@
                                 {{ confg?.show_start_date ? checkRentTime(cartData?.rent_start, 'rental') : '' }} 
                                 {{ confg?.show_end_date && checkRentTime(cartData?.rent_end, 'rental') ? ( ' - ' + checkRentTime(cartData?.rent_end, 'rental')) : '&nbsp;' }}
                             `},{selector:"[TotalAmount]",attr:{"v-if":"totalQuantity && (!is_membership || (is_membership && hasMemberFalsyProduct))"},text:"{{ TotalAmount }}"},{selector:"[TotalQuantity]",attr:{"v-if":"totalQuantity"},text:"{{ totalQuantity }} {{ totalQuantity > 1 ? 'Items' : 'Item' }}"},{selector:"[TotalQuantity]",attr:{"v-else":""},text:"Your shopping cart is empty"}]}]},{selector:"[InsideContainer]",template:!0,attr:{"v-else":""},skipIcon:!0,text:`          
-                <div v-if="allow_no_cart_items_html" class="text-center fadeIn">
+                <div v-if="allow_no_cart_items_html" class="text-center fadeIn EmptyShopingCartContents">
                     <img src="${t}" class="RentMyEmptyBagImage">
                     <h4 class="my-4"> Your shopping cart is Empty</h4>
                     <a class="RentMyBtn ContinueShoppingOnEmptyCart" href="${i}">Continue Shopping</a>
