@@ -1,4 +1,5 @@
 import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
+import { logToFile } from '../../utils/fileLogger';
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 
@@ -17,6 +18,7 @@ export function pushCategory(routes: RskRoute[], rentmyPages: RentMyPage[], subd
             },
             content_source: 'api',
         }, { force_push: true });
+
 
     } else {
         pushRouteIfNotExist(routes, {
