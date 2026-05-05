@@ -1,4 +1,4 @@
-import { RskRoute, EnumPageKes, Component, Slots, RentMyPage } from '../interfaces';
+import { RskRoute, Component, Slots, RentMyPage } from '../interfaces';
 import { logToFile } from '../utils/fileLogger';
 import { pushHome } from './pase-wise-pushes/push:home';
 import { pushProductsList } from './pase-wise-pushes/push:products-list';
@@ -25,6 +25,7 @@ import { pushBlog } from './pase-wise-pushes/push:blog';
 import { pushSingleBlog } from './pase-wise-pushes/push:single-blog';
 import { pushDynamicPage } from './pase-wise-pushes/push:dynamic-page';
 import { pushTermsAndConditions } from './pase-wise-pushes/push:terms-and-conditions';
+import { pushNotFound } from './pase-wise-pushes/push:404-not-found';
 
 export const prefix = 'default-pages/'
 
@@ -55,16 +56,7 @@ export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[],
     pushSingleBlog(routes, rentmyPages, subdomain);           // route: /blog/:slug
     pushDynamicPage(routes, rentmyPages, subdomain);          // route: /page/:rentmy_page_slug
     pushTermsAndConditions(routes, rentmyPages, subdomain);   // route: /terms-and-conditions
-
-
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: 404 - Page Not Found',
-        page_key:       EnumPageKes.not_found,
-        route_path:     '/not-found',
-        content_path:   prefix + 'not-found.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
+    pushNotFound(routes, rentmyPages, subdomain);             // route: /terms-a
 
     return routes;
 }
