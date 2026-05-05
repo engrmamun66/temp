@@ -56,7 +56,7 @@ export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[],
     pushSingleBlog(routes, rentmyPages, subdomain);           // route: /blog/:slug
     pushDynamicPage(routes, rentmyPages, subdomain);          // route: /page/:rentmy_page_slug
     pushTermsAndConditions(routes, rentmyPages, subdomain);   // route: /terms-and-conditions
-    pushNotFound(routes, rentmyPages, subdomain);             // route: /terms-a
+    pushNotFound(routes, rentmyPages, subdomain);             // route: /not-found
 
     return routes;
 }
