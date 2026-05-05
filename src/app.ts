@@ -55,7 +55,7 @@ export class App {
       const sidMatch   = cookie.match(/(?:^|;\s*)rsk_env_sid=([^;]+)/);
       const cacheMatch = cookie.match(/(?:^|;\s*)rsk_cache=([^;]+)/);
       const sessionId    = sidMatch?.[1] ?? '';
-      const cacheEnabled = cacheMatch ? cacheMatch[1] !== '0' : env.CACHE;
+      const cacheEnabled = env.CACHE && (cacheMatch ? cacheMatch[1] !== '0' : true);
       const requestOrigin = getRequestOrigin(req);
       logToFile(`[app] ${req.method} ${req.path} sid=${sessionId || '(none)'} origin=${requestOrigin || '(none)'}`);
       requestContext.run({ sessionId, cacheEnabled, requestOrigin }, next);
