@@ -11,11 +11,9 @@ export function pushProductDetails(routes: RskRoute[], rentmyPages: RentMyPage[]
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.product_details,
             route_path:     '/products/:url',
-            // content_path:   `pages/${page.slug}`,
             content_path:  {
                 seo_end_point: '/stores/{subdomain}/meta/product-details',
-                api_endpoint: `pages/${page.slug}`,
-                file: '',
+                api_endpoint: `pages/${page.slug}`
             },
             content_source: 'api', 
 
