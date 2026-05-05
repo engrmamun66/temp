@@ -18,6 +18,7 @@ export interface PageWiseControlContext {
   route?: RskRoute;
   effectiveRoute: RskRoute;
   pathParams: Record<string, string>;
+  queryParams: Record<string, string>;
   siteName: string;
   requestUrl: string;
   defaultImageUrl: string;

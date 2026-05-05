@@ -415,13 +415,13 @@ export class ApiClient {
     return result
   }
 
-  async getBlogList(subdomain: string, contentPath: string): Promise<BlogResponseData> {
+  async getBlogList(subdomain: string, contentPath: string, params?: Record<string, unknown>): Promise<BlogResponseData> {
     let data: BlogResponseData | null = null;
     try {
       const resp = await this.authorizedGet<{
         status: string;
         result: BlogResponseData;
-      }>(subdomain, contentPath);
+      }>(subdomain, contentPath, params);
       data = resp.result || null;
     } catch (err) {
       const axiosErr = err as AxiosError;
@@ -442,7 +442,7 @@ export class ApiClient {
       const resp = await this.authorizedGet<{
         status: string;
         result: {data: BlogTag[]};
-      }>(subdomain, '/tags');
+      }>(subdomain, '/tags?type=blog');
       data = Array.isArray(resp.result?.data) ? resp.result?.data : null;
     } catch (err) {
       const axiosErr = err as AxiosError;

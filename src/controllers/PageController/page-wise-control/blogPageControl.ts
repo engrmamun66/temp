@@ -252,8 +252,12 @@ export async function handleBlogPage(ctx: PageWiseControlContext): Promise<PageW
 
   if (pageKey !== 'blog') return { handlerName: HANDLER_NAME, handled: false };
 
+  const { queryParams } = ctx;
+  const blogListParams: Record<string, unknown> = {};
+  if (queryParams.tags) blogListParams.tags = queryParams.tags;
+
   const [blogContent, blogTags] = await Promise.all([
-    storeService.getBlogList(subdomain, getContentApiPath(route?.content_path) || ''),
+    storeService.getBlogList(subdomain, getContentApiPath(route?.content_path) || '', Object.keys(blogListParams).length ? blogListParams : undefined),
     storeService.getBlogTags(subdomain),
   ]);
   const routeMeta: RouteMeta = route?.meta_data ?? {};

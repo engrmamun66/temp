@@ -177,6 +177,11 @@ export class PageController {
     const contentDiv = document.getElementById('default_page_contents') as HTMLElement | null;
 
     try {
+      const queryParams: Record<string, string> = {};
+      for (const [k, v] of Object.entries(req.query)) {
+        if (typeof v === 'string') queryParams[k] = v;
+      }
+
       const pageControlResult = await handlePageWiseControl({
         document,
         contentDiv,
@@ -185,6 +190,7 @@ export class PageController {
         route,
         effectiveRoute,
         pathParams,
+        queryParams,
         siteName,
         requestUrl,
         defaultImageUrl,

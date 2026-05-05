@@ -144,12 +144,13 @@ export class StoreConfigService {
     return data;
   }
 
-  async getBlogList(subdomain: string, contentPath: string): Promise<BlogResponseData> {
-    const cacheKey = `blog_content__${contentPath}`;
+  async getBlogList(subdomain: string, contentPath: string, params?: Record<string, unknown>): Promise<BlogResponseData> {
+    const paramSuffix = params && Object.keys(params).length ? `__${JSON.stringify(params)}` : '';
+    const cacheKey = `blog_content__${contentPath}${paramSuffix}`;
     const cached = this.cache.get<BlogResponseData>(subdomain, cacheKey);
     if (cached) return cached;
 
-    const data = await this.api.getBlogList(subdomain, contentPath);
+    const data = await this.api.getBlogList(subdomain, contentPath, params);
     this.cache.set(subdomain, cacheKey, data, CONTENT_CACHE_TTL);
     return data;
   }
