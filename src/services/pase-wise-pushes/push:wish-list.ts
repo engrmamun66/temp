@@ -1,14 +1,24 @@
 import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
-import { pushRouteIfNotExist, prefix } from '../PushMissingRoutes';
-
+import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 export function pushWishList(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
-    pushRouteIfNotExist(routes, {
-        title:          '{{site_name}}:: Wish List',
-        page_key:       EnumPageKes.wish_list,
-        route_path:     '/wish-list',
-        content_path:   prefix + 'wish-list.html',
-        content_source: 'file',
-        _source:        'force_pushed',
-    });
+    const page = findRentmyPage(rentmyPages, 'wish-list');
+    if (page) {
+        pushRouteIfNotExist(routes, {
+            title:          `{{site_name}}:: ${page.name}`,
+            page_key:       EnumPageKes.wish_list,
+            route_path:     '/' + page.slug,
+            content_path:   `pages/${page.slug}`,
+            content_source: 'api',
+        }, { force_push: true });
+    } else {
+        pushRouteIfNotExist(routes, {
+            title:          '{{site_name}}:: Wish List',
+            page_key:       EnumPageKes.wish_list,
+            route_path:     '/wish-list',
+            content_path:   prefix + 'wish-list.html',
+            content_source: 'file',
+            _source:        'force_pushed',
+        });
+    }
 }
