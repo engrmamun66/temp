@@ -1,167 +1,134 @@
-<main class="position-relative">
- <section class="rentmy-innerpage-banner">
-    <div class="hero-overlay"></div>
-        <div class="rentmy-innerpage-overlay">
-            <div class="container">
-                <div class="container-inner">
-                    <div class="container-inner-overlay">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="rentmy-innerpage-body">
-                                    <div class="rentmy-innerpage-body-inner">
-                                        <h1> Customer Profile</h1>
-                                        <div class="rentmy-breadcrumbs">
-                                            <ul>
-                                                <li><a href="/">Home</a></li>
-                                                <li> Customer Profile</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div id="RentMyCustomerProfileContainer" class="RentMyWrapper RentMyCustomerPortalWrapper">
+    <div class="RentMyCustomPortalRow">
+        <div class="RentMyLeftSidebarmenu">
+            <div class="RentMyLeftSidebarmenuInner" data-rentmyattr="SideBar">
+                <div class="RentMyProfileImge">
+                    <img ProfileImage src="https://url.ankur.com.bd/n8nSO" alt="">
+                </div>
+                <h5 class="RentMyProfileName" data-rentmyattr="customer_name">{{ customer_name }}</h5>
+                <div class="RentMySideMenu">
+                    <ul>
+                        <li><a data-rentmyattr="RentMyPageLink=customer_profile" class="active">Profile</a></li>
+                        <li><a data-rentmyattr="RentMyPageLink=customer_change_password">Change Password</a></li>
+                        <li><a data-rentmyattr="RentMyPageLink=customer_change_avatar">Change Avatar</a></li>
+                        <li><a data-rentmyattr="RentMyPageLink=customer_order_history">Order History</a></li>
+                        <li data-rentmyattr="DashboardNav"><a RentMyPageLink="customer_order_dashboard">Dashboard</a></li>
+                        <li data-rentmyattr="BillingNav"><a RentMyPageLink="customer_billing">Billing</a></li>
+                        <li><a class="rentmy_logout_btn">Logout</a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
-    <div class="container">
-    <div id="RentMyCustomerProfileContainer" class="RentMyWrapper RentMyCustomerPortalWrapper">
-        <div class="RentMyCustomPortalRow">
-            <div class="RentMyLeftSidebarmenu">
-                <div class="RentMyLeftSidebarmenuInner" data-rentmyattr="SideBar">
-                    <div class="RentMyProfileImge">
-                        <img ProfileImage src="https://url.ankur.com.bd/n8nSO" alt="">
+        </div>    
+        <div class="RentMyRightContent">
+            <div class="RentMyPageHeader">
+                <h3>Profile Information</h3>
+                <div class="RentMyPageHeaderRightSide">  </div>
+            </div>
+            <div class="RentMyContentBody">
+                <div class="RentMyContentBodyInner RentMyContentBodyInner__modify">
+                    <div class="RentMyCustomerInfo" id="RentmyCustomerDetailsSection">
+                        <div class="RentmyCustomerDetails">
+                            <h5 data-rentmyattr="customer_name">{{ customer_name }}</h5>
+                            <span data-rentmyattr="customer_email">{{ customer_email }}</span><br>
+                            <span data-rentmyattr="customer_company_name">{{ customer_company_name }} </span><br>
+                            <span data-rentmyattr="customer_phone">{{ customer_phone }}</span>
+                        </div>
+                        <div class="RentMyEditArea">
+                            <a id="RentmyCustomerEditBtn" href="#" class="RentMyBtn RentMyEditBtn" data-rentmyattr="EditButton">Edit</a>
+                        </div>
                     </div>
-                    <h5 class="RentMyProfileName" data-rentmyattr="customer_name">{{ customer_name }}</h5>
-                    <div class="RentMySideMenu">
-                        <ul>
-                            <li><a data-rentmyattr="RentMyPageLink=customer_profile" class="active">Profile</a></li>
-                            <li><a data-rentmyattr="RentMyPageLink=customer_change_password">Change Password</a></li>
-                            <li><a data-rentmyattr="RentMyPageLink=customer_change_avatar">Change Avatar</a></li>
-                            <li><a data-rentmyattr="RentMyPageLink=customer_order_history">Order History</a></li>
-                            <li data-rentmyattr="DashboardNav"><a RentMyPageLink="customer_order_dashboard">Dashboard</a></li>
-                            <li data-rentmyattr="BillingNav"><a RentMyPageLink="customer_billing">Billing</a></li>
-                            <li><a class="rentmy_logout_btn">Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>    
-            <div class="RentMyRightContent">
-                <div class="RentMyPageHeader">
-                    <h3>Profile Information</h3>
-                    <div class="RentMyPageHeaderRightSide">  </div>
-                </div>
-                <div class="RentMyContentBody">
-                    <div class="RentMyContentBodyInner RentMyContentBodyInner__modify">
-                        <div class="RentMyCustomerInfo" id="RentmyCustomerDetailsSection">
-                            <div class="RentmyCustomerDetails">
-                                <h5 data-rentmyattr="customer_name">{{ customer_name }}</h5>
-                                <span data-rentmyattr="customer_email">{{ customer_email }}</span><br>
-                                <span data-rentmyattr="customer_company_name">{{ customer_company_name }} </span><br>
-                                <span data-rentmyattr="customer_phone">{{ customer_phone }}</span>
+                    
+
+                    <form id="RentmyCustomerEditForm">
+                        <div class="RentMyRow">
+                            <div class="RentMyAlertMessage RentMyFullwidth"></div>
+                            <div class="RentMyInputGroup RentMyHalfwidth">
+                                <label for="first_name">First Name</label>
+                                <input type="text" class="RentMyInputField" name="first_name" id="first_name" required>
                             </div>
-                            <div class="RentMyEditArea">
-                                <a id="RentmyCustomerEditBtn" href="#" class="RentMyBtn RentMyEditBtn" data-rentmyattr="EditButton">Edit</a>
+                            <div class="RentMyInputGroup RentMyHalfwidth">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" class="RentMyInputField" name="last_name" id="last_name" required>
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth">
+                                <label for="email">Email</label>
+                                <input type="email" class="RentMyInputField" name="email" id="email" required>
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth">
+                                <label for="mobile">Mobile Number</label>
+                                <input type="text" class="RentMyInputField" name="mobile" id="mobile" required>
+                            </div>
+                            <div class="RentMyInputGroup RentMyHalfwidth">
+                                <label for="company">Company Name</label>
+                                <input type="text" class="RentMyInputField" name="company" id="company" required>
+                            </div>
+                            <div class="RentMyButtonGroup RentMyNotBetween RentMyHalfwidth">
+                                <button id="RentmyCustomerSubmitBtn" type="submit" class="RentMyBtn RentMyCustomerInfoSubmit">Submit</button>
+                                <button id="RentmyCustomerCancelBtn" type="button" class="RentMyBtn RentMyCustomerInfoCancel">Cancel</button>
                             </div>
                         </div>
-                        
-    
-                        <form id="RentmyCustomerEditForm">
-                            <div class="RentMyRow">
-                                <div class="RentMyAlertMessage RentMyFullwidth"></div>
-                                <div class="RentMyInputGroup RentMyHalfwidth">
-                                    <label for="first_name">First Name</label>
-                                    <input type="text" class="RentMyInputField" name="first_name" id="first_name" required>
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth">
-                                    <label for="last_name">Last Name</label>
-                                    <input type="text" class="RentMyInputField" name="last_name" id="last_name" required>
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="RentMyInputField" name="email" id="email" required>
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth">
-                                    <label for="mobile">Mobile Number</label>
-                                    <input type="text" class="RentMyInputField" name="mobile" id="mobile" required>
-                                </div>
-                                <div class="RentMyInputGroup RentMyHalfwidth">
-                                    <label for="company">Company Name</label>
-                                    <input type="text" class="RentMyInputField" name="company" id="company" required>
-                                </div>
-                                <div class="RentMyButtonGroup RentMyNotBetween RentMyHalfwidth">
-                                    <button id="RentmyCustomerSubmitBtn" type="submit" class="RentMyBtn RentMyCustomerInfoSubmit">Submit</button>
-                                    <button id="RentmyCustomerCancelBtn" type="button" class="RentMyBtn RentMyCustomerInfoCancel">Cancel</button>
-                                </div>
-                            </div>
-                        </form>
-    
-                        <div id="RentmyCustomerAddessList" class="RentmyCustomerAddessList">                                
-                            <div class="FlexHeader">
-                                <h5 class="AddressHeader">Address</h5>
-                                <a class="RentMyBtn RentMyEditBtn addAddress" tooltip="Add Address" data-rentmyattr="AddAddressBtn"> <i class="fa fa-plus"></i> </a>
-                            </div>
-                            <div class="AddressBody" data-rentmyattr="AddressBody">                          
-                                <div data-rentmyattr="AddressGroup">
-                                    <h5 class="AddressSubHeader" data-rentmyattr="AddressType">Primary</h5>
-                                    <div class="Address" data-rentmyattr="Address">
-                                        <label>ADD 1 ADD2 New York NY 11435 US </label>
-                                        <div class="Actions">
-                                            <button class="btn btn-sm biling-address-edit float-right" tooltip="Delete" data-rentmyattr="IconTrash"><i class="bx bxs-trash-alt" ></i></button>
-                                            <button class="btn btn-sm biling-address-edit float-right" tooltip="Update" data-rentmyattr="IconEdit"><i class="bx bxs-pencil"></i></button>
-                                        </div>
+                    </form>
+
+                    <div id="RentmyCustomerAddessList" class="RentmyCustomerAddessList">                                
+                        <div class="FlexHeader">
+                            <h5 class="AddressHeader">Address</h5>
+                            <a class="RentMyBtn RentMyEditBtn addAddress" tooltip="Add Address" data-rentmyattr="AddAddressBtn"> <i class="fa fa-plus"></i> </a>
+                        </div>
+                        <div class="AddressBody" data-rentmyattr="AddressBody">                          
+                            <div data-rentmyattr="AddressGroup">
+                                <h5 class="AddressSubHeader" data-rentmyattr="AddressType">Primary</h5>
+                                <div class="Address" data-rentmyattr="Address">
+                                    <label>ADD 1 ADD2 New York NY 11435 US </label>
+                                    <div class="Actions">
+                                        <button class="btn btn-sm biling-address-edit float-right" tooltip="Delete" data-rentmyattr="IconTrash"><i class="bx bxs-trash-alt" ></i></button>
+                                        <button class="btn btn-sm biling-address-edit float-right" tooltip="Update" data-rentmyattr="IconEdit"><i class="bx bxs-pencil"></i></button>
                                     </div>
-                                </div>                                                     
+                                </div>
+                            </div>                                                     
+                        </div>
+                    </div>
+
+                    <form id="RentmyAddressAddEditForm">
+                        <div class="row">
+                            <div class="RentMyInputGroup col-md-6">
+                                <label for="type">Address type (Primary/Office/Home)</label>
+                                <input type="text" class="RentMyInputField" name="type">
+                            </div>
+                            <div class="RentMyInputGroup col-md-6">
+                                <label for="mobile">Mobile</label>
+                                <input type="text" class="RentMyInputField" name="mobile">
+                            </div>
+                            <div class="RentMyInputGroup col-md-6">
+                                <label for="country">Select country</label>
+                                <select class="RentMyInputField" name="country">
+                                    <option value=""> Country </option> 
+                                </select>
+                            </div>
+                            <div class="RentMyInputGroup col-md-6">
+                                <label for="address_line1">Address</label>
+                                <input type="text" class="RentMyInputField" name="address_line1">
+                            </div>
+                            <div class="RentMyInputGroup col-md-6">
+                                <label for="city">City</label>
+                                <input type="text" class="RentMyInputField" name="city">
+                            </div>
+                            <div class="RentMyInputGroup col-md-6">
+                                <label for="state">State</label>
+                                <input type="text" class="RentMyInputField" name="state">
+                            </div>
+                            <div class="RentMyInputGroup col-md-6">
+                                <label for="zipcode">zipcode</label>
+                                <input type="text" class="RentMyInputField" name="zipcode">
+                            </div>
+                            <div class="col-12">
+                                <button id="RentmyAddressAddBtn" type="submit" class="RentMyBtn RentMyCustomerInfoSubmit">Add Address</button>
+                                <button id="RentmyAddressUpdateBtn" type="submit" class="RentMyBtn RentMyCustomerInfoSubmit">Update Address</button>
+                                <button id="RentmyAddressCancelBtn" type="button" class="RentMyBtn RentMyCustomerInfoCancel">Cancel</button>
                             </div>
                         </div>
-    
-                        <form id="RentmyAddressAddEditForm">
-                            <div class="row">
-                                <div class="RentMyInputGroup col-md-6">
-                                    <label for="type">Address type (Primary/Office/Home)</label>
-                                    <input type="text" class="RentMyInputField" name="type">
-                                </div>
-                                <div class="RentMyInputGroup col-md-6">
-                                    <label for="mobile">Mobile</label>
-                                    <input type="text" class="RentMyInputField" name="mobile">
-                                </div>
-                                <div class="RentMyInputGroup col-md-6">
-                                    <label for="country">Select country</label>
-                                    <select class="RentMyInputField" name="country">
-                                        <option value=""> Country </option> 
-                                    </select>
-                                </div>
-                                <div class="RentMyInputGroup col-md-6">
-                                    <label for="address_line1">Address</label>
-                                    <input type="text" class="RentMyInputField" name="address_line1">
-                                </div>
-                                <div class="RentMyInputGroup col-md-6">
-                                    <label for="city">City</label>
-                                    <input type="text" class="RentMyInputField" name="city">
-                                </div>
-                                <div class="RentMyInputGroup col-md-6">
-                                    <label for="state">State</label>
-                                    <input type="text" class="RentMyInputField" name="state">
-                                </div>
-                                <div class="RentMyInputGroup col-md-6">
-                                    <label for="zipcode">zipcode</label>
-                                    <input type="text" class="RentMyInputField" name="zipcode">
-                                </div>
-                                <div class="col-12">
-                                    <button id="RentmyAddressAddBtn" type="submit" class="RentMyBtn RentMyCustomerInfoSubmit">Add Address</button>
-                                    <button id="RentmyAddressUpdateBtn" type="submit" class="RentMyBtn RentMyCustomerInfoSubmit">Update Address</button>
-                                    <button id="RentmyAddressCancelBtn" type="button" class="RentMyBtn RentMyCustomerInfoCancel">Cancel</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-
-
-</main>
+</div> 
