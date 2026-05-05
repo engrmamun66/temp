@@ -3,7 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData, BlogTag, SingleBlog, EnumPageKes } from '../interfaces';
+import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData, BlogTag, SingleBlog, EnumPageKes, RentMyPage } from '../interfaces';
 import { logToFile, clearFileLogs } from '../utils/fileLogger';
 import { fixProductLinks, fixCategoryLinks } from '../utils/helper';
 import { pushMissingRoutes } from './PushMissingRoutes';
@@ -266,7 +266,10 @@ export class ApiClient {
   async getRskConfigs(subdomain: string): Promise<RskRoute[]> {
 
 
-    let { headerLinks, footerLinks } = await this.getStoreNavigations(subdomain)
+    let [{ headerLinks, footerLinks }, rentmyPages] = await Promise.all([
+      this.getStoreNavigations(subdomain),
+      this.getRentmyPages(subdomain),
+    ]);
 
     // Recursively collect all nav items including nested children
     const collectNavItems = (items: NavLink[]): NavLink[] =>
@@ -330,7 +333,7 @@ export class ApiClient {
 
     this.cache.set(subdomain, '[routes]', routes, 3000);
 
-    return pushMissingRoutes(routes, subdomain)
+    return pushMissingRoutes(routes, rentmyPages, subdomain)
 
 
 
@@ -658,6 +661,26 @@ export class ApiClient {
       const axiosErr = error as AxiosError;
       logToFile(`[home___meta() error] ${axiosErr.response?.data ?? axiosErr.message}`);
       return this.emptyHomeMeta();
+    }
+  }
+
+  async getRentmyPages(subdomain: string): Promise<RentMyPage[]> {
+    const cacheKey = 'rentmy_pages';
+    const cached = this.cache.get<RentMyPage[]>(subdomain, cacheKey);
+    if (cached) return cached;
+
+    try {
+      const resp = await this.authorizedGet<{
+        status: string;
+        result: { data: RentMyPage[] };
+      }>(subdomain, '/pages');
+      const pages = Array.isArray(resp.result?.data) ? resp.result.data : [];
+      this.cache.set(subdomain, cacheKey, pages, 600);
+      return pages;
+    } catch (err) {
+      const axiosErr = err as AxiosError;
+      logToFile(`[getRentmyPages() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+      return [];
     }
   }
 

@@ -225,3 +225,15 @@ export interface SingleBlog extends Omit<PageContent, 'type' | 'tags'> {
   type: 'blog';
   tags: string[] | null;
 }
+
+export interface RentMyPage {
+    id: number;
+    store_id: number;
+    location: number;
+    name: string;
+    slug: string;
+    meta_description: string | null;
+    meta_keyword: string | null;
+    status: number;
+}
+

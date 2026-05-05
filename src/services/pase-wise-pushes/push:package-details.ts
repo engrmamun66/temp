@@ -1,9 +1,9 @@
-import { RskRoute, EnumPageKes } from '../../interfaces';
+import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
 import { pushRouteIfNotExist } from '../PushMissingRoutes';
 
 const prefix = 'default-pages/';
 
-export function pushPackageDetails(routes: RskRoute[], subdomain: string): void {
+export function pushPackageDetails(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Package Details',
         page_key:       EnumPageKes.package_details,

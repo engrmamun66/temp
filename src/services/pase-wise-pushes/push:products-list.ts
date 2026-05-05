@@ -1,9 +1,9 @@
-import { RskRoute, EnumPageKes } from '../../interfaces';
+import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
 import { pushRouteIfNotExist } from '../PushMissingRoutes';
 
 const prefix = 'default-pages/';
 
-export function pushProductsList(routes: RskRoute[], subdomain: string): void {
+export function pushProductsList(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Products',
         page_key:       EnumPageKes.products_list,
