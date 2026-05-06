@@ -89,16 +89,25 @@ export class PageController {
       const storeId  = storeResult?.store?.id;
       if (assetUrl && storeId) {
         const customCssUrl = `${assetUrl.replace(/\/+$/, '')}/files/${storeId}/custom.css`;
-        try {
-          await axios.head(customCssUrl, { timeout: 3000 });
-          const link = document.createElement('link');
-          link.rel  = 'stylesheet';
-          link.href = customCssUrl;
-          document.head.appendChild(link);
-        } catch {
-          // store wise custom css file doesn't exist, skip
-          logToFile('[custom_css_file]', `store wise custom css file doesn't exist, skip`)
-        }
+        const customJsUrl = `${assetUrl.replace(/\/+$/, '')}/files/${storeId}/custom.js`;
+        await Promise.allSettled([
+          axios.head(customCssUrl, { timeout: 3000 }).then(() => {
+            const link = document.createElement('link');
+            link.rel  = 'stylesheet';
+            link.href = customCssUrl;
+            document.head.appendChild(link);
+          }).catch(() => {
+            logToFile('[custom_css_file]', `store wise custom css file doesn't exist, skip`);
+          }),
+          axios.head(customJsUrl, { timeout: 3000 }).then(() => {
+            const script = document.createElement('script');
+            script.src   = customJsUrl;
+            script.defer = true;
+            document.body.appendChild(script);
+          }).catch(() => {
+            logToFile('[custom_js_file]', `store wise custom js file doesn't exist, skip`);
+          }),
+        ]);
       }
     }
 
