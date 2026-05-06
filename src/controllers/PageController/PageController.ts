@@ -123,13 +123,20 @@ export class PageController {
     }
 
     {
+      const brandColors = document.createElement('link');
+      brandColors.rel  = 'stylesheet';
+      brandColors.href = '/css/brand-colors.css';
+      document.head.appendChild(brandColors);
+    }
+
+    {
       const assetBase = SessionOverrideService.getInstance().getCdnAssetUrl(null);
       const base = assetBase ? assetBase.replace(/\/+$/, '') : null;
 
       const globalCss = document.createElement('link');
       globalCss.rel  = 'stylesheet';
       globalCss.href = base ? `${base}/assets/index.css` : '/css/global.css';
-      document.head.appendChild(globalCss);
+      // document.head.appendChild(globalCss);
 
       const globalJs = document.createElement('script');
       globalJs.src   = base ? `${base}/assets/script_prod.js` : '/js/script_prod.js';
