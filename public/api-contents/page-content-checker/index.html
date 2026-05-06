@@ -529,6 +529,14 @@
       word-break: break-word;
     }
 
+    .value-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex-wrap: wrap;
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -765,7 +773,8 @@
                   <div class="result-head">
                     <div class="result-name-wrap">
                       <div class="result-name">{{ item.name }}</div>
-                      <span class="count-chip">{{ item.valueChecks.length }}</span>
+                      <span class="count-chip">L {{ item.leftCount }}</span>
+                      <span class="count-chip">F {{ item.foundCount }}</span>
                     </div>
                     <span class="badge" :class="item.statusClass">
                       {{ item.statusText }}
@@ -773,7 +782,10 @@
                   </div>
                   <div v-if="item.valueChecks.length" class="value-list">
                     <div class="value-row" v-for="valueItem in item.valueChecks" :key="valueItem.key">
-                      <div class="value-copy">{{ valueItem.label }}</div>
+                      <div class="value-main">
+                        <div class="value-copy">{{ valueItem.label }}</div>
+                        <span class="count-chip">{{ valueItem.leftCount }}</span>
+                      </div>
                       <span class="badge" :class="valueItem.statusClass">
                         {{ valueItem.statusText }}
                       </span>
@@ -883,22 +895,22 @@
     }
 
     function buildValueChecks(leftValues, rightValues, attributeName) {
+      const leftValueCounts = buildValueCountMap(leftValues);
       const rightValueCounts = buildValueCountMap(rightValues);
 
-      return leftValues.map((value, index) => {
+      return Array.from(leftValueCounts.entries()).map(([value, leftCount], index) => {
         const rightCount = rightValueCounts.get(value) || 0;
-        const matched = rightCount > 0;
-
-        if (matched) {
-          rightValueCounts.set(value, rightCount - 1);
-        }
+        const foundCount = Math.min(leftCount, rightCount);
+        const matched = foundCount === leftCount;
 
         return {
           key: `${attributeName}-${index}-${value}`,
           value,
           label: `${attributeName}="${value}"`,
+          leftCount,
+          foundCount,
           matched,
-          statusText: matched ? "Found" : "N/F",
+          statusText: matched ? `Found ${foundCount}` : `N/F ${foundCount}`,
           statusClass: matched ? "ok" : "warn"
         };
       });
@@ -1020,14 +1032,15 @@
         const leftValues = getTrackedAttributeValues(leftContainer, name);
         const rightValues = getTrackedAttributeValues(rightContainer, name);
         const valueChecks = buildValueChecks(leftValues, rightValues, name);
-        const matchedCount = valueChecks.filter((item) => item.matched).length;
-        const unmatchedCount = valueChecks.length - matchedCount;
-        const statusText = leftValues.length === 0
+        const leftCount = leftValues.length;
+        const foundCount = valueChecks.reduce((total, item) => total + item.foundCount, 0);
+        const unmatchedCount = leftCount - foundCount;
+        const statusText = leftCount === 0
           ? "N/A"
           : unmatchedCount === 0
-            ? "Found"
-            : "N/F";
-        const statusClass = leftValues.length === 0
+            ? `Found ${foundCount}`
+            : `N/F ${foundCount}`;
+        const statusClass = leftCount === 0
           ? "idle"
           : unmatchedCount === 0
             ? "ok"
@@ -1035,7 +1048,9 @@
 
         return {
           name,
-          matched: leftValues.length === 0 ? true : unmatchedCount === 0,
+          matched: leftCount === 0 ? true : unmatchedCount === 0,
+          leftCount,
+          foundCount,
           statusText,
           statusClass,
           valueChecks
