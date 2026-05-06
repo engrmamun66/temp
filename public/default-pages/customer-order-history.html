@@ -1,114 +1,80 @@
-<main class="position-relative">
-    <section class="rentmy-innerpage-banner">
-        <div class="hero-overlay"></div>
-        <div class="rentmy-innerpage-overlay">
-            <div class="container">
-                <div class="container-inner">
-                    <div class="container-inner-overlay">
+<div id="RentMyCustomerOrderHistory" class="RentMyWrapper RentMyCustomerPortalWrapper">
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="rentmy-innerpage-body">
-                                    <div class="rentmy-innerpage-body-inner">
-                                        <h1> Customer Order History</h1>
-                                        <div class="rentmy-breadcrumbs">
-                                            <ul>
-                                                <li><a href="/">Home</a></li>
-                                                <li> Customer Order History</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- <div class="innerpage-menu-header innerpage-menu-header-CustomerOrderHistory">
+    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" class="menu-close-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M36.9004 24.5996C36.9004 25.1433 36.6844 25.6647 36.3 26.0492C35.9155 26.4336 35.3941 26.6496 34.8504 26.6496L13.719 26.6496C13.1753 26.6496 12.6539 26.4336 12.2694 26.0492C11.885 25.6647 11.669 25.1433 11.669 24.5996C11.669 24.0559 11.885 23.5345 12.2694 23.15C12.6539 22.7656 13.1753 22.5496 13.719 22.5496L34.8504 22.5496C35.3941 22.5496 35.9155 22.7656 36.3 23.15C36.6844 23.5345 36.9004 24.0559 36.9004 24.5996ZM36.9004 32.7996C36.9004 33.3433 36.6844 33.8647 36.3 34.2492C35.9155 34.6336 35.3941 34.8496 34.8504 34.8496L6.1504 34.8496C5.60671 34.8496 5.08528 34.6336 4.70083 34.2492C4.31638 33.8647 4.1004 33.3433 4.1004 32.7996C4.1004 32.2559 4.31638 31.7345 4.70083 31.35C5.08528 30.9656 5.60671 30.7496 6.1504 30.7496L34.8504 30.7496C35.3941 30.7496 35.9155 30.9656 36.3 31.35C36.6844 31.7345 36.9004 32.2559 36.9004 32.7996ZM36.9004 16.3996C36.9004 16.9433 36.6844 17.4647 36.3 17.8492C35.9155 18.2336 35.3941 18.4496 34.8504 18.4496L6.1504 18.4496C5.60671 18.4496 5.08528 18.2336 4.70083 17.8492C4.31638 17.4647 4.1004 16.9433 4.1004 16.3996C4.1004 15.8559 4.31638 15.3345 4.70083 14.95C5.08528 14.5656 5.60671 14.3496 6.1504 14.3496L34.8504 14.3496C35.3941 14.3496 35.9155 14.5656 36.3 14.95C36.6844 15.3345 36.9004 15.8559 36.9004 16.3996ZM36.9004 8.1996C36.9004 8.74329 36.6844 9.26472 36.3 9.64917C35.9155 10.0336 35.3941 10.2496 34.8504 10.2496L13.719 10.2496C13.1753 10.2496 12.6539 10.0336 12.2694 9.64917C11.885 9.26472 11.669 8.7433 11.669 8.1996C11.669 7.65591 11.885 7.13448 12.2694 6.75003C12.6539 6.36558 13.1753 6.1496 13.719 6.1496L34.8504 6.1496C35.3941 6.1496 35.9155 6.36558 36.3 6.75003C36.6844 7.13448 36.9004 7.65591 36.9004 8.1996Z"
+                fill="#fff" />
+        </svg>
+    </button>
+    <a href="/home">
+        <img src="https://s3.us-east-2.amazonaws.com/images.rentmy.co/content-image/3893/media/1753851318_oq76y3ub_logo.png"
+            alt="Logo" style="max-height: 50px;">
+    </a>
+</div> -->
+
+    <div class="RentMyCustomPortalRow">
+        <div class="RentMyLeftSidebarmenu">
+            <div class="RentMyLeftSidebarmenuInner" SideBar>
+                <div class="RentMyProfileImge">
+                    <img src="" alt="" ProfileImage>
+                </div>
+                <h5 class="RentMyProfileName">{{ customer_name }}</h5>
+                <div class="RentMySideMenu">
+                    <ul>
+                        <li><a RentMyPageLink="customer_profile">Profile</a></li>
+                        <li><a RentMyPageLink="customer_change_password">Change Password</a></li>
+                        <li><a RentMyPageLink="customer_change_avatar">Change Avatar</a></li>
+                        <li><a RentMyPageLink="customer_order_history" class="active">Order History</a></li>
+                        <li data-rentmyattr="DashboardNav"><a
+                                RentMyPageLink="customer_order_dashboard">Dashboard</a></li>
+                        <li data-rentmyattr="BillingNav"><a RentMyPageLink="customer_billing">Billing</a></li>
+                        <li><a class="rentmy_logout_btn">Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
-    <div class="container">
-        <div id="RentMyCustomerOrderHistory" class="RentMyWrapper RentMyCustomerPortalWrapper">
 
-            <!-- <div class="innerpage-menu-header innerpage-menu-header-CustomerOrderHistory">
-            <button type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" class="menu-close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M36.9004 24.5996C36.9004 25.1433 36.6844 25.6647 36.3 26.0492C35.9155 26.4336 35.3941 26.6496 34.8504 26.6496L13.719 26.6496C13.1753 26.6496 12.6539 26.4336 12.2694 26.0492C11.885 25.6647 11.669 25.1433 11.669 24.5996C11.669 24.0559 11.885 23.5345 12.2694 23.15C12.6539 22.7656 13.1753 22.5496 13.719 22.5496L34.8504 22.5496C35.3941 22.5496 35.9155 22.7656 36.3 23.15C36.6844 23.5345 36.9004 24.0559 36.9004 24.5996ZM36.9004 32.7996C36.9004 33.3433 36.6844 33.8647 36.3 34.2492C35.9155 34.6336 35.3941 34.8496 34.8504 34.8496L6.1504 34.8496C5.60671 34.8496 5.08528 34.6336 4.70083 34.2492C4.31638 33.8647 4.1004 33.3433 4.1004 32.7996C4.1004 32.2559 4.31638 31.7345 4.70083 31.35C5.08528 30.9656 5.60671 30.7496 6.1504 30.7496L34.8504 30.7496C35.3941 30.7496 35.9155 30.9656 36.3 31.35C36.6844 31.7345 36.9004 32.2559 36.9004 32.7996ZM36.9004 16.3996C36.9004 16.9433 36.6844 17.4647 36.3 17.8492C35.9155 18.2336 35.3941 18.4496 34.8504 18.4496L6.1504 18.4496C5.60671 18.4496 5.08528 18.2336 4.70083 17.8492C4.31638 17.4647 4.1004 16.9433 4.1004 16.3996C4.1004 15.8559 4.31638 15.3345 4.70083 14.95C5.08528 14.5656 5.60671 14.3496 6.1504 14.3496L34.8504 14.3496C35.3941 14.3496 35.9155 14.5656 36.3 14.95C36.6844 15.3345 36.9004 15.8559 36.9004 16.3996ZM36.9004 8.1996C36.9004 8.74329 36.6844 9.26472 36.3 9.64917C35.9155 10.0336 35.3941 10.2496 34.8504 10.2496L13.719 10.2496C13.1753 10.2496 12.6539 10.0336 12.2694 9.64917C11.885 9.26472 11.669 8.7433 11.669 8.1996C11.669 7.65591 11.885 7.13448 12.2694 6.75003C12.6539 6.36558 13.1753 6.1496 13.719 6.1496L34.8504 6.1496C35.3941 6.1496 35.9155 6.36558 36.3 6.75003C36.6844 7.13448 36.9004 7.65591 36.9004 8.1996Z"
-                        fill="#fff" />
-                </svg>
-            </button>
-            <a href="/home">
-                <img src="https://s3.us-east-2.amazonaws.com/images.rentmy.co/content-image/3893/media/1753851318_oq76y3ub_logo.png"
-                    alt="Logo" style="max-height: 50px;">
-            </a>
-        </div> -->
-
-            <div class="RentMyCustomPortalRow">
-                <div class="RentMyLeftSidebarmenu">
-                    <div class="RentMyLeftSidebarmenuInner" SideBar>
-                        <div class="RentMyProfileImge">
-                            <img src="" alt="" ProfileImage>
-                        </div>
-                        <h5 class="RentMyProfileName">{{ customer_name }}</h5>
-                        <div class="RentMySideMenu">
-                            <ul>
-                                <li><a RentMyPageLink="customer_profile">Profile</a></li>
-                                <li><a RentMyPageLink="customer_change_password">Change Password</a></li>
-                                <li><a RentMyPageLink="customer_change_avatar">Change Avatar</a></li>
-                                <li><a RentMyPageLink="customer_order_history" class="active">Order History</a></li>
-                                <li data-rentmyattr="DashboardNav"><a
-                                        RentMyPageLink="customer_order_dashboard">Dashboard</a></li>
-                                <li data-rentmyattr="BillingNav"><a RentMyPageLink="customer_billing">Billing</a></li>
-                                <li><a class="rentmy_logout_btn">Logout</a></li>
-                            </ul>
-                        </div>
+        <div class="RentMyRightContent">
+            <div class="RentMyPageHeader">
+                <h3>Order History</h3>
+                <div class="RentMyPageHeaderRightSide"> </div>
+            </div>
+            <div class="RentMyContentBody">
+                <div class="RentMyContentBodyInner RentMyContentBodyInner__modify">
+                    <div id="RentMyOrderHistory" class="RentMyTableResponsive">
+                        <table class="RentMyTable RentMyTableStriped" OrderListTable>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Address</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{order_id}}</td>
+                                    <td>{{order_address}}</td>
+                                    <td>{{total_quantity}}</td>
+                                    <td>{{total_price}}</td>
+                                    <td>{{status}}</td>
+                                    <td class="InlineFlex">
+                                        <a ViewDetails><i class="fa fa-eye"></i></a>
+                                        <a DownloadPDF><i class="fa fa-file-pdf"></i></a>
+                                        <a DeleteOrder><i class="fa fa-trash"></i></a>
+                                        <!-- <a SendMessage><i class="fa fa-paper-plane"></i></a> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-
-                <div class="RentMyRightContent">
-                    <div class="RentMyPageHeader">
-                        <h3>Order History</h3>
-                        <div class="RentMyPageHeaderRightSide"> </div>
-                    </div>
-                    <div class="RentMyContentBody">
-                        <div class="RentMyContentBodyInner RentMyContentBodyInner__modify">
-                            <div id="RentMyOrderHistory" class="RentMyTableResponsive">
-                                <table class="RentMyTable RentMyTableStriped" OrderListTable>
-                                    <thead>
-                                        <tr>
-                                            <th>Order ID</th>
-                                            <th>Address</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{{order_id}}</td>
-                                            <td>{{order_address}}</td>
-                                            <td>{{total_quantity}}</td>
-                                            <td>{{total_price}}</td>
-                                            <td>{{status}}</td>
-                                            <td class="InlineFlex">
-                                                <a ViewDetails><i class="fa fa-eye"></i></a>
-                                                <a DownloadPDF><i class="fa fa-file-pdf"></i></a>
-                                                <a DeleteOrder><i class="fa fa-trash"></i></a>
-                                                <!-- <a SendMessage><i class="fa fa-paper-plane"></i></a> -->
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div id="RentMyPagination"></div>
-                        </div>
-                    </div>
+                    <div id="RentMyPagination"></div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-</main>
+</div>
