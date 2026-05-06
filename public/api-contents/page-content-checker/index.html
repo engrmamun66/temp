@@ -216,6 +216,9 @@
     }
 
     .bookmark-name-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       appearance: none;
       padding: 0;
       border: 0;
@@ -228,6 +231,13 @@
 
     .bookmark-name-trigger:hover {
       color: #ffffff;
+    }
+
+    .bookmark-edit-icon {
+      color: #b7dabb;
+      font-size: 0.9rem;
+      line-height: 1;
+      flex-shrink: 0;
     }
 
     .bookmark-date {
@@ -641,7 +651,7 @@
           </section>
         </div>
 
-        <div ref="bookmarkAnchor" class="bookmark-anchor">
+        <div ref="bookmarkAnchor" class="bookmark-anchor" @click.stop>
           <button class="btn bookmark-trigger" type="button" @click="toggleBookmarks">
             <span>Bookmarks</span>
             <span class="bookmark-count">{{ bookmarks.length }}</span>
@@ -687,6 +697,7 @@
                 <div v-else class="bookmark-row">
                   <div class="bookmark-meta">
                     <button class="bookmark-name bookmark-name-trigger" type="button" @click="startBookmarkEdit(bookmark)">
+                      <span class="bookmark-edit-icon" aria-hidden="true">✎</span>
                       {{ bookmark.name }}
                     </button>
                     <div class="bookmark-date">Saved {{ formatBookmarkDate(bookmark.updatedAt) }}</div>
