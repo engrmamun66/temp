@@ -27,18 +27,14 @@
         </button> -->
 
         <a class="rm-cart-bar RentMyMiniCart">
-            <div class="icon-area" iconarea="">
-                <i class="fa fa-shopping-bag"></i>
-                <div class="count"><span totalquantity="">0</span></div>
-            </div>
-            <div class="RentMyCartBody" rentmyminicartcontents=""><span class="RentMyTopArrow"><i
-                        class="fa fa-caret-up"></i></span>
-                <div class="RentMyCartBodyInner">
-                    <div class="RentMyCartList">
-                        <h5 class="text-center my-4">Cart Is Empty</h5>
-                    </div>
-                </div>
-            </div>
+            
+          <div class="relative cursor-pointer" IconArea>
+              <iconify-icon icon="mdi:cart-outline" width="26" height="26"></iconify-icon>
+              <div class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"><span TotalQuantity>0</span></div>
+          </div>
+          <div class="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-2xl z-50" RentMyMiniCartContents>
+               
+          </div>
         </a>
 
         <a class="rm-cart-bar RentMyWishlistCounter">
