@@ -15,6 +15,19 @@ import { handlePageWiseControl } from './page-wise-control/_index';
 const LAYOUTS_DIR      = path.resolve(process.cwd(), 'public', 'layouts');
 const DEFAULT_LAYOUT   = path.resolve(LAYOUTS_DIR, 'default.html');
 
+const remoteFileExistsCache = new Map<string, boolean>();
+async function remoteFileExists(url: string): Promise<boolean> {
+  if (remoteFileExistsCache.has(url)) return remoteFileExistsCache.get(url)!;
+  try {
+    await axios.head(url, { timeout: 3000 });
+    remoteFileExistsCache.set(url, true);
+    return true;
+  } catch {
+    remoteFileExistsCache.set(url, false);
+    return false;
+  }
+}
+
 function resolveLayoutFile(layout: string | null | undefined): string {
   if (!layout || layout === 'default') return DEFAULT_LAYOUT;
   const candidate = path.resolve(LAYOUTS_DIR, `${layout}.html`);
@@ -90,24 +103,22 @@ export class PageController {
       if (assetUrl && storeId) {
         const customCssUrl = `${assetUrl.replace(/\/+$/, '')}/files/${storeId}/custom.css`;
         const customJsUrl = `${assetUrl.replace(/\/+$/, '')}/files/${storeId}/custom.js`;
-        await Promise.allSettled([
-          axios.head(customCssUrl, { timeout: 3000 }).then(() => {
-            const link = document.createElement('link');
-            link.rel  = 'stylesheet';
-            link.href = customCssUrl;
-            document.head.appendChild(link);
-          }).catch(() => {
-            logToFile('[custom_css_file]', `store wise custom css file doesn't exist, skip`);
-          }),
-          axios.head(customJsUrl, { timeout: 3000 }).then(() => {
-            const script = document.createElement('script');
-            script.src   = customJsUrl;
-            script.defer = true;
-            document.body.appendChild(script);
-          }).catch(() => {
-            logToFile('[custom_js_file]', `store wise custom js file doesn't exist, skip`);
-          }),
+        const [cssExists, jsExists] = await Promise.all([
+          remoteFileExists(customCssUrl),
+          remoteFileExists(customJsUrl),
         ]);
+        if (cssExists) {
+          const link = document.createElement('link');
+          link.rel  = 'stylesheet';
+          link.href = customCssUrl;
+          document.head.appendChild(link);
+        }
+        if (jsExists) {
+          const script = document.createElement('script');
+          script.src   = customJsUrl;
+          script.defer = true;
+          document.body.appendChild(script);
+        }
       }
     }
 
