@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import { Request, Response } from 'express';
 import { JSDOM } from 'jsdom';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { StoreConfigService } from '../../services/StoreConfigService';
 import { SessionOverrideService } from '../../services/SessionOverrideService';
 import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
@@ -82,6 +82,24 @@ export class PageController {
       navScript.type = 'application/json';
       navScript.textContent = JSON.stringify(navData);
       document.head.appendChild(navScript);
+    }
+
+    {
+      const assetUrl = SessionOverrideService.getInstance().getAssetUrl(null);
+      const storeId  = storeResult?.store?.id;
+      if (assetUrl && storeId) {
+        const customCssUrl = `${assetUrl.replace(/\/+$/, '')}/files/${storeId}/custom.css`;
+        try {
+          await axios.head(customCssUrl, { timeout: 3000 });
+          const link = document.createElement('link');
+          link.rel  = 'stylesheet';
+          link.href = customCssUrl;
+          document.head.appendChild(link);
+        } catch {
+          // store wise custom css file doesn't exist, skip
+          logToFile('[custom_css_file]', `store wise custom css file doesn't exist, skip`)
+        }
+      }
     }
 
     {
