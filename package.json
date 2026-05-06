@@ -9,6 +9,7 @@
     "start": "node dist/server.js",
     "lint": "eslint src --ext .ts",
     "rskdev": "cd src/i-server && php -S localhost:5000",
+    "content-check": "cd public/api-contents/page-content-checker && php -S localhost:2325",
     "only__for__macOS__herd": "______________________________________",
     "plist": "herd proxies",
     "proxy": "herd proxy teststore09.rentmy http://localhost:3000 && herd proxy teststore17leapinglogiccom.rentmy http://localhost:3000 && herd proxy teststore03 http://localhost:3000 && herd proxy teststore09 http://localhost:3000 && herd proxies",

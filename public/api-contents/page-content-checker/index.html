@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Compare</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <style>
+    :root {
+      --bg: #1f2126;
+      --panel: #303139;
+      --panel-alt: #2a2b31;
+      --line: rgba(255, 255, 255, 0.14);
+      --line-strong: rgba(255, 255, 255, 0.34);
+      --text: #f4f2f2;
+      --muted: #a6a4a8;
+      --button: #4a4a4d;
+      --button-hover: #5a5a5d;
+      --accent: #5c9a67;
+      --accent-hover: #71ae7d;
+      --shadow: 0 30px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-size: 14px;
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.05), transparent 28%),
+        linear-gradient(180deg, #23252b 0%, #1d1f24 100%);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(75, 128, 82, 0.85), rgba(75, 128, 82, 0.85)),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: auto, 36px 36px, 36px 36px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.22));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1280px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 30px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      color: #f6f1f1;
+      text-shadow: 0 3px 16px rgba(0, 0, 0, 0.18);
+    }
+
+    .app-shell {
+      width: min(1280px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0 40px;
+    }
+
+    .control-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    .toolbar-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 64px;
+    }
+
+    .bookmark-anchor {
+      position: relative;
+    }
+
+    .bookmark-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      padding-right: 14px;
+    }
+
+    .bookmark-panel {
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      z-index: 20;
+      width: min(430px, calc(100vw - 32px));
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(49, 51, 58, 0.98), rgba(35, 37, 43, 0.98));
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .bookmark-panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .bookmark-panel-head h2 {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+      color: #faf7f7;
+    }
+
+    .bookmark-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(92, 154, 103, 0.16);
+      border: 1px solid rgba(112, 177, 123, 0.45);
+      color: #cce9d2;
+      font-size: 0.85rem;
+    }
+
+    .bookmark-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .bookmark-input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #f2eded;
+      font: inherit;
+      font-size: 0.95rem;
+      outline: 0;
+    }
+
+    .bookmark-input::placeholder {
+      color: var(--muted);
+    }
+
+    .bookmark-input:focus {
+      border-color: rgba(112, 177, 123, 0.65);
+      box-shadow: 0 0 0 3px rgba(92, 154, 103, 0.14);
+    }
+
+    .bookmark-list {
+      display: grid;
+      gap: 10px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .bookmark-item {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+    }
+
+    .bookmark-row,
+    .bookmark-edit {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .bookmark-meta {
+      min-width: 0;
+    }
+
+    .bookmark-name {
+      color: #f6f1f1;
+      font-size: 0.98rem;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .bookmark-name-trigger {
+      appearance: none;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .bookmark-name-trigger:hover {
+      color: #ffffff;
+    }
+
+    .bookmark-date {
+      margin-top: 6px;
+      color: #aeadb2;
+      font-size: 0.84rem;
+      line-height: 1.4;
+    }
+
+    .bookmark-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 0;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 6px;
+      background: var(--button);
+      color: var(--text);
+      font: inherit;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: background 160ms ease, transform 160ms ease;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .btn:hover {
+      background: var(--button-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      min-width: 178px;
+      background: var(--accent);
+      font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+      padding: 16px 28px;
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn.small {
+      font-size: 0.9rem;
+      padding: 10px 12px;
+      min-width: 0;
+    }
+
+    .btn.danger {
+      background: rgba(181, 108, 90, 0.26);
+      color: #f6d0c7;
+    }
+
+    .btn.danger:hover {
+      background: rgba(181, 108, 90, 0.38);
+    }
+
+    .panels {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      align-items: stretch;
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 505px;
+      background: linear-gradient(180deg, #32333a 0%, #2d2e35 100%);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .panel.active {
+      border-color: var(--line-strong);
+    }
+
+    .panel textarea {
+      width: 100%;
+      min-height: 505px;
+      flex: 1;
+      resize: vertical;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: #dfdcdf;
+      font: inherit;
+      font-size: clamp(1.1rem, 2vw, 1.15rem);
+      line-height: 1.55;
+      padding: 16px 18px;
+      caret-color: #f7f7f7;
+    }
+
+    .panel textarea::placeholder {
+      color: var(--muted);
+    }
+
+    .status {
+      display: flex;
+      justify-content: center;
+      margin-top: 18px;
+      min-height: 28px;
+      color: #c8c5c8;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+    }
+
+    .status strong {
+      color: #ffffff;
+    }
+
+    .results {
+      margin-top: 22px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .summary-grid > :only-child {
+      grid-column: 1 / -1;
+    }
+
+    .result-card {
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(49, 51, 58, 0.98), rgba(35, 37, 43, 0.98));
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .result-card h2 {
+      margin: 0 0 14px;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+      color: #faf7f7;
+    }
+
+    .result-card.full {
+      grid-column: 1 / -1;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .stat-row:first-of-type {
+      padding-top: 0;
+    }
+
+    .stat-row span:first-child {
+      color: #cfc9cb;
+    }
+
+    .stat-row strong {
+      color: #ffffff;
+    }
+
+    .result-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .result-item {
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+    }
+
+    .result-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .result-name {
+      font-size: 0.96rem;
+      color: #f6f1f1;
+      word-break: break-word;
+    }
+
+    .result-name-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .count-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      min-height: 24px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ddd9da;
+      font-size: 0.78rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .result-meta {
+      margin: 4px 0 0;
+      color: #c7c1c3;
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .summary-rows {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .summary-copy {
+      color: #c7c1c3;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .result-card.scroll-card {
+      display: flex;
+      flex-direction: column;
+      max-height: 820px;
+    }
+
+    .result-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .value-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .value-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+    }
+
+    .value-copy {
+      color: #ece8e8;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 92px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+    }
+
+    .badge.ok {
+      background: rgba(92, 154, 103, 0.18);
+      border-color: rgba(112, 177, 123, 0.55);
+      color: #bfe5c6;
+    }
+
+    .badge.warn {
+      background: rgba(181, 108, 90, 0.18);
+      border-color: rgba(214, 129, 109, 0.45);
+      color: #f3b6aa;
+    }
+
+    .badge.idle {
+      background: rgba(143, 151, 167, 0.14);
+      border-color: rgba(176, 183, 196, 0.28);
+      color: #d3d9e3;
+    }
+
+    .empty-state {
+      color: #bdb8ba;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 980px) {
+      .control-row {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar-wrap {
+        min-height: 0;
+      }
+
+      .bookmark-anchor {
+        width: 100%;
+      }
+
+      .bookmark-trigger {
+        width: 100%;
+      }
+
+      .bookmark-panel {
+        position: static;
+        width: 100%;
+        margin-top: 12px;
+      }
+
+      .bookmark-form {
+        grid-template-columns: 1fr;
+      }
+
+      .bookmark-row,
+      .bookmark-edit {
+        flex-direction: column;
+      }
+
+      .bookmark-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .toolbar {
+        justify-content: center;
+      }
+
+      .panels {
+        grid-template-columns: 1fr;
+      }
+
+      .panel,
+      .panel textarea {
+        min-height: 320px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <main class="app-shell">
+      <section class="control-row">
+        <div class="toolbar-wrap">
+          <section class="toolbar">
+            <button class="btn primary" type="button" @click="compareTexts">Compare!</button>
+            <button class="btn" type="button" @click="clearAll">Clear all</button>
+          </section>
+        </div>
+
+        <div ref="bookmarkAnchor" class="bookmark-anchor">
+          <button class="btn bookmark-trigger" type="button" @click="toggleBookmarks">
+            <span>Bookmarks</span>
+            <span class="bookmark-count">{{ bookmarks.length }}</span>
+          </button>
+
+          <article v-if="bookmarkOpen" class="bookmark-panel">
+            <div class="bookmark-panel-head">
+              <h2>Saved HTML Pairs</h2>
+              <span class="bookmark-count">{{ bookmarks.length }}</span>
+            </div>
+
+            <div class="bookmark-form">
+              <input
+                v-model.trim="bookmarkName"
+                class="bookmark-input"
+                type="text"
+                placeholder="Bookmark name"
+                spellcheck="false"
+                @keydown.enter.prevent="saveBookmark"
+              >
+              <button class="btn small primary" type="button" @click="saveBookmark">Save</button>
+            </div>
+
+            <div v-if="bookmarks.length" class="bookmark-list">
+              <div class="bookmark-item" v-for="bookmark in bookmarks" :key="bookmark.id">
+                <div v-if="editingBookmarkId === bookmark.id" class="bookmark-edit">
+                  <input
+                    :ref="`bookmarkEditInput-${bookmark.id}`"
+                    v-model.trim="editingBookmarkName"
+                    class="bookmark-input"
+                    type="text"
+                    placeholder="Bookmark name"
+                    spellcheck="false"
+                    @keydown.enter.prevent="renameBookmark(bookmark.id)"
+                    @keydown.esc.prevent="cancelBookmarkEdit"
+                  >
+                  <div class="bookmark-actions">
+                    <button class="btn small primary" type="button" @click="renameBookmark(bookmark.id)">Save</button>
+                    <button class="btn small" type="button" @click="cancelBookmarkEdit">Cancel</button>
+                  </div>
+                </div>
+
+                <div v-else class="bookmark-row">
+                  <div class="bookmark-meta">
+                    <button class="bookmark-name bookmark-name-trigger" type="button" @click="startBookmarkEdit(bookmark)">
+                      {{ bookmark.name }}
+                    </button>
+                    <div class="bookmark-date">Saved {{ formatBookmarkDate(bookmark.updatedAt) }}</div>
+                  </div>
+
+                  <div class="bookmark-actions">
+                    <button class="btn small primary" type="button" @click="applyBookmark(bookmark.id)">Apply</button>
+                    <button class="btn small danger" type="button" @click="deleteBookmark(bookmark.id)">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p v-else class="empty-state">Save the current left and right HTML here for quick reuse.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panels">
+        <div class="panel" :class="{ active: activeBox === 'left' }">
+          <textarea
+            ref="leftBox"
+            v-model="leftText"
+            placeholder="Old HTML"
+            spellcheck="false"
+            @focus="activeBox = 'left'"
+          ></textarea>
+        </div>
+
+        <div class="panel" :class="{ active: activeBox === 'right' }">
+          <textarea
+            ref="rightBox"
+            v-model="rightText"
+            placeholder="New HTML"
+            spellcheck="false"
+            @focus="activeBox = 'right'"
+          ></textarea>
+        </div>
+      </section>
+
+      <div class="status" aria-live="polite">
+        <template v-if="message">
+          {{ message }}
+        </template>
+        <template v-else>
+          Ready to compare text blocks.
+        </template>
+      </div>
+
+      <section v-if="report" class="results">
+        <div class="summary-grid">
+          <article class="result-card">
+            <h2>Outer Level Summary</h2>
+            <div v-if="report.outerLevel.length" class="result-list">
+              <div class="result-item" v-for="item in report.outerLevel" :key="`${item.key}-left-summary`">
+                <div class="result-head">
+                  <div class="result-name">Left first div: &lt;{{ item.leftTag }}&gt;</div>
+                  <span class="badge" :class="item.tagStatusClass">{{ item.tagStatusText }}</span>
+                </div>
+                <div class="summary-rows">
+                  <div class="summary-row">
+                    <div class="summary-copy">Class: {{ item.leftClassText }}</div>
+                    <span class="badge" :class="item.classStatusClass">{{ item.classStatusText }}</span>
+                  </div>
+                  <div class="summary-row">
+                    <div class="summary-copy">ID: {{ item.leftIdText }}</div>
+                    <span class="badge" :class="item.idStatusClass">{{ item.idStatusText }}</span>
+                  </div>
+                  <div class="summary-row">
+                    <div class="summary-copy">Attributes: {{ item.leftAttributeText }}</div>
+                    <span class="badge" :class="item.attributeStatusClass">{{ item.attributeStatusText }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p v-else class="empty-state">No outer HTML elements were found on the left side.</p>
+          </article>
+
+          <article v-if="report.trackedAttributes.length" class="result-card scroll-card">
+            <h2>Tracked RentMy Attributes</h2>
+            <div class="result-scroll">
+              <div class="result-list">
+                <div class="result-item" v-for="item in report.trackedAttributes" :key="item.name">
+                  <div class="result-head">
+                    <div class="result-name-wrap">
+                      <div class="result-name">{{ item.name }}</div>
+                      <span class="count-chip">{{ item.valueChecks.length }}</span>
+                    </div>
+                    <span class="badge" :class="item.statusClass">
+                      {{ item.statusText }}
+                    </span>
+                  </div>
+                  <div v-if="item.valueChecks.length" class="value-list">
+                    <div class="value-row" v-for="valueItem in item.valueChecks" :key="valueItem.key">
+                      <div class="value-copy">{{ valueItem.label }}</div>
+                      <span class="badge" :class="valueItem.statusClass">
+                        {{ valueItem.statusText }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p v-else class="result-meta">No left-side values to check.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const { createApp, nextTick } = Vue;
+    const LEFT_STORAGE_KEY = "rentmy-html-compare-left";
+    const RIGHT_STORAGE_KEY = "rentmy-html-compare-right";
+    const BOOKMARKS_STORAGE_KEY = "rentmy-html-compare-bookmarks";
+    const OPTIONAL_TRACKED_ATTRIBUTES = new Set([
+      "data-rentmyattr1",
+      "data-rentmyattr2",
+      "data-rentmyattr3"
+    ]);
+    const TRACKED_ATTRIBUTES = [
+      "data-rentmyattr",
+      "data-rentmyattr1",
+      "data-rentmyattr2",
+      "data-rentmyattr3"
+    ];
+
+    function readSessionValue(key) {
+      try {
+        return sessionStorage.getItem(key) || "";
+      } catch (error) {
+        return "";
+      }
+    }
+
+    function writeSessionValue(key, value) {
+      try {
+        sessionStorage.setItem(key, value);
+      } catch (error) {
+        // Ignore sessionStorage write failures and keep the app usable.
+      }
+    }
+
+    function readLocalJson(key, fallbackValue) {
+      try {
+        const rawValue = localStorage.getItem(key);
+        return rawValue ? JSON.parse(rawValue) : fallbackValue;
+      } catch (error) {
+        return fallbackValue;
+      }
+    }
+
+    function writeLocalJson(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch (error) {
+        // Ignore localStorage write failures and keep the app usable.
+      }
+    }
+
+    function createBookmarkId() {
+      return `bookmark-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    }
+
+    function normalizeBookmarks(value) {
+      if (!Array.isArray(value)) {
+        return [];
+      }
+
+      return value
+        .map((item, index) => ({
+          id: typeof item.id === "string" && item.id ? item.id : `bookmark-${index}`,
+          name: typeof item.name === "string" && item.name.trim() ? item.name.trim() : `Bookmark ${index + 1}`,
+          leftText: typeof item.leftText === "string" ? item.leftText : "",
+          rightText: typeof item.rightText === "string" ? item.rightText : "",
+          updatedAt: typeof item.updatedAt === "string" && item.updatedAt ? item.updatedAt : new Date().toISOString()
+        }))
+        .sort((leftItem, rightItem) => new Date(rightItem.updatedAt) - new Date(leftItem.updatedAt));
+    }
+
+    function readBookmarks() {
+      return normalizeBookmarks(readLocalJson(BOOKMARKS_STORAGE_KEY, []));
+    }
+
+    function parseHtmlFragment(html) {
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = html.trim();
+      return wrapper;
+    }
+
+    function getTrackedAttributeValues(container, name) {
+      return Array.from(container.querySelectorAll(`[${name}]`)).map((element) => element.getAttribute(name) || "");
+    }
+
+    function buildValueCountMap(values) {
+      return values.reduce((map, value) => {
+        map.set(value, (map.get(value) || 0) + 1);
+        return map;
+      }, new Map());
+    }
+
+    function buildValueChecks(leftValues, rightValues, attributeName) {
+      const rightValueCounts = buildValueCountMap(rightValues);
+
+      return leftValues.map((value, index) => {
+        const rightCount = rightValueCounts.get(value) || 0;
+        const matched = rightCount > 0;
+
+        if (matched) {
+          rightValueCounts.set(value, rightCount - 1);
+        }
+
+        return {
+          key: `${attributeName}-${index}-${value}`,
+          value,
+          label: `${attributeName}="${value}"`,
+          matched,
+          statusText: matched ? "Found" : "N/F",
+          statusClass: matched ? "ok" : "warn"
+        };
+      });
+    }
+
+    function getFirstOuterDiv(container) {
+      return Array.from(container.children).find((element) => element.tagName.toLowerCase() === "div") || null;
+    }
+
+    function compareOuterLevel(leftRoots, rightRoots) {
+      return leftRoots.map((leftRoot, index) => {
+        const rightRoot = rightRoots[index] || null;
+        const leftTag = leftRoot.tagName.toLowerCase();
+        const rightTag = rightRoot ? rightRoot.tagName.toLowerCase() : "";
+        const leftClasses = Array.from(leftRoot.classList);
+        const rightClasses = rightRoot ? Array.from(rightRoot.classList) : [];
+        const missingClasses = leftClasses.filter((item) => !rightClasses.includes(item));
+        const leftId = leftRoot.getAttribute("id") || "";
+        const rightId = rightRoot ? rightRoot.getAttribute("id") || "" : "";
+        const leftAttributes = Array.from(leftRoot.attributes)
+          .filter((attribute) => attribute.name !== "class" && attribute.name !== "id");
+        const missingAttributes = [];
+        const changedAttributes = [];
+
+        leftAttributes.forEach((attribute) => {
+            if (!rightRoot || !rightRoot.hasAttribute(attribute.name)) {
+              missingAttributes.push(attribute.name);
+              return;
+            }
+
+            const rightValue = rightRoot.getAttribute(attribute.name);
+            if (rightValue !== attribute.value) {
+              changedAttributes.push(`${attribute.name}="${attribute.value}"`);
+            }
+          });
+
+        const tagMatches = Boolean(rightRoot) && leftTag === rightTag;
+        const idMatches = !leftId || leftId === rightId;
+        const tagStatusText = tagMatches ? "Found" : "Missing";
+        const tagStatusClass = tagMatches ? "ok" : "warn";
+        const classStatusText = leftClasses.length
+          ? missingClasses.length === 0 ? "Found" : "Missing"
+          : "N/A";
+        const classStatusClass = leftClasses.length
+          ? missingClasses.length === 0 ? "ok" : "warn"
+          : "idle";
+        const idStatusText = leftId
+          ? idMatches ? "Found" : "Missing"
+          : "N/A";
+        const idStatusClass = leftId
+          ? idMatches ? "ok" : "warn"
+          : "idle";
+        const attributeStatusText = leftAttributes.length
+          ? missingAttributes.length === 0 && changedAttributes.length === 0 ? "Found" : "Missing"
+          : "N/A";
+        const attributeStatusClass = leftAttributes.length
+          ? missingAttributes.length === 0 && changedAttributes.length === 0 ? "ok" : "warn"
+          : "idle";
+        const ok = Boolean(rightRoot)
+          && tagMatches
+          && missingClasses.length === 0
+          && idMatches
+          && missingAttributes.length === 0
+          && changedAttributes.length === 0;
+
+        return {
+          key: `${leftTag}-${index}`,
+          index: index + 1,
+          leftTag,
+          rightTag,
+          ok,
+          tagStatusText,
+          tagStatusClass,
+          classStatusText,
+          classStatusClass,
+          idStatusText,
+          idStatusClass,
+          attributeStatusText,
+          attributeStatusClass,
+          leftClassText: leftClasses.length ? leftClasses.join(", ") : "None",
+          leftIdText: leftId || "None",
+          leftAttributeText: leftAttributes.length
+            ? leftAttributes.map((attribute) => `${attribute.name}="${attribute.value}"`).join(", ")
+            : "None",
+          tagMessage: rightRoot
+            ? tagMatches
+              ? "Outer-level tag matches on the right."
+              : `Outer-level tag changed to <${rightTag}>.`
+            : "Matching right outer-level element was not found.",
+          classMessage: leftClasses.length
+            ? missingClasses.length
+              ? `Missing left classes on right: ${missingClasses.join(", ")}`
+              : "All left outer-level classes exist on the right."
+            : "No left outer-level classes to check.",
+          idMessage: leftId
+            ? idMatches
+              ? `Matching id found: ${leftId}`
+              : `Missing or changed id: ${leftId}`
+            : "No left outer-level id to check.",
+          attributeMessage: missingAttributes.length || changedAttributes.length
+            ? `Attribute issues: ${[
+              missingAttributes.length ? `missing ${missingAttributes.join(", ")}` : "",
+              changedAttributes.length ? `changed value for ${changedAttributes.join(", ")}` : ""
+            ].filter(Boolean).join(" | ")}`
+            : "All left outer-level attributes exist on the right with the same values."
+        };
+      });
+    }
+
+    function buildComparisonReport(leftHtml, rightHtml) {
+      const leftContainer = parseHtmlFragment(leftHtml);
+      const rightContainer = parseHtmlFragment(rightHtml);
+      const leftRoot = getFirstOuterDiv(leftContainer);
+      const rightRoot = getFirstOuterDiv(rightContainer);
+      const leftRoots = leftRoot ? [leftRoot] : [];
+      const rightRoots = rightRoot ? [rightRoot] : [];
+      const outerLevel = compareOuterLevel(leftRoots, rightRoots);
+      const trackedAttributes = TRACKED_ATTRIBUTES.map((name) => {
+        const leftValues = getTrackedAttributeValues(leftContainer, name);
+        const rightValues = getTrackedAttributeValues(rightContainer, name);
+        const valueChecks = buildValueChecks(leftValues, rightValues, name);
+        const matchedCount = valueChecks.filter((item) => item.matched).length;
+        const unmatchedCount = valueChecks.length - matchedCount;
+        const statusText = leftValues.length === 0
+          ? "N/A"
+          : unmatchedCount === 0
+            ? "Found"
+            : "N/F";
+        const statusClass = leftValues.length === 0
+          ? "idle"
+          : unmatchedCount === 0
+            ? "ok"
+            : "warn";
+
+        return {
+          name,
+          matched: leftValues.length === 0 ? true : unmatchedCount === 0,
+          statusText,
+          statusClass,
+          valueChecks
+        };
+      }).filter((item) => {
+        return !(OPTIONAL_TRACKED_ATTRIBUTES.has(item.name) && item.valueChecks.length === 0);
+      });
+
+      return {
+        fullyMatched: outerLevel.every((item) => item.ok) && trackedAttributes.every((item) => item.matched),
+        trackedAttributes,
+        outerLevel
+      };
+    }
+
+    createApp({
+      data() {
+        return {
+          leftText: readSessionValue(LEFT_STORAGE_KEY),
+          rightText: readSessionValue(RIGHT_STORAGE_KEY),
+          bookmarks: readBookmarks(),
+          bookmarkName: "",
+          bookmarkOpen: false,
+          editingBookmarkId: "",
+          editingBookmarkName: "",
+          activeBox: "left",
+          message: "",
+          report: null
+        };
+      },
+      mounted() {
+        document.addEventListener("click", this.handleDocumentClick);
+      },
+      beforeUnmount() {
+        document.removeEventListener("click", this.handleDocumentClick);
+      },
+      watch: {
+        leftText(value) {
+          writeSessionValue(LEFT_STORAGE_KEY, value);
+        },
+        rightText(value) {
+          writeSessionValue(RIGHT_STORAGE_KEY, value);
+        }
+      },
+      methods: {
+        handleDocumentClick(event) {
+          if (!this.bookmarkOpen) {
+            return;
+          }
+
+          const anchor = this.$refs.bookmarkAnchor;
+          if (anchor && !anchor.contains(event.target)) {
+            this.bookmarkOpen = false;
+            this.cancelBookmarkEdit();
+          }
+        },
+        toggleBookmarks() {
+          this.bookmarkOpen = !this.bookmarkOpen;
+          if (!this.bookmarkOpen) {
+            this.cancelBookmarkEdit();
+          }
+        },
+        persistBookmarks(bookmarks) {
+          const normalizedBookmarks = normalizeBookmarks(bookmarks);
+          this.bookmarks = normalizedBookmarks;
+          writeLocalJson(BOOKMARKS_STORAGE_KEY, normalizedBookmarks);
+        },
+        buildBookmarkName() {
+          const trimmedName = this.bookmarkName.trim();
+          if (trimmedName) {
+            return trimmedName;
+          }
+
+          return `Bookmark ${this.bookmarks.length + 1}`;
+        },
+        formatBookmarkDate(value) {
+          const bookmarkDate = new Date(value);
+          if (Number.isNaN(bookmarkDate.getTime())) {
+            return "recently";
+          }
+
+          return bookmarkDate.toLocaleString([], {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+        },
+        saveBookmark() {
+          if (!this.leftText.trim() && !this.rightText.trim()) {
+            this.message = "Add HTML before saving a bookmark.";
+            return;
+          }
+
+          const bookmark = {
+            id: createBookmarkId(),
+            name: this.buildBookmarkName(),
+            leftText: this.leftText,
+            rightText: this.rightText,
+            updatedAt: new Date().toISOString()
+          };
+
+          this.persistBookmarks([bookmark, ...this.bookmarks]);
+          this.bookmarkName = "";
+          this.bookmarkOpen = true;
+          this.message = `Bookmark saved: ${bookmark.name}.`;
+        },
+        applyBookmark(bookmarkId) {
+          const bookmark = this.bookmarks.find((item) => item.id === bookmarkId);
+          if (!bookmark) {
+            this.message = "Bookmark was not found.";
+            return;
+          }
+
+          this.leftText = bookmark.leftText;
+          this.rightText = bookmark.rightText;
+          this.report = null;
+          this.activeBox = "left";
+          this.bookmarkOpen = false;
+          this.cancelBookmarkEdit();
+          this.message = `Bookmark applied: ${bookmark.name}. Click Compare! to refresh the report.`;
+          nextTick(() => this.$refs.leftBox && this.$refs.leftBox.focus());
+        },
+        startBookmarkEdit(bookmark) {
+          this.editingBookmarkId = bookmark.id;
+          this.editingBookmarkName = bookmark.name;
+          nextTick(() => {
+            const input = this.$refs[`bookmarkEditInput-${bookmark.id}`];
+            if (input && typeof input.focus === "function") {
+              input.focus();
+              if (typeof input.select === "function") {
+                input.select();
+              }
+            }
+          });
+        },
+        cancelBookmarkEdit() {
+          this.editingBookmarkId = "";
+          this.editingBookmarkName = "";
+        },
+        renameBookmark(bookmarkId) {
+          const nextName = this.editingBookmarkName.trim();
+          if (!nextName) {
+            this.message = "Bookmark name cannot be empty.";
+            return;
+          }
+
+          const nextBookmarks = this.bookmarks.map((bookmark) => {
+            if (bookmark.id !== bookmarkId) {
+              return bookmark;
+            }
+
+            return {
+              ...bookmark,
+              name: nextName,
+              updatedAt: new Date().toISOString()
+            };
+          });
+
+          this.persistBookmarks(nextBookmarks);
+          this.bookmarkOpen = true;
+          this.cancelBookmarkEdit();
+          this.message = `Bookmark renamed to ${nextName}.`;
+        },
+        deleteBookmark(bookmarkId) {
+          const bookmark = this.bookmarks.find((item) => item.id === bookmarkId);
+          if (!bookmark) {
+            this.message = "Bookmark was not found.";
+            return;
+          }
+
+          const confirmed = window.confirm(`Delete bookmark "${bookmark.name}"?`);
+          if (!confirmed) {
+            return;
+          }
+
+          this.persistBookmarks(this.bookmarks.filter((item) => item.id !== bookmarkId));
+          if (this.editingBookmarkId === bookmarkId) {
+            this.cancelBookmarkEdit();
+          }
+          this.message = `Bookmark deleted: ${bookmark.name}.`;
+        },
+        focusLeft() {
+          this.activeBox = "left";
+          nextTick(() => this.$refs.leftBox && this.$refs.leftBox.focus());
+        },
+        compareTexts() {
+          const left = this.leftText.trim();
+          const right = this.rightText.trim();
+
+          if (!left || !right) {
+            this.report = null;
+            this.message = "Add HTML to both boxes first.";
+            return;
+          }
+
+          this.report = buildComparisonReport(left, right);
+
+          if (!this.report.outerLevel.length) {
+            this.message = "Left HTML has no first outer div to compare.";
+            return;
+          }
+
+          this.message = this.report.fullyMatched
+            ? "Comparison complete. Right HTML contains the requested left-side structure."
+            : "Comparison complete. Review the mismatches below.";
+        },
+        clearAll() {
+          this.leftText = "";
+          this.rightText = "";
+          this.report = null;
+          this.message = "Both text boxes cleared.";
+          this.focusLeft();
+        }
+      }
+    }).mount("#app");
+  </script>
+</body>
+</html>
