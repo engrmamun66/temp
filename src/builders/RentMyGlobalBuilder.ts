@@ -37,6 +37,7 @@ export class RentMyGlobalBuilder {
 
     return {
       is_rsk: true,
+      tailwind: true,
       store_id:     storeId,
       locationId:   locationId,
       store_name:   storeName,
