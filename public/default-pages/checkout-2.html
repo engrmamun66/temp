@@ -8,12 +8,19 @@
 
     <!-- Sign In Banner -->
     <div class="max-w-7xl mx-auto mb-6">
-        <div class="w-full lg:w-[calc(100%-380px-2rem)] flex items-center justify-between bg-white border border-gray-200 rounded-xl px-5 py-3 shadow-sm" data-rentmyattr="SignInPopupArea">
-            <p class="text-sm text-gray-600">
-                <span data-rentmyattr="WelcomeText">Welcome to</span>
-                <strong class="text-gray-900 ml-1" data-rentmyattr="StoreName">Store</strong>
-            </p>
-            <a class="text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition-colors cursor-pointer" data-rentmyattr="SignIn">Sign in &rarr;</a>
+        <div class="w-full lg:w-[calc(100%-380px-2rem)] flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl px-5 py-3.5 gap-4" data-rentmyattr="SignInPopupArea">
+            <div class="flex items-center gap-3 min-w-0">
+                <iconify-icon icon="heroicons:user-circle" class="text-blue-400 flex-shrink-0" width="22" height="22"></iconify-icon>
+                <p class="text-sm text-gray-600 truncate">
+                    Returning customer?
+                    <span class="text-gray-400 mx-1" data-rentmyattr="WelcomeText">Welcome to</span>
+                    <strong class="text-gray-800" data-rentmyattr="StoreName">Store</strong>
+                </p>
+            </div>
+            <a class="flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 border border-blue-300 hover:border-blue-400 bg-white hover:bg-blue-50 rounded-lg px-3 py-1.5 transition-all cursor-pointer whitespace-nowrap" data-rentmyattr="SignIn">
+                <iconify-icon icon="heroicons:arrow-right-on-rectangle" width="14" height="14"></iconify-icon>
+                Sign in
+            </a>
         </div>
     </div>
 
