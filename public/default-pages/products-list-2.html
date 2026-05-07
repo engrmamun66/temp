@@ -134,22 +134,12 @@
                             <div class="RentMyInputGroup RentMyHalfwidth flex-1 flex flex-col gap-1">
                                 <label class="text-xs text-gray-400 font-medium"
                                        data-rentmyattr="RentMyFilterByPriceMinLabel">Min</label>
-                                <input type="text"
-                                       class="RentMyInputField w-full border border-gray-200 rounded-lg
-                                              px-3 py-2 text-sm bg-gray-50 text-gray-700
-                                              focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)]
-                                              focus:border-[var(--brand-primary)] focus:bg-white transition"
-                                       data-rentmyattr="RentMyMinPrice" />
+                                <input type="text" class="RentMyInputField w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" data-rentmyattr="RentMyMinPrice" />
                             </div>
                             <div class="RentMyInputGroup RentMyHalfwidth flex-1 flex flex-col gap-1">
                                 <label class="text-xs text-gray-400 font-medium"
                                        data-rentmyattr="RentMyFilterByPriceMaxLabel">Max</label>
-                                <input type="text"
-                                       class="RentMyInputField w-full border border-gray-200 rounded-lg
-                                              px-3 py-2 text-sm bg-gray-50 text-gray-700
-                                              focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)]
-                                              focus:border-[var(--brand-primary)] focus:bg-white transition"
-                                       data-rentmyattr="RentMyMaxPrice" />
+                                <input type="text" class="RentMyInputField w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" data-rentmyattr="RentMyMaxPrice" />
                             </div>
                             <!-- <div class="RentMyButtonGroup RentMyNotBetween">
                                 <button class="RentMyBtn RentMyBtnBlack"
@@ -205,17 +195,16 @@
         <div class="RentMyProductArea flex-1 min-w-0">
 
             <!-- Sort bar -->
-            <div class="RentMyRow SortProductRow flex flex-col sm:flex-row sm:items-center gap-3 mb-5
-                        justify-content-between">
-                <div class="col-lg-5 flex-1">
-                    <div rentmy-search-widget></div>
+            <div class="RentMyRow SortProductRow flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+                <div class="col-lg-5 flex-1 sm:max-w-xs">
+                    <div class="RentMyProductSearchWidget">
+                        <input data-rentmyattr="SearchInput" type="text" class="RentMyInputField w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" />
+                    </div>
                 </div>
                 <div class="col-lg-5 text-end flex-shrink-0">
                     <div class="SortProduct flex items-center gap-2">
                         <label class="text-sm font-semibold text-gray-600 whitespace-nowrap">Sort By :</label>
-                        <select class="RentMyInputField border border-gray-200 rounded-lg px-3 py-2 text-sm
-                                       bg-white focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)]
-                                       focus:border-[var(--brand-primary)] text-gray-700 cursor-pointer transition"
+                        <select class="RentMyInputField border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white text-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] transition"
                                 data-rentmyattr="RentMyShortByDropdown">
                             <option value="sort_by=product_name&sort_dir=ASC">Product name A-Z</option>
                             <option value="sort_by=product_name&sort_dir=DSC">Product name Z-A</option>
