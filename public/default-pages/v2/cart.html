@@ -6,10 +6,10 @@
       <div class="RentMyFullwidth">
         <div class="inline-flex items-center gap-2 bg-white border border-[var(--brand-border)] rounded-xl px-4 py-2.5 text-sm shadow-sm">
           <span class="RentMyCartDateRange flex items-center gap-2 text-[var(--brand-text-muted)]" data-rentmyattr="DateRange">
-            <iconify-icon icon="mdi:calendar-range" class="text-[var(--brand-primary)] text-base"></iconify-icon>
+            <i class="rm rm-calendar"></i>
             <b class="text-[var(--brand-text)] font-semibold">Rental Dates</b>
             <span data-rentmyattr="DateText" class="text-[var(--brand-text)]">11/22/2023</span>
-            <i class="fa fa-edit date-editicon text-[var(--brand-primary)] cursor-pointer hover:opacity-70 transition-opacity" data-rentmyattr="EditDate"></i>
+            <i class="rm rm-edit date-editicon text-[var(--brand-primary)] cursor-pointer hover:opacity-70 transition-opacity" data-rentmyattr="EditDate"></i>
           </span>
         </div>
         <div class="RentMyDatePicker mt-3 hidden" id="RentMyDatePicker" data-rentmyattr="DatePicker">
@@ -37,7 +37,7 @@
             <!-- Delete -->
             <td class="px-4 py-4" data-rentmyattr="DeleteIconArea">
               <a class="CartRemoveProduct text-gray-400 hover:text-[var(--brand-danger)] transition-colors cursor-pointer">
-                <i class="fa fa-trash text-sm"></i>
+                <i class="rm rm-trash text-sm"></i>
               </a>
             </td>
 
@@ -165,11 +165,11 @@
                 </a>
                 <div class="RentMyProductOverlay absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2 transition-opacity duration-200">
                   <a class="ProductCartIcon w-8 h-8 rounded-full bg-white/90 hover:bg-[var(--brand-primary)] hover:text-white text-[var(--brand-text)] flex items-center justify-center transition-colors" href="#" data-rentmyattr="DetailsPageUrl">
-                    <i class="fa fa-shopping-bag text-sm"></i>
+                    <i class="rm rm-bag text-sm"></i>
                   </a>
                   <div class="WishlistSingleItemOption" data-rentmyattr="WishListBtnArea">
                     <button class="WishlistAddButton w-8 h-8 rounded-full bg-white/90 hover:bg-[var(--brand-primary)] hover:text-white text-[var(--brand-text)] flex items-center justify-center transition-colors" data-rentmyattr="RentMyAddToWishListBtn">
-                      <i class="la la-heart-o text-sm"></i>
+                      <i class="rm rm-heart-outline text-sm"></i>
                     </button>
                   </div>
                 </div>

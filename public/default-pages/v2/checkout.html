@@ -10,7 +10,7 @@
     <div class="max-w-7xl mx-auto mb-6">
         <div class="w-full lg:w-[calc(100%-380px-2rem)] flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl px-4 sm:px-5 py-3 sm:py-3.5 gap-3" data-rentmyattr="SignInPopupArea">
             <div class="flex items-center gap-3 min-w-0">
-                <iconify-icon icon="heroicons:user-circle" class="text-blue-400 flex-shrink-0" width="22" height="22"></iconify-icon>
+                <i class="rm rm-user"></i>
                 <p class="text-sm text-gray-600 truncate">
                     Returning customer?
                     <span class="text-gray-400 mx-1" data-rentmyattr="WelcomeText">Welcome to</span>
@@ -18,7 +18,7 @@
                 </p>
             </div>
             <a class="flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 border border-blue-300 hover:border-blue-400 bg-white hover:bg-blue-50 rounded-lg px-3 py-1.5 transition-all cursor-pointer whitespace-nowrap" data-rentmyattr="SignIn">
-                <iconify-icon icon="heroicons:arrow-right-on-rectangle" width="14" height="14"></iconify-icon>
+                <i class="rm rm-login"></i>
                 Sign in
             </a>
         </div>
@@ -261,7 +261,7 @@
 
                         <div class="mt-5">
                             <button type="button" class="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors" data-rentmyattr="GetShippingMethodsBtn">
-                                Get shipping method <i class="fa fa-arrow-right text-xs"></i>
+                                Get shipping method <i class="rm rm-arrow-right text-xs"></i>
                             </button>
                         </div>
                     </div>
@@ -280,7 +280,7 @@
                                         <span data-rentmyattr="DropAddress3"></span>
                                     </span>
                                 </div>
-                                <i class="fa fa-chevron-down text-xs text-gray-400"></i>
+                                <i class="rm rm-chevron-down text-xs text-gray-400"></i>
                             </summary>
                             <div class="px-5 py-3 border-t border-gray-100">
                                 <label class="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer" data-rentmyattr="SameAsAbove">
@@ -308,7 +308,7 @@
                         <details class="border border-gray-200 rounded-xl overflow-hidden" data-rentmyattr="MultiDistancePickupAddress">
                             <summary class="flex items-center justify-between px-5 py-3.5 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors list-none">
                                 <span class="text-sm font-semibold text-gray-800">Pickup Address</span>
-                                <i class="fa fa-chevron-down text-xs text-gray-400"></i>
+                                <i class="rm rm-chevron-down text-xs text-gray-400"></i>
                             </summary>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                 <div class="px-5 pb-5 pt-3">
@@ -329,7 +329,7 @@
 
                         <div class="flex justify-end mt-3">
                             <button class="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors" data-rentmyattr="GetDeliveryCost">
-                                Get delivery cost <i class="fa fa-forward text-xs"></i>
+                                Get delivery cost <i class="rm rm-skip-forward text-xs"></i>
                             </button>
                         </div>
 
@@ -362,7 +362,7 @@
                         <div class="p-6">
                             <!-- Date -->
                             <div class="text-xs text-gray-400 mb-4 flex items-center gap-1.5" data-rentmyattr="CheckoutDatetime">
-                                <i class="fa fa-calendar-o"></i> <span>12/21/2023 - 12/21/2023</span>
+                                <i class="rm rm-calendar"></i> <span>12/21/2023 - 12/21/2023</span>
                             </div>
 
                             <!-- Cart Items -->
@@ -434,8 +434,8 @@
                                             </select>
                                             <div class="mt-2 flex gap-1" data-rentmyattr="InputAmountArea">
                                                 <input class="flex-1 border border-gray-300 rounded-md text-xs px-2 py-1 focus:outline-none focus:ring-1 focus:ring-emerald-500" type="text" data-rentmyattr="InputAmount" />
-                                                <button type="button" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-md px-2 transition-colors" data-rentmyattr="OkButton"><i class="fa fa-check"></i></button>
-                                                <button type="button" class="text-xs bg-gray-300 hover:bg-gray-400 text-gray-700 rounded-md px-2 transition-colors" data-rentmyattr="CancelButton"><i class="fa fa-times"></i></button>
+                                                <button type="button" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-md px-2 transition-colors" data-rentmyattr="OkButton"><i class="rm rm-check"></i></button>
+                                                <button type="button" class="text-xs bg-gray-300 hover:bg-gray-400 text-gray-700 rounded-md px-2 transition-colors" data-rentmyattr="CancelButton"><i class="rm rm-close"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -477,7 +477,7 @@
                             <!-- CTA -->
                             <div class="fixed lg:static bottom-0 left-0 right-0 z-30 mt-6 flex items-center gap-3 bg-white lg:bg-transparent border-t lg:border-t-0 border-gray-200 px-4 lg:px-0 py-3 lg:py-0">
                                 <a class="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 hover:border-gray-400 rounded-lg px-4 py-2.5 transition-colors whitespace-nowrap" href="#" data-rentmyattr="BackToCartBtn">
-                                    <i class="fa fa-arrow-left text-xs"></i>
+                                    <i class="rm rm-arrow-left text-xs"></i>
                                     <span data-rentmyattr="BackToCartBtnLabel">Back to Cart</span>
                                 </a>
                                 <button type="button" class="flex-1 bg-[var(--brand-primary-dark)] hover:bg-[var(--brand-primary)] active:scale-95 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition-all shadow-sm" data-rentmyattr="PlaceOrderBtn">
@@ -507,7 +507,7 @@
                             </div>
                             <div class="flex items-center gap-3">
                                 <a class="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 hover:border-gray-400 rounded-lg px-4 py-2.5 transition-colors whitespace-nowrap" href="#" data-rentmyattr="BackToWishListBtn">
-                                    <i class="fa fa-arrow-left text-xs"></i>
+                                    <i class="rm rm-arrow-left text-xs"></i>
                                     <span data-rentmyattr="BackToWishListBtnLabel">Back to Wish List</span>
                                 </a>
                                 <button type="button" class="flex-1 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition-all shadow-sm shadow-emerald-200" data-rentmyattr="PlaceQuoteOrderBtn">
