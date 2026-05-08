@@ -1,0 +1,195 @@
+<div class="RentMyCartWrapper RentMyWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+  <div class="container-fullwidth max-w-screen-xl mx-auto" data-rentmyattr="InsideContainer">
+
+    <!-- Rental date bar -->
+    <div class="RentMyRow mb-6" data-rentmyattr="RenatalDateArea">
+      <div class="RentMyFullwidth">
+        <div class="inline-flex items-center gap-2 bg-white border border-[var(--brand-border)] rounded-xl px-4 py-2.5 text-sm shadow-sm">
+          <span class="RentMyCartDateRange flex items-center gap-2 text-[var(--brand-text-muted)]" data-rentmyattr="DateRange">
+            <iconify-icon icon="mdi:calendar-range" class="text-[var(--brand-primary)] text-base"></iconify-icon>
+            <b class="text-[var(--brand-text)] font-semibold">Rental Dates</b>
+            <span data-rentmyattr="DateText" class="text-[var(--brand-text)]">11/22/2023</span>
+            <i class="fa fa-edit date-editicon text-[var(--brand-primary)] cursor-pointer hover:opacity-70 transition-opacity" data-rentmyattr="EditDate"></i>
+          </span>
+        </div>
+        <div class="RentMyDatePicker mt-3 hidden" id="RentMyDatePicker" data-rentmyattr="DatePicker">
+          <button class="RentMyBtn RentMyBtnBlack mt-2 border border-[var(--brand-border)] text-sm px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors" data-rentmyattr="BtnCancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart table -->
+    <div class="RentMyTableResponsive bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden mb-6">
+      <table class="RentMyTable RentMyTableStriped RentMyCartTable w-full text-sm" data-rentmyattr="RentMyCartTable">
+        <thead class="bg-[var(--brand-surface)] border-b border-[var(--brand-border)]">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[var(--brand-text-muted)] uppercase tracking-wider w-10"></th>
+            <th class="px-4 py-3 text-left w-20"></th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[var(--brand-text-muted)] uppercase tracking-wider">Product</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[var(--brand-text-muted)] uppercase tracking-wider">Unit Price</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[var(--brand-text-muted)] uppercase tracking-wider">Quantity</th>
+            <th class="px-4 py-3 text-right text-xs font-semibold text-[var(--brand-text-muted)] uppercase tracking-wider">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[var(--brand-border)]">
+          <tr class="hover:bg-[var(--brand-surface)] transition-colors" data-rentmyattr="CartItem">
+
+            <!-- Delete -->
+            <td class="px-4 py-4" data-rentmyattr="DeleteIconArea">
+              <a class="CartRemoveProduct text-gray-400 hover:text-[var(--brand-danger)] transition-colors cursor-pointer">
+                <i class="fa fa-trash text-sm"></i>
+              </a>
+            </td>
+
+            <!-- Image -->
+            <td class="px-4 py-4" data-rentmyattr="ImageArea">
+              <div class="ImageAreaWrapper w-14 h-14 rounded-lg overflow-hidden border border-[var(--brand-border)] bg-[var(--brand-surface)]">
+                <img test="ImageArea" src="" class="cart product img w-full h-full object-cover" alt="" />
+              </div>
+            </td>
+
+            <!-- Name -->
+            <td class="px-4 py-4 font-medium text-[var(--brand-text)]" data-rentmyattr="ItemNameArea">
+              Product1
+            </td>
+
+            <!-- Unit price -->
+            <td class="px-4 py-4 text-[var(--brand-text-muted)]" data-rentmyattr="ItemPrice">
+              $50.00
+            </td>
+
+            <!-- Qty -->
+            <td class="px-4 py-4" data-rentmyattr="IncrDecrArea">
+              <div class="QuantityContainer">
+                <div class="QuantityBtn inline-flex items-center border border-[var(--brand-border)] rounded-lg overflow-hidden">
+                  <button class="RentMyBtn w-8 h-8 flex items-center justify-center text-[var(--brand-text-muted)] hover:bg-[var(--brand-surface)] transition-colors" data-rentmyattr="DecrementBtn">−</button>
+                  <input type="text" autocomplete="off" name="qty" class="InputQuantity w-10 h-8 text-center text-sm border-x border-[var(--brand-border)] text-[var(--brand-text)] focus:outline-none" data-rentmyattr="QuantityInput" />
+                  <button class="RentMyBtn w-8 h-8 flex items-center justify-center text-[var(--brand-text-muted)] hover:bg-[var(--brand-surface)] transition-colors" data-rentmyattr="IncrementBtn">+</button>
+                </div>
+              </div>
+            </td>
+
+            <!-- Subtotal -->
+            <td class="px-4 py-4 text-right font-semibold text-[var(--brand-text)]" data-rentmyattr="ItemPriceArea">
+              $255.00
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Summary row -->
+    <div class="RentMyRow RentMyCartSummery flex flex-col lg:flex-row gap-6">
+
+      <!-- Left: coupon + action buttons -->
+      <div class="RentMyHalfwidth flex-1 flex flex-col gap-4">
+
+        <!-- Coupon -->
+        <div class="RentMyCouponCode RentMyFlex flex gap-2">
+          <input type="text" class="RentMyInputField flex-1 border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-white text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] transition" placeholder="Enter coupon code" data-rentmyattr="CouponInput" />
+          <button type="submit" class="RentMyBtn RentMyBtnBlack whitespace-nowrap bg-[var(--brand-secondary)] hover:bg-[var(--brand-secondary-mid)] text-white text-sm font-medium rounded-lg px-4 py-2.5 transition-colors" data-rentmyattr="ApplyCouponBtn">Apply Coupon</button>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="RentMyButtonGroup CheckoutMakeContinueBtn flex flex-col sm:flex-row gap-3">
+          <button class="RentMyBtn RentMyBtnBlack border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm font-medium rounded-xl px-5 py-2.5 transition-colors" data-rentmyattr="ContinueShoppingBtn">
+            Continue Shopping
+          </button>
+          <div class="MakeContinue flex gap-3">
+            <button type="submit" class="RentMyBtn RentMyBtnBlack border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm font-medium rounded-xl px-5 py-2.5 transition-colors" data-rentmyattr="MakeQuotoBtn">
+              Make Quote
+            </button>
+            <button class="RentMyBtn RentMyBtnBlack bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-5 py-2.5 transition-colors" data-rentmyattr="ProceedCheckoutBtn">
+              Proceed to Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: totals -->
+      <div class="RentMyHalfwidth w-full lg:w-80 xl:w-96 bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm p-6">
+        <h4 class="RentMyCartTotal text-base font-bold text-[var(--brand-text)] mb-4 pb-3 border-b border-[var(--brand-border)]">Cart Totals</h4>
+        <table class="RentMyTable RentMySummeryTable w-full text-sm" data-rentmyattr="RentMySummeryTable">
+          <tbody class="divide-y divide-[var(--brand-border)]">
+            <tr>
+              <td class="py-2.5 text-[var(--brand-text-muted)]" data-rentmyattr="SubtotalLabel">Subtotal</td>
+              <td class="py-2.5 text-right font-medium text-[var(--brand-text)]"><b data-rentmyattr="SubtotalAmount">€0.00</b></td>
+            </tr>
+            <tr data-rentmyattr="TaxesFeesLabel">
+              <td class="py-2.5 text-[var(--brand-text-muted)]">Taxes &amp; Fees</td>
+              <td class="py-2.5 text-right text-[var(--brand-text)]"><span data-rentmyattr="TaxesFees">€0.00</span></td>
+            </tr>
+            <tr data-rentmyattr="DepositeAmountRow">
+              <td class="py-2.5 text-[var(--brand-text-muted)]">Deposit Amount</td>
+              <td class="py-2.5 text-right text-[var(--brand-text)]"><span data-rentmyattr="DepositeAmount">€0.00</span></td>
+            </tr>
+            <tr data-rentmyattr="AdditionalChargeAmountRow">
+              <td class="py-2.5 text-[var(--brand-text-muted)]">Order Fees &amp; Options</td>
+              <td class="py-2.5 text-right text-[var(--brand-text)]"><span data-rentmyattr="AdditionalChargeAmount">€0.00</span></td>
+            </tr>
+            <tr>
+              <td class="py-2.5 text-[var(--brand-text-muted)]" data-rentmyattr="lbl_shipping">Shipping Charge</td>
+              <td class="py-2.5 text-right text-[var(--brand-text-muted)]" data-rentmyattr="shipping_value"><small>Calculated in next step</small></td>
+            </tr>
+            <tr data-rentmyattr="TaxAmountLabel">
+              <td class="py-2.5 text-[var(--brand-text-muted)]">Tax</td>
+              <td class="py-2.5 text-right text-[var(--brand-text)]"><span data-rentmyattr="TaxAmount">€0.00</span></td>
+            </tr>
+            <tr class="border-t-2 border-[var(--brand-border)]">
+              <td class="pt-3 pb-1">
+                <h5 class="font-bold text-base text-[var(--brand-text)]" data-rentmyattr="LblTotal">Total</h5>
+              </td>
+              <td class="pt-3 pb-1 text-right">
+                <h5 class="font-bold text-base text-[var(--brand-primary)]"><span data-rentmyattr="TotalAmount">€0.00</span></h5>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- Related products -->
+    <div class="RentMyAddonProducts RentMyRelatedProduct mt-10" data-rentmyattr="RentMyRelatedProducts">
+      <h3 class="RentMyRelatedProductTitle text-lg font-bold text-[var(--brand-text)] mb-5">Related Products</h3>
+      <div class="RentMyRelatedProductBody">
+        <div class="RentMyRow grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+
+          <div class="RentMyProductItem" data-rentmyattr="RentMyProductItem">
+            <div class="RentMyProductItemInner group bg-white rounded-xl border border-[var(--brand-border)] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+
+              <div class="RentMyProductImg relative overflow-hidden aspect-square">
+                <a href="#" data-rentmyattr="RentMyProductImageUrl">
+                  <img data-rentmyattr="RentMyProductImage" src="" class="ProductImg w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="product img" />
+                </a>
+                <div class="RentMyProductOverlay absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2 transition-opacity duration-200">
+                  <a class="ProductCartIcon w-8 h-8 rounded-full bg-white/90 hover:bg-[var(--brand-primary)] hover:text-white text-[var(--brand-text)] flex items-center justify-center transition-colors" href="#" data-rentmyattr="DetailsPageUrl">
+                    <i class="fa fa-shopping-bag text-sm"></i>
+                  </a>
+                  <div class="WishlistSingleItemOption" data-rentmyattr="WishListBtnArea">
+                    <button class="WishlistAddButton w-8 h-8 rounded-full bg-white/90 hover:bg-[var(--brand-primary)] hover:text-white text-[var(--brand-text)] flex items-center justify-center transition-colors" data-rentmyattr="RentMyAddToWishListBtn">
+                      <i class="la la-heart-o text-sm"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="RentMyProductBody px-3 py-3">
+                <h4 class="ProductName text-sm font-medium text-[var(--brand-text)] truncate mb-1" data-rentmyattr="RentMyProductName">Product_name</h4>
+                <h5 class="ProductPrice text-sm font-bold text-[var(--brand-primary)] mb-2" data-rentmyattr="RentMyProductPrice">product_price</h5>
+                <div class="ProductButton flex gap-2" data-rentmyattr="ProductButtons">
+                  <a class="ProductDetailsBtn flex-1 text-center text-xs border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] rounded-lg py-1.5 transition-colors" href="#" data-rentmyattr="RentMyViewDetailsBtn">View Details</a>
+                  <button class="ProductCartBtn flex-1 text-center text-xs bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white rounded-lg py-1.5 transition-colors" data-rentmyattr="RentMyAddToCartBtn">Add to Cart</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
