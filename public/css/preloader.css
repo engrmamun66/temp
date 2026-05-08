@@ -94,3 +94,36 @@
 a{
     cursor: pointer;
 }
+
+
+
+/* ====================================================== */
+/* ================= Global Page Loader ================= */
+/* ====================================================== */
+
+
+.cdn_global_loader {
+  position: fixed;
+  top: calc(50% - 100px);
+  left: calc(50% - 50px);
+  width: 100px !important;
+  height: 100px !important;
+  pointer-events: none !important; 
+}
+
+.cdn_global_loader:before , .cdn_global_loader:after{
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.068) inset;
+}
+.cdn_global_loader:after { 
+  box-shadow: 0 3px 0 var(--golbal-loader-color) inset;
+  animation: cdn_global_loader_rotate 0.6s linear infinite;
+}
+
+@keyframes cdn_global_loader_rotate {
+  0% {  transform: rotate(0)}
+  100% { transform: rotate(360deg)}
+} 

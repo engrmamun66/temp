@@ -168,19 +168,19 @@
                                data-rentmyattr="RentMyFilterByLabelRent">
                             <input type="radio" name="RentalType" value="rent"
                                    class="w-4 h-4 border-gray-300 accent-[var(--brand-primary)] cursor-pointer" />
-                            <span class="text-sm text-gray-600 group-hover:text-[var(--brand-primary)] transition-colors">Rent</span>
+                            <span class="text-sm text-gray-600 group-hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="DynamicLabel">Rent</span>
                         </label>
                         <label class="RentMyRadio flex items-center gap-2.5 cursor-pointer group"
                                data-rentmyattr="RentMyFilterByLabelBuy">
                             <input type="radio" name="RentalType" value="buy"
                                    class="w-4 h-4 border-gray-300 accent-[var(--brand-primary)] cursor-pointer" />
-                            <span class="text-sm text-gray-600 group-hover:text-[var(--brand-primary)] transition-colors">Buy</span>
+                            <span class="text-sm text-gray-600 group-hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="DynamicLabel">Buy</span>
                         </label>
                         <label class="RentMyRadio flex items-center gap-2.5 cursor-pointer group"
                                data-rentmyattr="RentMyFilterByLabelAll">
                             <input type="radio" name="RentalType" value="all"
                                    class="w-4 h-4 border-gray-300 accent-[var(--brand-primary)] cursor-pointer" />
-                            <span class="text-sm text-gray-600 group-hover:text-[var(--brand-primary)] transition-colors">All</span>
+                            <span class="text-sm text-gray-600 group-hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="DynamicLabel">All</span>
                         </label>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
             <div class="RentMyRow SortProductRow flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
                 <div class="col-lg-5 flex-1 sm:max-w-xs">
                     <div class="RentMyProductSearchWidget">
-                        <input data-rentmyattr="SearchInput" type="text" class="RentMyInputField w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" />
+                        <input data-rentmyattr="SearchInput" type="text" placeholder="Search by product name..." class="RentMyInputField w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" />
                     </div>
                 </div>
                 <div class="col-lg-5 text-end flex-shrink-0">
