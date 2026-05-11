@@ -1,0 +1,309 @@
+<div id="RentMyNoticeArea"></div>
+<div id="RentMyCustomerOrderDetails" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+  <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
+
+    <!-- Sidebar -->
+    <div class="RentMyLeftSidebarmenu w-full md:w-56 flex-shrink-0">
+      <div class="RentMyLeftSidebarmenuInner bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" data-rentmyattr="SideBar">
+
+        <div class="RentMyProfileImge flex flex-col items-center py-6 px-4 border-b border-[var(--brand-border)]">
+          <img src="" alt="" data-rentmyattr="rentmy_customer_profile_image" class="w-16 h-16 rounded-full object-cover bg-[var(--brand-surface)] border-2 border-[var(--brand-border)]">
+          <h5 class="RentMyProfileName mt-2 text-sm font-semibold text-[var(--brand-text)] text-center" data-rentmyattr="customer_name">{{ customer_name }}</h5>
+        </div>
+
+        <nav class="RentMySideMenu py-2">
+          <ul class="space-y-0.5 px-2">
+            <li><a data-rentmyattr="RentMyPageLink=customer_profile" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Profile</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_change_password" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Change Password</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_change_avatar" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Change Avatar</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_order_history" class="active flex items-center gap-2 px-3 py-2 text-sm rounded-lg font-semibold text-[var(--brand-primary)] bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Order History</a></li>
+            <li id="DashboardNav"><a RentMyPageLink="customer_order_dashboard" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Dashboard</a></li>
+            <li id="BillingNav"><a RentMyPageLink="customer_billing" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Billing</a></li>
+            <li class="pt-1 border-t border-[var(--brand-border)] mt-1">
+              <a class="rentmy_logout_btn flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-danger)] hover:bg-[var(--brand-danger-light)] transition-colors cursor-pointer">Logout</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="RentMyRightContent flex-1 min-w-0 flex flex-col gap-6">
+
+      <!-- Page header -->
+      <div class="RentMyPageHeader bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm px-5 py-4 flex items-center justify-between">
+        <h3 class="text-base font-bold text-[var(--brand-text)]">Order Details: #<span data-rentmyattr="order_id">{{order_id}}</span></h3>
+        <div class="RentMyPageHeaderRightSide">
+          <a href="#" class="RentMyBtn RentMyStatusBtn inline-flex items-center px-3 py-1 text-xs font-semibold rounded-lg bg-[var(--brand-primary-light)] text-[var(--brand-primary)] border border-[var(--brand-primary)]" data-rentmyattr="order_status">{{order_status}}</a>
+        </div>
+      </div>
+
+      <!-- Summary + Billing row -->
+      <div class="RentMyRow SummeryBillingDetails grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Summary card -->
+        <div class="RentMyHalfwidth RentMyCard bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden">
+          <div class="RentMyCardHeader flex items-center justify-between px-5 py-4 border-b border-[var(--brand-border)]">
+            <h3 class="text-sm font-bold text-[var(--brand-text)]">Summary</h3>
+            <div class="RentMyCardRightSide cp"></div>
+          </div>
+          <div class="RentMyCardBody p-5">
+            <div class="RentMyRow grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="RentMyHalfwidth space-y-2">
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Order ID:</strong> <span data-rentmyattr="order_id">{{order_id}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Quantity:</strong> <span data-rentmyattr="order_quantity">{{order_quantity}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Payment Status:</strong> <span data-rentmyattr="order_payment_status">{{order_payment_status}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Status:</strong> <span data-rentmyattr="order_status">{{order_status}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Order Date & Time:</strong> <span data-rentmyattr="order_date_time">{{order_date_time}}</span></p>
+              </div>
+              <div class="RentMyHalfwidth space-y-2">
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Subtotal:</strong> <span data-rentmyattr="order_subtotal">{{order_subtotal}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Delivery Charge:</strong> <span data-rentmyattr="order_delivery_charge_total">{{order_delivery_charge_total}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Total Discount:</strong> <span data-rentmyattr="order_total_discount">{{order_total_discount}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Sales Tax:</strong> <span data-rentmyattr="order_sales_tax">{{order_sales_tax}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">DE (8%):</strong> <span data-rentmyattr="order_de">{{order_de}}</span></p>
+                <p class="RentMyDestitle text-sm font-semibold text-[var(--brand-text)]"><strong>Grand Total:</strong> <span data-rentmyattr="order_grand_total">{{order_grand_total}}</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Billing & Shipping card -->
+        <div class="RentMyHalfwidth RentMyCard bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden">
+          <div class="RentMyCardHeader flex items-center justify-between px-5 py-4 border-b border-[var(--brand-border)]">
+            <h3 class="text-sm font-bold text-[var(--brand-text)]">Billing & Shipping Details</h3>
+            <div class="RentMyCardRightSide cp">
+              <button class="inline-flex items-center justify-center w-7 h-7 rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors">
+                <i class="rm rm-edit text-base" data-rentmyattr="EditAddress"></i>
+              </button>
+            </div>
+          </div>
+          <div class="RentMyCardBody p-5 space-y-5">
+            <div class="RentMyRow grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="RentMyHalfwidth space-y-2">
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Name:</strong> <span data-rentmyattr="billing_name">{{billing_name}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Mobile:</strong> <span data-rentmyattr="billing_mobile">{{billing_mobile}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Address Line 1:</strong> <span data-rentmyattr="billing_address_line_1">{{billing_address_line_1}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">City:</strong> <span data-rentmyattr="billing_city">{{billing_city}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">State:</strong> <span data-rentmyattr="billing_state">{{billing_state}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Company:</strong> <span data-rentmyattr="billing_company">{{billing_company}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Address Info:</strong> <span data-rentmyattr="billing_address_info">{{billing_address_info}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Signature:</strong> <span data-rentmyattr="signature">{{signature}}</span></p>
+              </div>
+              <div class="RentMyHalfwidth space-y-2">
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Email:</strong> <span data-rentmyattr="billing_email">{{billing_email}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Country:</strong> <span data-rentmyattr="billing_country">{{billing_country}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Address Line 2:</strong> <span data-rentmyattr="billing_address_line_2">{{billing_address_line_2}}</span></p>
+                <p class="RentMyDestitle text-sm text-[var(--brand-text-muted)]"><strong class="text-[var(--brand-text)]">Zipcode:</strong> <span data-rentmyattr="billing_zip">{{billing_zip}}</span></p>
+              </div>
+            </div>
+
+            <div class="RentMyRow" data-rentmyattr="AdditionalInfoSection">
+              <h5 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2">Additional Info</h5>
+              <div data-rentmyattr="AdditionalFields" class="space-y-1"></div>
+            </div>
+
+            <div class="RentMyRow" data-rentmyattr="ShippingInfoSection">
+              <h5 id="ShippingInfoSectionLabel" class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2">Shipping Info</h5>
+              <div data-rentmyattr="ShippingInfoSectionContent" class="space-y-1"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Inventory Items -->
+      <div class="RentMyCard InventoryRentMyCard bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden">
+        <div class="RentMyCardHeader flex items-center justify-between px-5 py-4 border-b border-[var(--brand-border)]">
+          <h3 class="text-sm font-bold text-[var(--brand-text)]">Inventory Items</h3>
+          <div class="RentMyCardRightSide">
+            <button id="RentMyAddInventoryItemBtn" class="RentMyBtn RentMyAddItem inline-flex items-center gap-1.5 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-xs font-semibold rounded-xl px-3 py-1.5 transition-colors">
+              <i class="rm rm-plus text-sm"></i> Add Item
+            </button>
+          </div>
+        </div>
+        <div class="RentMyCardBody p-5 space-y-3">
+          <div data-rentmyattr="rentmy-add-inventory-search"></div>
+          <div data-rentmyattr="rentmy-order-product-details"></div>
+          <div data-rentmyattr="rentmy-order-date-time" class="text-sm text-[var(--brand-text-muted)]">
+            <strong class="text-[var(--brand-text)]">Rental Dates:</strong> <span>22 Mar 2024 - 24 Mar 2024</span>
+          </div>
+          <div id="RentMyOrderInventory" class="overflow-x-auto">
+            <table class="RentMyTable RentMyTableStriped w-full text-sm">
+              <thead>
+                <tr class="bg-[var(--brand-surface)] text-[var(--brand-text-muted)] text-xs uppercase">
+                  <th class="px-4 py-3 text-left font-semibold w-[10%]">Image</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[25%]">Description</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[15%]">Price</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[20%]">Quantity</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[10%]">Subtotal</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[10%]">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--brand-border)]">
+                <tr class="hover:bg-[var(--brand-surface)] transition-colors">
+                  <td class="px-4 py-3" data-rentmyattr="product_images">{{product_images}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text)]" data-rentmyattr="product_discription">{{product_discription}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="subtotal">{{subtotal}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="quantity_functions">{{quantity_functions}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text)]" data-rentmyattr="price">{{price}}</td>
+                  <td class="px-4 py-3 text-center">
+                    <a href="#" class="TextDanger inline-flex items-center justify-center w-7 h-7 rounded-lg text-[var(--brand-danger)] hover:bg-[var(--brand-danger-light)] transition-colors">
+                      <i class="rm rm-trash text-base"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work Order Items -->
+      <div class="RentMyCard InventoryRentMyCard bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" id="work_order_table">
+        <div class="RentMyCardHeader flex items-center justify-between px-5 py-4 border-b border-[var(--brand-border)]">
+          <h3 class="text-sm font-bold text-[var(--brand-text)]">Additional Items & Pick up Request</h3>
+          <div class="RentMyCardRightSide">
+            <span class="RentMyBadge inline-flex items-center px-2.5 py-0.5 text-xs font-semibold rounded-full bg-[var(--brand-surface)] border border-[var(--brand-border)] text-[var(--brand-text-muted)]" id="work_order_badge">Pending</span>
+          </div>
+        </div>
+        <div class="RentMyCardBody p-5 space-y-3">
+          <div data-rentmyattr="rentmy-add-inventory-search"></div>
+          <div data-rentmyattr="rentmy-order-product-details"></div>
+          <div id="RentMyWorkOrder" class="overflow-x-auto">
+            <table class="RentMyTable RentMyTableStriped w-full text-sm">
+              <thead>
+                <tr class="bg-[var(--brand-surface)] text-[var(--brand-text-muted)] text-xs uppercase">
+                  <th class="px-4 py-3 text-left font-semibold w-[10%]">Image</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[10%]">Type</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[25%]">Description</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[15%]">Price</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[20%]">Quantity</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[10%]">Subtotal</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[10%]">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--brand-border)]">
+                <tr class="hover:bg-[var(--brand-surface)] transition-colors">
+                  <td class="px-4 py-3" data-rentmyattr="product_images">{{product_images}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="product_type">{{product_type}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text)]" data-rentmyattr="product_discription">{{product_discription}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="subtotal">{{subtotal}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="quantity_functions">{{quantity_functions}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text)]" data-rentmyattr="price">{{price}}</td>
+                  <td class="px-4 py-3 text-center">
+                    <a href="#" class="TextDanger inline-flex items-center justify-center w-7 h-7 rounded-lg text-[var(--brand-danger)] hover:bg-[var(--brand-danger-light)] transition-colors">
+                      <i class="rm rm-trash text-base"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payments -->
+      <div class="RentMyCard PaymentsRentMyCard bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden">
+        <div class="RentMyCardHeader flex items-center justify-between px-5 py-4 border-b border-[var(--brand-border)]">
+          <h3 class="text-sm font-bold text-[var(--brand-text)]">Payments</h3>
+          <div class="RentMyCardRightSide">
+            <button id="RentMyAddPaymentBtn" class="RentMyBtn RentMyAddPaymentBtn inline-flex items-center gap-1.5 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-xs font-semibold rounded-xl px-3 py-1.5 transition-colors">
+              <i class="rm rm-plus text-sm"></i> Add Payment
+            </button>
+          </div>
+        </div>
+        <div class="RentMyCardBody p-5 space-y-4">
+          <div class="RentMyPaymentOption grid grid-cols-3 gap-4">
+            <div class="bg-[var(--brand-surface)] rounded-xl border border-[var(--brand-border)] px-4 py-3">
+              <p class="text-xs text-[var(--brand-text-muted)] mb-1">Total Amount</p>
+              <p class="text-base font-bold text-[var(--brand-text)]" data-rentmyattr="total_payment_amount">{{total_payment_amount}}</p>
+            </div>
+            <div class="bg-[var(--brand-surface)] rounded-xl border border-[var(--brand-border)] px-4 py-3">
+              <p class="text-xs text-[var(--brand-text-muted)] mb-1">Total Paid</p>
+              <p class="text-base font-bold text-[var(--brand-primary)]" data-rentmyattr="total_paid_amount">{{total_paid_amount}}</p>
+            </div>
+            <div class="bg-[var(--brand-surface)] rounded-xl border border-[var(--brand-border)] px-4 py-3">
+              <p class="text-xs text-[var(--brand-text-muted)] mb-1">Due Amount</p>
+              <p class="text-base font-bold text-[var(--brand-danger)]" data-rentmyattr="total_due_amount">{{total_due_amount}}</p>
+            </div>
+          </div>
+          <div id="RentMyOrderPayment" class="overflow-x-auto">
+            <table class="RentMyTable RentMyTableStriped w-full text-sm">
+              <thead>
+                <tr class="bg-[var(--brand-surface)] text-[var(--brand-text-muted)] text-xs uppercase">
+                  <th class="px-4 py-3 text-left font-semibold w-[30%]">Payment Type</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[15%]">Status</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[15%]">Paid Amount</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[40%]">Note</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--brand-border)]">
+                <tr class="hover:bg-[var(--brand-surface)] transition-colors">
+                  <td class="px-4 py-3 text-[var(--brand-text)]" data-rentmyattr="content_method">{{content_method}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="status">{{status}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text)]" data-rentmyattr="payment_amount">{{payment_amount}}</td>
+                  <td class="px-4 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="note">{{note}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="RentMyCard NotesRentMyCard bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden">
+        <div class="RentMyCardHeader flex items-center justify-between px-5 py-4 border-b border-[var(--brand-border)]">
+          <h3 class="text-sm font-bold text-[var(--brand-text)]">Notes</h3>
+          <div class="RentMyCardRightSide">
+            <button id="RentMyNoteAddBtn" class="RentMyBtn RentMyAddNoteBtn inline-flex items-center gap-1.5 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-xs font-semibold rounded-xl px-3 py-1.5 transition-colors">
+              <i class="rm rm-plus text-sm"></i> Add Note
+            </button>
+          </div>
+        </div>
+        <div class="RentMyCardBody p-5 space-y-4">
+          <form id="RentMyNoteAddForm" class="space-y-3">
+            <div class="RentMyInputGroup flex flex-col gap-1">
+              <label for="RentMyNote" class="text-xs font-medium text-[var(--brand-text-muted)]">Note</label>
+              <textarea rows="4" id="RentMyNote" name="note" placeholder="Enter note" autocomplete="off" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition resize-none"></textarea>
+            </div>
+            <div class="RentMyInputGroup">
+              <div class="RentMyCustomFile flex items-center gap-3 border border-dashed border-[var(--brand-border)] hover:border-[var(--brand-primary)] rounded-xl px-4 py-3 cursor-pointer transition-colors group relative">
+                <span class="inline-flex items-center gap-1.5 bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary-light)] border border-[var(--brand-border)] group-hover:border-[var(--brand-primary)] text-[var(--brand-text-muted)] group-hover:text-[var(--brand-primary)] text-sm font-medium rounded-lg px-3 py-1.5 transition-colors whitespace-nowrap">
+                  <i class="rm rm-plus text-sm"></i> Choose file
+                </span>
+                <label for="RentMyFile" class="RentMyCustomFileLabel text-sm text-[var(--brand-text-muted)] truncate cursor-pointer">No file chosen…</label>
+                <input type="file" id="RentMyFile" name="file" class="RentMyCustomFileInput absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+              </div>
+            </div>
+            <div class="RentMyButtonGroup RentMyNotBetween flex gap-3">
+              <button id="RentMyNoteSubmitBtn" type="button" class="RentMyBtn RentMyNoteBtn bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-5 py-2.5 transition-colors">Submit</button>
+              <button id="RentMyNoteCancelBtn" type="button" class="RentMyBtn RentMyNoteCancelBtn border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm font-medium rounded-xl px-5 py-2.5 transition-colors">Cancel</button>
+            </div>
+          </form>
+          <div id="RentMyOrderNotes" class="overflow-x-auto">
+            <table class="RentMyTable RentMyTableStriped w-full text-sm">
+              <thead>
+                <tr class="bg-[var(--brand-surface)] text-[var(--brand-text-muted)] text-xs uppercase">
+                  <th class="px-4 py-3 text-left font-semibold w-[90%]">Note</th>
+                  <th class="px-4 py-3 text-left font-semibold w-[10%]">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--brand-border)]">
+                <tr class="hover:bg-[var(--brand-surface)] transition-colors">
+                  <td class="px-4 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="note">{{note}}</td>
+                  <td class="px-4 py-3 text-center">
+                    <a href="#" class="TextDanger inline-flex items-center justify-center w-7 h-7 rounded-lg text-[var(--brand-danger)] hover:bg-[var(--brand-danger-light)] transition-colors">
+                      <i class="rm rm-trash text-base"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,219 @@
+<div id="RentMyCustomerDashboardContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+  <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
+
+    <!-- Sidebar -->
+    <div class="RentMyLeftSidebarmenu w-full md:w-56 flex-shrink-0">
+      <div class="RentMyLeftSidebarmenuInner bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" data-rentmyattr="SideBar">
+
+        <div class="RentMyProfileImge flex flex-col items-center py-6 px-4 border-b border-[var(--brand-border)]">
+          <img src="" alt="" data-rentmyattr="ProfileImage" class="w-16 h-16 rounded-full object-cover bg-[var(--brand-surface)] border-2 border-[var(--brand-border)]">
+          <h5 class="RentMyProfileName mt-2 text-sm font-semibold text-[var(--brand-text)] text-center" data-rentmyattr="customer_name">{{ customer_name }}</h5>
+        </div>
+
+        <nav class="RentMySideMenu py-2">
+          <ul class="space-y-0.5 px-2">
+            <li><a data-rentmyattr="RentMyPageLink=customer_profile" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Profile</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_change_password" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Change Password</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_change_avatar" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Change Avatar</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_order_history" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Order History</a></li>
+            <li data-rentmyattr="DashboardNav"><a data-rentmyattr="RentMyPageLink=customer_order_dashboard" class="active flex items-center gap-2 px-3 py-2 text-sm rounded-lg font-semibold text-[var(--brand-primary)] bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Dashboard</a></li>
+            <li data-rentmyattr="BillingNav"><a data-rentmyattr="RentMyPageLink=customer_billing" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Billing</a></li>
+            <li class="pt-1 border-t border-[var(--brand-border)] mt-1">
+              <a class="rentmy_logout_btn flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-danger)] hover:bg-[var(--brand-danger-light)] transition-colors cursor-pointer">Logout</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="RentMyRightContent flex-1 min-w-0 flex flex-col gap-6">
+
+      <!-- Stat cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <!-- Return Items -->
+        <div class="RentMyCardBox bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm p-4" data-rentmyattr="ReturnItemBox">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="RentMyCardIcon w-10 h-10 rounded-xl bg-[var(--brand-primary-light)] flex items-center justify-center flex-shrink-0">
+              <i class="rm rm-bag text-xl text-[var(--brand-primary)]"></i>
+            </div>
+            <span class="RentMyCardTitle text-xs font-medium text-[var(--brand-text-muted)]">Return Items</span>
+          </div>
+          <div class="RentMyCardValue text-2xl font-bold text-[var(--brand-text)]" data-rentmyattr="ReturnItemNumber">3</div>
+        </div>
+
+        <!-- Current Invoice -->
+        <div class="RentMyCardBox bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm p-4" data-rentmyattr="CurrentInvoiceBox">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="RentMyCardIcon w-10 h-10 rounded-xl bg-[var(--brand-primary-light)] flex items-center justify-center flex-shrink-0">
+              <i class="rm rm-file-pdf text-xl text-[var(--brand-primary)]"></i>
+            </div>
+            <span class="RentMyCardTitle text-xs font-medium text-[var(--brand-text-muted)]">Current Invoice</span>
+          </div>
+          <div class="RentMyCardValue text-2xl font-bold text-[var(--brand-text)]" data-rentmyattr="CurrentInvoiceTotal">$557</div>
+        </div>
+
+        <!-- New Items -->
+        <div class="RentMyCardBox bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm p-4" data-rentmyattr="NewItemBox">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="RentMyCardIcon w-10 h-10 rounded-xl bg-[var(--brand-primary-light)] flex items-center justify-center flex-shrink-0">
+              <i class="rm rm-plus text-xl text-[var(--brand-primary)]"></i>
+            </div>
+            <span class="RentMyCardTitle text-xs font-medium text-[var(--brand-text-muted)]">New Items</span>
+          </div>
+          <div class="RentMyCardValue text-2xl font-bold text-[var(--brand-text)]" data-rentmyattr="NewItemsNumber">1</div>
+        </div>
+
+        <!-- Next Invoice -->
+        <div class="RentMyCardBox bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm p-4" data-rentmyattr="NextInvoiceBox">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="RentMyCardIcon w-10 h-10 rounded-xl bg-[var(--brand-primary-light)] flex items-center justify-center flex-shrink-0">
+              <i class="rm rm-send text-xl text-[var(--brand-primary)]"></i>
+            </div>
+            <span class="RentMyCardTitle text-xs font-medium text-[var(--brand-text-muted)]">Next Invoice</span>
+          </div>
+          <div class="RentMyCardValue text-2xl font-bold text-[var(--brand-text)]" data-rentmyattr="NextInvoiceTotal">$828</div>
+        </div>
+
+      </div>
+
+      <!-- Return Items Table -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" data-rentmyattr="ReturnItemTable">
+        <div class="px-5 py-4 border-b border-[var(--brand-border)]">
+          <h6 class="RentSubTitle text-sm font-bold text-[var(--brand-text)]">Return Items</h6>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="RentMyTable w-full text-sm">
+            <thead>
+              <tr class="bg-[var(--brand-surface)] text-[var(--brand-text-muted)] text-xs uppercase">
+                <th class="px-5 py-3 text-left font-semibold">Order ID</th>
+                <th class="px-5 py-3 text-left font-semibold">Request Date</th>
+                <th class="px-5 py-3 text-left font-semibold">Request Type</th>
+                <th class="px-5 py-3 text-left font-semibold">Item Name</th>
+                <th class="px-5 py-3 text-left font-semibold">Quantity</th>
+                <th class="px-5 py-3 text-left font-semibold">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--brand-border)]">
+              <tr data-rentmyattr="ReturnItemTableRow" class="hover:bg-[var(--brand-surface)] transition-colors">
+                <td class="px-5 py-3 text-[var(--brand-text)]" data-rentmyattr="ReturnItemTableOrderId"></td>
+                <td class="px-5 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="ReturnItemTableRequestDate"></td>
+                <td class="px-5 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="ReturnItemTableRequestType"></td>
+                <td class="px-5 py-3 text-[var(--brand-text)]" data-rentmyattr="ReturnItemTableItemName"><span data-rentmyattr="name"></span></td>
+                <td class="px-5 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="ReturnItemTableQuantity"></td>
+                <td class="px-5 py-3">
+                  <button class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors">
+                    <i class="rm rm-eye text-base"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Current Invoice Table -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" data-rentmyattr="CurrentInvoiceTable">
+        <div class="px-5 py-4 border-b border-[var(--brand-border)]">
+          <h6 class="RentSubTitle text-sm font-bold text-[var(--brand-text)]">Current Invoice</h6>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="RentMyTable w-full text-sm">
+            <thead>
+              <tr class="bg-[var(--brand-surface)] text-[var(--brand-text-muted)] text-xs uppercase">
+                <th class="px-5 py-3 text-left font-semibold">Order ID</th>
+                <th class="px-5 py-3 text-left font-semibold">Order Date</th>
+                <th class="px-5 py-3 text-left font-semibold">Amount</th>
+                <th class="px-5 py-3 text-left font-semibold">Status</th>
+                <th class="px-5 py-3 text-left font-semibold">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--brand-border)]">
+              <tr data-rentmyattr="CurrentInvoiceTableRow" class="hover:bg-[var(--brand-surface)] transition-colors">
+                <td class="px-5 py-3 text-[var(--brand-text)]" data-rentmyattr="CurrentInvoiceTableOrderId"></td>
+                <td class="px-5 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="CurrentInvoiceTableOrderDate"></td>
+                <td class="px-5 py-3 text-[var(--brand-text)]" data-rentmyattr="CurrentInvoiceTableAmount"></td>
+                <td class="px-5 py-3" data-rentmyattr="CurrentInvoiceTableStatus"></td>
+                <td class="px-5 py-3">
+                  <button class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors">
+                    <i class="rm rm-eye text-base"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- New Items Table -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" data-rentmyattr="NewItemsTable">
+        <div class="px-5 py-4 border-b border-[var(--brand-border)]">
+          <h6 class="RentSubTitle text-sm font-bold text-[var(--brand-text)]">New Items</h6>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="RentMyTable w-full text-sm">
+            <thead>
+              <tr class="bg-[var(--brand-surface)] text-[var(--brand-text-muted)] text-xs uppercase">
+                <th class="px-5 py-3 text-left font-semibold">Order ID</th>
+                <th class="px-5 py-3 text-left font-semibold">Request Date</th>
+                <th class="px-5 py-3 text-left font-semibold">Request Type</th>
+                <th class="px-5 py-3 text-left font-semibold">Item Name</th>
+                <th class="px-5 py-3 text-left font-semibold">Quantity</th>
+                <th class="px-5 py-3 text-left font-semibold">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--brand-border)]">
+              <tr data-rentmyattr="NewItemTableRow" class="hover:bg-[var(--brand-surface)] transition-colors">
+                <td class="px-5 py-3 text-[var(--brand-text)]" data-rentmyattr="ReturnItemTableOrderId"></td>
+                <td class="px-5 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="ReturnItemTableRequestDate"></td>
+                <td class="px-5 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="ReturnItemTableRequestType"></td>
+                <td class="px-5 py-3 text-[var(--brand-text)]" data-rentmyattr="ReturnItemTableItemName"><span data-rentmyattr="name"></span></td>
+                <td class="px-5 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="ReturnItemTableQuantity"></td>
+                <td class="px-5 py-3">
+                  <button class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors">
+                    <i class="rm rm-eye text-base"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Next Invoice Table -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" data-rentmyattr="NextInvoiceTable">
+        <div class="px-5 py-4 border-b border-[var(--brand-border)]">
+          <h6 class="RentSubTitle text-sm font-bold text-[var(--brand-text)]">Next Invoice</h6>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="RentMyTable w-full text-sm">
+            <thead>
+              <tr class="bg-[var(--brand-surface)] text-[var(--brand-text-muted)] text-xs uppercase">
+                <th class="px-5 py-3 text-left font-semibold">Order ID</th>
+                <th class="px-5 py-3 text-left font-semibold">Order Date</th>
+                <th class="px-5 py-3 text-left font-semibold">Amount</th>
+                <th class="px-5 py-3 text-left font-semibold">Status</th>
+                <th class="px-5 py-3 text-left font-semibold">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--brand-border)]">
+              <tr data-rentmyattr="NextInvoiceTableRow" class="hover:bg-[var(--brand-surface)] transition-colors">
+                <td class="px-5 py-3 text-[var(--brand-text)]" data-rentmyattr="NextInvoiceTableOrderId"></td>
+                <td class="px-5 py-3 text-[var(--brand-text-muted)]" data-rentmyattr="NextInvoiceTableOrderDate"></td>
+                <td class="px-5 py-3 text-[var(--brand-text)]" data-rentmyattr="NextInvoiceTableAmount"></td>
+                <td class="px-5 py-3" data-rentmyattr="NextInvoiceTableStatus"></td>
+                <td class="px-5 py-3">
+                  <button class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors">
+                    <i class="rm rm-eye text-base"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

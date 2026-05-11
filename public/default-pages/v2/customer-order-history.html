@@ -1,0 +1,86 @@
+<div id="RentMyCustomerOrderHistory" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+  <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
+
+    <!-- Sidebar -->
+    <div class="RentMyLeftSidebarmenu w-full md:w-56 flex-shrink-0">
+      <div class="RentMyLeftSidebarmenuInner bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" SideBar>
+
+        <div class="RentMyProfileImge flex flex-col items-center py-6 px-4 border-b border-[var(--brand-border)]">
+          <img src="" alt="" ProfileImage class="w-16 h-16 rounded-full object-cover bg-[var(--brand-surface)] border-2 border-[var(--brand-border)]">
+          <h5 class="RentMyProfileName mt-2 text-sm font-semibold text-[var(--brand-text)] text-center">{{ customer_name }}</h5>
+        </div>
+
+        <nav class="RentMySideMenu py-2">
+          <ul class="space-y-0.5 px-2">
+            <li><a RentMyPageLink="customer_profile" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Profile</a></li>
+            <li><a RentMyPageLink="customer_change_password" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Change Password</a></li>
+            <li><a RentMyPageLink="customer_change_avatar" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Change Avatar</a></li>
+            <li><a RentMyPageLink="customer_order_history" class="active flex items-center gap-2 px-3 py-2 text-sm rounded-lg font-semibold text-[var(--brand-primary)] bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Order History</a></li>
+            <li data-rentmyattr="DashboardNav"><a RentMyPageLink="customer_order_dashboard" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Dashboard</a></li>
+            <li data-rentmyattr="BillingNav"><a RentMyPageLink="customer_billing" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Billing</a></li>
+            <li class="pt-1 border-t border-[var(--brand-border)] mt-1">
+              <a class="rentmy_logout_btn flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-danger)] hover:bg-[var(--brand-danger-light)] transition-colors cursor-pointer">Logout</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="RentMyRightContent flex-1 min-w-0">
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden">
+
+        <!-- Page header -->
+        <div class="RentMyPageHeader flex items-center justify-between px-5 py-4 border-b border-[var(--brand-border)]">
+          <h3 class="text-base font-bold text-[var(--brand-text)]">Order History</h3>
+          <div class="RentMyPageHeaderRightSide"></div>
+        </div>
+
+        <div class="RentMyContentBody">
+          <div class="RentMyContentBodyInner RentMyContentBodyInner__modify">
+
+            <div id="RentMyOrderHistory" class="overflow-x-auto">
+              <table class="RentMyTable RentMyTableStriped w-full text-sm" OrderListTable>
+                <thead>
+                  <tr class="bg-[var(--brand-surface)] text-[var(--brand-text-muted)] text-xs uppercase">
+                    <th class="px-5 py-3 text-left font-semibold">Order ID</th>
+                    <th class="px-5 py-3 text-left font-semibold">Address</th>
+                    <th class="px-5 py-3 text-left font-semibold">Quantity</th>
+                    <th class="px-5 py-3 text-left font-semibold">Price</th>
+                    <th class="px-5 py-3 text-left font-semibold">Status</th>
+                    <th class="px-5 py-3 text-left font-semibold">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[var(--brand-border)]">
+                  <tr class="hover:bg-[var(--brand-surface)] transition-colors">
+                    <td class="px-5 py-3 text-[var(--brand-text)] font-medium">{{order_id}}</td>
+                    <td class="px-5 py-3 text-[var(--brand-text-muted)]">{{order_address}}</td>
+                    <td class="px-5 py-3 text-[var(--brand-text-muted)]">{{total_quantity}}</td>
+                    <td class="px-5 py-3 text-[var(--brand-text)]">{{total_price}}</td>
+                    <td class="px-5 py-3 text-[var(--brand-text-muted)]">{{status}}</td>
+                    <td class="InlineFlex px-5 py-3 flex items-center gap-1">
+                      <a ViewDetails class="inline-flex items-center justify-center w-7 h-7 rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors">
+                        <i class="rm rm-eye text-base"></i>
+                      </a>
+                      <a DownloadPDF class="inline-flex items-center justify-center w-7 h-7 rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors">
+                        <i class="rm rm-file-pdf text-base"></i>
+                      </a>
+                      <a DeleteOrder class="inline-flex items-center justify-center w-7 h-7 rounded-lg text-[var(--brand-danger)] hover:bg-[var(--brand-danger-light)] transition-colors">
+                        <i class="rm rm-trash text-base"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div id="RentMyPagination" class="px-5 py-4"></div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,116 @@
+<div id="RentMyCustomerRegistrationContainer" class="RentMyWrapper PartnerRegister min-h-screen bg-[var(--brand-surface)] flex items-center justify-center px-4 py-8">
+  <div class="RegistrationElement w-full max-w-4xl bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden flex flex-col md:flex-row">
+
+    <!-- Left: form -->
+    <div class="LoginElementLeftSide flex-1 p-8 flex flex-col justify-center gap-6">
+
+      <h3 class="RegistrationTitle">
+        <span class="text-2xl font-bold text-[var(--brand-text)] block">Partner Sign Up</span>
+        <span class="AuthSubTitle text-sm text-[var(--brand-text-muted)] mt-1 block">Create Your Account</span>
+      </h3>
+
+      <div class="RentMyAlertMessage hidden rounded-lg border border-[var(--brand-danger)] bg-[var(--brand-danger-light)] px-4 py-3 text-sm text-[var(--brand-danger)] [&:not(:empty)]:flex [&:not(:empty)]:items-start [&:not(:empty)]:gap-2"></div>
+
+      <form class="RentMyFrom" id="RentMyCustomerRegistrationForm">
+        <div class="RentMyRow grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <!-- Name -->
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">First Name</label>
+            <input type="text" name="first_name" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="First name">
+          </div>
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Last Name</label>
+            <input type="text" name="last_name" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Last name">
+          </div>
+
+          <!-- Email -->
+          <div class="RentMyInputGroup RentMyFullwidth sm:col-span-2 flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Email</label>
+            <input type="email" name="email" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Email">
+          </div>
+
+          <!-- Company / Contact -->
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Company Name</label>
+            <input type="text" name="company_name" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Company name">
+          </div>
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Contact Name</label>
+            <input type="text" name="contact" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Contact name">
+          </div>
+
+          <!-- Password -->
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Password</label>
+            <div class="relative">
+              <input type="password" name="password" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 pr-10 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Password">
+              <button type="button" class="AuthEyeIcon absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-[var(--brand-primary)] transition-colors">
+                <i class="rm rm-eye-off text-base" data-rentmyattr="TogglePassword"></i>
+              </button>
+            </div>
+          </div>
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Confirm Password</label>
+            <div class="relative">
+              <input type="password" name="confirm_password" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 pr-10 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Password Confirm">
+              <button type="button" class="AuthEyeIcon absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-[var(--brand-primary)] transition-colors">
+                <i class="rm rm-eye-off text-base" data-rentmyattr="ToggleConfirmPassword"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Address divider -->
+          <div class="sm:col-span-2 border-t border-[var(--brand-border)] pt-2">
+            <p class="text-xs font-bold text-[var(--brand-text-muted)] uppercase tracking-wide">Address</p>
+          </div>
+
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Address Line 1</label>
+            <input type="text" name="address_line1" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Enter a location">
+          </div>
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Address Line 2</label>
+            <input type="text" name="address_line2" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Address line 2">
+          </div>
+
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Country</label>
+            <select name="country" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] transition">
+              <option value="">Country</option>
+            </select>
+          </div>
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">City</label>
+            <input type="text" name="city" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="City">
+          </div>
+
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">State</label>
+            <input type="text" name="state" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="State">
+          </div>
+          <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Zip Code</label>
+            <input type="text" name="zipcode" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Zip code">
+          </div>
+
+          <!-- Submit -->
+          <div class="RentMyButtonGroup RentMyHalfwidth sm:col-span-2 flex flex-col gap-3 pt-1">
+            <button type="submit" class="RentMyBtn RegistrationBtn w-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-5 py-2.5 transition-colors">Sign up</button>
+            <p class="text-center text-xs text-[var(--brand-text-muted)]">
+              Already have an account?
+              <a href="#" class="LoginHere text-[var(--brand-primary)] font-semibold hover:underline" RentMyPageLink="partner_login">Login here</a>
+            </p>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- Right: image -->
+    <div class="LoginElementRightSide hidden md:block w-80 flex-shrink-0">
+      <img src="/image/clientlogin.jpeg" class="img-fluid w-full h-full object-cover" alt="client login image">
+    </div>
+
+  </div>
+</div>

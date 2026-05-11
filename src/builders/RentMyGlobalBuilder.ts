@@ -53,7 +53,14 @@ export class RentMyGlobalBuilder {
         detailsPage_useRangePicker_for_endDate:       true,
         detailsPage_endDate_allowRightSideTimePicker: true,
         afterAddtoCart_open_widget_datePicker:        false,
+
+        colors: {
+          primary_bg: '--brand-primary'
+        }
+
       },
+
+      
       google_map: { zoom: 11 },
       home_url: '/',
       product_pacakge_by_slug: true,

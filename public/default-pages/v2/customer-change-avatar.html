@@ -1,0 +1,79 @@
+<div id="RentMyCustomerChangeAvatarContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+  <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
+
+    <!-- Sidebar -->
+    <div class="RentMyLeftSidebarmenu w-full md:w-56 flex-shrink-0">
+      <div class="RentMyLeftSidebarmenuInner bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" data-rentmyattr="SideBar">
+
+        <div class="RentMyProfileImge flex flex-col items-center py-6 px-4 border-b border-[var(--brand-border)]">
+          <img src="" alt="" data-rentmyattr="ProfileImage" class="w-16 h-16 rounded-full object-cover bg-[var(--brand-surface)] border-2 border-[var(--brand-border)]">
+          <h5 class="RentMyProfileName mt-2 text-sm font-semibold text-[var(--brand-text)] text-center" data-rentmyattr="customer_name">{{ customer_name }}</h5>
+        </div>
+
+        <nav class="RentMySideMenu py-2">
+          <ul class="space-y-0.5 px-2">
+            <li><a data-rentmyattr="RentMyPageLink=customer_profile" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Profile</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_change_password" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Change Password</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_change_avatar" class="active flex items-center gap-2 px-3 py-2 text-sm rounded-lg font-semibold text-[var(--brand-primary)] bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Change Avatar</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_order_history" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Order History</a></li>
+            <li data-rentmyattr="DashboardNav"><a RentMyPageLink="customer_order_dashboard" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Dashboard</a></li>
+            <li data-rentmyattr="BillingNav"><a RentMyPageLink="customer_billing" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Billing</a></li>
+            <li class="pt-1 border-t border-[var(--brand-border)] mt-1">
+              <a class="rentmy_logout_btn flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-danger)] hover:bg-[var(--brand-danger-light)] transition-colors cursor-pointer">Logout</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="RentMyRightContent flex-1 min-w-0">
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm p-6">
+
+        <!-- Page header -->
+        <div class="RentMyPageHeader flex items-center justify-between mb-6 pb-4 border-b border-[var(--brand-border)]">
+          <h3 class="text-lg font-bold text-[var(--brand-text)]">Change Avatar</h3>
+          <div class="RentMyPageHeaderRightSide"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="RentMyContentBody">
+          <div class="RentMyContentBodyInner RentMyContentBodyInner__modify">
+            <form id="RentMyFileUploadForm">
+              <div class="RentMyRow flex flex-col gap-5">
+
+                <!-- Alert -->
+                <div class="RentMyAlertMessage RentMyFullwidth hidden rounded-lg border border-[var(--brand-danger)] bg-[var(--brand-danger-light)] px-4 py-3 text-sm text-[var(--brand-danger)] [&:not(:empty)]:flex [&:not(:empty)]:items-start [&:not(:empty)]:gap-2"></div>
+
+                <!-- File upload -->
+                <div class="RentMyInputGroup RentMyFullwidth flex flex-col gap-2">
+                  <label class="text-xs font-medium text-[var(--brand-text-muted)]">Upload Image <span class="text-gray-400">(Max 2MB)</span></label>
+                  <div class="RentMyFileUpload" data-rentmyattr="FileUploadArea">
+                    <div class="FileSelect flex items-center gap-3 border border-dashed border-[var(--brand-border)] hover:border-[var(--brand-primary)] rounded-xl px-4 py-3 cursor-pointer transition-colors group relative">
+                      <div class="FileSelectButton inline-flex items-center gap-1.5 bg-[var(--brand-surface)] group-hover:bg-[var(--brand-primary-light)] border border-[var(--brand-border)] group-hover:border-[var(--brand-primary)] text-[var(--brand-text-muted)] group-hover:text-[var(--brand-primary)] text-sm font-medium rounded-lg px-3 py-1.5 transition-colors whitespace-nowrap">
+                        <i class="rm rm-plus text-base"></i> Choose File
+                      </div>
+                      <div class="FileSelectName text-sm text-[var(--brand-text-muted)] truncate" data-rentmyattr="FileName">No file chosen…</div>
+                      <input type="file" name="chooseFile" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Preview + upload button -->
+                <div class="RentMyButtonGroup RentMyNotBetween flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <button id="RentMyFileUploadSubmitBtn" type="button" class="RentMyBtn RentMyUploadBtn bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-5 py-2.5 transition-colors">
+                    Upload
+                  </button>
+                  <img class="PreviewImage w-20 h-20 rounded-full object-cover border-2 border-[var(--brand-border)] shadow-sm" data-rentmyattr="PreviewImage" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D" />
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
