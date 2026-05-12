@@ -1,4 +1,4 @@
-import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
+import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../interfaces';
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 export function pushOrderHistory(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
@@ -7,7 +7,7 @@ export function pushOrderHistory(routes: RskRoute[], rentmyPages: RentMyPage[], 
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.customer_order_history,
-            route_path:     '/' + page.slug,
+            route_path:     EnumDefautlsPageSlugs.customer_order_history,
             content_path:   `pages/${page.slug}`,
             content_source: 'api',
         }, { force_push: true });
@@ -15,7 +15,7 @@ export function pushOrderHistory(routes: RskRoute[], rentmyPages: RentMyPage[], 
         pushRouteIfNotExist(routes, {
             title:          '{{site_name}}:: Order History',
             page_key:       EnumPageKes.customer_order_history,
-            route_path:     '/order-history',
+            route_path:     EnumDefautlsPageSlugs.customer_order_history,
             content_path:   prefix + 'customer-order-history.html',
             content_source: 'file',
             _source:        'force_pushed',

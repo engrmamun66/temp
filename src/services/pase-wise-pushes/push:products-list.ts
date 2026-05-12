@@ -1,4 +1,4 @@
-import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
+import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../interfaces';
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 
@@ -8,7 +8,7 @@ export function pushProductsList(routes: RskRoute[], rentmyPages: RentMyPage[], 
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.products_list,
-            route_path:     '/' + page.slug,
+            route_path:     EnumDefautlsPageSlugs.products_list,
             content_path:   `pages/${page.slug}`,
             content_source: 'api', 
 
@@ -18,7 +18,7 @@ export function pushProductsList(routes: RskRoute[], rentmyPages: RentMyPage[], 
         pushRouteIfNotExist(routes, {
             title:          '{{site_name}}:: Products',
             page_key:       EnumPageKes.products_list,
-            route_path:     '/products-list',
+            route_path:     EnumDefautlsPageSlugs.products_list,
             content_path:   prefix + 'products-list.html',
             content_source: 'file',
             _source:        'force_pushed',

@@ -1,4 +1,4 @@
-import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
+import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../interfaces';
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 export function pushLogin(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
@@ -7,7 +7,7 @@ export function pushLogin(routes: RskRoute[], rentmyPages: RentMyPage[], subdoma
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.login,
-            route_path:     '/' + page.slug,
+            route_path:     EnumDefautlsPageSlugs.login,
             content_path:   `pages/${page.slug}`,
             content_source: 'api',
         }, { force_push: true });
@@ -15,7 +15,7 @@ export function pushLogin(routes: RskRoute[], rentmyPages: RentMyPage[], subdoma
         pushRouteIfNotExist(routes, {
             title:          '{{site_name}}:: Login',
             page_key:       EnumPageKes.login,
-            route_path:     '/login',
+            route_path:     EnumDefautlsPageSlugs.login,
             content_path:   prefix + 'customer-login.html',
             content_source: 'file',
             _source:        'force_pushed',

@@ -1,4 +1,4 @@
-import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
+import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../interfaces';
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 export function pushResetPassword(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
@@ -7,7 +7,7 @@ export function pushResetPassword(routes: RskRoute[], rentmyPages: RentMyPage[],
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.reset_password,
-            route_path:     '/' + page.slug,
+            route_path:     EnumDefautlsPageSlugs.reset_password,
             content_path:   `pages/${page.slug}`,
             content_source: 'api',
         }, { force_push: true });
@@ -15,7 +15,7 @@ export function pushResetPassword(routes: RskRoute[], rentmyPages: RentMyPage[],
         pushRouteIfNotExist(routes, {
             title:          '{{site_name}}:: Reset Password',
             page_key:       EnumPageKes.reset_password,
-            route_path:     '/reset-password',
+            route_path:     EnumDefautlsPageSlugs.reset_password,
             content_path:   prefix + 'customer-reset-password.html',
             content_source: 'file',
             _source:        'force_pushed',

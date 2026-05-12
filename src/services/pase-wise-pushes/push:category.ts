@@ -1,5 +1,4 @@
-import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
-import { logToFile } from '../../utils/fileLogger';
+import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../interfaces';
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 
@@ -10,7 +9,7 @@ export function pushCategory(routes: RskRoute[], rentmyPages: RentMyPage[], subd
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.products_list_by_category,
-            route_path:     '/category/:uuid',
+            route_path:     EnumDefautlsPageSlugs.products_list_by_category,
             content_path:  {
                 seo_end_point: '/stores/{subdomain}/meta/category',
                 api_endpoint: `pages/${page.slug}`,
@@ -22,7 +21,7 @@ export function pushCategory(routes: RskRoute[], rentmyPages: RentMyPage[], subd
         pushRouteIfNotExist(routes, {
             title:          '{{site_name}}:: Category',
             page_key:       EnumPageKes.products_list_by_category,
-            route_path:     '/category/:uuid',
+            route_path:     EnumDefautlsPageSlugs.products_list_by_category,
             content_path:   {
                 file: prefix + 'products-list.html',
                 seo_end_point: '/stores/{subdomain}/meta/category',

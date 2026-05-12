@@ -1,4 +1,4 @@
-import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
+import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../interfaces';
 import { pushRouteIfNotExist, prefix } from '../PushMissingRoutes';
 
 
@@ -6,7 +6,7 @@ export function pushHome(routes: RskRoute[], rentmyPages: RentMyPage[], subdomai
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Home',
         page_key:       EnumPageKes.home,
-        route_path:     '/',
+        route_path:     EnumDefautlsPageSlugs.home,
         content_path:   prefix + 'home.html',
         content_source: 'api',
         _source:        'force_pushed',

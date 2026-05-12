@@ -181,6 +181,38 @@ export enum EnumPageKes {
   rentmy_dynamic_page       = 'rentmy_dynamic_page',
   contact                   = 'contact',
 }
+ 
+export enum EnumDefautlsPageSlugs {
+  home                      = '/',
+  products_list             = '/products-list',
+  product_details           = '/products/:url',
+  package_details           = '/packages/:url',
+  products_list_by_category = '/category/:uuid',
+  cart                      = '/cart',
+  checkout                  = '/checkout',
+  order_complete            = '/order-complete',
+  order_details             = '/order-details/:id',
+  wish_list                 = '/wish-list',
+  membership_plan           = '/membership-plan',
+  rentmy_dashboard          = '/rentmy-dashboard',
+  login                     = '/login',
+  registration              = '/registration',
+  reset_password            = '/reset-password',
+  partner_login             = '/partner-login',
+  partner_registration      = '/partner-registration',
+  customer_profile          = '/profile',
+  customer_change_password  = '/change-password',
+  customer_change_avatar    = '/change-avatar',
+  customer_order_history    = '/order-history',
+  customer_order_dashboard  = '/order-dashboard',
+  customer_billing          = '/billing',
+  terms_and_conditions      = '/terms-and-conditions',
+  blog                      = '/blog',
+  singleBlog                = '/blog/:slug',
+  not_found                 = '/not-found',
+  rentmy_dynamic_page       = '/page/:rentmy_page_slug',
+  contact                   = '/contact',
+}
 
 export interface BlogItem {
   id: number;

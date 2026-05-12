@@ -1,4 +1,4 @@
-import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
+import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../interfaces';
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 export function pushMembershipPlan(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
@@ -7,7 +7,7 @@ export function pushMembershipPlan(routes: RskRoute[], rentmyPages: RentMyPage[]
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.membership_plan,
-            route_path:     '/' + page.slug,
+            route_path:     EnumDefautlsPageSlugs.membership_plan,
             content_path:   `pages/${page.slug}`,
             content_source: 'api',
         }, { force_push: true });
@@ -15,7 +15,7 @@ export function pushMembershipPlan(routes: RskRoute[], rentmyPages: RentMyPage[]
         pushRouteIfNotExist(routes, {
             title:          '{{site_name}}:: Membership Plan',
             page_key:       EnumPageKes.membership_plan,
-            route_path:     '/membership-plan',
+            route_path:     EnumDefautlsPageSlugs.membership_plan,
             content_path:   prefix + 'membership-plan.html',
             content_source: 'file',
             _source:        'force_pushed',

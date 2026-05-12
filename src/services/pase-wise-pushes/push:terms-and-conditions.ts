@@ -1,4 +1,4 @@
-import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
+import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../interfaces';
 import { pushRouteIfNotExist, findRentmyPage } from '../PushMissingRoutes';
 
 export function pushTermsAndConditions(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
@@ -7,7 +7,7 @@ export function pushTermsAndConditions(routes: RskRoute[], rentmyPages: RentMyPa
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.terms_and_conditions,
-            route_path:     '/' + page.slug,
+            route_path:     EnumDefautlsPageSlugs.terms_and_conditions,
             content_path:   `pages/${page.slug}`,
             content_source: 'api',
         }, { force_push: true });
@@ -15,7 +15,7 @@ export function pushTermsAndConditions(routes: RskRoute[], rentmyPages: RentMyPa
         pushRouteIfNotExist(routes, {
             title:          '{{site_name}}:: Terms and Conditions',
             page_key:       EnumPageKes.terms_and_conditions,
-            route_path:     '/terms-and-conditions',
+            route_path:     EnumDefautlsPageSlugs.terms_and_conditions,
             content_path:   'pages/terms-and-conditions',
             content_source: 'api',
             _source:        'force_pushed',

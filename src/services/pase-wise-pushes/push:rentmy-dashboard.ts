@@ -1,4 +1,4 @@
-import { RskRoute, EnumPageKes, RentMyPage } from '../../interfaces';
+import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../interfaces';
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 export function pushRentmyDashboard(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
@@ -7,7 +7,7 @@ export function pushRentmyDashboard(routes: RskRoute[], rentmyPages: RentMyPage[
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.rentmy_dashboard,
-            route_path:     '/' + page.slug,
+            route_path:     EnumDefautlsPageSlugs.rentmy_dashboard,
             content_path:   `pages/${page.slug}`,
             content_source: 'api',
         }, { force_push: true });
@@ -15,7 +15,7 @@ export function pushRentmyDashboard(routes: RskRoute[], rentmyPages: RentMyPage[
         pushRouteIfNotExist(routes, {
             title:          '{{site_name}}:: Dashboard',
             page_key:       EnumPageKes.rentmy_dashboard,
-            route_path:     '/rentmy-dashboard',
+            route_path:     EnumDefautlsPageSlugs.rentmy_dashboard,
             content_path:   prefix + 'rentmy-dashboard.html',
             content_source: 'file',
             _source:        'force_pushed',
