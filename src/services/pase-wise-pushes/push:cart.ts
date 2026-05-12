@@ -2,7 +2,7 @@ import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 export function pushCart(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
-    const page = findRentmyPage(rentmyPages, 'cart');
+    const page = findRentmyPage(rentmyPages, EnumDefautlsPageSlugs.cart.replace(/^\/+/, ''));
     if (page) {
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,

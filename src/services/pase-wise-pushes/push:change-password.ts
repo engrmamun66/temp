@@ -2,7 +2,7 @@ import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 export function pushChangePassword(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
-    const page = findRentmyPage(rentmyPages, 'change-password');
+    const page = findRentmyPage(rentmyPages, EnumDefautlsPageSlugs.customer_change_password.replace(/^\/+/, ''));
     if (page) {
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,

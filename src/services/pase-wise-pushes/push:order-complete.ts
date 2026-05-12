@@ -2,7 +2,7 @@ import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 export function pushOrderComplete(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
-    const page = findRentmyPage(rentmyPages, 'order-complete');
+    const page = findRentmyPage(rentmyPages, EnumDefautlsPageSlugs.order_complete.replace(/^\/+/, ''));
     if (page) {
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,

@@ -4,7 +4,7 @@ import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoute
 
 export function pushContact(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
 
-    const page: RentMyPage | null = findRentmyPage(rentmyPages, 'contact');
+    const page: RentMyPage | null = findRentmyPage(rentmyPages, EnumDefautlsPageSlugs.contact.replace(/^\/+/, ''));
     if (page) {
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,

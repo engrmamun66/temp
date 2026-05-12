@@ -2,7 +2,7 @@ import { RskRoute, EnumPageKes, RentMyPage, EnumDefautlsPageSlugs } from '../../
 import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoutes';
 
 export function pushMembershipPlan(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
-    const page = findRentmyPage(rentmyPages, 'membership-plan');
+    const page = findRentmyPage(rentmyPages, EnumDefautlsPageSlugs.membership_plan.replace(/^\/+/, ''));
     if (page) {
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
