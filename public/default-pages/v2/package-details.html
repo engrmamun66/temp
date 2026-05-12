@@ -10,6 +10,9 @@
 
               <!-- Image gallery -->
               <div class="RentMyProductDetilsImg flex flex-col gap-3 lg:w-[420px] flex-shrink-0">
+                <div class="RentMyProductDetailsImgShow rounded-2xl overflow-hidden border border-[var(--brand-border)] bg-white aspect-square">
+                  <img data-rentmyattr="RentMyProductImage" src="" alt="" class="w-full h-full object-cover">
+                </div>
                 <div class="RentMyProductDetailsImgList">
                   <ul class="flex flex-row lg:flex-col gap-2" data-rentmyattr="RentMyProductImages">
                     <li class="ActiveImg w-16 h-16 rounded-xl overflow-hidden border-2 border-[var(--brand-primary)] cursor-pointer flex-shrink-0">
@@ -26,9 +29,6 @@
                     </li>
                   </ul>
                 </div>
-                <div class="RentMyProductDetailsImgShow rounded-2xl overflow-hidden border border-[var(--brand-border)] bg-white aspect-square">
-                  <img data-rentmyattr="RentMyProductImage" src="" alt="" class="w-full h-full object-cover">
-                </div>
               </div>
 
               <!-- Product info -->
@@ -43,9 +43,11 @@
 
                   <!-- Buy/Rent toggle -->
                   <div class="RentMyBuyRentToggle" data-rentmyattr="RentMyBuyRentToggle">
-                    <label for="BuyRentToggleSwitch" class="BuyRentToggleSwitch inline-flex items-center gap-2 cursor-pointer">
-                      <input type="checkbox" id="BuyRentToggleSwitch" data-rentmyattr="BuyRentToggleSwitch" class="sr-only">
-                      <div class="ToggleSwitchRound relative w-11 h-6 bg-[var(--brand-border)] rounded-full transition-colors peer-checked:bg-[var(--brand-primary)]"></div>
+                    <label for="BuyRentToggleSwitch" class="BuyRentToggleSwitch inline-flex items-center gap-2 cursor-pointer group">
+                      <input type="checkbox" id="BuyRentToggleSwitch" data-rentmyattr="BuyRentToggleSwitch" class="sr-only peer">
+                      <div class="ToggleSwitchRound relative w-11 h-6 bg-[var(--brand-border)] peer-checked:bg-[var(--brand-primary)] rounded-full transition-colors duration-200">
+                        <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 group-has-[input:checked]:translate-x-5"></span>
+                      </div>
                     </label>
                   </div>
 
