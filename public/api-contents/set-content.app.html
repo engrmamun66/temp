@@ -291,7 +291,7 @@ createApp({
                 const { html_file: hf, ...rest } = parsed;
                 const allEmpty = Object.values(rest).every(v => v === '' || v === null || v === undefined);
                 contents.value = allEmpty ? '' : JSON.stringify(rest, null, 2);
-                htmlFile.value = hf || '';
+                htmlFile.value = hf || htmlFiles.find(f => f === page.slug + '.html') || '';
                 if (htmlFile.value) loadTemplateContent(htmlFile.value);
             } catch {
                 contents.value = page.contents || '';
@@ -347,7 +347,7 @@ createApp({
                 const json = await resp.json();
                 if (!resp.ok || json.error) {
                     statusType.value = 'error';
-                    statusMsg.value  = json.error || `Server error ${resp.status}`;
+                    statusMsg.value  = json.error + (json.detail ? ` — ${JSON.stringify(json.detail)}` : '') || `Server error ${resp.status}`;
                 } else {
                     statusType.value = 'success';
                     statusMsg.value  = existingId.value

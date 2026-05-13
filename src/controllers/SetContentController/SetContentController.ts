@@ -88,30 +88,39 @@ export class SetContentController {
             const mergedContents = JSON.stringify(contentsJson);
 
             const payload = {
+                ...(page_id ? { id: page_id } : {}),
                 store_id:         storeResult.store.id,
                 location:         storeResult.location.id,
                 name,
                 slug,
                 contents:         mergedContents,
-                status:           1,
-                type:             'page',
                 meta_description: '',
                 meta_keyword:     '',
                 meta_title:       '',
+                status:           1,
+                type:             'page',
+                tags:             [],
+                parent_id:        null,
+                featured_image:   null,
+                thumbnail_image:  null,
                 canonical_url:    '',
-            };
+                children:         [],
+            }; 
 
             let result: unknown;
             if (page_id) {
+                // if 
                 result = await this.api.updateRentmyPage(subdomain, page_id, payload);
             } else {
                 result = await this.api.createRentmyPage(subdomain, payload);
             }
 
             res.json({ success: true, result });
-        } catch (err) {
-            logToFile('[SetContentController.savePage error]', err);
-            res.status(500).json({ error: 'Failed to save page' });
+        } catch (err: unknown) {
+            const axiosErr = err as { response?: { data?: unknown; status?: number }; message?: string };
+            const detail   = axiosErr?.response?.data ?? axiosErr?.message ?? String(err);
+            logToFile('[SetContentController.savePage error]', detail);
+            res.status(500).json({ error: 'Failed to save page', detail });
         }
     };
 

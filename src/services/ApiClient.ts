@@ -58,17 +58,23 @@ export function resolvePageContentPath(contentPath: string, options?: GetPageCon
 // ── RentMy Page create/update payload ────────────────────────────────────────
 
 export interface RentMyPagePayload {
+  id?:              number | null;
   store_id:         number;
   location:         number;
   name:             string;
   slug:             string;
   contents:         string;
-  status:           number;
-  type:             string;
   meta_description: string;
   meta_keyword:     string;
   meta_title:       string;
+  status:           number;
+  type:             string;
+  tags:             unknown[];
+  parent_id:        null;
+  featured_image:   null;
+  thumbnail_image:  null;
   canonical_url:    string;
+  children:         unknown[];
 }
 
 // ── File-based token persistence ─────────────────────────────────────────────
@@ -730,36 +736,6 @@ export class ApiClient {
     }
   }
 
-  private async authorizedPut<T>(subdomain: string, path: string, body: unknown): Promise<T> {
-    const token      = await this.getToken(subdomain);
-    const locationId = this.storeData[this.storeKey(subdomain)]?.location?.id;
-    const baseURL    = SessionOverrideService.getInstance().getApiBaseUrl(env.API_BASE_URL);
-    const headers    = {
-      Authorization: `Bearer ${token}`,
-      ...(locationId ? { Location: String(locationId) } : {}),
-    };
-    try {
-      const res = await this.http.put<T>(path, body, { baseURL, headers });
-      return res.data;
-    } catch (err) {
-      const axiosErr = err as AxiosError;
-      if (axiosErr.response?.status === 401) {
-        this.invalidate(subdomain);
-        const freshToken      = await this.getToken(subdomain);
-        const freshLocationId = this.storeData[this.storeKey(subdomain)]?.location?.id;
-        const retry = await this.http.put<T>(path, body, {
-          baseURL,
-          headers: {
-            Authorization: `Bearer ${freshToken}`,
-            ...(freshLocationId ? { Location: String(freshLocationId) } : {}),
-          },
-        });
-        return retry.data;
-      }
-      throw err;
-    }
-  }
-
   async createRentmyPage(subdomain: string, payload: RentMyPagePayload): Promise<unknown> {
     const result = await this.authorizedPost<unknown>(subdomain, '/pages', payload);
     this.cache.deleteForSubdomain(subdomain);
@@ -767,7 +743,7 @@ export class ApiClient {
   }
 
   async updateRentmyPage(subdomain: string, id: number, payload: RentMyPagePayload): Promise<unknown> {
-    const result = await this.authorizedPut<unknown>(subdomain, `/pages/${id}`, payload);
+    const result = await this.authorizedPost<unknown>(subdomain, `/pages/${id}`, payload);
     this.cache.deleteForSubdomain(subdomain);
     return result;
   }
