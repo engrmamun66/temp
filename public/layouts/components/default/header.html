@@ -86,7 +86,18 @@
 
   // Home (/) always first
   var homeIdx = links.findIndex(function (l) { return href(l.content_url) === '/'; });
-  if (homeIdx > 0) { links.unshift(links.splice(homeIdx, 1)[0]); }
+  if (homeIdx == -1) { links.unshift({
+    "id": 0,
+    "sequence_no": 1,
+    "content_id": 0,
+    "content_type": "Page",
+    "label": "Home",
+    "content_url": "/",
+    "status": 1,
+    "type": "header",
+    "parent_id": 0,
+    "open_in_same_tab": false,
+  }); }
 
   function href(url) { return url ? '/' + url.replace(/^\/+/, '') : '/'; }
 
