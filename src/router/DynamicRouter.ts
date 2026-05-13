@@ -8,6 +8,7 @@ import { PageController } from '../controllers/PageController/PageController';
 import { ConfigJsController } from '../controllers/ConfigJsController/ConfigJsController';
 import { SitemapController } from '../controllers/SitemapController/SitemapController';
 import { RobotsController } from '../controllers/RobotsController/RobotsController';
+import { SetContentController } from '../controllers/SetContentController/SetContentController';
 import { RskRoute } from '../interfaces';
 import { helper } from '../utils/helper';
 
@@ -23,16 +24,18 @@ export class DynamicRouter {
   private configJsCtrl: ConfigJsController;
   private sitemapCtrl: SitemapController;
   private robotsCtrl: RobotsController;
+  private setContentCtrl: SetContentController;
 
   constructor() {
     this.router = Router();
-    this.storeService = StoreConfigService.getInstance();
-    this.cacheCtrl    = new CacheController();
-    this.envCtrl      = new EnvController();
-    this.pageCtrl     = new PageController();
-    this.configJsCtrl = new ConfigJsController();
-    this.sitemapCtrl  = new SitemapController();
-    this.robotsCtrl   = new RobotsController();
+    this.storeService    = StoreConfigService.getInstance();
+    this.cacheCtrl       = new CacheController();
+    this.envCtrl         = new EnvController();
+    this.pageCtrl        = new PageController();
+    this.configJsCtrl    = new ConfigJsController();
+    this.sitemapCtrl     = new SitemapController();
+    this.robotsCtrl      = new RobotsController();
+    this.setContentCtrl  = new SetContentController();
 
     this.registerStaticRoutes();
     this.registerDynamicCatchAll();
@@ -48,6 +51,9 @@ export class DynamicRouter {
     this.router.get('/_/log', this.cacheCtrl.debugLog);
     this.router.get('/_/logs', this.cacheCtrl.debugLog);
     this.router.get('/_/env', this.envCtrl.page);
+    this.router.get('/_/set-content', this.setContentCtrl.page);
+    this.router.post('/api/_/set-content', this.setContentCtrl.savePage);
+    this.router.get('/api/_/set-content/template', this.setContentCtrl.getTemplate);
     this.router.get('/api/_/cache-data', this.cacheCtrl.showData);
     this.router.get('/api/_/clear-cache-all', this.cacheCtrl.clearAll);
     this.router.get('/api/_/clear-cache', this.cacheCtrl.clearOne);

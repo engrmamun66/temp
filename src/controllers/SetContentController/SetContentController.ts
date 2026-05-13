@@ -1,0 +1,132 @@
+import fs from 'fs';
+import path from 'path';
+import { Request, Response } from 'express';
+import { ApiClient } from '../../services/ApiClient';
+import { EnumDefautlsPageSlugs } from '../../interfaces';
+import { logToFile } from '../../utils/fileLogger';
+
+const SET_CONTENT_HTML = path.resolve(process.cwd(), 'public', 'api-contents', 'set-content.app.html');
+const V2_PAGES_DIR     = path.resolve(process.cwd(), 'public', 'default-pages', 'v2');
+
+const setContentSource = () => fs.readFileSync(SET_CONTENT_HTML, 'utf-8');
+
+function serializeState(value: unknown): string {
+    return JSON.stringify(value)
+        .replace(/</g,  '\\u003c')
+        .replace(/>/g,  '\\u003e')
+        .replace(/&/g,  '\\u0026')
+}
+
+function listV2HtmlFiles(): string[] {
+    try {
+        return fs.readdirSync(V2_PAGES_DIR).filter(f => f.endsWith('.html')).sort();
+    } catch {
+        return [];
+    }
+}
+
+export class SetContentController {
+    private api: ApiClient;
+
+    constructor() {
+        this.api = ApiClient.getInstance();
+    }
+
+    page = async (req: Request, res: Response): Promise<void> => {
+        const subdomain = req.context.subdomain;
+        try {
+            const [storeResult, rentmyPages] = await Promise.all([
+                this.api.getOrFetchStoreResult(subdomain),
+                this.api.getRentmyPages(subdomain),
+            ]);
+
+            const enumSlugs = Object.entries(EnumDefautlsPageSlugs).map(([key, value]) => ({ key, value }));
+            const htmlFiles = listV2HtmlFiles();
+
+            const initialState = serializeState({
+                subdomain,
+                store_id:    storeResult.store.id,
+                location_id: storeResult.location.id,
+                enumSlugs,
+                rentmyPages,
+                htmlFiles,
+                saveUrl: '/api/_/set-content',
+            });
+
+            const html = setContentSource().split('${initialState}').join(initialState);
+            res.status(200).type('text/html').send(html);
+        } catch (err) {
+            logToFile('[SetContentController.page error]', err);
+            res.status(500).send('Failed to load set-content page');
+        }
+    };
+
+    savePage = async (req: Request, res: Response): Promise<void> => {
+        const subdomain = req.context.subdomain;
+        const { name, slug, contents, html_file, page_id } = req.body as {
+            name:       string;
+            slug:       string;
+            contents?:  string;
+            html_file?: string;
+            page_id?:   number | null;
+        };
+
+        if (!name || !slug) {
+            res.status(400).json({ error: 'name and slug are required' });
+            return;
+        }
+
+        try {
+            const storeResult = await this.api.getOrFetchStoreResult(subdomain);
+
+            // Merge html_file into contents JSON
+            let contentsJson: Record<string, unknown> = { heading: '', content: '' };
+            if (contents) {
+                try { contentsJson = JSON.parse(contents); } catch { /* keep default */ }
+            }
+            if (html_file) contentsJson.html_file = html_file;
+            const mergedContents = JSON.stringify(contentsJson);
+
+            const payload = {
+                store_id:         storeResult.store.id,
+                location:         storeResult.location.id,
+                name,
+                slug,
+                contents:         mergedContents,
+                status:           1,
+                type:             'page',
+                meta_description: '',
+                meta_keyword:     '',
+                meta_title:       '',
+                canonical_url:    '',
+            };
+
+            let result: unknown;
+            if (page_id) {
+                result = await this.api.updateRentmyPage(subdomain, page_id, payload);
+            } else {
+                result = await this.api.createRentmyPage(subdomain, payload);
+            }
+
+            res.json({ success: true, result });
+        } catch (err) {
+            logToFile('[SetContentController.savePage error]', err);
+            res.status(500).json({ error: 'Failed to save page' });
+        }
+    };
+
+    getTemplate = (req: Request, res: Response): void => {
+        const file = req.query.file as string;
+        if (!file || file.includes('..') || file.includes('/') || !file.endsWith('.html')) {
+            res.status(400).json({ error: 'Invalid file name' });
+            return;
+        }
+        const filePath = path.resolve(process.cwd(), 'public', 'default-pages', 'v2', file);
+        try {
+            const content = fs.readFileSync(filePath, 'utf-8');
+            res.type('text/plain').send(content);
+        } catch {
+            res.status(404).json({ error: 'File not found' });
+        }
+    };
+}

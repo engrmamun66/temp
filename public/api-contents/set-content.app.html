@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set Page Content | RSK</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f4efe8;
+            --panel: rgba(255, 252, 247, 0.92);
+            --panel-strong: #fffdf9;
+            --line: rgba(93, 71, 52, 0.18);
+            --text: #24180f;
+            --muted: #716150;
+            --accent: #c8643b;
+            --accent-deep: #8e3f20;
+            --shadow: 0 20px 45px rgba(59, 34, 18, 0.12);
+            --green: #2d6a4f;
+            --green-bg: rgba(45, 106, 79, 0.08);
+            --green-border: rgba(45, 106, 79, 0.22);
+            --red: #b53434;
+            --red-bg: rgba(181, 52, 52, 0.08);
+            --red-border: rgba(181, 52, 52, 0.22);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(239, 176, 121, 0.34), transparent 28rem),
+                radial-gradient(circle at bottom right, rgba(149, 188, 201, 0.34), transparent 24rem),
+                linear-gradient(180deg, #fbf6ef 0%, var(--bg) 100%);
+        }
+
+        a, button, input, select, textarea { font: inherit; }
+
+        #app {
+            width: min(860px, calc(100% - 32px));
+            margin: 28px auto;
+        }
+
+        .page-shell {
+            padding: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 24px;
+            background: var(--panel);
+            backdrop-filter: blur(14px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            margin: 0 0 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent-deep);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }
+
+        .meta {
+            margin: 8px 0 0;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            background: rgba(36, 24, 15, 0.07);
+            color: var(--text);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: transform 140ms ease;
+        }
+        .back-link:hover { transform: translateY(-1px); }
+
+        /* ── Form ─────────────────────────────────────────────────── */
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        label span.badge {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            background: var(--green-bg);
+            border: 1px solid var(--green-border);
+            color: var(--green);
+            text-transform: uppercase;
+        }
+
+        label span.badge.new {
+            background: rgba(200, 100, 59, 0.1);
+            border-color: rgba(200, 100, 59, 0.3);
+            color: var(--accent-deep);
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 13px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-strong);
+            color: var(--text);
+            font-size: 14px;
+            transition: border-color 120ms ease, box-shadow 120ms ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(200, 100, 59, 0.12);
+        }
+
+        textarea {
+            resize: vertical;
+            font-family: "IBM Plex Mono", "Fira Code", monospace;
+            font-size: 13px;
+            min-height: 110px;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--line);
+            margin: 8px 0;
+        }
+
+        /* ── Buttons ──────────────────────────────────────────────── */
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .btn-primary {
+            padding: 10px 22px;
+            border: none;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--accent);
+            color: #fff;
+            transition: transform 120ms ease, background 120ms ease;
+        }
+        .btn-primary:hover:not(:disabled) { transform: translateY(-1px); background: var(--accent-deep); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .btn-secondary {
+            padding: 10px 18px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            font-size: 13px;
+            cursor: pointer;
+            background: transparent;
+            color: var(--muted);
+            transition: transform 120ms ease;
+        }
+        .btn-secondary:hover { transform: translateY(-1px); }
+
+        /* ── Status banner ────────────────────────────────────────── */
+        .status-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 13px 16px;
+            border-radius: 14px;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-top: 16px;
+        }
+        .status-banner.success {
+            border: 1px solid var(--green-border);
+            background: var(--green-bg);
+            color: var(--green);
+        }
+        .status-banner.error {
+            border: 1px solid var(--red-border);
+            background: var(--red-bg);
+            color: var(--red);
+        }
+
+        /* ── Match chip ───────────────────────────────────────────── */
+        .match-info {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            border: 1px dashed var(--line);
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--muted);
+        }
+        .match-info.matched {
+            border-color: var(--green-border);
+            background: var(--green-bg);
+            color: var(--green);
+        }
+    </style>
+</head>
+<body>
+<script id="set-content-state" type="application/json">${initialState}</script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<div id="app"></div>
+<script>
+const { createApp, ref, computed, watch } = Vue;
+
+const state = JSON.parse(document.getElementById('set-content-state').textContent);
+
+createApp({
+    setup() {
+        const rentmyPages = state.rentmyPages; // [{id, slug, name, contents, ...}]
+        const htmlFiles  = state.htmlFiles;    // ['cart.html', ...]
+        const saveUrl    = state.saveUrl;
+
+        const selectedPageId = ref('');
+        const name           = ref('');
+        const slug           = ref('');
+        const contents       = ref('');
+        const htmlFile       = ref('');
+        const existingId     = ref(null);
+        const loading        = ref(false);
+        const statusMsg      = ref('');
+        const statusType     = ref(''); // 'success' | 'error'
+
+        watch(selectedPageId, (id) => {
+            if (!id) return;
+            const page = rentmyPages.find(p => p.id === Number(id));
+            if (!page) return;
+            name.value       = page.name || '';
+            slug.value       = page.slug || '';
+            existingId.value = page.id;
+            try {
+                const parsed = JSON.parse(page.contents || '{}');
+                const { html_file: hf, ...rest } = parsed;
+                const allEmpty = Object.values(rest).every(v => v === '' || v === null || v === undefined);
+                contents.value = allEmpty ? '' : JSON.stringify(rest, null, 2);
+                htmlFile.value = hf || '';
+                if (htmlFile.value) loadTemplateContent(htmlFile.value);
+            } catch {
+                contents.value = page.contents || '';
+            }
+        });
+
+        watch(htmlFile, (file) => {
+            if (file) loadTemplateContent(file);
+        });
+
+        async function loadTemplateContent(file) {
+            try {
+                const resp = await fetch(`/api/_/set-content/template?file=${encodeURIComponent(file)}`);
+                if (!resp.ok) return;
+                contents.value = await resp.text();
+            } catch {}
+        }
+
+        async function submit() {
+            if (!name.value.trim() || !slug.value.trim()) {
+                statusType.value = 'error';
+                statusMsg.value  = 'Name and slug are required.';
+                return;
+            }
+            loading.value   = true;
+            statusMsg.value = '';
+            try {
+                const resp = await fetch(saveUrl, {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify({
+                        name:      name.value.trim(),
+                        slug:      slug.value.trim(),
+                        contents:  contents.value,
+                        html_file: htmlFile.value || undefined,
+                        page_id:   existingId.value || undefined,
+                    }),
+                });
+                const json = await resp.json();
+                if (!resp.ok || json.error) {
+                    statusType.value = 'error';
+                    statusMsg.value  = json.error || `Server error ${resp.status}`;
+                } else {
+                    statusType.value = 'success';
+                    statusMsg.value  = existingId.value
+                        ? `Page "${name.value}" updated successfully.`
+                        : `Page "${name.value}" created successfully.`;
+                    if (!existingId.value && json.result?.result?.id) {
+                        existingId.value = json.result.result.id;
+                    }
+                }
+            } catch (e) {
+                statusType.value = 'error';
+                statusMsg.value  = 'Network error: ' + e.message;
+            } finally {
+                loading.value = false;
+            }
+        }
+
+        function reset() {
+            selectedPageId.value = '';
+            name.value           = '';
+            slug.value           = '';
+            contents.value       = '';
+            htmlFile.value       = '';
+            existingId.value     = null;
+            statusMsg.value      = '';
+            statusType.value     = '';
+        }
+
+        return {
+            rentmyPages, htmlFiles,
+            selectedPageId, name, slug, contents, htmlFile,
+            existingId, loading, statusMsg, statusType,
+            submit, reset,
+        };
+    },
+
+    template: `
+    <div id="app">
+      <div class="page-shell">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">RSK Admin</p>
+            <h1>Set Page Content</h1>
+            <p class="meta">Create or update a RentMy page via the API.</p>
+          </div>
+          <a href="/_" class="back-link">← Back</a>
+        </div>
+
+        <div class="form-section">
+
+          <!-- RentMy pages selector -->
+          <div class="field">
+            <label>Existing Page</label>
+            <select v-model="selectedPageId">
+              <option value="">— Select to edit, or fill fields below to create —</option>
+              <option v-for="p in rentmyPages" :key="p.id" :value="p.id">
+                {{ p.name }} &nbsp;→&nbsp; {{ p.slug }}
+              </option>
+            </select>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Name -->
+          <div class="field">
+            <label>
+              Name
+              <span v-if="existingId" class="badge">update</span>
+              <span v-else class="badge new">new</span>
+            </label>
+            <input type="text" v-model="name" placeholder="Page Title" />
+          </div>
+
+          <!-- Slug -->
+          <div class="field">
+            <label>Slug <span style="font-weight:400;text-transform:none;">(no leading /)</span></label>
+            <input type="text" v-model="slug" placeholder="Plage Slug" />
+          </div>
+
+          <!-- HTML file -->
+          <div class="field">
+            <label>Default HTML Template (public/default-pages/v2)</label>
+            <select v-model="htmlFile">
+              <option value="">— None —</option>
+              <option v-for="f in htmlFiles" :key="f" :value="f">{{ f }}</option>
+            </select>
+            <p class="hint">Stored as <code>html_file</code> inside the contents JSON. Used by RSK as the fallback template.</p>
+          </div>
+
+          <!-- Contents -->
+          <div class="field">
+            <label>Contents <span style="font-weight:400;text-transform:none;">(JSON)</span></label>
+            <textarea v-model="contents" rows="5" placeholder='Select file or paste HTML'></textarea>
+            <p class="hint">JSON string. <code>html_file</code> from the template selector above will be merged on save.</p>
+          </div>
+
+          <!-- Actions -->
+          <div class="btn-row">
+            <button class="btn-primary" :disabled="loading" @click="submit">
+              {{ loading ? 'Saving…' : (existingId ? 'Update Page' : 'Create Page') }}
+            </button>
+            <button class="btn-secondary" @click="reset">Reset</button>
+          </div>
+
+          <!-- Status -->
+          <div v-if="statusMsg" :class="['status-banner', statusType]">
+            {{ statusMsg }}
+          </div>
+
+        </div>
+      </div>
+    </div>
+    `,
+}).mount('#app');
+</script>
+</body>
+</html>
