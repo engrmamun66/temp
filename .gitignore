@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+_all_env/
 
 # Build output
 dist/

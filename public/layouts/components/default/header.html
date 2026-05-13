@@ -84,6 +84,10 @@
   var navData = JSON.parse(stateEl.textContent || '{}');
   var links = navData.headerLinks || [];
 
+  // Home (/) always first
+  var homeIdx = links.findIndex(function (l) { return href(l.content_url) === '/'; });
+  if (homeIdx > 0) { links.unshift(links.splice(homeIdx, 1)[0]); }
+
   function href(url) { return url ? '/' + url.replace(/^\/+/, '') : '/'; }
 
   var LINK_CLS         = 'px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-[var(--brand-secondary-mid)] rounded-lg transition-all';
