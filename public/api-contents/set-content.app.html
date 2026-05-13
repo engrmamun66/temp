@@ -403,6 +403,7 @@ createApp({
                 const stripped = val.replace(/^\/+/, '');
                 slug.value = stripped;
                 name.value = stripped.replace(/[-_]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                contents.value = ''
             }
             e.target.value = '';
         }
@@ -456,7 +457,7 @@ createApp({
           <div class="field">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
               <label style="flex-shrink:0;">Slug <span style="font-weight:400;text-transform:none;">(no leading /)</span></label>
-              <select style="width:auto;max-width:260px;padding:4px 8px;font-size:12px;" @change="applySlugPreset">
+              <select class="back-link" style="width:auto;max-width:260px;padding:4px 8px;font-size:12px;" @change="applySlugPreset">
                 <option value="">— Presets —</option>
                 <option v-for="s in slugPresets" :key="s" :value="s">{{ s }}</option>
               </select>
