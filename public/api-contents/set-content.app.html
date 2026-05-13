@@ -265,7 +265,7 @@ const state = JSON.parse(document.getElementById('set-content-state').textConten
 
 createApp({
     setup() {
-        const rentmyPages = state.rentmyPages; // [{id, slug, name, contents, ...}]
+        const rentmyPages = ref(state.rentmyPages); // [{id, slug, name, contents, ...}]
         const htmlFiles  = state.htmlFiles;    // ['cart.html', ...]
         const saveUrl    = state.saveUrl;
 
@@ -281,7 +281,7 @@ createApp({
 
         watch(selectedPageId, (id) => {
             if (!id) return;
-            const page = rentmyPages.find(p => p.id === Number(id));
+            const page = rentmyPages.value.find(p => p.id === Number(id));
             if (!page) return;
             name.value       = page.name || '';
             slug.value       = page.slug || '';
@@ -298,6 +298,11 @@ createApp({
             }
         });
 
+        watch(slug, (val) => {
+            const stripped = val.replace(/^\/+/, '');
+            if (stripped !== val) slug.value = stripped;
+        });
+
         watch(htmlFile, (file) => {
             if (file) loadTemplateContent(file);
         });
@@ -307,6 +312,15 @@ createApp({
                 const resp = await fetch(`/api/_/set-content/template?file=${encodeURIComponent(file)}`);
                 if (!resp.ok) return;
                 contents.value = await resp.text();
+            } catch {}
+        }
+
+        async function refreshPages() {
+            try {
+                const resp = await fetch('/api/_/set-content/pages');
+                if (!resp.ok) return;
+                const json = await resp.json();
+                if (Array.isArray(json.pages)) rentmyPages.value = json.pages;
             } catch {}
         }
 
@@ -325,7 +339,7 @@ createApp({
                     body:    JSON.stringify({
                         name:      name.value.trim(),
                         slug:      slug.value.trim(),
-                        contents:  contents.value,
+                        contents:  JSON.stringify({ heading: '', content: contents.value }),
                         html_file: htmlFile.value || undefined,
                         page_id:   existingId.value || undefined,
                     }),
@@ -342,6 +356,7 @@ createApp({
                     if (!existingId.value && json.result?.result?.id) {
                         existingId.value = json.result.result.id;
                     }
+                    await refreshPages();
                 }
             } catch (e) {
                 statusType.value = 'error';
@@ -425,7 +440,7 @@ createApp({
 
           <!-- Contents -->
           <div class="field">
-            <label>Contents <span style="font-weight:400;text-transform:none;">(JSON)</span></label>
+            <label>Contents <span style="font-weight:400;text-transform:none;">(text/HTML)</span></label>
             <textarea v-model="contents" rows="5" placeholder='Select file or paste HTML'></textarea>
             <p class="hint">JSON string. <code>html_file</code> from the template selector above will be merged on save.</p>
           </div>

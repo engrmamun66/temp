@@ -115,6 +115,17 @@ export class SetContentController {
         }
     };
 
+    getPages = async (req: Request, res: Response): Promise<void> => {
+        const subdomain = req.context.subdomain;
+        try {
+            const pages = await this.api.getRentmyPages(subdomain);
+            res.json({ pages });
+        } catch (err) {
+            logToFile('[SetContentController.getPages error]', err);
+            res.status(500).json({ error: 'Failed to fetch pages' });
+        }
+    };
+
     getTemplate = (req: Request, res: Response): void => {
         const file = req.query.file as string;
         if (!file || file.includes('..') || file.includes('/') || !file.endsWith('.html')) {

@@ -53,6 +53,7 @@ export class DynamicRouter {
     this.router.get('/_/env', this.envCtrl.page);
     this.router.get('/_/set-content', this.setContentCtrl.page);
     this.router.post('/api/_/set-content', this.setContentCtrl.savePage);
+    this.router.get('/api/_/set-content/pages', this.setContentCtrl.getPages);
     this.router.get('/api/_/set-content/template', this.setContentCtrl.getTemplate);
     this.router.get('/api/_/cache-data', this.cacheCtrl.showData);
     this.router.get('/api/_/clear-cache-all', this.cacheCtrl.clearAll);
