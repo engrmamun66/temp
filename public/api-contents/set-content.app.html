@@ -270,6 +270,7 @@ createApp({
         const saveUrl    = state.saveUrl;
 
         const selectedPageId = ref('');
+        const selectedPage   = ref(null);
         const name           = ref('');
         const slug           = ref('');
         const contents       = ref('');
@@ -283,9 +284,10 @@ createApp({
             if (!id) return;
             const page = rentmyPages.value.find(p => p.id === Number(id));
             if (!page) return;
-            name.value       = page.name || '';
-            slug.value       = page.slug || '';
-            existingId.value = page.id;
+            selectedPage.value = page;
+            name.value         = page.name || '';
+            slug.value         = page.slug || '';
+            existingId.value   = page.id;
             try {
                 const parsed = JSON.parse(page.contents || '{}');
                 const { html_file: hf, ...rest } = parsed;
@@ -305,6 +307,7 @@ createApp({
 
         watch(htmlFile, (file) => {
             if (file) loadTemplateContent(file);
+            else contents.value = '';
         });
 
         async function loadTemplateContent(file) {
@@ -342,6 +345,7 @@ createApp({
                         contents:  JSON.stringify({ heading: '', content: contents.value }),
                         html_file: htmlFile.value || undefined,
                         page_id:   existingId.value || undefined,
+                        existing:  selectedPage.value || undefined,
                     }),
                 });
                 const json = await resp.json();
@@ -368,6 +372,7 @@ createApp({
 
         function reset() {
             selectedPageId.value = '';
+            selectedPage.value   = null;
             name.value           = '';
             slug.value           = '';
             contents.value       = '';

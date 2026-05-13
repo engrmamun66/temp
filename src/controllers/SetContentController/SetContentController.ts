@@ -63,12 +63,13 @@ export class SetContentController {
 
     savePage = async (req: Request, res: Response): Promise<void> => {
         const subdomain = req.context.subdomain;
-        const { name, slug, contents, html_file, page_id } = req.body as {
+        const { name, slug, contents, html_file, page_id, existing } = req.body as {
             name:       string;
             slug:       string;
             contents?:  string;
             html_file?: string;
             page_id?:   number | null;
+            existing?:  Record<string, unknown> | null;
         };
 
         if (!name || !slug) {
@@ -88,23 +89,24 @@ export class SetContentController {
             const mergedContents = JSON.stringify(contentsJson);
 
             const payload = {
+                ...(existing ?? {}),
                 ...(page_id ? { id: page_id } : {}),
                 store_id:         storeResult.store.id,
                 location:         storeResult.location.id,
                 name,
                 slug,
                 contents:         mergedContents,
-                meta_description: '',
-                meta_keyword:     '',
-                meta_title:       '',
-                status:           1,
-                type:             'page',
-                tags:             [],
-                parent_id:        null,
-                featured_image:   null,
-                thumbnail_image:  null,
-                canonical_url:    '',
-                children:         [],
+                meta_description: (existing?.meta_description as string) ?? '',
+                meta_keyword:     (existing?.meta_keyword     as string) ?? '',
+                meta_title:       (existing?.meta_title       as string) ?? '',
+                canonical_url:    (existing?.canonical_url    as string) ?? '',
+                status:           (existing?.status           as number) ?? 1,
+                type:             (existing?.type             as string) ?? 'page',
+                tags:             (existing?.tags             as unknown[]) ?? [],
+                parent_id:        (existing?.parent_id        as null)    ?? null,
+                featured_image:   (existing?.featured_image   as null)    ?? null,
+                thumbnail_image:  (existing?.thumbnail_image  as null)    ?? null,
+                children:         (existing?.children         as unknown[]) ?? [],
             }; 
 
             let result: unknown;
