@@ -269,6 +269,15 @@ createApp({
         const htmlFiles  = state.htmlFiles;    // ['cart.html', ...]
         const saveUrl    = state.saveUrl;
 
+        const slugPresets = [
+            '/terms-and-condition','/contact','/about',
+            '/custom_testpage','/custom_testpage_2','/custom_new_test_page','/custom_rsk_age',
+            '/products-list','/product-details','/package-details','/category-products',
+            '/wish-list','/cart','/checkout','/order-complete',
+            '/login','/registration','/profile','/change-password',
+            '/partner-login','/partner-registration','/change-avatar','/order-history',
+        ];
+
         const selectedPageId = ref('');
         const selectedPage   = ref(null);
         const name           = ref('');
@@ -328,6 +337,12 @@ createApp({
         }
 
         async function submit() {
+            const pwd = prompt('Enter password to continue:');
+            if (pwd !== 'asdfasdf') {
+                statusType.value = 'error';
+                statusMsg.value  = 'Incorrect password.';
+                return;
+            }
             if (!name.value.trim() || !slug.value.trim()) {
                 statusType.value = 'error';
                 statusMsg.value  = 'Name and slug are required.';
@@ -382,11 +397,21 @@ createApp({
             statusType.value     = '';
         }
 
+        function applySlugPreset(e) {
+            const val = e.target.value;
+            if (val) {
+                const stripped = val.replace(/^\/+/, '');
+                slug.value = stripped;
+                name.value = stripped.replace(/[-_]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+            }
+            e.target.value = '';
+        }
+
         return {
-            rentmyPages, htmlFiles,
+            rentmyPages, htmlFiles, slugPresets,
             selectedPageId, name, slug, contents, htmlFile,
             existingId, loading, statusMsg, statusType,
-            submit, reset,
+            submit, reset, applySlugPreset,
         };
     },
 
@@ -429,8 +454,14 @@ createApp({
 
           <!-- Slug -->
           <div class="field">
-            <label>Slug <span style="font-weight:400;text-transform:none;">(no leading /)</span></label>
-            <input type="text" v-model="slug" placeholder="Plage Slug" />
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <label style="flex-shrink:0;">Slug <span style="font-weight:400;text-transform:none;">(no leading /)</span></label>
+              <select style="width:auto;max-width:260px;padding:4px 8px;font-size:12px;" @change="applySlugPreset">
+                <option value="">— Presets —</option>
+                <option v-for="s in slugPresets" :key="s" :value="s">{{ s }}</option>
+              </select>
+            </div>
+            <input type="text" v-model="slug" placeholder="page-slug" />
           </div>
 
           <!-- HTML file -->
