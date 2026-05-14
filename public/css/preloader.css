@@ -1,3 +1,16 @@
+
+/* ====================================================== */
+/* ===================== Global CSS ===================== */
+/* ====================================================== */
+[v-cloak],
+.d-none{
+  display: none;
+} 
+.RentMyWrapper p:empty {
+  display: none;
+}
+
+
 .RentMyWrapper:not([wrapper-is-ready]) {
     position: relative;
     min-height: var(--content-height, inherit);

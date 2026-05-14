@@ -191,7 +191,7 @@ export enum EnumDefautlsPageSlugs {
   cart                      = '/cart',
   checkout                  = '/checkout',
   order_complete            = '/order-complete',
-  order_details             = '/order-details/:id',
+  order_details             = '/order-details',
   wish_list                 = '/wish-list',
   membership_plan           = '/membership-plan',
   rentmy_dashboard          = '/rentmy-dashboard',
