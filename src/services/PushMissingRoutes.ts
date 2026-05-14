@@ -21,6 +21,7 @@ import { pushCustomerProfile } from './pase-wise-pushes/push:customer-profile';
 import { pushChangePassword } from './pase-wise-pushes/push:change-password';
 import { pushChangeAvatar } from './pase-wise-pushes/push:change-avatar';
 import { pushOrderHistory } from './pase-wise-pushes/push:order-history';
+import { pushCustomerBilling } from './pase-wise-pushes/push:customer-billing';
 import { pushBlog } from './pase-wise-pushes/push:blog';
 import { pushSingleBlog } from './pase-wise-pushes/push:single-blog';
 import { pushDynamicPage } from './pase-wise-pushes/push:dynamic-page';
@@ -53,6 +54,7 @@ export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[],
     pushChangePassword(routes, rentmyPages, subdomain);       // route: /change-password
     pushChangeAvatar(routes, rentmyPages, subdomain);         // route: /change-avatar
     pushOrderHistory(routes, rentmyPages, subdomain);         // route: /order-history
+    pushCustomerBilling(routes, rentmyPages, subdomain);      // route: /customer-billing
     pushBlog(routes, rentmyPages, subdomain);                 // route: /blog
     pushSingleBlog(routes, rentmyPages, subdomain);           // route: /blog/:slug
     pushDynamicPage(routes, rentmyPages, subdomain);          // route: /page/:rentmy_page_slug

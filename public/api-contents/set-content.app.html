@@ -270,11 +270,26 @@ createApp({
         const saveUrl    = state.saveUrl;
 
         const slugPresets = [
-            '/terms-and-condition','/contact','/about',
-            '/products-list','/product-details','/package-details','/category-products',
-            '/wish-list','/cart','/checkout','/order-complete',
-            '/login','/registration','/profile','/change-password',
-            '/partner-login','/partner-registration','/change-avatar','/order-history',
+            '/terms-and-condition',
+            '/contact',
+            '/about',
+            '/products-list',
+            '/product-details',
+            '/package-details',
+            '/category-products',
+            '/wish-list',
+            '/cart',
+            '/checkout',
+            '/order-complete',
+            '/login',
+            '/registration',
+            '/profile',
+            '/change-password',
+            '/partner-login',
+            '/partner-registration',
+            '/change-avatar',
+            '/order-history',
+            '/customer-billing',
         ];
 
         const selectedPageId = ref('');
@@ -302,6 +317,12 @@ createApp({
                 const allEmpty = Object.values(rest).every(v => v === '' || v === null || v === undefined);
                 contents.value = allEmpty ? '' : JSON.stringify(rest, null, 2);
                 htmlFile.value = hf || htmlFiles.find(f => f === page.slug + '.html') || '';
+                
+                if(!htmlFile.value){
+                    htmlFile.value = htmlFiles.find(f => f === 'customer-' + page.slug + '.html') || ''
+                }
+
+                
                 if (htmlFile.value) loadTemplateContent(htmlFile.value);
             } catch {
                 contents.value = page.contents || '';

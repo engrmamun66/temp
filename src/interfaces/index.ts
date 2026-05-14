@@ -205,7 +205,7 @@ export enum EnumDefautlsPageSlugs {
   customer_change_avatar    = '/change-avatar',
   customer_order_history    = '/order-history',
   customer_order_dashboard  = '/order-dashboard',
-  customer_billing          = '/billing',
+  customer_billing          = '/customer-billing',
   terms_and_conditions      = '/terms-and-conditions',
   blog                      = '/blog',
   singleBlog                = '/blog/:slug',
