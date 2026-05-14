@@ -92,6 +92,14 @@ span.RrentMyBtnLoader {
     animation: rotation var(--speed, .6s) linear infinite;
     vertical-align: middle;
     margin-left: 6px;
+    flex-shrink: 0;
+}
+
+button:has(> span.RrentMyBtnLoader),
+button:has(span.RrentMyBtnLoader),
+a:has(span.RrentMyBtnLoader) {
+    display: inline-flex !important;
+    align-items: center !important;
 }
 
 [temp-hidden] {
