@@ -206,12 +206,9 @@ export enum EnumDefautlsPageSlugs {
   customer_order_history    = '/order-history',
   customer_order_dashboard  = '/order-dashboard',
   customer_billing          = '/customer-billing',
-  terms_and_conditions      = '/terms-and-conditions',
-  blog                      = '/blog',
-  singleBlog                = '/blog/:slug',
-  not_found                 = '/not-found',
   contact                   = '/contact',
-  rentmy_dynamic_page       = '/page/:rentmy_page_slug',
+  terms_and_conditions      = '/terms-and-conditions',
+  not_found                 = '/not-found',
 }
 
 export interface BlogItem {

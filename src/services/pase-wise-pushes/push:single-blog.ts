@@ -6,7 +6,7 @@ export function pushSingleBlog(routes: RskRoute[], rentmyPages: RentMyPage[], su
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Blog',
         page_key:       EnumPageKes.singleBlog,
-        route_path:     EnumDefautlsPageSlugs.singleBlog,
+        route_path:     '/blog/:slug',
         content_path:   prefix + 'blog-details.html',
         content_source: 'file',
         _source:        'force_pushed',
