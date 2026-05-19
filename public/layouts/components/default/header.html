@@ -27,9 +27,9 @@
       <div class="flex items-center gap-2">
 
         <!-- Cart -->
-        <a class="rm-cart-bar RentMyMiniCart relative inline-flex items-center cursor-pointer p-2 text-white/60 hover:text-white hover:bg-[var(--brand-secondary-mid)] rounded-lg transition-all">
+        <a class="rm-cart-bar RentMyMiniCart relative inline-flex items-center cursor-pointer p-2 text-slate-500 hover:text-slate-900 hover:bg-[var(--brand-secondary-mid)] rounded-lg transition-all">
           <div class="relative" IconArea>
-              <i class="rm rm-cart text-2xl text-white"></i>
+              <i class="rm rm-cart text-2xl text-slate-700"></i>
               <div class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-0.5 leading-none">
                 <span TotalQuantity>0</span>
               </div>
@@ -38,22 +38,22 @@
         </a>
 
         <!-- Wishlist counter (widget-managed) -->
-        <a href="/wish-list" class="rm-cart-bar RentMyWishlistCounter relative inline-flex items-center cursor-pointer p-2 text-white/60 hover:text-white hover:bg-[var(--brand-secondary-mid)] rounded-lg transition-all">
+        <a href="/wish-list" class="rm-cart-bar RentMyWishlistCounter relative inline-flex items-center cursor-pointer p-2 text-slate-500 hover:text-slate-900 hover:bg-[var(--brand-secondary-mid)] rounded-lg transition-all">
           <div class="relative" iconarea="">
-            <i class="rm rm-heart-outline text-2xl text-white"></i>
+            <i class="rm rm-heart-outline text-2xl text-slate-700"></i>
             <div class="absolute -top-1.5 -right-1.5 bg-[var(--brand-primary)] text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-0.5 leading-none"><span totalquantity="">0</span></div>
           </div>
         </a>
 
         <!-- User menu -->
         <div class="rsk-nav-dropdown relative">
-          <button class="relative inline-flex items-center cursor-pointer p-2 text-white/60 hover:text-white hover:bg-[var(--brand-secondary-mid)] rounded-lg transition-all">
-            <i class="rm rm-user text-2xl text-white"></i>
+          <button class="relative inline-flex items-center cursor-pointer p-2 text-slate-500 hover:text-slate-900 hover:bg-[var(--brand-secondary-mid)] rounded-lg transition-all">
+            <i class="rm rm-user text-2xl text-slate-700"></i>
           </button>
-          <div class="rsk-nav-dropdown-menu absolute right-0 top-full mt-1 w-44 bg-[var(--brand-secondary)] border border-[var(--brand-secondary-mid)] rounded-xl shadow-xl py-2 z-50">
-            <a href="/login" RentMyPageLink="login" class="RentMy-login-page block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-[var(--brand-secondary-mid)]">Login</a>
-            <a href=#" RentMyPageLink="logout" class="rentmy_logout_btn hide_if_not_logged_in block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-[var(--brand-secondary-mid)]">Logout</a>
-            <a href="/profile" RentMyPageLink="customer_profile" class="RentMy-client-portal-page block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-[var(--brand-secondary-mid)]">Profile</a>
+          <div class="rsk-nav-dropdown-menu absolute right-0 top-full mt-1 w-44 bg-white border border-[var(--brand-border)] rounded-xl shadow-xl py-2 z-50">
+            <a href="/login" RentMyPageLink="login" class="RentMy-login-page block px-4 py-2 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100">Login</a>
+            <a href="#" RentMyPageLink="logout" class="rentmy_logout_btn hide_if_not_logged_in block px-4 py-2 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100">Logout</a>
+            <a href="/profile" RentMyPageLink="customer_profile" class="RentMy-client-portal-page block px-4 py-2 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100">Profile</a>
           </div>
         </div>
 
@@ -63,7 +63,7 @@
         </a>
 
         <!-- Mobile menu toggle -->
-        <button onclick="document.getElementById('camping-mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg text-white/60 hover:text-white hover:bg-[var(--brand-secondary-mid)]">
+        <button onclick="document.getElementById('camping-mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-[var(--brand-secondary-mid)]">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       </div>
@@ -113,10 +113,10 @@
 
   function href(url) { return url ? '/' + url.replace(/^\/+/, '') : '/'; }
 
-  var LINK_CLS         = 'px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-[var(--brand-secondary-mid)] rounded-lg transition-all';
-  var CHILD_CLS        = 'block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-[var(--brand-secondary-mid)]';
-  var MOBILE_CLS       = 'block px-3 py-2 text-sm text-white/70 hover:text-white hover:bg-[var(--brand-secondary-mid)] rounded-lg';
-  var MOBILE_CHILD_CLS = 'block px-6 py-1.5 text-sm text-white/50 hover:text-white hover:bg-[var(--brand-secondary-mid)] rounded-lg';
+  var LINK_CLS         = 'px-4 py-2 text-sm text-slate-600 hover:text-slate-900 hover:bg-[var(--brand-secondary-mid)] rounded-lg transition-all';
+  var CHILD_CLS        = 'block px-4 py-2 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100';
+  var MOBILE_CLS       = 'block px-3 py-2 text-sm text-slate-600 hover:text-slate-900 hover:bg-[var(--brand-secondary-mid)] rounded-lg';
+  var MOBILE_CHILD_CLS = 'block px-6 py-1.5 text-sm text-slate-500 hover:text-slate-900 hover:bg-[var(--brand-secondary-mid)] rounded-lg';
   var DOWN_ARROW       = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
 
   // Desktop nav
@@ -131,7 +131,7 @@
             '<a :href="href(link.content_url)" class="' + LINK_CLS + ' flex items-center gap-1">' +
               '<span>{{ link.label }}</span>' + DOWN_ARROW +
             '</a>' +
-            '<div class="rsk-nav-dropdown-menu absolute top-full left-0 mt-1 w-52 bg-[var(--brand-secondary)] border border-[var(--brand-secondary-mid)] rounded-xl shadow-xl py-2 z-50">' +
+            '<div class="rsk-nav-dropdown-menu absolute top-full left-0 mt-1 w-52 bg-white border border-[var(--brand-border)] rounded-xl shadow-xl py-2 z-50">' +
               '<a v-for="child in link.children" :key="child.id" :href="href(child.content_url)" class="' + CHILD_CLS + '">{{ child.label }}</a>' +
             '</div>' +
           '</div>' +
