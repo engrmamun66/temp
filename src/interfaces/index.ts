@@ -183,11 +183,10 @@ export enum EnumPageKes {
 }
  
 export enum EnumDefautlsPageSlugs {
-  home                      = '/',
   products_list             = '/products-list',
   product_details           = '/product-details',
   package_details           = '/package-details',
-  products_list_by_category = '/category/:uuid',
+  products_list_by_category = '/category-products',
   cart                      = '/cart',
   checkout                  = '/checkout',
   order_complete            = '/order-complete',

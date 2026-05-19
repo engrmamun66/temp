@@ -6,7 +6,7 @@ export function pushHome(routes: RskRoute[], rentmyPages: RentMyPage[], subdomai
     pushRouteIfNotExist(routes, {
         title:          '{{site_name}}:: Home',
         page_key:       EnumPageKes.home,
-        route_path:     EnumDefautlsPageSlugs.home,
+        route_path:     '/',
         content_path:   prefix + 'home.html',
         content_source: 'api',
         _source:        'force_pushed',
