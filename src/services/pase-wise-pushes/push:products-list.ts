@@ -3,7 +3,7 @@ import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoute
 
 
 export function pushProductsList(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
-    let page: RentMyPage | null = findRentmyPage(rentmyPages, 'products-list')
+    let page: RentMyPage | null = findRentmyPage(rentmyPages, EnumDefautlsPageSlugs.products_list.replace(/^\/+/, ''))
     if(page){
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,

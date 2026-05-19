@@ -4,12 +4,12 @@ import { pushRouteIfNotExist, findRentmyPage, prefix } from '../PushMissingRoute
 
 export function pushProductDetails(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): void {
 
-    let page: RentMyPage | null = findRentmyPage(rentmyPages, 'product-details')
+    let page: RentMyPage | null = findRentmyPage(rentmyPages, EnumDefautlsPageSlugs.product_details.replace(/^\/+/, ''))
     if(page){
         pushRouteIfNotExist(routes, {
             title:          `{{site_name}}:: ${page.name}`,
             page_key:       EnumPageKes.product_details,
-            route_path:     EnumDefautlsPageSlugs.product_details,
+            route_path:     '/products/:url',
             content_path:  {
                 seo_end_point: '/stores/{subdomain}/meta/product-details',
                 api_endpoint: `pages/${page.slug}`

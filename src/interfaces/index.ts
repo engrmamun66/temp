@@ -185,8 +185,8 @@ export enum EnumPageKes {
 export enum EnumDefautlsPageSlugs {
   home                      = '/',
   products_list             = '/products-list',
-  product_details           = '/products/:url',
-  package_details           = '/packages/:url',
+  product_details           = '/product-details',
+  package_details           = '/package-details',
   products_list_by_category = '/category/:uuid',
   cart                      = '/cart',
   checkout                  = '/checkout',
@@ -210,8 +210,8 @@ export enum EnumDefautlsPageSlugs {
   blog                      = '/blog',
   singleBlog                = '/blog/:slug',
   not_found                 = '/not-found',
-  rentmy_dynamic_page       = '/page/:rentmy_page_slug',
   contact                   = '/contact',
+  rentmy_dynamic_page       = '/page/:rentmy_page_slug',
 }
 
 export interface BlogItem {
