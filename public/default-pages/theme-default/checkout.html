@@ -1,0 +1,533 @@
+<div id="RentMyCheckoutWrapper" class="RentMyCheckoutWrapper RentMyWrapper bg-gray-50 min-h-screen py-6 sm:py-10 px-3 sm:px-6 lg:px-8">
+
+    <!-- Page Header -->
+    <div class="max-w-7xl mx-auto mb-6">
+        <h1 class="text-3xl font-bold text-gray-900">Checkout</h1>
+        <p class="text-sm text-gray-500 mt-1">Complete your order below</p>
+    </div>
+
+    <!-- Sign In Banner -->
+    <div class="max-w-7xl mx-auto mb-6">
+        <div class="w-full lg:w-[calc(100%-380px-2rem)] flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl px-4 sm:px-5 py-3 sm:py-3.5 gap-3" data-rentmyattr="SignInPopupArea">
+            <div class="flex items-center gap-3 min-w-0">
+                <i class="rm rm-user"></i>
+                <p class="text-sm text-gray-600 truncate">
+                    Returning customer?
+                    <span class="text-gray-400 mx-1" data-rentmyattr="WelcomeText">Welcome to</span>
+                    <strong class="text-gray-800" data-rentmyattr="StoreName">Store</strong>
+                </p>
+            </div>
+            <a class="flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 border border-blue-300 hover:border-blue-400 bg-white hover:bg-blue-50 rounded-lg px-3 py-1.5 transition-all cursor-pointer whitespace-nowrap" data-rentmyattr="SignIn">
+                <i class="rm rm-login"></i>
+                Sign in
+            </a>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-5 lg:gap-8 items-start">
+
+        <!-- ═══════════════════════════════════════════ LEFT ═══ -->
+        <div class="w-full lg:flex-1 lg:min-w-0 space-y-5">
+
+            <!-- ── Billing Card ── -->
+            <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden" data-rentmyattr="BillingBorder">
+                <div class="bg-gradient-to-r from-gray-900 to-gray-700 px-6 py-4">
+                    <h2 class="text-sm font-semibold tracking-widest text-white uppercase">Billing Address</h2>
+                </div>
+
+                <form class="p-4 sm:p-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-3" data-rentmyattr="BillingGeneralInfo">
+
+                        <div class="flex flex-col gap-1.5" data-rentmyattr="FirstNameDiv">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">First Name <span class="text-red-400">*</span></label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="FirstName" placeholder="John" />
+                        </div>
+
+                        <div class="flex flex-col gap-1.5" data-rentmyattr="LastNameDiv">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Last Name <span class="text-red-400">*</span></label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="LastName" placeholder="Doe" />
+                        </div>
+
+                        <div class="flex flex-col gap-1.5" data-rentmyattr="MobileDiv">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Mobile Number</label>
+                            <div class="flex border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-transparent transition">
+                                <span class="flex items-center gap-2 px-3 py-2.5 bg-gray-50 border-r border-gray-300 cursor-pointer" data-rentmyattr="FlagArea">
+                                    <img data-rentmyattr="RentMyRemoveMe" class="w-5 h-3.5 object-cover rounded-sm" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/NZ.svg" alt="NZ">
+                                    <i data-rentmyattr="FlagIcon" class="RentmyCountryFlagIcon"></i>
+                                    <span class="text-xs font-medium text-gray-600" data-rentmyattr="PhoneCode">+64</span>
+                                </span>
+                                <input type="text" class="flex-1 px-4 py-2.5 text-sm text-gray-800 outline-none bg-white" data-rentmyattr="Mobile" autocomplete="billing phone" placeholder="000 000 0000">
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-1.5" data-rentmyattr="EmailDiv">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Email</label>
+                            <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="Email" placeholder="john@example.com" />
+                        </div>
+
+                        <div class="flex flex-col gap-1.5 sm:col-span-2" data-rentmyattr="CompanyDiv">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Company Name <span class="normal-case text-gray-400 font-normal">(Optional)</span></label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="Company" placeholder="Acme Inc." />
+                        </div>
+
+                        <!-- Saved Address -->
+                        <div class="sm:col-span-2 flex gap-6 pt-1" data-rentmyattr="AllSavedBililingAddress">
+                            <label class="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer" data-rentmyattr="SingleAddress">
+                                <input type="radio" name="select_address" value="rent" class="w-4 h-4 accent-emerald-600"> Use saved address
+                            </label>
+                            <label class="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer" data-rentmyattr="CreateAddress">
+                                <input type="radio" name="select_address" value="rent" class="w-4 h-4 accent-emerald-600"> Create new
+                            </label>
+                        </div>
+
+                        <div class="flex flex-col gap-1.5 sm:col-span-2">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide" data-rentmyattr="CountryLabel">Country</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-white" data-rentmyattr="Country">
+                                <option value="">Select country</option>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col gap-1.5" data-rentmyattr="AddressLine1Div">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Address Line 1 <span class="text-red-400">*</span></label>
+                            <input type="text" placeholder="Enter a location" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="AddressLine1" />
+                        </div>
+
+                        <div class="flex flex-col gap-1.5" data-rentmyattr="AddressLine2Div">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Address Line 2</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="AddressLine2" placeholder="Apt, suite, etc." />
+                        </div>
+
+                        <div class="flex flex-col gap-1.5" data-rentmyattr="CityDiv">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">City <span class="text-red-400">*</span></label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="City" placeholder="New York" />
+                        </div>
+
+                        <div class="flex flex-col gap-1.5" data-rentmyattr="StateDiv">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">State</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="State" placeholder="NY" />
+                        </div>
+
+                        <div class="flex flex-col gap-1.5" data-rentmyattr="ZipCodeDiv">
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Zipcode <span class="text-red-400">*</span></label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="Zipcode" placeholder="10001" />
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <details class="mt-6 border border-gray-200 rounded-xl overflow-hidden group" data-rentmyattr="BillingAdditionalInfo">
+                        <summary class="flex items-center gap-2 px-5 py-3.5 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors list-none">
+                            <span class="w-5 h-5 flex items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold">+</span>
+                            <span class="text-sm font-semibold text-gray-700">Additional Information</span>
+                        </summary>
+                        <div class="px-5 py-4 grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-3">
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="SpecialComments">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Special Instructions / Comments</label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" placeholder="Any special notes..." />
+                            </div>
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="SpecialRequest">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Special Request</label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" />
+                            </div>
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="DrivingLicence">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Driving Licence</label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" />
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Custom Checkout Info -->
+                    <details class="mt-4 border border-gray-200 rounded-xl overflow-hidden" data-rentmyattr="BillingCustomCheckoutInfo">
+                        <summary class="flex items-center gap-2 px-5 py-3.5 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors list-none">
+                            <span class="w-5 h-5 flex items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold">+</span>
+                            <span class="text-sm font-semibold text-gray-700"><span data-rentmyattr="title_custom_checkout">Custom checkout information</span></span>
+                        </summary>
+                        <div class="px-5 py-4">
+                            <div data-rentmyattr="CustomField"></div>
+                        </div>
+                    </details>
+                </form>
+            </div>
+
+            <!-- ── Fulfillment Card ── -->
+            <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden" data-rentmyattr="FullfillmentArea" data-rentmyattr2="FullfillmentBorder">
+                <div class="bg-gradient-to-r from-gray-900 to-gray-700 px-6 py-4">
+                    <h2 class="text-sm font-semibold tracking-widest text-white uppercase" data-rentmyattr="Title">Shipping Details</h2>
+                </div>
+
+                <div class="p-4 sm:p-6">
+                    <!-- Tabs -->
+                    <div class="border-b border-gray-200 mb-6">
+                        <ul class="flex gap-3 -mb-px">
+                            <li data-rentmyattr="PickupTab" class="[&_img]:w-8 [&_img]:h-8 [&_img]:object-contain"></li>
+                            <li data-rentmyattr="ShippingTab" class="[&_img]:w-8 [&_img]:h-8 [&_img]:object-contain"></li>
+                            <li data-rentmyattr="DeliveryTab" class="[&_img]:w-8 [&_img]:h-8 [&_img]:object-contain"></li>
+                        </ul>
+                    </div>
+
+                    <!-- Pickup Locations -->
+                    <div data-rentmyattr="PickupLocations">
+                        <div class="space-y-2" data-rentmyattr="Location"></div>
+                    </div>
+
+                    <!-- Shipping & Delivery -->
+                    <div data-rentmyattr="ShipAndDelivery">
+
+                        <div class="space-y-2 mb-5" data-rentmyattr="ShippingAddressList">
+                            <div data-rentmyattr="Address">
+                                <label class="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer">
+                                    <input type="radio" name="shipping_address" value="rent" class="w-4 h-4 accent-emerald-600">
+                                    Default location (5627 Covehaven Dr, Dallas, TX, US)
+                                </label>
+                            </div>
+                            <div data-rentmyattr="CreateNew">
+                                <label class="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer">
+                                    <input type="radio" name="shipping_address" value="rent" class="w-4 h-4 accent-emerald-600">
+                                    Create New
+                                </label>
+                            </div>
+                        </div>
+
+                        <form class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-3 mt-2">
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="FirstNameDiv">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">First Name <span class="text-red-400">*</span></label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="FirstName" />
+                            </div>
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="LastNameDiv">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Last Name <span class="text-red-400">*</span></label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="LastName" />
+                            </div>
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="MobileDiv">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Mobile Number <span class="text-red-400">*</span></label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="Mobile" />
+                            </div>
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="EmailDiv">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Email</label>
+                                <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="Email" />
+                            </div>
+                            <div class="flex flex-col gap-1.5 sm:col-span-2" data-rentmyattr="CompanyDiv">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Company <span class="normal-case text-gray-400 font-normal">(Optional)</span></label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="Company" />
+                            </div>
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="AddressLine1Div">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Address Line 1 <span class="text-red-400">*</span></label>
+                                <input type="text" placeholder="Enter a location" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="AddressLine1" />
+                            </div>
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="AddressLine2Div">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Address Line 2</label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="AddressLine2" />
+                            </div>
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="CityDiv">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">City <span class="text-red-400">*</span></label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="City" />
+                            </div>
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="StateDiv">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">State</label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="State" />
+                            </div>
+                            <div class="flex flex-col gap-1.5" data-rentmyattr="ZipCodeDiv">
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Zipcode <span class="text-red-400">*</span></label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" data-rentmyattr="Zipcode" />
+                            </div>
+                        </form>
+
+                        <!-- Shipping Methods -->
+                        <div class="mt-6 bg-gray-50 rounded-xl p-4" data-rentmyattr="ShippingMethods">
+                            <h5 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Select Shipping Method</h5>
+                            <div class="space-y-2" data-rentmyattr="AllMethods">
+                                <div class="flex items-center gap-3 bg-white border border-gray-200 rounded-lg px-4 py-3 hover:border-emerald-400 transition-colors cursor-pointer" data-rentmyattr="Method">
+                                    <input type="radio" name="shipping_methods" value="rent" class="w-4 h-4 accent-emerald-600">
+                                    <span class="flex-1 text-sm text-gray-700">Flat Rate</span>
+                                    <strong class="text-sm text-gray-900">$33.99</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Delivery Costs -->
+                        <div class="mt-4 bg-gray-50 rounded-xl p-4" data-rentmyattr="DeliveryCosts">
+                            <h5 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Delivery Cost</h5>
+                            <div class="flex items-center gap-3 bg-white border border-gray-200 rounded-lg px-4 py-3 hover:border-emerald-400 transition-colors cursor-pointer" data-rentmyattr="Cost">
+                                <input type="radio" name="delivery_cost" value="rent" class="w-4 h-4 accent-emerald-600">
+                                <span class="flex-1 text-sm text-gray-700">Zone A</span>
+                                <strong class="text-sm text-gray-900">$33.99</strong>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-sm text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-4 py-2.5 hidden" data-rentmyattr="DeliveryOutsideAreaMsg">
+                            ⚠ Your address is outside of our delivery area. Please contact us to make other arrangements.
+                        </div>
+                        <div class="mt-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-2.5 hidden" data-rentmyattr="DeliveryAddressErrorMsg">
+                            Delivery is not possible for your address.
+                        </div>
+
+                        <div class="mt-5">
+                            <button type="button" class="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors" data-rentmyattr="GetShippingMethodsBtn">
+                                Get shipping method <i class="rm rm-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Multi-Distance Delivery Accordion -->
+                    <div class="mt-6 space-y-3" data-rentmyattr="DeliveryTypeMultiDistance">
+
+                        <!-- Drop Off -->
+                        <details class="border border-gray-200 rounded-xl overflow-hidden" data-rentmyattr="MultiDistanceDropOffAddress">
+                            <summary class="flex items-center justify-between px-5 py-3.5 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors list-none">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-sm font-semibold text-gray-800">Drop off Address</span>
+                                    <span class="text-xs text-gray-400">
+                                        <span data-rentmyattr="DropAddress1"></span>
+                                        <span data-rentmyattr="DropAddress2"></span>
+                                        <span data-rentmyattr="DropAddress3"></span>
+                                    </span>
+                                </div>
+                                <i class="rm rm-chevron-down text-xs text-gray-400"></i>
+                            </summary>
+                            <div class="px-5 py-3 border-t border-gray-100">
+                                <label class="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer" data-rentmyattr="SameAsAbove">
+                                    <input type="checkbox" class="w-4 h-4 accent-emerald-600"> Same as billing address
+                                </label>
+                            </div>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="px-5 pb-5">
+                                    <form class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="FirstNameDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">First Name</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="FirstName" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="LastNameDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Last Name</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="LastName" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="EmailDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Email</label><input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="Email" /></div>
+                                        <div class="flex flex-col gap-1.5 sm:col-span-2"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide" data-rentmyattr="CountryLabel">Country</label><select class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition bg-white" data-rentmyattr="Country"><option value="">Select country</option></select></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="AddressLine1Div"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Address Line 1</label><input type="text" placeholder="Enter a location" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="AddressLine1" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="AddressLine2Div"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Address Line 2</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="AddressLine2" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="CityDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">City</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="City" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="StateDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">State</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="State" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="ZipCodeDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Zipcode</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="Zipcode" /></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- Pickup Address -->
+                        <details class="border border-gray-200 rounded-xl overflow-hidden" data-rentmyattr="MultiDistancePickupAddress">
+                            <summary class="flex items-center justify-between px-5 py-3.5 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors list-none">
+                                <span class="text-sm font-semibold text-gray-800">Pickup Address</span>
+                                <i class="rm rm-chevron-down text-xs text-gray-400"></i>
+                            </summary>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="px-5 pb-5 pt-3">
+                                    <form class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="FirstNameDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">First Name</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="FirstName" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="LastNameDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Last Name</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="LastName" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="EmailDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Email</label><input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="Email" /></div>
+                                        <div class="flex flex-col gap-1.5 sm:col-span-2"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide" data-rentmyattr="CountryLabel">Country</label><select class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition bg-white" data-rentmyattr="Country"><option value="">Select country</option></select></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="AddressLine1Div"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Address Line 1</label><input type="text" placeholder="Enter a location" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="AddressLine1" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="AddressLine2Div"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Address Line 2</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="AddressLine2" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="CityDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">City</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="City" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="StateDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">State</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="State" /></div>
+                                        <div class="flex flex-col gap-1.5" data-rentmyattr="ZipCodeDiv"><label class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Zipcode</label><input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" data-rentmyattr="Zipcode" /></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </details>
+
+                        <div class="flex justify-end mt-3">
+                            <button class="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors" data-rentmyattr="GetDeliveryCost">
+                                Get delivery cost <i class="rm rm-skip-forward text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="mt-3 overflow-hidden rounded-xl border border-gray-200" data-rentmyattr="DeliveryCostList">
+                            <ul class="divide-y divide-gray-100 text-sm">
+                                <li class="flex justify-between px-5 py-3 text-gray-600" data-rentmyattr="DeliveryCostChild"><span>Delivery</span><span>10</span></li>
+                                <li class="flex justify-between px-5 py-3 font-semibold text-gray-900 bg-gray-50" data-rentmyattr="DeliveryCostTotal"><span>Total</span><span>20</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="text-sm text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-4 py-2.5 hidden" data-rentmyattr="DeliveryOutsideAreaMsg">
+                            ⚠ Your address is outside of our delivery area. Please contact us to make other arrangements.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ RIGHT ═══ -->
+        <div class="w-full lg:w-[380px] flex-shrink-0">
+            <div class="lg:sticky lg:top-6 space-y-5">
+
+                <!-- Cart Order Summary -->
+                <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden pb-20 lg:pb-0" data-rentmyattr="OrderSummary">
+                    <div data-rentmyattr="Contents">
+                        <div class="bg-gradient-to-r from-gray-900 to-gray-700 px-6 py-4">
+                            <h2 class="text-sm font-semibold tracking-widest text-white uppercase">Your Order Summary</h2>
+                        </div>
+
+                        <div class="p-6">
+                            <!-- Date -->
+                            <div class="text-xs text-gray-400 mb-4 flex items-center gap-1.5" data-rentmyattr="CheckoutDatetime">
+                                <i class="rm rm-calendar"></i> <span>12/21/2023 - 12/21/2023</span>
+                            </div>
+
+                            <!-- Cart Items -->
+                            <div class="space-y-3 mb-5" data-rentmyattr="CartItems">
+                                <div class="flex gap-3" data-rentmyattr="Item">
+                                    <div class="w-14 h-14 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden border border-gray-200">
+                                        <img src="" alt="product" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-semibold text-gray-800 truncate" data-rentmyattr="ProductName">AA</p>
+                                        <p class="text-xs text-gray-400" data-rentmyattr="ProductQuantity">qty: 1</p>
+                                        <p class="text-xs text-gray-400" data-rentmyattr="ProductVaraint">test: 1</p>
+                                        <p class="text-xs font-medium text-gray-700 mt-0.5" data-rentmyattr="ProductPrice">€0.00</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="border-t border-dashed border-gray-200 my-4"></div>
+
+                            <!-- Totals -->
+                            <dl class="space-y-2 text-sm">
+                                <div class="flex justify-between text-gray-600" data-rentmyattr="SubtotalLabel">
+                                    <dt>Subtotal</dt><dd data-rentmyattr="Subtotal">$0.00</dd>
+                                </div>
+                                <div class="flex justify-between text-gray-600" data-rentmyattr="TaxesFeesLabel">
+                                    <dt>Taxes &amp; Fees</dt><dd><span data-rentmyattr="TaxesFees">€0.00</span></dd>
+                                </div>
+                                <div class="flex justify-between text-gray-600" data-rentmyattr="OptionalServiceCheckoutRow">
+                                    <dt>Optional Services</dt><dd data-rentmyattr="OptionalService">$0.00</dd>
+                                </div>
+                                <div class="flex justify-between text-gray-600" data-rentmyattr="DepositAmountCheckoutRow">
+                                    <dt data-rentmyattr="DepositAmountLabel">Deposit Amount</dt><dd data-rentmyattr="DepositAmount">$0.00</dd>
+                                </div>
+                                <div class="flex justify-between text-gray-600" data-rentmyattr="TaxAmountLabel">
+                                    <dt>Tax</dt><dd data-rentmyattr="TaxAmount">$0.00</dd>
+                                </div>
+                                <div class="flex justify-between text-gray-600">
+                                    <dt data-rentmyattr="lbl_shipping">Shipping Charge</dt><dd data-rentmyattr="ShippingCharge">$0.00</dd>
+                                </div>
+                                <div class="flex justify-between text-gray-600">
+                                    <dt data-rentmyattr="LblDeliveryTax">Delivery Tax</dt><dd data-rentmyattr="DeliveryTax">$0.00</dd>
+                                </div>
+                                <div class="flex justify-between text-gray-600">
+                                    <dt data-rentmyattr="LblMultiDelivery">Drop off</dt>
+                                    <dd data-rentmyattr="MultiDeliveryValue">$0.00</dd>
+                                </div>
+                                <div class="border-t border-gray-200 pt-3 flex justify-between font-bold text-gray-900 text-base">
+                                    <dt data-rentmyattr="LblTotal">Total</dt>
+                                    <dd data-rentmyattr="TotalAmount">$0.00</dd>
+                                </div>
+                            </dl>
+
+                            <!-- Optional Services -->
+                            <div class="mt-5 border-t border-gray-100 pt-4" data-rentmyattr="AdditionalCharges">
+                                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Optional Services</p>
+                                <div class="space-y-3 mb-1" data-rentmyattr="SingleCharge">
+                                    <div class="flex items-start justify-between gap-3">
+                                        <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer" data-rentmyattr="Title">
+                                            <input type="checkbox" class="w-4 h-4 accent-emerald-600 mt-0.5"> give donate
+                                        </label>
+                                        <div class="text-right" data-rentmyattr="FeeAmountsAndShowInputAmout">
+                                            <div class="flex flex-wrap justify-end gap-1">
+                                                <button type="button" class="text-xs border border-gray-300 rounded-md px-2.5 py-1 hover:bg-emerald-50 hover:border-emerald-400 transition-colors" data-rentmyattr="FeeAmounts">10%</button>
+                                                <button type="button" class="text-xs border border-gray-300 rounded-md px-2.5 py-1 hover:bg-emerald-50 hover:border-emerald-400 transition-colors" data-rentmyattr="ShowInputAmount">Custom</button>
+                                            </div>
+                                            <select class="mt-1.5 text-xs border border-gray-300 rounded-md px-2 py-1 bg-white" data-rentmyattr="SelectOptions">
+                                                <option>op, op2</option>
+                                            </select>
+                                            <div class="mt-2 flex gap-1" data-rentmyattr="InputAmountArea">
+                                                <input class="flex-1 border border-gray-300 rounded-md text-xs px-2 py-1 focus:outline-none focus:ring-1 focus:ring-emerald-500" type="text" data-rentmyattr="InputAmount" />
+                                                <button type="button" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-md px-2 transition-colors" data-rentmyattr="OkButton"><i class="rm rm-check"></i></button>
+                                                <button type="button" class="text-xs bg-gray-300 hover:bg-gray-400 text-gray-700 rounded-md px-2 transition-colors" data-rentmyattr="CancelButton"><i class="rm rm-close"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- T&C + Extra Checkbox -->
+                            <div class="mt-5 space-y-3 border-t border-gray-100 pt-4">
+                                <div data-rentmyattr="CheckoutExtracCheckbox">
+                                    <label class="flex items-start gap-2.5 text-sm text-gray-600 cursor-pointer">
+                                        <input type="checkbox" class="w-4 h-4 accent-emerald-600 mt-0.5">
+                                        <div data-rentmyattr="TextArea"></div>
+                                    </label>
+                                </div>
+                                <div data-rentmyattr="TermsConditions">
+                                    <label data-rentmyattr="LabelClickShowPopup=true" class="flex items-start gap-2.5 text-sm text-gray-600 cursor-pointer">
+                                        <input type="checkbox" class="w-4 h-4 accent-emerald-600 mt-0.5">
+                                        <span>I have read and agree with the
+                                            <a class="text-emerald-600 font-semibold underline underline-offset-2 cursor-pointer" data-rentmyattr="ShowPopup">terms &amp; conditions</a>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Signature Pad -->
+                            <div class="mt-5 rounded-xl border border-gray-200 overflow-hidden" data-rentmyattr="SingnatureArea">
+                                <div class="bg-gray-50 px-4 py-2.5 border-b border-gray-200 flex items-center justify-between">
+                                    <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Signature</span>
+                                    <div class="flex gap-3">
+                                        <a class="text-xs text-emerald-600 font-medium hover:underline cursor-pointer" data-rentmyattr="Clear">Clear</a>
+                                        <a class="text-xs text-emerald-600 font-medium hover:underline cursor-pointer" data-rentmyattr="Undo">Undo</a>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3">
+                                    <canvas class="w-full h-24 border border-dashed border-gray-300 rounded-lg bg-white"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- CTA -->
+                            <div class="fixed lg:static bottom-0 left-0 right-0 z-30 mt-6 flex items-center gap-3 bg-white lg:bg-transparent border-t lg:border-t-0 border-gray-200 px-4 lg:px-0 py-3 lg:py-0">
+                                <a class="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 hover:border-gray-400 rounded-lg px-4 py-2.5 transition-colors whitespace-nowrap" href="#" data-rentmyattr="BackToCartBtn">
+                                    <i class="rm rm-arrow-left text-xs"></i>
+                                    <span data-rentmyattr="BackToCartBtnLabel">Back to Cart</span>
+                                </a>
+                                <button type="button" class="flex-1 bg-[var(--brand-primary-dark)] hover:bg-[var(--brand-primary)] active:scale-95 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition-all shadow-sm" data-rentmyattr="PlaceOrderBtn">
+                                    <span data-rentmyattr="PlaceOrderBtnLabel">Proceed To Payment</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wishlist Quote Summary -->
+                <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden" data-rentmyattr="OrderWisthListSummary">
+                    <div data-rentmyattr="WisthListContents">
+                        <div class="bg-gradient-to-r from-gray-900 to-gray-700 px-6 py-4">
+                            <h2 class="text-sm font-semibold tracking-widest text-white uppercase">Your Quote Summary</h2>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-3 mb-5" data-rentmyattr="WisthListItems">
+                                <div class="flex gap-3" data-rentmyattr="WisthListItem">
+                                    <div class="w-14 h-14 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden border border-gray-200">
+                                        <img src="" alt="product" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-semibold text-gray-800 truncate" data-rentmyattr="ProductName">AA</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <a class="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 hover:border-gray-400 rounded-lg px-4 py-2.5 transition-colors whitespace-nowrap" href="#" data-rentmyattr="BackToWishListBtn">
+                                    <i class="rm rm-arrow-left text-xs"></i>
+                                    <span data-rentmyattr="BackToWishListBtnLabel">Back to Wish List</span>
+                                </a>
+                                <button type="button" class="flex-1 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition-all shadow-sm shadow-emerald-200" data-rentmyattr="PlaceQuoteOrderBtn">
+                                    <span data-rentmyattr="PlaceOrderBtnLabel">Place Quote</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // document.addEventListener("DOMContentLoaded", () => {
+    //     RentMyEvent.add_filter('cdn:checkout:same_as_above', (bool) => {
+    //         console.log({bool});
+    //         return false
+    //     })
+    // })
+</script>

@@ -1,0 +1,90 @@
+<div class="RentMyWishlistPage RentMyWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+
+  <div class="container-fullwidth max-w-screen-xl mx-auto" data-rentmyattr="InsideContainer">
+
+    <div class="RentMyAddonProducts" data-rentmyattr="RentMyRelatedProducts">
+
+      <!-- Title bar -->
+      <div class="WishlistCopyarea mb-6">
+        <div class="WishlistTitleBar flex items-center justify-between gap-4">
+          <h3 class="WishlistSubTitle text-xl font-bold text-[var(--brand-text)]">Wish List</h3>
+
+          <!-- Desktop action buttons -->
+          <div class="WishlistTitleRightArea WishlistDesktopBtnArea hidden sm:flex items-center gap-2">
+            <button type="button" class="WishlistSaveBtn relative group inline-flex items-center gap-1.5 border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm rounded-lg px-3 py-2 transition-colors" data-rentmyattr="WishlistSaveBtn">
+              <i class="rm rm-save"></i>
+              <span>Save list</span>
+              <span class="tooltip__text tooltip__text--top">Save wish list</span>
+            </button>
+            <button type="button" class="WishlistCopyBtn relative group inline-flex items-center gap-1.5 border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm rounded-lg px-3 py-2 transition-colors" data-rentmyattr="WishlistCopyBtn">
+              <i class="rm rm-link"></i>
+              <span>Copy link</span>
+              <span class="tooltip__text tooltip__text--top">Copy wish list link</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product grid -->
+      <div class="RentMyWishlistBody">
+        <div class="RentMyRow grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+
+          <!-- Single item (widget repeats this) -->
+          <div class="WishlistItemColumn" data-rentmyattr="WishlistItem">
+            <div class="WishlistProductItem group bg-white rounded-xl border border-[var(--brand-border)] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+
+              <!-- Image -->
+              <div class="WishlistImg relative overflow-hidden aspect-square">
+                <a data-rentmyattr="ProductPageFullUrl" class="SingleItemImg block w-full h-full" href="/products/black-fernanda">
+                  <img class="img-fluid transition w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Wish list item" src="https://s3.us-east-2.amazonaws.com/images.rentmy.co/products/3787/217312/5b12v7b_1746325243_i14v71s.png" />
+                </a>
+
+                <!-- Overlay -->
+                <div class="WishlistOverlow transition absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-200">
+                  <div class="OverlowButton flex items-center gap-2">
+                    <button class="WishlistDeleteBtn w-8 h-8 rounded-full bg-white/90 hover:bg-[var(--brand-danger)] hover:text-white text-[var(--brand-text)] flex items-center justify-center transition-colors" data-rentmyattr="WishlistDeleteBtn">
+                      <i class="rm rm-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Name -->
+              <div class="WishlistBody wishlist-body px-3 py-2.5">
+                <a data-rentmyattr="ProductFullUrl" href="#">
+                  <h3 class="WishlistProductName text-sm font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] transition-colors line-clamp-2" data-rentmyattr="WishlistProductName">Black Fernanda</h3>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom actions -->
+      <div class="WishlistButtonArea mt-8 flex flex-col sm:flex-row items-center gap-3">
+        <button class="WishlistContinueBtn w-full sm:w-auto border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm font-medium rounded-xl px-6 py-2.5 transition-colors" data-rentmyattr="BtnContinueShipping">
+          Continue Shopping
+        </button>
+        <button class="WishlistQuoteBtn w-full sm:w-auto bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-6 py-2.5 transition-colors" data-rentmyattr="BtnMakeQuote">
+          Make Quote
+        </button>
+
+        <!-- Mobile save/copy buttons -->
+        <div class="WishlistTitleRightArea WishlistMobileBtnArea flex sm:hidden items-center gap-2 ml-auto">
+          <button type="button" class="WishlistSaveBtn relative group inline-flex items-center gap-1.5 border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm rounded-lg px-3 py-2 transition-colors" data-rentmyattr="WishlistSaveBtn">
+            <i class="rm rm-save"></i>
+            <span class="tooltip__text tooltip__text--top">Save wish list</span>
+          </button>
+          <button type="button" class="WishlistCopyBtn relative group inline-flex items-center gap-1.5 border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm rounded-lg px-3 py-2 transition-colors" data-rentmyattr="WishlistCopyBtn">
+            <i class="rm rm-link"></i>
+            <span class="tooltip__text tooltip__text--top">Copy wish list link</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

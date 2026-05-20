@@ -265,9 +265,10 @@ const state = JSON.parse(document.getElementById('set-content-state').textConten
 
 createApp({
     setup() {
-        const rentmyPages = ref(state.rentmyPages); // [{id, slug, name, contents, ...}]
-        const htmlFiles  = state.htmlFiles;    // ['cart.html', ...]
-        const saveUrl    = state.saveUrl;
+        const rentmyPages    = ref(state.rentmyPages); // [{id, slug, name, contents, ...}]
+        const htmlFiles      = state.htmlFiles;         // ['cart.html', ...]
+        const htmlFilesPrefix = state.htmlFilesPrefix;  // e.g. 'default-pages/v2'
+        const saveUrl        = state.saveUrl;
 
         const slugPresets = [
             '/terms-and-condition',
@@ -431,7 +432,7 @@ createApp({
         }
 
         return {
-            rentmyPages, htmlFiles, slugPresets,
+            rentmyPages, htmlFiles, htmlFilesPrefix, slugPresets,
             selectedPageId, name, slug, contents, htmlFile,
             existingId, loading, statusMsg, statusType,
             submit, reset, applySlugPreset,
@@ -489,7 +490,7 @@ createApp({
 
           <!-- HTML file -->
           <div class="field">
-            <label>Default HTML Template (public/default-pages/v2)</label>
+            <label>Default HTML Template <span style="font-weight:400;text-transform:none;">(public/{{ htmlFilesPrefix }})</span></label>
             <select v-model="htmlFile">
               <option value="">— None —</option>
               <option v-for="f in htmlFiles" :key="f" :value="f">{{ f }}</option>

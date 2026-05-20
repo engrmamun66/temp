@@ -1,0 +1,82 @@
+<div class="RentMyContactUsWrapper RentMyWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-10">
+
+  <div class="max-w-screen-lg mx-auto flex flex-col lg:flex-row gap-8 items-start">
+
+    <!-- Form card -->
+    <div class="paragraph-content-body w-full lg:flex-1 bg-white rounded-2xl shadow-sm border border-[var(--brand-border)] px-6 py-8 sm:px-10">
+
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-[var(--brand-text)]">Contact us</h2>
+        <p class="mt-1 text-sm text-[var(--brand-text-muted)]">We'd love to hear from you. Fill in the form and we'll be in touch.</p>
+      </div>
+
+      <form class="mt-4" novalidate>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
+
+          <!-- First name -->
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">First name</label>
+            <input data-rentmyattr="first_name" type="text" class="form-control w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="First name" />
+          </div>
+
+          <!-- Last name -->
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Last name</label>
+            <input data-rentmyattr="last_name" type="text" class="form-control w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Last name" />
+          </div>
+
+          <!-- Phone -->
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Phone</label>
+            <input data-rentmyattr="phone" type="text" class="form-control w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Phone number" />
+          </div>
+
+          <!-- Email -->
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Email</label>
+            <input data-rentmyattr="email" type="email" class="form-control w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="you@example.com" />
+          </div>
+
+          <!-- Extra field -->
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Extra field</label>
+            <input data-rentmyattr="extra_field" type="text" class="form-control w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" />
+          </div>
+
+          <!-- Message -->
+          <div class="sm:col-span-2 flex flex-col gap-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Questions / Comments</label>
+            <textarea data-rentmyattr="message" rows="4" class="form-control w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition resize-none" placeholder="Your message..."></textarea>
+          </div>
+
+        </div>
+
+        <!-- Captcha -->
+        <div class="mt-5 flex flex-col gap-3" data-rentmyattr="CaptchaCodeArea">
+          <img src="" alt="Captcha" data-rentmyattr="CaptchaCode" class="RentMyCaptchaImage h-12 object-contain rounded-lg border border-[var(--brand-border)]">
+          <div class="flex flex-col gap-1 max-w-[180px]">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Answer</label>
+            <input data-rentmyattr="answer" type="text" class="form-control w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Enter answer" />
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="mt-6">
+          <button data-rentmyattr="submitButton" type="button" class="RentMyBtn RentMyBtnBlack bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-6 py-2.5 transition-colors">
+            Submit
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Map + dynamic content -->
+    <div class="w-full lg:w-80 xl:w-96 flex flex-col gap-4">
+      <div id="google_map_id" class="w-full h-72 lg:h-96 rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden bg-[var(--brand-surface)]"></div>
+      <!-- <div data-rentmyattr="ContactDynamicContent" class="text-sm text-[var(--brand-text-muted)]"></div> -->
+    </div>
+
+  </div>
+
+</div>

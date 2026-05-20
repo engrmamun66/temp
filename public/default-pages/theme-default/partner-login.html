@@ -1,0 +1,51 @@
+<div id="RentMyCustomerLoginContainer" class="RentMyWrapper PartnerLogin min-h-screen bg-[var(--brand-surface)] flex items-center justify-center px-4 py-8">
+  <div class="LoginElement w-full max-w-4xl bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden flex flex-col md:flex-row">
+
+    <!-- Left: form -->
+    <div class="LoginElementLeftSide flex-1 p-8 flex flex-col justify-center gap-6">
+
+      <h3 class="LoginTitle">
+        <span class="text-2xl font-bold text-[var(--brand-text)] block">Partner Login</span>
+        <span class="AuthSubTitle text-sm text-[var(--brand-text-muted)] mt-1 block">Login to Your Account</span>
+      </h3>
+
+      <div class="RentMyAlertMessage hidden rounded-lg border border-[var(--brand-danger)] bg-[var(--brand-danger-light)] px-4 py-3 text-sm text-[var(--brand-danger)] [&:not(:empty)]:flex [&:not(:empty)]:items-start [&:not(:empty)]:gap-2"></div>
+
+      <form class="RentMyFrom flex flex-col gap-4" id="RentMyCustomerLoginForm">
+
+        <div class="RentMyInputGroup flex flex-col gap-1">
+          <label class="text-xs font-medium text-[var(--brand-text-muted)]">Email</label>
+          <input type="text" name="email" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Email">
+        </div>
+
+        <div class="RentMyInputGroup flex flex-col gap-1">
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs font-medium text-[var(--brand-text-muted)]">Password</label>
+            <a href="#" class="ForgotPassword text-xs text-[var(--brand-primary)] hover:underline" RentMyPageLink="reset_password">Forgot Password?</a>
+          </div>
+          <div class="relative">
+            <input type="password" name="password" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 pr-10 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" placeholder="Password">
+            <button type="button" class="AuthEyeIcon absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-[var(--brand-primary)] transition-colors">
+              <i class="rm rm-eye-off text-base"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="RentMyButtonGroup flex flex-col gap-3 pt-1">
+          <button type="submit" class="RentMyBtn LoginBtn w-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-5 py-2.5 transition-colors">Log in</button>
+          <p class="text-center text-xs text-[var(--brand-text-muted)]">
+            Don't have an account?
+            <a href="#" class="NewAccount text-[var(--brand-primary)] font-semibold hover:underline" RentMyPageLink="partner_registration">Sign Up</a>
+          </p>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Right: image -->
+    <div class="LoginElementRightSide hidden md:block w-80 flex-shrink-0">
+      <img src="/image/clientlogin.jpeg" class="img-fluid w-full h-full object-cover" alt="client login image">
+    </div>
+
+  </div>
+</div>

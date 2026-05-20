@@ -1,0 +1,191 @@
+<div id="RentMyCustomerProfileContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+  <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
+
+    <!-- Sidebar -->
+    <div class="RentMyLeftSidebarmenu w-full md:w-56 flex-shrink-0">
+      <div class="RentMyLeftSidebarmenuInner bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" data-rentmyattr="SideBar">
+
+        <div class="RentMyProfileImge flex flex-col items-center py-6 px-4 border-b border-[var(--brand-border)]">
+          <img ProfileImage src="" alt="" class="w-16 h-16 rounded-full object-cover bg-[var(--brand-surface)] border-2 border-[var(--brand-border)]">
+          <h5 class="RentMyProfileName mt-2 text-sm font-semibold text-[var(--brand-text)] text-center" data-rentmyattr="customer_name">{{ customer_name }}</h5>
+        </div>
+
+        <nav class="RentMySideMenu py-2">
+          <ul class="space-y-0.5 px-2">
+            <li><a data-rentmyattr="RentMyPageLink=customer_profile" class="active flex items-center gap-2 px-3 py-2 text-sm rounded-lg font-semibold text-[var(--brand-primary)] bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Profile</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_change_password" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Change Password</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_change_avatar" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Change Avatar</a></li>
+            <li><a data-rentmyattr="RentMyPageLink=customer_order_history" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Order History</a></li>
+            <li data-rentmyattr="DashboardNav"><a RentMyPageLink="customer_order_dashboard" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Dashboard</a></li>
+            <li data-rentmyattr="BillingNav"><a RentMyPageLink="customer_billing" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors cursor-pointer">Billing</a></li>
+            <li class="pt-1 border-t border-[var(--brand-border)] mt-1">
+              <a class="rentmy_logout_btn flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-[var(--brand-danger)] hover:bg-[var(--brand-danger-light)] transition-colors cursor-pointer">Logout</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="RentMyRightContent flex-1 min-w-0 flex flex-col gap-6">
+
+      <!-- Profile info card -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden">
+
+        <!-- Page header -->
+        <div class="RentMyPageHeader flex items-center justify-between px-5 py-4 border-b border-[var(--brand-border)]">
+          <h3 class="text-base font-bold text-[var(--brand-text)]">Profile Information</h3>
+          <div class="RentMyPageHeaderRightSide"></div>
+        </div>
+
+        <div class="RentMyContentBody p-5">
+          <div class="RentMyContentBodyInner RentMyContentBodyInner__modify">
+
+            <!-- View mode -->
+            <div class="RentMyCustomerInfo" id="RentmyCustomerDetailsSection">
+              <div class="RentmyCustomerDetails flex flex-col gap-1 mb-4">
+                <h5 class="text-sm font-bold text-[var(--brand-text)]" data-rentmyattr="customer_name">{{ customer_name }}</h5>
+                <span class="text-sm text-[var(--brand-text-muted)]" data-rentmyattr="customer_email">{{ customer_email }}</span>
+                <span class="text-sm text-[var(--brand-text-muted)]" data-rentmyattr="customer_company_name">{{ customer_company_name }}</span>
+                <span class="text-sm text-[var(--brand-text-muted)]" data-rentmyattr="customer_phone">{{ customer_phone }}</span>
+              </div>
+              <div class="RentMyEditArea">
+                <a id="RentmyCustomerEditBtn" href="#" class="RentMyBtn RentMyEditBtn inline-flex items-center gap-1.5 border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm font-medium rounded-xl px-4 py-2 transition-colors" data-rentmyattr="EditButton">
+                  <i class="rm rm-edit text-base"></i> Edit
+                </a>
+              </div>
+            </div>
+
+            <!-- Edit form -->
+            <form id="RentmyCustomerEditForm" class="mt-4">
+              <div class="RentMyRow grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div class="RentMyAlertMessage RentMyFullwidth sm:col-span-2 hidden rounded-lg border border-[var(--brand-danger)] bg-[var(--brand-danger-light)] px-4 py-3 text-sm text-[var(--brand-danger)] [&:not(:empty)]:flex [&:not(:empty)]:items-start [&:not(:empty)]:gap-2"></div>
+
+                <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+                  <label for="first_name" class="text-xs font-medium text-[var(--brand-text-muted)]">First Name</label>
+                  <input type="text" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="first_name" id="first_name" required>
+                </div>
+
+                <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+                  <label for="last_name" class="text-xs font-medium text-[var(--brand-text-muted)]">Last Name</label>
+                  <input type="text" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="last_name" id="last_name" required>
+                </div>
+
+                <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+                  <label for="email" class="text-xs font-medium text-[var(--brand-text-muted)]">Email</label>
+                  <input type="email" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="email" id="email" required>
+                </div>
+
+                <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+                  <label for="mobile" class="text-xs font-medium text-[var(--brand-text-muted)]">Mobile Number</label>
+                  <input type="text" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="mobile" id="mobile" required>
+                </div>
+
+                <div class="RentMyInputGroup RentMyHalfwidth flex flex-col gap-1">
+                  <label for="company" class="text-xs font-medium text-[var(--brand-text-muted)]">Company Name</label>
+                  <input type="text" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="company" id="company" required>
+                </div>
+
+                <div class="RentMyButtonGroup RentMyNotBetween RentMyHalfwidth flex items-end gap-3 pb-0.5">
+                  <button id="RentmyCustomerSubmitBtn" type="submit" class="RentMyBtn RentMyCustomerInfoSubmit bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-5 py-2.5 transition-colors">Submit</button>
+                  <button id="RentmyCustomerCancelBtn" type="button" class="RentMyBtn RentMyCustomerInfoCancel border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm font-medium rounded-xl px-5 py-2.5 transition-colors">Cancel</button>
+                </div>
+
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Address list card -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden" id="RentmyCustomerAddessList">
+
+        <div class="FlexHeader flex items-center justify-between px-5 py-4 border-b border-[var(--brand-border)]">
+          <h5 class="AddressHeader text-sm font-bold text-[var(--brand-text)]">Address</h5>
+          <a class="RentMyBtn RentMyEditBtn addAddress inline-flex items-center gap-1.5 border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm font-medium rounded-xl px-3 py-1.5 transition-colors" tooltip="Add Address" data-rentmyattr="AddAddressBtn">
+            <i class="rm rm-plus text-base"></i> Add Address
+          </a>
+        </div>
+
+        <div class="AddressBody p-5 space-y-3" data-rentmyattr="AddressBody">
+          <div data-rentmyattr="AddressGroup" class="rounded-xl border border-[var(--brand-border)] overflow-hidden">
+            <div class="px-4 py-2 bg-[var(--brand-surface)] border-b border-[var(--brand-border)]">
+              <h5 class="AddressSubHeader text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide" data-rentmyattr="AddressType">Primary</h5>
+            </div>
+            <div class="Address flex items-start justify-between gap-3 px-4 py-3" data-rentmyattr="Address">
+              <label class="text-sm text-[var(--brand-text-muted)] flex-1">ADD 1 ADD2 New York NY 11435 US</label>
+              <div class="Actions flex items-center gap-1 flex-shrink-0">
+                <button class="btn btn-sm biling-address-edit inline-flex items-center justify-center w-7 h-7 rounded-lg text-[var(--brand-danger)] hover:bg-[var(--brand-danger-light)] transition-colors" tooltip="Delete" data-rentmyattr="IconTrash">
+                  <i class="rm rm-trash text-base"></i>
+                </button>
+                <button class="btn btn-sm biling-address-edit inline-flex items-center justify-center w-7 h-7 rounded-lg text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors" tooltip="Update" data-rentmyattr="IconEdit">
+                  <i class="rm rm-edit text-base"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address add/edit form -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden">
+        <div class="px-5 py-4 border-b border-[var(--brand-border)]">
+          <h5 class="text-sm font-bold text-[var(--brand-text)]">Address Details</h5>
+        </div>
+        <div class="p-5">
+          <form id="RentmyAddressAddEditForm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <div class="RentMyInputGroup flex flex-col gap-1">
+                <label for="type" class="text-xs font-medium text-[var(--brand-text-muted)]">Address Type (Primary / Office / Home)</label>
+                <input type="text" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="type">
+              </div>
+
+              <div class="RentMyInputGroup flex flex-col gap-1">
+                <label for="addr_mobile" class="text-xs font-medium text-[var(--brand-text-muted)]">Mobile</label>
+                <input type="text" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="mobile">
+              </div>
+
+              <div class="RentMyInputGroup flex flex-col gap-1">
+                <label for="country" class="text-xs font-medium text-[var(--brand-text-muted)]">Country</label>
+                <select class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] transition" name="country">
+                  <option value="">Country</option>
+                </select>
+              </div>
+
+              <div class="RentMyInputGroup flex flex-col gap-1">
+                <label for="address_line1" class="text-xs font-medium text-[var(--brand-text-muted)]">Address</label>
+                <input type="text" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="address_line1">
+              </div>
+
+              <div class="RentMyInputGroup flex flex-col gap-1">
+                <label for="city" class="text-xs font-medium text-[var(--brand-text-muted)]">City</label>
+                <input type="text" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="city">
+              </div>
+
+              <div class="RentMyInputGroup flex flex-col gap-1">
+                <label for="state" class="text-xs font-medium text-[var(--brand-text-muted)]">State</label>
+                <input type="text" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="state">
+              </div>
+
+              <div class="RentMyInputGroup flex flex-col gap-1">
+                <label for="zipcode" class="text-xs font-medium text-[var(--brand-text-muted)]">Zipcode</label>
+                <input type="text" class="RentMyInputField w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] focus:bg-white transition" name="zipcode">
+              </div>
+
+              <div class="sm:col-span-2 flex flex-wrap gap-3">
+                <button id="RentmyAddressAddBtn" type="submit" class="RentMyBtn RentMyCustomerInfoSubmit bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-5 py-2.5 transition-colors">Add Address</button>
+                <button id="RentmyAddressUpdateBtn" type="submit" class="RentMyBtn RentMyCustomerInfoSubmit bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-5 py-2.5 transition-colors">Update Address</button>
+                <button id="RentmyAddressCancelBtn" type="button" class="RentMyBtn RentMyCustomerInfoCancel border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm font-medium rounded-xl px-5 py-2.5 transition-colors">Cancel</button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

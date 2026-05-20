@@ -4,9 +4,10 @@ import { Request, Response } from 'express';
 import { ApiClient } from '../../services/ApiClient';
 import { EnumDefautlsPageSlugs } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
+import { prefix } from '../../services/PushMissingRoutes';
 
 const SET_CONTENT_HTML = path.resolve(process.cwd(), 'public', 'api-contents', 'set-content.app.html');
-const V2_PAGES_DIR     = path.resolve(process.cwd(), 'public', 'default-pages', 'v2');
+const V2_PAGES_DIR     = path.resolve(process.cwd(), 'public', prefix);
 
 const setContentSource = () => fs.readFileSync(SET_CONTENT_HTML, 'utf-8');
 
@@ -50,6 +51,7 @@ export class SetContentController {
                 enumSlugs,
                 rentmyPages,
                 htmlFiles,
+                htmlFilesPrefix: prefix,
                 saveUrl: '/api/_/set-content',
             });
 

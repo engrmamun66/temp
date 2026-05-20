@@ -1,0 +1,292 @@
+<div class="RentMyWrapperProductDetails RentMyWrapper bg-[var(--brand-surface)] min-h-screen" data-rentmy="">
+
+  <div class="RentMyProductDetailsRow max-w-screen-xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
+
+    <!-- Image gallery -->
+    <div class="RentMyProductDetilsImg flex flex-col gap-3 lg:w-[440px] flex-shrink-0">
+
+      <div class="RentMyProductDetailsImgShow rounded-2xl overflow-hidden border border-[var(--brand-border)] bg-white aspect-square">
+        <img data-rentmyattr="RentMyProductImage" src="" alt="product show img" class="w-full h-full object-cover">
+      </div>
+      <div class="RentMyProductDetailsImgList">
+        <ul class="flex flex-row lg:flex-col gap-2" data-rentmyattr="RentMyProductImages">
+          <li class="ActiveImg w-16 h-16 rounded-xl overflow-hidden border-2 border-[var(--brand-primary)] cursor-pointer flex-shrink-0">
+            <img src="" alt="product img" class="w-full h-full object-cover">
+          </li>
+          <li class="w-16 h-16 rounded-xl overflow-hidden border border-[var(--brand-border)] cursor-pointer hover:border-[var(--brand-primary)] transition-colors flex-shrink-0">
+            <img src="" alt="product img" class="w-full h-full object-cover">
+          </li>
+          <li class="w-16 h-16 rounded-xl overflow-hidden border border-[var(--brand-border)] cursor-pointer hover:border-[var(--brand-primary)] transition-colors flex-shrink-0">
+            <img src="" alt="product img" class="w-full h-full object-cover">
+          </li>
+          <li class="w-16 h-16 rounded-xl overflow-hidden border border-[var(--brand-border)] cursor-pointer hover:border-[var(--brand-primary)] transition-colors flex-shrink-0">
+            <img src="" alt="product img" class="w-full h-full object-cover">
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Product info -->
+    <div class="RentMyProductDetilsInfo flex-1 min-w-0" data-rentmyattr="RentMyProductDetilsInfo">
+      <div class="product-payment-details bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm p-6 flex flex-col gap-3">
+
+        <h2 class="RentMyProductName text-2xl font-bold text-[var(--brand-text)]" data-rentmyattr="RentMyProductName" data-rentmyattr2="product_name">Product Name</h2>
+
+        <!-- Buy/Rent toggle -->
+        <div class="RentMyBuyRentToggle" data-rentmyattr="RentMyBuyRentToggle">
+          <label for="BuyRentToggleSwitch" class="BuyRentToggleSwitch inline-flex items-center gap-2 cursor-pointer group">
+            <input type="checkbox" id="BuyRentToggleSwitch" data-rentmyattr="BuyRentToggleSwitch" class="sr-only peer">
+            <div class="ToggleSwitchRound relative w-11 h-6 bg-[var(--brand-border)] peer-checked:bg-[var(--brand-primary)] rounded-full transition-colors duration-200">
+              <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 group-has-[input:checked]:translate-x-5"></span>
+            </div>
+          </label>
+        </div>
+
+        <div class="ShortDescription text-sm text-[var(--brand-text-muted)] leading-relaxed" data-rentmyattr="CustomFieldShortDesc">
+          <p>Default Description</p>
+        </div>
+
+        <!-- Price -->
+        <div class="flex flex-col gap-1">
+          <h2 class="RentMyProductPrice text-xl font-bold text-[var(--brand-primary)]" data-rentmyattr="RentMyProductPrice" data-rentmyattr2="product_price_text">$0.00</h2>
+          <h5 class="ProductPrice ProductPriceAsLowPerDay text-xs text-[var(--brand-text-muted)]" data-rentmyattr="RentMyProductPriceAsLowPerDay">As low as $55.00 per day</h5>
+        </div>
+
+        <!-- Recurring -->
+        <div class="RentMyRecurring" data-rentmyattr="RentMyRecurring">
+          <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="RecurringTitle">Recurring Pricing</h6>
+          <ul class="flex flex-wrap gap-2" data-rentmyattr="RecurringList">
+            <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="RecurringItem">Recurring</li>
+          </ul>
+        </div>
+
+        <!-- Variants -->
+        <div class="RentMyVariant" data-rentmyattr="RentMyVariant">
+          <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="VariantTitle">Rent My Variant Sizes</h6>
+          <ul class="flex flex-wrap gap-2" data-rentmyattr="VariantList">
+            <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="VariantItem">Small</li>
+          </ul>
+        </div>
+
+        <!-- Product options -->
+        <div class="RentMyProductOptions" data-rentmyattr="RentMyProductOptions">
+          <div class="CustomFieldInner">
+            <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="ProductOptionsTitle">Product Options</h6>
+            <ul class="flex flex-col gap-3" data-rentmyattr="ProductOptionsItem">
+              <div data-rentmyattr="type-select">
+                <p class="text-xs font-medium text-[var(--brand-text-muted)] mb-1" data-rentmyattr="fieldLabel"></p>
+                <select class="w-full border border-[var(--brand-border)] rounded-lg px-3 py-2.5 text-sm bg-[var(--brand-surface)] text-[var(--brand-text)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary-light)] focus:border-[var(--brand-primary)] transition"></select>
+              </div>
+              <div data-rentmyattr="type-button">
+                <p class="text-xs font-medium text-[var(--brand-text-muted)] mb-1" data-rentmyattr="fieldLabel"></p>
+                <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors inline-flex" data-rentmyattr="fieldValue"></li>
+              </div>
+              <div data-rentmyattr="type-radio"></div>
+              <div data-rentmyattr="type-richtext">
+                <p class="text-xs font-medium text-[var(--brand-text-muted)] mb-1" data-rentmyattr="fieldLabel"></p>
+                <li class="text-sm text-[var(--brand-text-muted)]" data-rentmyattr="fieldValue"></li>
+              </div>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Ticket booking options -->
+        <div class="RentmyTicketArea" data-rentmyattr="RentmyTicketBookingProductOptionsArea">
+          <div class="RentmyTicketAreaInner" data-rentmyattr="CustomFieldInner">
+            <h6 class="RentmyTicketLabel text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-3" data-rentmyattr="ProductOptionsTitle">Tickets</h6>
+            <div class="RentmyTicketBox flex items-center gap-4 bg-[var(--brand-surface)] rounded-xl border border-[var(--brand-border)] px-4 py-3" data-rentmyattr="ProductOptionsItem">
+              <div class="RentmyTicketSelect flex flex-col items-center gap-1">
+                <button class="RentmyQtMinusBtn w-7 h-7 flex items-center justify-center rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="RentmyQtPlusBtn">
+                  <i class="rm rm-chevron-up text-sm"></i>
+                </button>
+                <input type="text" class="RentmyQtInput w-10 h-8 text-center text-sm font-semibold border border-[var(--brand-border)] rounded-lg bg-white text-[var(--brand-text)] focus:outline-none focus:border-[var(--brand-primary)] transition" data-rentmyattr="RentmyQtInput">
+                <button class="RentmyQtPlusBtn w-7 h-7 flex items-center justify-center rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="RentmyQtMinusBtn">
+                  <i class="rm rm-chevron-down text-sm"></i>
+                </button>
+              </div>
+              <div type-button class="RentmyTicketOtherInfo flex-1">
+                <h5 class="text-sm font-semibold text-[var(--brand-text)]" data-rentmyattr="fieldLabel">Adult</h5>
+                <span class="text-sm font-bold text-[var(--brand-primary)]" data-rentmyattr="fieldValue">zł10.00</span>
+              </div>
+            </div>
+            <div class="QtyContainer mt-2" data-rentmyattr="QtyContainer">
+              <small class="AvailableItem text-xs text-[var(--brand-text-muted)]">
+                <span data-rentmyattr="RentmyAvailableLabel">Available</span>:
+                <span class="font-semibold text-[var(--brand-text)]" data-rentmyattr="RentmyAvailableQty">17</span>
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rental start date -->
+        <div class="RentMyRentalStartDate" data-rentmyattr="RentMyRentalStartDate">
+          <div data-rentmyattr="usualDateRange">
+            <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="RentalStartDateTitle">Select Rental Start Date</h6>
+            <ul class="flex flex-wrap gap-2 mb-2" data-rentmyattr="RentalStartDateList">
+              <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="Today">Today</li>
+              <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="Tomorrow">Tomorrow</li>
+              <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="PickDate">Pick Date</li>
+            </ul>
+            <span class="text-sm text-[var(--brand-primary)] font-medium" data-rentmyattr="RentalStartDateSelectedLabel">Today 08:00 AM</span>
+            <div id="RentmyInlineCalendar_ForStartDates" class="mt-2"></div>
+          </div>
+        </div>
+
+        <!-- Exact times -->
+        <div class="RentMyBookingExactTimes" data-rentmyattr="RentMyBookingExactTimes">
+          <div data-rentmyattr="TimeArea">
+            <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="TitleTag">Select Start time</h6>
+            <ul class="flex flex-wrap gap-2">
+              <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="exactTimeItem" data-rentmyattr="activeClass=timeActive">12:00 AM</li>
+            </ul>
+          </div>
+          <div class="TourNotAvailableMsg mt-2 text-sm text-[var(--brand-danger)] bg-[var(--brand-danger-light)] border border-[var(--brand-danger)] rounded-lg px-3 py-2" data-rentmyattr="TourNotAvailableMessageArea">
+            This tour is not available on the date you selected. Please pick another date.
+          </div>
+        </div>
+
+        <!-- Rental date range -->
+        <div class="RentMyRentalDateRange" data-rentmyattr="RentMyRentalDateRange">
+          <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="RentalDateRangeTitle">Rental Date Range</h6>
+          <ul class="flex flex-wrap gap-2 mb-2" data-rentmyattr="RentalDateRangeList">
+            <li class="flex flex-col items-center gap-0.5 px-3 py-2 rounded-lg border border-[var(--brand-border)] cursor-pointer hover:border-[var(--brand-primary)] transition-colors text-sm" data-rentmyattr="RentalDateRangeItem">
+              <span class="font-medium text-[var(--brand-text)]" data-rentmyattr="PricePreText">1 hour</span>
+              <span class="font-bold text-[var(--brand-primary)]" data-rentmyattr="Price">$10.00</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Rental end date -->
+        <div class="RentMyRentalDateRange" data-rentmyattr="RentMyRentalEndDate">
+          <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="RentalDateRangeTitle">Rental Date Range</h6>
+          <ul class="flex flex-wrap gap-2 mb-2">
+            <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="RentalEndDatePicker">
+              <span data-rentmyattr="rangePickerLabel">Select rental date</span>
+            </li>
+          </ul>
+          <span class="text-sm text-[var(--brand-primary)] font-medium" data-rentmyattr="RentalEndDateSelectedLabel">Today 09:00 AM</span>
+          <div id="RentmyInlineCalendar_ForEndDates" class="mt-2"></div>
+        </div>
+
+        <!-- Exact select duration -->
+        <div class="RentMyExactSelectDuration" data-rentmyattr="RentMyExactSelectDuration">
+          <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="RentMyExactSelectDurationTitle">Select Duration</h6>
+          <ul class="flex flex-wrap gap-2" data-rentmyattr="RentMyExactSelectDurationList">
+            <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="RentMyExactSelectDurationItem">Exact Select Duration</li>
+          </ul>
+        </div>
+
+        <!-- Exact select time -->
+        <div class="RentMyExactSelectTime" data-rentmyattr="RentMyExactSelectTime">
+          <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="RentMyExactSelectTimeTitle">Select Exact Start time</h6>
+          <ul class="flex flex-wrap gap-2" data-rentmyattr="RentMyExactSelectTimeList">
+            <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="RentMyExactSelectTimeItem">Exact Times</li>
+          </ul>
+        </div>
+
+        <!-- Delivery options -->
+        <div class="RentMyDeliveryOptions" data-rentmyattr="RentMyDeliveryOptions">
+          <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="DeliveryOptionsTitle">Delivery Options</h6>
+          <ul class="flex flex-wrap gap-2" data-rentmyattr="DeliveryOptionsList">
+            <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="DeliveryOptionsItem">Local Move</li>
+          </ul>
+        </div>
+
+        <div class="RentMyDeliveryOptions" data-rentmyattr="RentMyDeliveryTypes">
+          <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="DeliveryTypesTitle">Delivery Options</h6>
+          <ul class="flex flex-wrap gap-2" data-rentmyattr="DeliveryTypesList">
+            <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="DeliveryTypesItem">Local Move</li>
+          </ul>
+        </div>
+
+        <!-- Select location -->
+        <div class="RentMySelectLocation" data-rentmyattr="RentMySelectLocation">
+          <h6 class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2" data-rentmyattr="SelectLocationTitle">Select Location</h6>
+          <ul class="flex flex-wrap gap-2" data-rentmyattr="SelectLocationList">
+            <li class="text-sm px-3 py-1.5 rounded-lg border border-[var(--brand-border)] text-[var(--brand-text-muted)] cursor-pointer hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition-colors" data-rentmyattr="SelectLocationItem">Default location</li>
+          </ul>
+        </div>
+
+        <!-- Quantity -->
+        <div class="QuantityContainer" data-rentmyattr="RentmyQuantityContainer">
+          <label class="text-xs font-bold text-[var(--brand-text)] uppercase tracking-wide mb-2 block" data-rentmyattr="QuantityContainerTitle">Quantity</label>
+          <div class="QuantityBtn inline-flex items-center border border-[var(--brand-border)] rounded-xl overflow-hidden">
+            <button class="RentMyBtn w-9 h-10 flex items-center justify-center text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors text-lg font-semibold" data-rentmyattr="QuantityDecrementBtn">-</button>
+            <input type="text" autocomplete="off" name="qty" class="InputQuantity w-12 h-10 text-center text-sm font-semibold text-[var(--brand-text)] border-x border-[var(--brand-border)] focus:outline-none bg-white" data-rentmyattr="NumberOfQuantity">
+            <button class="RentMyBtn w-9 h-10 flex items-center justify-center text-[var(--brand-text-muted)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-primary-light)] transition-colors text-lg font-semibold" data-rentmyattr="QuantityIncrementBtn">+</button>
+          </div>
+          <small class="info block mt-1.5 text-xs text-[var(--brand-text-muted)]">
+            <span data-rentmyattr="RentmyAvailableLabel">Available</span>
+            <span class="font-semibold text-[var(--brand-text)]" data-rentmyattr="RentmyAvailableQty">17</span>
+          </small>
+        </div>
+ 
+        <div data-rentmyattr="RentmyAvailableNotice" class="text-sm text-[var(--brand-text-muted)]"></div>
+
+        <!-- Product ID -->
+        <div class="text-xs text-[var(--brand-text-muted)]" data-rentmyattr="ProductIdArea">
+          <strong class="text-[var(--brand-text)]" data-rentmyattr="ProductIdLabel">Product ID :</strong>
+          <span data-rentmyattr="ProductIdNo"> 000</span>
+        </div>
+
+        <!-- Cart / Wishlist -->
+        <div class="RentMyCartBtnArea flex flex-wrap gap-3" data-rentmyattr="RentMyCartBtnArea">
+          <button class="RentMyBtn RentMyAddCartBtn flex-1 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-bold rounded-xl px-5 py-3 transition-colors uppercase tracking-wide" data-rentmyattr="RentMyAddCartBtn">
+            <i class="rm rm-cart text-base mr-1.5"></i> Add To Cart
+          </button>
+          <button class="RentMyBtn RentMyAddWishlistBtn inline-flex items-center gap-1.5 border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] text-sm font-medium rounded-xl px-5 py-3 transition-colors" data-rentmyattr="RentMyAddToWishlistBtn">
+            <i class="rm rm-heart-outline text-base"></i> Add To Wishlist
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Product description -->
+  <div class="RentMyProductDescription max-w-screen-xl mx-auto px-4 mt-8">
+    <div class="bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm p-6">
+      <h3 class="RentMyProductDesTitle text-base font-bold text-[var(--brand-text)] mb-4">Product Description</h3>
+      <div class="RentMyProductDesBody text-sm text-[var(--brand-text-muted)] leading-relaxed" data-rentmyattr="RentMyProductDescription"></div>
+    </div>
+  </div>
+
+  <!-- Related products -->
+  <div class="RentMyRelatedProduct max-w-screen-xl mx-auto px-4 py-10">
+    <h3 class="RentMyRelatedProductTitle text-lg font-bold text-[var(--brand-text)] mb-6">Related Products</h3>
+    <div class="RentMyRelatedProductBody">
+      <div class="RentMyRow grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5" data-rentmyattr="RentMyRelatedProducts">
+        <div class="RentMyProductItem" data-rentmyattr="RentMyProductItem">
+          <div class="RentMyProductItemInner bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden group hover:shadow-md transition-shadow">
+            <div class="RentMyProductImg relative">
+              <a href="#" data-rentmyattr="RentMyProductImageUrl">
+                <img data-rentmyattr="RentMyProductImage" src="" class="ProductImg w-full aspect-square object-cover" alt="">
+              </a>
+              <div class="RentMyProductOverlay absolute inset-0 bg-black/30 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div class="WishlistSingleItemOption" data-rentmyattr="WishListBtnArea">
+                  <button class="WishlistAddButton w-9 h-9 rounded-full bg-white flex items-center justify-center text-[var(--brand-text)] hover:text-[var(--brand-danger)] transition-colors" data-rentmyattr="RentMyAddToWishListBtn">
+                    <i class="rm rm-heart-outline text-base"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="RentMyProductBody p-4 flex flex-col gap-2">
+              <h4 class="ProductName text-sm font-semibold text-[var(--brand-text)] truncate" data-rentmyattr="RentMyProductName">Product_name</h4>
+              <h5 class="ProductPrice text-sm font-bold text-[var(--brand-primary)]" data-rentmyattr="RentMyProductPrice">product_price</h5>
+              <div class="ProductButton flex gap-2" data-rentmyattr="ProductButtons">
+                <a class="ProductDetailsBtn flex-1 text-center text-xs font-medium border border-[var(--brand-border)] hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] text-[var(--brand-text-muted)] rounded-lg px-3 py-1.5 transition-colors" href="#" data-rentmyattr="RentMyViewDetailsBtn">View Details</a>
+                <button class="ProductCartBtn flex-1 text-xs font-semibold bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white rounded-lg px-3 py-1.5 transition-colors" data-rentmyattr="RentMyAddToCartBtn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+ 
+
+<!-- In page cart widget -->
+<div class="RentMyWrapperInpageCartWidget RentMyWrapper"></div>
