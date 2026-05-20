@@ -4,7 +4,7 @@ import { logToFile } from '../../../utils/fileLogger';
 import { PageWiseControlContext, PageWiseControlResult, getContentFilePath } from './types';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
-const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'default-pages', '404.html');
+const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'themes', '404.html');
 const HANDLER_NAME = 'filePageControl';
 
 function resolveTitle(title: string, siteName: string): string {

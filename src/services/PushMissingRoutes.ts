@@ -29,8 +29,8 @@ import { pushTermsAndConditions } from './pase-wise-pushes/push:terms-and-condit
 import { pushNotFound } from './pase-wise-pushes/push:404-not-found';
 import { pushContact } from './pase-wise-pushes/push:contact';
 
-// export const prefix = 'default-pages/'
-export const prefix = 'default-pages/v2'
+// export const prefix = 'themes/'
+export const prefix = 'themes/v2'
 
 export function pushMissingRoutes(routes: RskRoute[], rentmyPages: RentMyPage[], subdomain: string): RskRoute[]
 {

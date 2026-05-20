@@ -6,7 +6,7 @@ import { PageWiseControlContext, PageWiseControlResult, getContentFilePath } fro
 
 const HANDLER_NAME = 'singleBlogPageControl';
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
-const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'default-pages', '404.html');
+const DEFAULT_404_HTML = path.resolve(PUBLIC_DIR, 'themes', '404.html');
 
 function sanitizeUrl(value: string): string {
   const trimmed = value.trim();

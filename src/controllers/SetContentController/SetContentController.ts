@@ -145,7 +145,7 @@ export class SetContentController {
             res.status(400).json({ error: 'Invalid file name' });
             return;
         }
-        const filePath = path.resolve(process.cwd(), 'public', 'default-pages', 'v2', file);
+        const filePath = path.resolve(process.cwd(), 'public', 'themes', 'v2', file);
         try {
             const content = fs.readFileSync(filePath, 'utf-8');
             res.type('text/plain').send(content);
