@@ -6,7 +6,8 @@ export interface RskRoute {
   title:           string; 
   page_key:        string;
   route_path:      string;
-  content_path:   string | { file?: string; seo_end_point: string; api_endpoint?: string };
+  content_path:   string | { file?: string; seo_end_point: string; api_endpoint?: string }; 
+  // if value is string: that means, SEO contentn and SEO will come with same API
   content_source: 'file' | 'api';
   layout?:         string | null;
   _source?: 'force_pushed';
@@ -183,6 +184,7 @@ export enum EnumPageKes {
 }
  
 export enum EnumDefautlsPageSlugs {
+  home                      = '/home',
   products_list             = '/products-list',
   product_details           = '/product-details',
   package_details           = '/package-details',
