@@ -32,6 +32,7 @@ Thumbs.db
 # TypeScript
 *.tsbuildinfo
 ecosystem.config.js
+CLAUDE.local.md
 
 
 src/i-server/settings.*.json
