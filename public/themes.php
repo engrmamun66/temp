@@ -8,7 +8,395 @@ return [
             "status"  => 1,
             "details" => null,
             "pages"   => [
-            ["slug" => "products-list", "name" => "Products List", "contents" => '<div class="RentMyWrapperProductList RentMyWrapper container mx-auto px-4 py-6 max-w-screen-xl"
+            ["slug" => "home", "name" => "Home", "contents" => <<<EOD
+<!-- ── Hero Slider ─────────────────────────────────────────────────── -->
+<section class="relative w-full overflow-hidden" style="height:520px;" id="rsk-hero-slider">
+
+  <!-- Slides -->
+  <div id="rsk-slides" class="flex h-full transition-transform duration-500 ease-in-out">
+
+    <!-- Slide 1 -->
+    <div class="relative flex-shrink-0 w-full h-full flex items-center" style="background: linear-gradient(135deg, #1e293b 0%, #334155 60%, #475569 100%);">
+      <div class="absolute inset-0 opacity-10" style="background-image:url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+      <div class="relative max-w-7xl mx-auto px-8 sm:px-12 lg:px-16 w-full flex flex-col sm:flex-row items-center gap-8">
+        <div class="flex-1 text-white">
+          <span class="inline-block bg-white/10 border border-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-widest">New Collection</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-4">Gear Up for<br><span style="color:#94a3b8;">Your Next Adventure</span></h1>
+          <p class="text-white/70 text-base mb-7 max-w-md">Rent premium outdoor equipment delivered to your door. Tents, packs, and more — ready when you are.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/products-list" class="inline-flex items-center gap-2 bg-white text-slate-800 font-semibold text-sm px-6 py-3 rounded-xl hover:bg-slate-100 transition-colors">
+              Shop Now
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="/category-products" class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white font-semibold text-sm px-6 py-3 rounded-xl hover:bg-white/20 transition-colors">Browse Categories</a>
+          </div>
+        </div>
+        <div class="hidden sm:flex flex-shrink-0 w-64 h-64 items-center justify-center">
+          <div class="w-48 h-48 bg-white/5 border border-white/10 rounded-3xl flex items-center justify-center">
+            <svg class="w-24 h-24 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline stroke-linecap="round" stroke-linejoin="round" stroke-width="1" points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="relative flex-shrink-0 w-full h-full flex items-center" style="background: linear-gradient(135deg, #292524 0%, #44403c 60%, #57534e 100%);">
+      <div class="absolute inset-0 opacity-5" style="background-image:url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M0 40L40 0H20L0 20M40 40V20L20 40\'/%3E%3C/g%3E%3C/svg%3E');"></div>
+      <div class="relative max-w-7xl mx-auto px-8 sm:px-12 lg:px-16 w-full flex flex-col sm:flex-row items-center gap-8">
+        <div class="flex-1 text-white">
+          <span class="inline-block bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-widest">Limited Time</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-4">Weekend Deals<br><span class="text-amber-400">Up to 40% Off</span></h1>
+          <p class="text-white/70 text-base mb-7 max-w-md">Book your rental dates early and save big. Camping packages, kayaks, bikes and more at unbeatable prices.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/products-list" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-semibold text-sm px-6 py-3 rounded-xl transition-colors">
+              Grab the Deal
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </a>
+            <a href="/products-list" class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white font-semibold text-sm px-6 py-3 rounded-xl hover:bg-white/20 transition-colors">View All</a>
+          </div>
+        </div>
+        <div class="hidden sm:flex flex-shrink-0 w-64 h-64 items-center justify-center">
+          <div class="w-48 h-48 bg-white/5 border border-white/10 rounded-3xl flex items-center justify-center">
+            <svg class="w-24 h-24 text-amber-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="relative flex-shrink-0 w-full h-full flex items-center" style="background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #1e40af 100%);">
+      <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 25% 50%, rgba(255,255,255,0.15) 0%, transparent 50%), radial-gradient(circle at 75% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);"></div>
+      <div class="relative max-w-7xl mx-auto px-8 sm:px-12 lg:px-16 w-full flex flex-col sm:flex-row items-center gap-8">
+        <div class="flex-1 text-white">
+          <span class="inline-block bg-blue-400/20 border border-blue-400/30 text-blue-300 text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-widest">Free Delivery</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-4">Delivered to<br><span class="text-blue-300">Your Trailhead</span></h1>
+          <p class="text-white/70 text-base mb-7 max-w-md">Skip the hassle. We deliver and pick up your gear directly at the trailhead. Focus on the adventure.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/products-list" class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-400 text-white font-semibold text-sm px-6 py-3 rounded-xl transition-colors">
+              Book Delivery
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8l1 12h12l1-12"/></svg>
+            </a>
+            <a href="/about" class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white font-semibold text-sm px-6 py-3 rounded-xl hover:bg-white/20 transition-colors">Learn More</a>
+          </div>
+        </div>
+        <div class="hidden sm:flex flex-shrink-0 w-64 h-64 items-center justify-center">
+          <div class="w-48 h-48 bg-white/5 border border-white/10 rounded-3xl flex items-center justify-center">
+            <svg class="w-24 h-24 text-blue-300/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2 1h7l1-1zM13 16l2-8h4l2 8h-8z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Prev / Next -->
+  <button id="rsk-prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/30 hover:bg-black/50 text-white rounded-full flex items-center justify-center transition-colors z-10" aria-label="Previous">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+  </button>
+  <button id="rsk-next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/30 hover:bg-black/50 text-white rounded-full flex items-center justify-center transition-colors z-10" aria-label="Next">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  </button>
+
+  <!-- Dots -->
+  <div id="rsk-dots" class="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+    <button class="rsk-dot w-2.5 h-2.5 rounded-full bg-white transition-all" data-idx="0" aria-label="Slide 1"></button>
+    <button class="rsk-dot w-2.5 h-2.5 rounded-full bg-white/40 transition-all" data-idx="1" aria-label="Slide 2"></button>
+    <button class="rsk-dot w-2.5 h-2.5 rounded-full bg-white/40 transition-all" data-idx="2" aria-label="Slide 3"></button>
+  </div>
+</section>
+
+
+
+
+<script>
+(function () {
+  var total   = 3;
+  var current = 0;
+  var timer;
+  var track = document.getElementById('rsk-slides');
+  var dots  = document.querySelectorAll('.rsk-dot');
+
+  function go(idx) {
+    current = (idx + total) % total;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function (d, i) {
+      d.classList.toggle('bg-white',     i === current);
+      d.classList.toggle('bg-white/40',  i !== current);
+      d.classList.toggle('w-6',          i === current);
+      d.classList.toggle('w-2.5',        i !== current);
+    });
+  }
+
+  function next() { go(current + 1); }
+  function prev() { go(current - 1); }
+
+  function startAuto() { timer = setInterval(next, 4500); }
+  function resetAuto()  { clearInterval(timer); startAuto(); }
+
+  document.getElementById('rsk-next').addEventListener('click', function () { next(); resetAuto(); });
+  document.getElementById('rsk-prev').addEventListener('click', function () { prev(); resetAuto(); });
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () { go(parseInt(d.dataset.idx)); resetAuto(); });
+  });
+
+  // pause on hover
+  var section = document.getElementById('rsk-hero-slider');
+  section.addEventListener('mouseenter', function () { clearInterval(timer); });
+  section.addEventListener('mouseleave', startAuto);
+
+  go(0);
+  startAuto();
+})();
+</script>
+
+<!-- ── Section 1: How It Works ──────────────────────────────────────── -->
+<section class="bg-white py-16 border-b border-[var(--brand-border)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <span class="inline-block bg-[var(--brand-primary-light)] text-[var(--brand-primary-dark)] text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest mb-3">Simple Process</span>
+      <h2 class="text-3xl font-extrabold text-[var(--brand-text)]">Rent in 3 Easy Steps</h2>
+      <p class="text-[var(--brand-text-muted)] mt-2 max-w-md mx-auto text-sm">No complicated forms. No hidden fees. Get your gear and go.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+      <!-- connector line desktop -->
+      <div class="hidden md:block absolute top-10 left-1/4 right-1/4 h-px bg-[var(--brand-border)] z-0"></div>
+
+      <!-- Step 1 -->
+      <div class="relative flex flex-col items-center text-center z-10">
+        <div class="w-20 h-20 bg-[var(--brand-primary-light)] rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+          <svg class="w-9 h-9 text-[var(--brand-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <span class="absolute top-0 right-1/3 w-6 h-6 bg-[var(--brand-primary)] text-white text-xs font-bold rounded-full flex items-center justify-center">1</span>
+        <h3 class="text-base font-bold text-[var(--brand-text)] mb-2">Browse & Choose</h3>
+        <p class="text-sm text-[var(--brand-text-muted)] leading-relaxed">Search our catalog by category, destination, or activity. Filter by date to check real-time availability.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="relative flex flex-col items-center text-center z-10">
+        <div class="w-20 h-20 bg-[var(--brand-primary-light)] rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+          <svg class="w-9 h-9 text-[var(--brand-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <span class="absolute top-0 right-1/3 w-6 h-6 bg-[var(--brand-primary)] text-white text-xs font-bold rounded-full flex items-center justify-center">2</span>
+        <h3 class="text-base font-bold text-[var(--brand-text)] mb-2">Book Your Dates</h3>
+        <p class="text-sm text-[var(--brand-text-muted)] leading-relaxed">Pick your rental window, add items to cart, and complete checkout securely in minutes.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="relative flex flex-col items-center text-center z-10">
+        <div class="w-20 h-20 bg-[var(--brand-primary-light)] rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+          <svg class="w-9 h-9 text-[var(--brand-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3l14 9-14 9V3z"/></svg>
+        </div>
+        <span class="absolute top-0 right-1/3 w-6 h-6 bg-[var(--brand-primary)] text-white text-xs font-bold rounded-full flex items-center justify-center">3</span>
+        <h3 class="text-base font-bold text-[var(--brand-text)] mb-2">Get Out & Enjoy</h3>
+        <p class="text-sm text-[var(--brand-text-muted)] leading-relaxed">Pick up or receive delivery. Use your gear, return it clean — we handle the rest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Section 2: Featured Categories ───────────────────────────────── -->
+<section class="bg-[var(--brand-surface)] py-16 border-b border-[var(--brand-border)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <span class="inline-block bg-[var(--brand-primary-light)] text-[var(--brand-primary-dark)] text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest mb-3">Explore</span>
+        <h2 class="text-3xl font-extrabold text-[var(--brand-text)]">Shop by Category</h2>
+      </div>
+      <a href="/category-products" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--brand-primary)] hover:text-[var(--brand-primary-dark)] transition-colors">
+        All categories
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      <!-- Cat 1 -->
+      <a href="/products-list" class="group flex flex-col items-center gap-3 bg-white rounded-2xl border border-[var(--brand-border)] p-5 hover:border-[var(--brand-primary)] hover:shadow-md transition-all text-center">
+        <div class="w-14 h-14 bg-slate-100 group-hover:bg-[var(--brand-primary-light)] rounded-xl flex items-center justify-center transition-colors">
+          <svg class="w-7 h-7 text-slate-500 group-hover:text-[var(--brand-primary)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        </div>
+        <span class="text-xs font-semibold text-[var(--brand-text)]">Tents</span>
+      </a>
+      <!-- Cat 2 -->
+      <a href="/products-list" class="group flex flex-col items-center gap-3 bg-white rounded-2xl border border-[var(--brand-border)] p-5 hover:border-[var(--brand-primary)] hover:shadow-md transition-all text-center">
+        <div class="w-14 h-14 bg-slate-100 group-hover:bg-[var(--brand-primary-light)] rounded-xl flex items-center justify-center transition-colors">
+          <svg class="w-7 h-7 text-slate-500 group-hover:text-[var(--brand-primary)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10"/></svg>
+        </div>
+        <span class="text-xs font-semibold text-[var(--brand-text)]">Backpacks</span>
+      </a>
+      <!-- Cat 3 -->
+      <a href="/products-list" class="group flex flex-col items-center gap-3 bg-white rounded-2xl border border-[var(--brand-border)] p-5 hover:border-[var(--brand-primary)] hover:shadow-md transition-all text-center">
+        <div class="w-14 h-14 bg-slate-100 group-hover:bg-[var(--brand-primary-light)] rounded-xl flex items-center justify-center transition-colors">
+          <svg class="w-7 h-7 text-slate-500 group-hover:text-[var(--brand-primary)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/></svg>
+        </div>
+        <span class="text-xs font-semibold text-[var(--brand-text)]">Cooking</span>
+      </a>
+      <!-- Cat 4 -->
+      <a href="/products-list" class="group flex flex-col items-center gap-3 bg-white rounded-2xl border border-[var(--brand-border)] p-5 hover:border-[var(--brand-primary)] hover:shadow-md transition-all text-center">
+        <div class="w-14 h-14 bg-slate-100 group-hover:bg-[var(--brand-primary-light)] rounded-xl flex items-center justify-center transition-colors">
+          <svg class="w-7 h-7 text-slate-500 group-hover:text-[var(--brand-primary)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <span class="text-xs font-semibold text-[var(--brand-text)]">Lighting</span>
+      </a>
+      <!-- Cat 5 -->
+      <a href="/products-list" class="group flex flex-col items-center gap-3 bg-white rounded-2xl border border-[var(--brand-border)] p-5 hover:border-[var(--brand-primary)] hover:shadow-md transition-all text-center">
+        <div class="w-14 h-14 bg-slate-100 group-hover:bg-[var(--brand-primary-light)] rounded-xl flex items-center justify-center transition-colors">
+          <svg class="w-7 h-7 text-slate-500 group-hover:text-[var(--brand-primary)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+        </div>
+        <span class="text-xs font-semibold text-[var(--brand-text)]">Navigation</span>
+      </a>
+      <!-- Cat 6 -->
+      <a href="/products-list" class="group flex flex-col items-center gap-3 bg-white rounded-2xl border border-[var(--brand-border)] p-5 hover:border-[var(--brand-primary)] hover:shadow-md transition-all text-center">
+        <div class="w-14 h-14 bg-slate-100 group-hover:bg-[var(--brand-primary-light)] rounded-xl flex items-center justify-center transition-colors">
+          <svg class="w-7 h-7 text-slate-500 group-hover:text-[var(--brand-primary)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 01-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 011-.99 9.17 9.17 0 005.52-1.73 1 1 0 011 0 9.17 9.17 0 005.52 1.73 1 1 0 011 .99V13z"/></svg>
+        </div>
+        <span class="text-xs font-semibold text-[var(--brand-text)]">Safety</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Section 3: Featured Products ─────────────────────────────────── -->
+<section class="bg-white py-16 border-b border-[var(--brand-border)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <span class="inline-block bg-[var(--brand-primary-light)] text-[var(--brand-primary-dark)] text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest mb-3">Top Picks</span>
+        <h2 class="text-3xl font-extrabold text-[var(--brand-text)]">Popular Rentals</h2>
+      </div>
+      <a href="/products-list" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--brand-primary)] hover:text-[var(--brand-primary-dark)] transition-colors">
+        View all
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="RentMyWrapperProductList RentMyWrapper" data-rentmyattr="ProductList" data-RentMyData="limit=4">
+      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <div class="RentMyProductItem" data-rentmyattr="RentMyProductItemSample">
+          <div class="RentMyProductItemInner bg-white border border-[var(--brand-border)] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 group flex flex-col">
+
+            <!-- Image -->
+            <div class="RentMyProductImg relative bg-white px-4 pt-5 pb-3 flex items-center justify-center min-h-[170px]">
+              <a href="#" data-rentmyattr="RentMyProductImageUrl" class="block w-full">
+                <img data-rentmyattr="RentMyProductImage"
+                     src="https://s3.us-east-2.amazonaws.com/images.rentmy.co/products/982/193260/hrfnd9e_1669558177_2qqwq6o.jpg"
+                     class="ProductImg w-full h-44 object-contain bg-white mx-auto"
+                     alt="product img" />
+              </a>
+              <!-- Wishlist -->
+              <div class="RentMyProductOverlay absolute top-2.5 right-2.5">
+                <div class="WishlistSingleItemOption" data-rentmyattr="WishListBtnArea">
+                  <button class="WishlistAddButton w-8 h-8 bg-white border border-[var(--brand-border)] rounded-full flex items-center justify-center shadow-sm hover:border-red-300 hover:text-red-500 text-gray-400 transition-colors"
+                          data-rentmyattr="RentMyAddToWishListBtn">
+                    <i class="rm rm-heart-outline"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card body -->
+            <div class="RentMyProductBody px-4 pb-4 pt-2 flex flex-col gap-1.5 flex-1 border-t border-[var(--brand-border)]">
+              <h4 class="ProductName text-sm font-semibold text-[var(--brand-text)] leading-snug line-clamp-2 mt-1"
+                  data-rentmyattr="RentMyProductName">
+                <a href="#" data-rentmyattr="product_name"
+                   class="hover:text-[var(--brand-primary)] transition-colors">
+                  {{ product_name }}
+                </a>
+              </h4>
+              <h5 class="ProductPrice text-sm font-bold text-[var(--brand-primary)]"
+                  data-rentmyattr="RentMyProductPrice">
+                {{ product_price }}
+              </h5>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="mt-8 text-center sm:hidden">
+      <a href="/products-list" class="inline-flex items-center gap-2 text-sm font-semibold text-[var(--brand-primary)] hover:text-[var(--brand-primary-dark)] transition-colors">
+        See all products
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Section 4: Why Choose Us ─────────────────────────────────────── -->
+<section class="bg-[var(--brand-surface)] py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <span class="inline-block bg-[var(--brand-primary-light)] text-[var(--brand-primary-dark)] text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest mb-3">Why Us</span>
+      <h2 class="text-3xl font-extrabold text-[var(--brand-text)]">The Better Way to Rent</h2>
+      <p class="text-[var(--brand-text-muted)] mt-2 max-w-lg mx-auto text-sm">We've rethought the rental experience from the ground up — so you can focus on the adventure, not the logistics.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Benefit 1 -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] p-6 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 bg-[var(--brand-primary-light)] rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-[var(--brand-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <h3 class="font-bold text-[var(--brand-text)] mb-2">Fully Insured Gear</h3>
+        <p class="text-sm text-[var(--brand-text-muted)] leading-relaxed">Every item is covered. Rent with peace of mind — accidents happen, and we've got you covered.</p>
+      </div>
+
+      <!-- Benefit 2 -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] p-6 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 bg-[var(--brand-primary-light)] rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-[var(--brand-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="font-bold text-[var(--brand-text)] mb-2">Flexible Booking</h3>
+        <p class="text-sm text-[var(--brand-text-muted)] leading-relaxed">Change or cancel up to 48 hours before your rental starts. Plans change — your deposit is safe.</p>
+      </div>
+
+      <!-- Benefit 3 -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] p-6 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 bg-[var(--brand-primary-light)] rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-[var(--brand-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8l1 12h12l1-12M10 12v5m4-5v5"/></svg>
+        </div>
+        <h3 class="font-bold text-[var(--brand-text)] mb-2">Free Delivery</h3>
+        <p class="text-sm text-[var(--brand-text-muted)] leading-relaxed">Gear delivered to your door or trailhead, picked up after. No hauling gear across town.</p>
+      </div>
+
+      <!-- Benefit 4 -->
+      <div class="bg-white rounded-2xl border border-[var(--brand-border)] p-6 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 bg-[var(--brand-primary-light)] rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-[var(--brand-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+        </div>
+        <h3 class="font-bold text-[var(--brand-text)] mb-2">Top-Rated Quality</h3>
+        <p class="text-sm text-[var(--brand-text-muted)] leading-relaxed">Professionally cleaned and inspected after every rental. You always get gear in excellent condition.</p>
+      </div>
+
+    </div>
+
+    <!-- CTA Banner -->
+    <div class="mt-12 relative overflow-hidden rounded-2xl px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-6" style="background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);">
+      <!-- decorative circles -->
+      <div class="absolute -top-10 -right-10 w-48 h-48 rounded-full opacity-10" style="background:radial-gradient(circle, #fff 0%, transparent 70%);"></div>
+      <div class="absolute -bottom-12 -left-8 w-40 h-40 rounded-full opacity-10" style="background:radial-gradient(circle, #fff 0%, transparent 70%);"></div>
+
+      <div class="relative text-white text-center sm:text-left">
+        <div class="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 text-white/80 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest mb-3">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          500+ Happy Renters
+        </div>
+        <h3 class="text-2xl sm:text-3xl font-extrabold mb-2 leading-tight">Ready to start your<br class="hidden sm:block"> next adventure?</h3>
+        <p class="text-white/60 text-sm max-w-sm">Browse hundreds of items available for your next trip. Book in minutes, gear up in no time.</p>
+      </div>
+
+      <div class="relative flex flex-col items-center gap-3 flex-shrink-0">
+        <a href="/products-list" class="inline-flex items-center gap-2 bg-white text-slate-800 font-bold text-sm px-8 py-3.5 rounded-xl hover:bg-slate-100 transition-colors shadow-lg">
+          Shop Now
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <span class="text-white/40 text-xs">Free delivery on first order</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+EOD, "status" => 1],
+            ["slug" => "products-list", "name" => "Products List", "contents" => <<<EOD
+<div class="RentMyWrapperProductList RentMyWrapper container mx-auto px-4 py-6 max-w-screen-xl"
      data-RentMyData="limit=21">
 
     <div class="RentMyProductRow RentMyProductListRow flex flex-col md:flex-row gap-6 items-start">
@@ -27,7 +415,7 @@ return [
 
                     <div class="flex items-center justify-between">
                         <h3 class="RentMyFilterTitle text-sm font-bold uppercase tracking-widest text-gray-800
-                                   after:content-[\'\'] after:block after:w-10 after:h-0.5
+                                   after:content-[''] after:block after:w-10 after:h-0.5
                                    after:bg-[var(--brand-primary)] after:mt-1.5 after:rounded-full">
                             Category
                         </h3>
@@ -93,7 +481,7 @@ return [
 
                         <div class="flex items-center justify-between">
                             <h3 class="RentMyFilterTitle text-sm font-bold uppercase tracking-widest text-gray-800
-                                       after:content-[\'\'] after:block after:w-10 after:h-0.5
+                                       after:content-[''] after:block after:w-10 after:h-0.5
                                        after:bg-[var(--brand-primary)] after:mt-1.5 after:rounded-full">
                                 Filter
                             </h3>
@@ -132,7 +520,7 @@ return [
 
                     <div class="flex items-center justify-between">
                         <h3 class="RentMyFilterSubTitle text-sm font-bold uppercase tracking-widest text-gray-800
-                                   after:content-[\'\'] after:block after:w-10 after:h-0.5
+                                   after:content-[''] after:block after:w-10 after:h-0.5
                                    after:bg-[var(--brand-primary)] after:mt-1.5 after:rounded-full">
                             Price
                         </h3>
@@ -166,7 +554,7 @@ return [
 
                     <div class="flex items-center justify-between">
                         <h3 class="RentMyFilterSubTitle text-sm font-bold uppercase tracking-widest text-gray-800
-                                   after:content-[\'\'] after:block after:w-10 after:h-0.5
+                                   after:content-[''] after:block after:w-10 after:h-0.5
                                    after:bg-[var(--brand-primary)] after:mt-1.5 after:rounded-full">
                             Type
                         </h3>
@@ -305,8 +693,10 @@ return [
 
     </div>
 </div>
-', "status" => 1],
-            ["slug" => "product-details", "name" => "Product Details", "contents" => '<div class="RentMyWrapperProductDetails RentMyWrapper bg-[var(--brand-surface)] min-h-screen" data-rentmy="">
+
+EOD, "status" => 1],
+            ["slug" => "product-details", "name" => "Product Details", "contents" => <<<EOD
+<div class="RentMyWrapperProductDetails RentMyWrapper bg-[var(--brand-surface)] min-h-screen" data-rentmy="">
 
   <div class="RentMyProductDetailsRow max-w-screen-xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
 
@@ -598,8 +988,10 @@ return [
 
 <!-- In page cart widget -->
 <div class="RentMyWrapperInpageCartWidget RentMyWrapper"></div>
-', "status" => 1],
-            ["slug" => "package-details", "name" => "Package Details", "contents" => '<div id="wrapper" class="RentMyWrapperPackageDetails RentMyWrapper bg-[var(--brand-surface)] min-h-screen" data-rentmy="">
+
+EOD, "status" => 1],
+            ["slug" => "package-details", "name" => "Package Details", "contents" => <<<EOD
+<div id="wrapper" class="RentMyWrapperPackageDetails RentMyWrapper bg-[var(--brand-surface)] min-h-screen" data-rentmy="">
   <div data-rentmyattr="RentmyPackageComponent">
 
     <section id="content">
@@ -891,9 +1283,11 @@ return [
 
 <!-- In page cart widget -->
 <div class="RentMyWrapperInpageCartWidget RentMyWrapper"></div>
-', "status" => 1],
+
+EOD, "status" => 1],
             ["slug" => "category-products", "name" => "Category Products", "contents" => '', "status" => 1],
-            ["slug" => "cart", "name" => "Cart", "contents" => '<div class="RentMyCartWrapper RentMyWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+            ["slug" => "cart", "name" => "Cart", "contents" => <<<EOD
+<div class="RentMyCartWrapper RentMyWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
   <div class="container-fullwidth max-w-screen-xl mx-auto" data-rentmyattr="InsideContainer">
 
     <!-- Rental date bar -->
@@ -1088,8 +1482,10 @@ return [
 
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "checkout", "name" => "Checkout", "contents" => '<div id="RentMyCheckoutWrapper" class="RentMyCheckoutWrapper RentMyWrapper bg-gray-50 min-h-screen py-6 sm:py-10 px-3 sm:px-6 lg:px-8">
+
+EOD, "status" => 1],
+            ["slug" => "checkout", "name" => "Checkout", "contents" => <<<EOD
+<div id="RentMyCheckoutWrapper" class="RentMyCheckoutWrapper RentMyWrapper bg-gray-50 min-h-screen py-6 sm:py-10 px-3 sm:px-6 lg:px-8">
 
     <!-- Page Header -->
     <div class="max-w-7xl mx-auto mb-6">
@@ -1616,14 +2012,16 @@ return [
 
 <script>
     // document.addEventListener("DOMContentLoaded", () => {
-    //     RentMyEvent.add_filter(\'cdn:checkout:same_as_above\', (bool) => {
+    //     RentMyEvent.add_filter('cdn:checkout:same_as_above', (bool) => {
     //         console.log({bool});
     //         return false
     //     })
     // })
 </script>
-', "status" => 1],
-            ["slug" => "order-complete", "name" => "Order Complete", "contents" => '<div class="RentMyOrderCompleteWrapper RentMyWrapper bg-[var(--brand-surface)] min-h-screen px-4 py-10" id="RentMyOrderCompleteWrapper">
+
+EOD, "status" => 1],
+            ["slug" => "order-complete", "name" => "Order Complete", "contents" => <<<EOD
+<div class="RentMyOrderCompleteWrapper RentMyWrapper bg-[var(--brand-surface)] min-h-screen px-4 py-10" id="RentMyOrderCompleteWrapper">
 
   <!-- Thank you + action boxes -->
   <div Tabs class="max-w-screen-lg mx-auto flex flex-col gap-8">
@@ -1784,8 +2182,10 @@ return [
   </div>
 
 </div>
-', "status" => 1],
-            ["slug" => "order-details", "name" => "Order Details", "contents" => '<div id="RentMyCustomerOrderDetails" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+
+EOD, "status" => 1],
+            ["slug" => "order-details", "name" => "Order Details", "contents" => <<<EOD
+<div id="RentMyCustomerOrderDetails" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
   <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
 
     <!-- Sidebar -->
@@ -2274,8 +2674,10 @@ return [
     </div>
   </div>
 
-</div>', "status" => 1],
-            ["slug" => "wish-list", "name" => "Wish List", "contents" => '<div class="RentMyWishlistPage RentMyWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+</div>
+EOD, "status" => 1],
+            ["slug" => "wish-list", "name" => "Wish List", "contents" => <<<EOD
+<div class="RentMyWishlistPage RentMyWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
 
   <div class="container-fullwidth max-w-screen-xl mx-auto" data-rentmyattr="InsideContainer">
 
@@ -2365,9 +2767,11 @@ return [
   </div>
 
 </div>
-', "status" => 1],
+
+EOD, "status" => 1],
             ["slug" => "membership-plan", "name" => "Membership Plan", "contents" => '', "status" => 1],
-            ["slug" => "rentmy-dashboard", "name" => "RentMy Dashboard", "contents" => '<div id="RentMyCustomerDashboardContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+            ["slug" => "rentmy-dashboard", "name" => "RentMy Dashboard", "contents" => <<<EOD
+<div id="RentMyCustomerDashboardContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
   <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
 
     <!-- Sidebar -->
@@ -2586,8 +2990,10 @@ return [
     </div>
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "login", "name" => "Login", "contents" => '<div id="RentMyCustomerLoginContainer" class="RentMyWrapper min-h-screen bg-[var(--brand-surface)] flex items-center justify-center px-4 py-10">
+
+EOD, "status" => 1],
+            ["slug" => "login", "name" => "Login", "contents" => <<<EOD
+<div id="RentMyCustomerLoginContainer" class="RentMyWrapper min-h-screen bg-[var(--brand-surface)] flex items-center justify-center px-4 py-10">
 
   <div class="LoginElement w-full max-w-md bg-white rounded-2xl shadow-md border border-[var(--brand-border)] px-6 py-8 sm:px-10">
 
@@ -2629,7 +3035,7 @@ return [
           Log in
         </button>
         <p class="text-center text-sm text-[var(--brand-text-muted)]">
-          Don\'t have an account?
+          Don't have an account?
           <a href="#" class="NewAccount font-medium text-[var(--brand-primary)] hover:text-[var(--brand-primary-dark)] transition-colors" RentMyPageLink="registration">Sign up</a>
         </p>
       </div>
@@ -2638,8 +3044,10 @@ return [
   </div>
 
 </div>
-', "status" => 1],
-            ["slug" => "registration", "name" => "Registration", "contents" => '<div id="RentMyCustomerRegistrationContainer" class="RentMyWrapper min-h-screen bg-[var(--brand-surface)] flex items-center justify-center px-4 py-10">
+
+EOD, "status" => 1],
+            ["slug" => "registration", "name" => "Registration", "contents" => <<<EOD
+<div id="RentMyCustomerRegistrationContainer" class="RentMyWrapper min-h-screen bg-[var(--brand-surface)] flex items-center justify-center px-4 py-10">
 
   <div class="RegistrationElement w-full max-w-xl bg-white rounded-2xl shadow-md border border-[var(--brand-border)] px-6 py-8 sm:px-10">
 
@@ -2762,8 +3170,10 @@ return [
   </div>
 
 </div>
-', "status" => 1],
-            ["slug" => "reset-password", "name" => "Reset Password", "contents" => '<div id="RentMyResetPasswordContainer" class="RentMyWrapper min-h-screen bg-[var(--brand-surface)] flex items-start justify-center px-4 pt-16 pb-8">
+
+EOD, "status" => 1],
+            ["slug" => "reset-password", "name" => "Reset Password", "contents" => <<<EOD
+<div id="RentMyResetPasswordContainer" class="RentMyWrapper min-h-screen bg-[var(--brand-surface)] flex items-start justify-center px-4 pt-16 pb-8">
   <div class="Contents w-full max-w-sm">
     <div class="card-body bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm p-8">
       <div class="userlogin-box flex flex-col gap-5">
@@ -2812,8 +3222,10 @@ return [
     </div>
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "partner-login", "name" => "Partner Login", "contents" => '<div id="RentMyCustomerLoginContainer" class="RentMyWrapper PartnerLogin min-h-screen bg-[var(--brand-surface)] flex items-center justify-center px-4 py-8">
+
+EOD, "status" => 1],
+            ["slug" => "partner-login", "name" => "Partner Login", "contents" => <<<EOD
+<div id="RentMyCustomerLoginContainer" class="RentMyWrapper PartnerLogin min-h-screen bg-[var(--brand-surface)] flex items-center justify-center px-4 py-8">
   <div class="LoginElement w-full max-w-4xl bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden flex flex-col md:flex-row">
 
     <!-- Left: form -->
@@ -2849,7 +3261,7 @@ return [
         <div class="RentMyButtonGroup flex flex-col gap-3 pt-1">
           <button type="submit" class="RentMyBtn LoginBtn w-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white text-sm font-semibold rounded-xl px-5 py-2.5 transition-colors">Log in</button>
           <p class="text-center text-xs text-[var(--brand-text-muted)]">
-            Don\'t have an account?
+            Don't have an account?
             <a href="#" class="NewAccount text-[var(--brand-primary)] font-semibold hover:underline" RentMyPageLink="partner_registration">Sign Up</a>
           </p>
         </div>
@@ -2864,8 +3276,10 @@ return [
 
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "partner-registration", "name" => "Partner Registration", "contents" => '<div id="RentMyCustomerRegistrationContainer" class="RentMyWrapper PartnerRegister min-h-screen bg-[var(--brand-surface)] flex items-center justify-center px-4 py-8">
+
+EOD, "status" => 1],
+            ["slug" => "partner-registration", "name" => "Partner Registration", "contents" => <<<EOD
+<div id="RentMyCustomerRegistrationContainer" class="RentMyWrapper PartnerRegister min-h-screen bg-[var(--brand-surface)] flex items-center justify-center px-4 py-8">
   <div class="RegistrationElement w-full max-w-4xl bg-white rounded-2xl border border-[var(--brand-border)] shadow-sm overflow-hidden flex flex-col md:flex-row">
 
     <!-- Left: form -->
@@ -2981,8 +3395,10 @@ return [
 
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "profile", "name" => "Customer Profile", "contents" => '<div id="RentMyCustomerProfileContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+
+EOD, "status" => 1],
+            ["slug" => "profile", "name" => "Customer Profile", "contents" => <<<EOD
+<div id="RentMyCustomerProfileContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
   <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
 
     <!-- Sidebar -->
@@ -3173,8 +3589,10 @@ return [
     </div>
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "change-password", "name" => "Change Password", "contents" => '<div id="RentMyCustomerChangePasswordContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+
+EOD, "status" => 1],
+            ["slug" => "change-password", "name" => "Change Password", "contents" => <<<EOD
+<div id="RentMyCustomerChangePasswordContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
   <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
 
     <!-- Sidebar -->
@@ -3273,8 +3691,10 @@ return [
 
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "change-avatar", "name" => "Change Avatar", "contents" => '<div id="RentMyCustomerChangeAvatarContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+
+EOD, "status" => 1],
+            ["slug" => "change-avatar", "name" => "Change Avatar", "contents" => <<<EOD
+<div id="RentMyCustomerChangeAvatarContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
   <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
 
     <!-- Sidebar -->
@@ -3353,8 +3773,10 @@ return [
 
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "order-history", "name" => "Order History", "contents" => '<div id="RentMyCustomerOrderHistory" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+
+EOD, "status" => 1],
+            ["slug" => "order-history", "name" => "Order History", "contents" => <<<EOD
+<div id="RentMyCustomerOrderHistory" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
   <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
 
     <!-- Sidebar -->
@@ -3440,8 +3862,10 @@ return [
 
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "order-dashboard", "name" => "Order Dashboard", "contents" => '<div id="RentMyCustomerDashboardContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+
+EOD, "status" => 1],
+            ["slug" => "order-dashboard", "name" => "Order Dashboard", "contents" => <<<EOD
+<div id="RentMyCustomerDashboardContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
   <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
 
     <!-- Sidebar -->
@@ -3660,8 +4084,10 @@ return [
     </div>
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "customer-billing", "name" => "Customer Billing", "contents" => '<div id="RentMyCustomerBillingContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
+
+EOD, "status" => 1],
+            ["slug" => "customer-billing", "name" => "Customer Billing", "contents" => <<<EOD
+<div id="RentMyCustomerBillingContainer" class="RentMyWrapper RentMyCustomerPortalWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-8">
   <div class="RentMyCustomPortalRow max-w-screen-lg mx-auto flex flex-col md:flex-row gap-6 items-start">
 
     <!-- Sidebar -->
@@ -3778,8 +4204,10 @@ return [
 
   </div>
 </div>
-', "status" => 1],
-            ["slug" => "contact", "name" => "Contact", "contents" => '<div class="RentMyContactUsWrapper RentMyWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-10">
+
+EOD, "status" => 1],
+            ["slug" => "contact", "name" => "Contact", "contents" => <<<EOD
+<div class="RentMyContactUsWrapper RentMyWrapper min-h-screen bg-[var(--brand-surface)] px-4 py-10">
 
   <div class="max-w-screen-lg mx-auto flex flex-col lg:flex-row gap-8 items-start">
 
@@ -3788,7 +4216,7 @@ return [
 
       <div class="mb-6">
         <h2 class="text-2xl font-bold text-[var(--brand-text)]">Contact us</h2>
-        <p class="mt-1 text-sm text-[var(--brand-text-muted)]">We\'d love to hear from you. Fill in the form and we\'ll be in touch.</p>
+        <p class="mt-1 text-sm text-[var(--brand-text-muted)]">We'd love to hear from you. Fill in the form and we'll be in touch.</p>
       </div>
 
       <form class="mt-4" novalidate>
@@ -3861,7 +4289,8 @@ return [
   </div>
 
 </div>
-', "status" => 1],
+
+EOD, "status" => 1],
             ["slug" => "terms-and-conditions", "name" => "Terms and Conditions", "contents" => '', "status" => 1],
             ["slug" => "not-found", "name" => "Not Found", "contents" => '', "status" => 1],
             ],
