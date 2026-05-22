@@ -268,3 +268,26 @@ export interface RentMyPage {
     status: number;
 }
 
+export interface ThemeDetails {
+    brandColors?: Record<string, string>;
+    brandUtils?:  Record<string, string>;
+}
+
+export interface Theme {
+    id:       number;
+    name:     string;
+    slug:     string;
+    status:   number;
+    details:  ThemeDetails;
+    created:  string;
+    modified: string;
+}
+
+export interface ActiveThemeResponse {
+    status: string;
+    result: {
+        data:     Theme | null;
+        message?: string;
+    };
+}
+

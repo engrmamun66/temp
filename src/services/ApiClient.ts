@@ -3,7 +3,7 @@ import path from 'path';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { env } from '../config/env';
 import { HomeLayoutOrder, Redirections } from '../types';
-import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData, BlogTag, SingleBlog, EnumPageKes, RentMyPage } from '../interfaces';
+import { RskRoute, PageContent, HomeContent, HomeMeta, RskOptionalConfigs, NavLink, Slots, BlogResponseData, BlogTag, SingleBlog, EnumPageKes, RentMyPage, Theme, ActiveThemeResponse } from '../interfaces';
 import { logToFile, clearFileLogs } from '../utils/fileLogger';
 import { fixProductLinks, fixCategoryLinks } from '../utils/helper';
 import { pushMissingRoutes } from './PushMissingRoutes';
@@ -703,6 +703,22 @@ export class ApiClient {
       const axiosErr = err as AxiosError;
       logToFile(`[getRentmyPages() error] ${axiosErr.response?.data ?? axiosErr.message}`);
       return [];
+    }
+  }
+
+  async getActiveTheme(subdomain: string): Promise<Theme | null> {
+    const cacheKey = 'active_theme';
+    const cached   = this.cache.get<Theme | null>(subdomain, cacheKey);
+    if (cached !== undefined) return cached;
+    try {
+      const resp  = await this.authorizedGet<ActiveThemeResponse>(subdomain, '/themes/active');
+      const theme = resp.result?.data ?? null;
+      this.cache.set(subdomain, cacheKey, theme, 600);
+      return theme;
+    } catch (err) {
+      const axiosErr = err as AxiosError;
+      logToFile(`[getActiveTheme() error] ${axiosErr.response?.data ?? axiosErr.message}`);
+      return null;
     }
   }
 

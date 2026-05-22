@@ -5,6 +5,7 @@ import { JSDOM } from 'jsdom';
 import axios, { AxiosError } from 'axios';
 import { StoreConfigService } from '../../services/StoreConfigService';
 import { SessionOverrideService } from '../../services/SessionOverrideService';
+import { ApiClient } from '../../services/ApiClient';
 import { SeoMetaController } from '../SeoMetaController/SeoMetaController';
 import { RskRoute } from '../../interfaces';
 import { logToFile } from '../../utils/fileLogger';
@@ -123,10 +124,26 @@ export class PageController {
     }
 
     {
-      const brandColors = document.createElement('link');
-      brandColors.rel  = 'stylesheet';
-      brandColors.href = '/css/brand-colors.css';
-      document.head.appendChild(brandColors);
+      let themeData = req.query.themeData as string
+      let theme = null
+      if(themeData){
+        theme = JSON.parse(decodeURIComponent(escape(atob(themeData))))
+      } else {
+        theme = await ApiClient.getInstance().getActiveTheme(subdomain);
+      }
+      const details = theme?.details;
+      if (details?.brandColors || details?.brandUtils) {
+        const vars = { ...(details.brandColors ?? {}), ...(details.brandUtils ?? {}) };
+        const css  = `:root {\n${Object.entries(vars).map(([k, v]) => `  ${k}: ${v};`).join('\n')}\n}`;
+        const style = document.createElement('style');
+        style.textContent = css;
+        document.head.appendChild(style);
+      } else {
+        const link = document.createElement('link');
+        link.rel   = 'stylesheet';
+        link.href  = '/css/brand-colors.css';
+        document.head.appendChild(link);
+      }
     }
 
     {
